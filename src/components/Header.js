@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
-  console.log("userDataheader",userData)
+  // console.log("userDataheader",userData)
   const dispatch = useDispatch();
 
   const handleShowMenu = () => {
@@ -18,7 +18,7 @@ const Header = () => {
   
   const handleLogout = () => {
    const record = dispatch(logoutRedux());
-   console.log("record",record)
+  //  console.log("record",record)
     toast("Logout successfully");
   };
 

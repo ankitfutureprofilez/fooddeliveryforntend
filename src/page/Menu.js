@@ -9,14 +9,14 @@ const Menu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.product.productList);
-  console.log("productDataMenu", productData);
+  // console.log("productDataMenu", productData);
 
   // const productDisplay = productData.filter((el) => el._id === filterby)[0];
   const productDisplay = productData.find(
     (element) => element._id === filterby
   );
 
-  console.log(" productSlide.js", productDisplay);
+  // console.log(" productSlide.js", productDisplay);
 
   const handleAddCartProduct = (e) => {
     dispatch(addCartItem(productDisplay));

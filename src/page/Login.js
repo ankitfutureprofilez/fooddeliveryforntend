@@ -16,7 +16,7 @@ const Login = () => {
   });
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
-  console.log("uswerData", userData);
+  // console.log("uswerData", userData);
   const dispatch = useDispatch();
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
@@ -30,10 +30,10 @@ const Login = () => {
       };
     });
   };
-  console.log("data", data);
+  // console.log("data", data);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("data,data", data);
+    // console.log("data,data", data);
     const { email, password } = data;
 
     if (email && password) {
@@ -49,9 +49,9 @@ const Login = () => {
       );
       const fetchRes = await fetchData.json();
 
-      console.log("fetchRes", fetchRes);
+      // console.log("fetchRes", fetchRes);
       const trecord = dispatch(loginRedux(fetchRes?.user[0]));
-      console.log("trecord", trecord);
+      // console.log("trecord", trecord);
       toast(fetchRes.message);
       setData(() => {
         return {

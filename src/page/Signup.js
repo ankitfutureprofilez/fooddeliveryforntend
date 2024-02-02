@@ -45,7 +45,7 @@ function Signup() {
     });
   };
   //console.log(process.env.REACT_APP_SERVER_DOMIN)
-  console.log("data", data);
+  // console.log("data", data);
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -76,7 +76,7 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("data,data", data);
+    // console.log("data,data", data);
     const { firstName, lastName, email, password, confirmPassword, image } =
       data;
 
