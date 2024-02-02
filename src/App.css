@@ -1,0 +1,5 @@
+img.h-full.w-full {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}

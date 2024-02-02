@@ -16,7 +16,7 @@ const Login = () => {
   });
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
-  console.log("uswerData",userData)
+  console.log("uswerData", userData);
   const dispatch = useDispatch();
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
@@ -30,16 +30,13 @@ const Login = () => {
       };
     });
   };
-  console.log("data",data)
+  console.log("data", data);
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("data,data", data);
-    const { email, password } =
-      data;
+    const { email, password } = data;
 
-    if (
-      email &&
-      password  ) {
+    if (email && password) {
       const fetchData = await fetch(
         `${process.env.REACT_APP_BASE_URL}/user/login`,
         {
@@ -50,21 +47,19 @@ const Login = () => {
           body: JSON.stringify(data),
         }
       );
-
       const fetchRes = await fetchData.json();
 
       console.log("fetchRes", fetchRes);
-      const trecord =  dispatch(loginRedux(fetchRes.user));
-     console.log("trecord",trecord)
+      const trecord = dispatch(loginRedux(fetchRes?.user[0]));
+      console.log("trecord", trecord);
       toast(fetchRes.message);
-
-      // setData(() => {
-      //   return {
-      //     password: "",
-      //     email:""
-      //   };
-      // });
-      navigate("/");
+      setData(() => {
+        return {
+          password: "",
+          email: "",
+        };
+      });
+       navigate("/");
     } else {
       toast("Enter required Fields");
     }

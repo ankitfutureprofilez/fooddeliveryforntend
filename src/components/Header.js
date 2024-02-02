@@ -9,15 +9,20 @@ import { toast } from "react-hot-toast";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
+  console.log("userDataheader",userData)
   const dispatch = useDispatch();
 
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);
   };
+  
   const handleLogout = () => {
-    dispatch(logoutRedux());
+   const record = dispatch(logoutRedux());
+   console.log("record",record)
     toast("Logout successfully");
   };
+
+  
 
   const cartItemNumber = useSelector((state)=>state.product.cartItem)
   return (
@@ -65,7 +70,7 @@ const Header = () => {
                   </Link>
                 )}
 
-                {userData.image ? 
+                {userData.email ? 
                   <p
                     className="cursor-pointer text-white px-2 bg-red-500"
                     onClick={handleLogout}
