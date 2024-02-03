@@ -13,6 +13,10 @@ class Listings extends Component {
     return Api.post("/product/uploadProduct", data);
   }
 
+  async contact(data) {
+    return Api.post("/product/contact", data);
+  }
+
   render() {
     return (
       <div>
