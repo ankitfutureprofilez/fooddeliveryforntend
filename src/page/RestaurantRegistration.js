@@ -61,6 +61,7 @@ export default function RestaurantRegistration() {
       staff &&
       timings
     ) {
+      
       const fetchData = await fetch(
         `${process.env.REACT_APP_BASE_URL}/restaurant/add`,
         {
@@ -70,7 +71,7 @@ export default function RestaurantRegistration() {
             Authorization: `Bearer ${yourStoredToken}`,
           },
           body: JSON.stringify(data),
-          mode: "no-cors",
+          mode: "cors",
         }
       );
       const fetchRes = await fetchData.json();

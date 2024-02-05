@@ -96,7 +96,7 @@ function Signup() {
             "content-type": "application/json",
           },
           body: JSON.stringify(data),
-          mode: "no-cors",
+          mode: "cors",
         }
       );
 
