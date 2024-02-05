@@ -28,7 +28,6 @@ const Newproduct = () => {
     const uploadImage = async(e)=>{
         const data = await ImagetoBase64(e.target.files[0])
         // console.log(data)
-
         setData((preve)=>{
           return{
             ...preve,
@@ -43,7 +42,6 @@ const Newproduct = () => {
       // console.log("data,data", data);
       const { name, category, image,price,description} =
         data;
-  
       if (
         name && category && image &&  price && description   ) {
         const fetchData = await fetch(
@@ -58,7 +56,6 @@ const Newproduct = () => {
         );
   
         const fetchRes = await fetchData.json();
-  
         // console.log("fetchRes", fetchRes);
         toast(fetchRes.message);
   
