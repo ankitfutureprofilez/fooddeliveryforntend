@@ -51,7 +51,7 @@ export default function RestaurantRegistration() {
             const response = await axios.get(
               `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
             );
-            console.log(response);
+            //console.log(response);
       
             // Extract relevant data from the response if needed
             const { road, suburb, city, postcode } = response.data.address;
