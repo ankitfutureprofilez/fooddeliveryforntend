@@ -71,12 +71,21 @@ const Header = () => {
                 )}
 
                 {userData.email ? 
+                  <div>
                   <p
                     className="cursor-pointer text-white px-2 bg-red-500"
                     onClick={handleLogout}
-                  >
+                    >
                     Logout ({userData.firstName}){" "}
                   </p>
+                  <Link 
+                to={"restaurant-register"}
+                    className="whitespace-nowrap cursor-pointer px-2"
+                    // onClick={handleLogout}
+                  >
+                    Become a Restaurant Owner
+                  </Link>
+                    </div>
                  : 
                   <Link
                     to={"login"}
@@ -84,7 +93,9 @@ const Header = () => {
                   >
                     Login
                   </Link>
+                  
                 }
+               
                
               </div>
             )}
