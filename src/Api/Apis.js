@@ -1,11 +1,30 @@
 import axios from 'axios';
-const BASE_URL = process.env.REACT_APP_BASE_URL
-console.log("baseUrl",BASE_URL)
+const APP_URL = process.env.REACT_APP_BASE_URL_TENNIS
+function getToken() {
+  const data = localStorage && localStorage.getItem('token');
+  return data; 
+}
+
 let Api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: APP_URL,
   headers: {
-    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': `Bearer ${getToken()}`,
+    'Access-Control-Allow-Origin': '*'
   }
 });
+
+Api.interceptors.request.use(
+  async (config) => {
+      const token = getToken();
+      if (token !== null) {
+          config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config; 
+  },
+  (error) => {
+      return Promise.reject(error);
+  }
+);
 
 export default Api;
