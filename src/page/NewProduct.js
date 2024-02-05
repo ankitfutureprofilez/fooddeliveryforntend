@@ -55,9 +55,7 @@ const Newproduct = () => {
             body: JSON.stringify(data),
           }
         );
-  
         const fetchRes = await fetchData.json();
-        // console.log("fetchRes", fetchRes);
         toast(fetchRes.message);
   
         setData(() => {
