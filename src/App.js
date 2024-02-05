@@ -17,9 +17,9 @@ function App() {
     try {
       const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/productlist`);
       const resData = await res.json();
-      // console.log("resData", resData);
+    console.log("resData", resData);
      const trecord =  dispatch(setDataProduct(resData?.data));
-    //  console.log("trecord",trecord)
+    console.log("trecord",trecord)
     } catch (error) {
       console.error("Fetch error:", error);
     }
@@ -33,7 +33,7 @@ function App() {
       <Toaster />
       <div>
         <Header />
-        <main className="pt-16 bg-slate-100 min-h-[calc(100vh)]">
+        <main className="pt-24 bg-slate-100 min-h-[calc(100vh)]">
           <Outlet />
         </main>
       </div>
