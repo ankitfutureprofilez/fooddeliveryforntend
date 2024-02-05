@@ -36,10 +36,10 @@ const Newproduct = () => {
       })
      }
 // console.log("data",data)
-   
+   const yourStoredToken =  localStorage && localStorage.getItem("token");
+   console.log("yourStoredToken",yourStoredToken)
     const handleSubmit = async (e) => {
       e.preventDefault();
-      // console.log("data,data", data);
       const { name, category, image,price,description} =
         data;
       if (
@@ -50,6 +50,7 @@ const Newproduct = () => {
             method: "POST",
             headers: {
               "content-type": "application/json",
+              Authorization: `Bearer ${yourStoredToken}`
             },
             body: JSON.stringify(data),
           }
