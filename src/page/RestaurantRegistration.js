@@ -17,7 +17,6 @@ export default function RestaurantRegistration() {
       })
       const handleOnChange = (e)=>{
         const {name,value} = e.target
-  
         setData((preve)=>{
             return{
               ...preve,
@@ -36,11 +35,42 @@ export default function RestaurantRegistration() {
           }
       })
      }
+     const yourStoredToken =  localStorage && localStorage.getItem("token")
 
-     const handleSubmit=async(e)=>{
+     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("data,data", data);
-     }     
+        const { name, category, image,price,description} =
+          data;
+        if (
+          name && category && image &&  price && description   ) {
+          const fetchData = await fetch(
+            `${process.env.REACT_APP_BASE_URL}/restaurant/add`,
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+                Authorization: `Bearer ${yourStoredToken}`
+              },
+              body: JSON.stringify(data),
+            }
+          );
+          const fetchRes = await fetchData.json();
+          toast(fetchRes.message);
+    
+          setData(() => {
+            return {
+              name : "",
+              category : "",
+              image : "",
+              price : "",
+              description : ""
+            };
+          });
+         
+        } else {
+          toast("Enter required Fields");
+        }
+      }; 
      const handleGetLocation = async () => {
         if (navigator.geolocation) {
           try {
