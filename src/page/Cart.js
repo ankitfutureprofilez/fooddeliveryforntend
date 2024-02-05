@@ -29,7 +29,7 @@ const Cart = () => {
 
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_BASE_URL}/create-checkout-session`,
+          "http://localhost:8000/create-checkout-session",
           {
             method: "POST",
             headers: {
