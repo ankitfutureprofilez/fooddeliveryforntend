@@ -1,6 +1,5 @@
 import { Component } from "react";
 import Api from './Apis';
-
 class Listings extends Component {
   async Signup(data) {
     return Api.post("/user/signup", data);
