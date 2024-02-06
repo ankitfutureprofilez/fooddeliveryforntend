@@ -28,10 +28,10 @@ const AllProduct = ({ heading }) => {
   const loadingArrayFeature = new Array(10).fill(null);
 
   return (
-    <div className="my-5">
-      <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2>
-
-      <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+    <div className="mb-6 block">
+      {/* <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2> */}
+      <h1 className="text-gray-700 mb-6 text-xl"><strong>Menu</strong> Category</h1>
+      <div className="flex w-full flex-wrap space-x-2 md:space-x-4 mb-6">
         {categoryList[0] ? (
           categoryList.map((el) => {
             return (
@@ -49,8 +49,8 @@ const AllProduct = ({ heading }) => {
           </div>
         )}
       </div>
-
-      <div className="flex flex-wrap justify-center gap-4 my-4">
+      <h2 className="text-gray-500 mb-6 text-lg"><strong>Near</strong> You</h2>
+      <div className="flex flex-wrap -mx-4 py-4">
         {dataFilter[0]
           ? dataFilter.map((el) => {
               return (

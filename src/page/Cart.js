@@ -60,9 +60,9 @@ const Cart = () => {
     } else {
       toast("You have not Login!");
       // Uncomment the following lines if you want to redirect to login after a delay
-      // setTimeout(() => {
-      //   navigate("/login");
-      // }, 1000);
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     }
   };
   return (

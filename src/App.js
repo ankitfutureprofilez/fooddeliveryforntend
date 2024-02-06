@@ -12,10 +12,33 @@ function App() {
   const productData = useSelector((state)=>state.product)
 //  console.log("productData",productData)
 
- useEffect(() => {
+//  useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/productlist`);
+//       const resData = await res.json();
+//       // console.log("resData", resData);
+//      const trecord =  dispatch(setDataProduct(resData?.data));
+//     //  console.log("trecord",trecord)
+//     } catch (error) {
+//       console.error("Fetch error:", error);
+//     }
+//   };
+
+//   fetchData();
+// }, []);
+
+useEffect(() => {
   const fetchData = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/productlist`);
+      const token =localStorage &&  localStorage.getItem('token');
+      console.log("token",token)
+      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/productlist`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
       const resData = await res.json();
     console.log("resData", resData);
      const trecord =  dispatch(setDataProduct(resData?.data));
@@ -26,7 +49,9 @@ function App() {
   };
 
   fetchData();
-}, []);
+}, []); 
+    //  console.log("trecord",trecord)
+
 
   return (
     <>
