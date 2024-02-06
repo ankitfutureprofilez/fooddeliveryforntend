@@ -43,16 +43,18 @@ const Login = () => {
           method: "POST",
           headers: {
             "content-type": "application/json",
+            'Access-Control-Allow-Origin' :'*'
           },
           body: JSON.stringify(data),
-          mode: "cors",
+          mode:"cors"
+          
         }
       );
       const fetchRes = await fetchData.json();
+
       console.log("fetchRes", fetchRes);
       const trecord = dispatch(loginRedux(fetchRes?.user[0]));
       console.log("trecord", trecord);
-      localStorage.setItem("token", fetchRes?.token);
       toast(fetchRes.message);
       setData(() => {
         return {
@@ -60,7 +62,7 @@ const Login = () => {
           email: "",
         };
       });
-      navigate("/");
+       navigate("/");
     } else {
       toast("Enter required Fields");
     }
