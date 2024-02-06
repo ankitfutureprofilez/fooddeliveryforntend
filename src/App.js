@@ -15,7 +15,15 @@ function App() {
  useEffect(() => {
   const fetchData = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/productlist`);
+      const token = localStorage.getItem('token');
+      console.log("token",token)
+      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/productlist`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+     mode: "cors",
+      });
       const resData = await res.json();
     console.log("resData", resData);
      const trecord =  dispatch(setDataProduct(resData?.data));

@@ -3,7 +3,6 @@ import { toast } from "react-hot-toast";
 import { BsCloudUpload } from "react-icons/bs";
 import { ImagetoBase64 } from '../utility/ImagetoBase64'
 import Listings from "../Api/Listings";
-
 const Newproduct = () => {
     const [data,setData] = useState({
       name : "",
