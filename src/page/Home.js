@@ -5,6 +5,9 @@ import HomeCard from "../components/HomeCard";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import AllProduct from "../components/AllProduct";
 import Cart from "./Cart";
+import Carthome from "./Carthome";
+
+
 
 const Home = () => {
   const productData = useSelector((state) => state.product.productList);
@@ -41,7 +44,6 @@ const Home = () => {
     //   <AllProduct heading={"Your Product"}/>
     // </div>
 
-    </div>
   );
 };
 

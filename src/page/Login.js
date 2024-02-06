@@ -45,7 +45,6 @@ const Login = () => {
             "content-type": "application/json",
           },
           body: JSON.stringify(data),
-<<<<<<<<< Temporary merge branch 1
           mode: "cors",
         }
       );
@@ -54,17 +53,6 @@ const Login = () => {
       const trecord = dispatch(loginRedux(fetchRes?.user[0]));
       console.log("trecord", trecord);
       localStorage.setItem("token", fetchRes?.token);
-=========
-          mode:"cors"
-          
-        }
-      );
-      const fetchRes = await fetchData.json();
-
-      console.log("fetchRes", fetchRes);
-      const trecord = dispatch(loginRedux(fetchRes?.user[0]));
-      console.log("trecord", trecord);
->>>>>>>>> Temporary merge branch 2
       toast(fetchRes.message);
       setData(() => {
         return {
@@ -72,7 +60,7 @@ const Login = () => {
           email: "",
         };
       });
-       navigate("/");
+      navigate("/");
     } else {
       toast("Enter required Fields");
     }
