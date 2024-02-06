@@ -4,9 +4,7 @@ import CardFeature from "../components/CardFeature";
 import HomeCard from "../components/HomeCard";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import AllProduct from "../components/AllProduct";
-import Cart from "./Cart";
 import Carthome from "./Carthome";
-
 
 
 const Home = () => {
@@ -31,12 +29,12 @@ const Home = () => {
   return (
 
     <div className="flex">
-      <div className="w-3/4">
+      <div className="w-2/3">
         <div className="bg-white p-2 md:p-4 pt-6 md:pt-10 ">
           <AllProduct heading={"Your Product"} />
         </div>
       </div>
-      <div className="w-1/4">
+      <div className="w-1/3">
    <Carthome/>
       </div>
     </div>
