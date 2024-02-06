@@ -38,6 +38,7 @@ useEffect(() => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
+     mode: "cors",
       });
       const resData = await res.json();
       dispatch(setDataProduct(resData?.data));

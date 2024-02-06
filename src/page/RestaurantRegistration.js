@@ -61,6 +61,7 @@ export default function RestaurantRegistration() {
       staff &&
       timings
     ) {
+      
       const fetchData = await fetch(
         `${process.env.REACT_APP_BASE_URL}/restaurant/add`,
         {
@@ -70,24 +71,24 @@ export default function RestaurantRegistration() {
             Authorization: `Bearer ${yourStoredToken}`,
           },
           body: JSON.stringify(data),
-          mode: 'cors',
+          mode: "cors",
         }
       );
       const fetchRes = await fetchData.json();
       console.log("fetchRes",fetchRes)
       toast(fetchRes.message);
-      //   setData(() => {
-      //     return {
-      //         category : "",
-      //         O_name : "",
-      //         image : "",
-      //          r_name : "",
-      //         description : "",
-      //         staff:"",
-      //         timings:"",
-      //         location:""
-      //     };
-      //   });
+        setData(() => {
+          return {
+              category : "",
+              O_name : "",
+              image : "",
+               r_name : "",
+              description : "",
+              staff:"",
+              timings:"",
+              location:""
+          };
+        });
     } else {
       toast("Enter required Fields");
     }

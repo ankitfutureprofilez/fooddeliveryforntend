@@ -45,6 +45,7 @@ const Login = () => {
             "content-type": "application/json",
           },
           body: JSON.stringify(data),
+          mode: "cors",
         }
       );
       const fetchRes = await fetchData.json();
