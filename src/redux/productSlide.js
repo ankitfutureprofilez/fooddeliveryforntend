@@ -11,7 +11,7 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     setDataProduct: (state, action) => {
-        console.log(action)
+      console.log(action);
       state.productList = [...action.payload];
     },
     addCartItem: (state, action) => {
@@ -31,7 +31,7 @@ export const productSlice = createSlice({
       toast("one Item Delete");
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       state.cartItem.splice(index, 1);
- console.log("index",index);
+      console.log("index", index);
     },
     increaseQty: (state, action) => {
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
@@ -55,6 +55,9 @@ export const productSlice = createSlice({
         const total = price * qtyDec;
 
         state.cartItem[index].total = total;
+      } else {
+        const productId = state.cartItem[index]._id;
+        productSlice.caseReducers.deleteCartItem(state, { payload: productId });
       }
     },
   },
