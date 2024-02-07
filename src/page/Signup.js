@@ -50,6 +50,7 @@ function Signup() {
     const { firstName, lastName, email, password, confirmPassword, image } =
       data;
 
+      
     if (
       firstName &&
       lastName &&
