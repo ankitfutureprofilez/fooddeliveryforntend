@@ -28,7 +28,7 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
             <div className="flex flex-col justify-center items-center">
               <img  src={image} className="rounded-xl w-full h-44 object-cover" />
             </div>
-            <h3 className="font-bold text-gray-900 capitalize text-sm mt-3 mb-1 whitespace-nowrap overflow-hidden">
+            <h3 className="font-bold text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
               {name}
             </h3>
             <p className="text-gray-500 mb-1.5">{category}</p>
