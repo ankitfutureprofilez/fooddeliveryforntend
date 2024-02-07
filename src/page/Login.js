@@ -6,7 +6,6 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRedux } from "../redux/userSlice";
-import Listings from "../Api/Listings";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,12 +30,9 @@ const Login = () => {
       };
     });
   };
-  // console.log("data", data);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("data,data", data);
     const { email, password } = data;
-
     if (email && password) {
       const fetchData = await fetch(
         `${process.env.REACT_APP_BASE_URL}/user/login`,
@@ -50,19 +46,20 @@ const Login = () => {
         }
       );
       const fetchRes = await fetchData.json();
-      // console.log("fetchRes", fetchRes);
-      const trecord = dispatch(loginRedux(fetchRes?.user));
-      // console.log("trecord", trecord);
+      dispatch(loginRedux(fetchRes?.user));
       localStorage.setItem("token", fetchRes?.token);
       toast(fetchRes.message);
-      setLoading(false);
+      if (fetchRes.status === true) {
+        navigate("/");
+      }
       setData(() => {
         return {
           password: "",
           email: "",
         };
       });
-      navigate("/");
+      setLoading(false);
+
     } else {
       toast("Enter required Fields");
       setLoading(false);
@@ -107,7 +104,7 @@ const Login = () => {
           </div>
 
           <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
-          <span>{Loading ? "Login" : "Wait..."}</span>
+            <span>{Loading ? "Login" : "Wait..."}</span>
           </button>
         </form>
         <p className="text-left text-sm mt-2">

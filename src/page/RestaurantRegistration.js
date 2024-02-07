@@ -4,8 +4,11 @@ import { BsCloudUpload } from "react-icons/bs";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 
 export default function RestaurantRegistration() {
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     category: "",
     O_name: "",
@@ -15,7 +18,7 @@ export default function RestaurantRegistration() {
     staff: "",
     timings: "",
     location: "",
-    coordinates:"",
+    coordinates: "",
   });
 
   const handleOnChange = (e) => {
@@ -44,23 +47,23 @@ export default function RestaurantRegistration() {
     e.preventDefault();
     if (!data.coordinates || data.coordinates.length === 0) {
       try {
-          // Fetch longitude and latitude from the API
-          const apiUrl = 'https://ipapi.co/json/';
-          const response = await fetch(apiUrl);
-          const jsonData = await response.json();
-          const { latitude, longitude } = jsonData;
-          
-          // Update the coordinates in the data object
-          setData((prevData) => ({
-              ...prevData,
-              coordinates: `${latitude}, ${longitude}`
-          }));
+        // Fetch longitude and latitude from the API
+        const apiUrl = 'https://ipapi.co/json/';
+        const response = await fetch(apiUrl);
+        const jsonData = await response.json();
+        const { latitude, longitude } = jsonData;
+
+        // Update the coordinates in the data object
+        setData((prevData) => ({
+          ...prevData,
+          coordinates: `${latitude}, ${longitude}`
+        }));
       } catch (error) {
-          console.error("Error getting coordinates:", error);
-          toast.error("Error getting coordinates");
-          return; // Stop execution if there's an error
+        console.error("Error getting coordinates:", error);
+        toast.error("Error getting coordinates");
+        return; // Stop execution if there's an error
       }
-  }
+    }
     const {
       O_name,
       r_name,
@@ -81,10 +84,10 @@ export default function RestaurantRegistration() {
       description &&
       location &&
       staff &&
-      timings && 
+      timings &&
       coordinates
     ) {
-      
+
       const fetchData = await fetch(
         `${process.env.REACT_APP_BASE_URL}/restaurant/add`,
         {
@@ -100,19 +103,20 @@ export default function RestaurantRegistration() {
       const fetchRes = await fetchData.json();
       //console.log("fetchRes",fetchRes)
       toast(fetchRes.message);
-        setData(() => {
-          return {
-              category : "",
-              O_name : "",
-              image : "",
-               r_name : "",
-              description : "",
-              staff:"",
-              timings:"",
-              location:"",
-              coordinates:""
-          };
-        });
+      navigate("/")
+      setData(() => {
+        return {
+          category: "",
+          O_name: "",
+          image: "",
+          r_name: "",
+          description: "",
+          staff: "",
+          timings: "",
+          location: "",
+          coordinates: ""
+        };
+      });
     } else {
       toast("Enter required Fields");
     }
@@ -137,7 +141,7 @@ export default function RestaurantRegistration() {
           return {
             ...prev,
             location: locationString,
-            coordinates:`${latitude},${longitude}`
+            coordinates: `${latitude},${longitude}`
           };
         });
       } catch (error) {
