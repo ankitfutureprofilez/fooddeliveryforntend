@@ -58,6 +58,7 @@ function Signup() {
       confirmPassword &&
       image
     ) {
+      setLoading(true);
       const fetchData = await fetch(
         `${process.env.REACT_APP_BASE_URL}/user/signup`,
         {
@@ -71,10 +72,8 @@ function Signup() {
       );
 
       const fetchRes = await fetchData.json();
-      setLoading(false);
       // console.log("fetchRes", fetchRes);
       toast(fetchRes.message);
-      setLoading(false);
       setData(() => {
         return {
           firstName: "",
@@ -88,8 +87,8 @@ function Signup() {
       navigate("/login");
     } else {
       toast("Enter required Fields");
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
@@ -184,7 +183,7 @@ function Signup() {
           </div>
 
           <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
-            <span>{loading ? "Sign Up" : "Wait..."}</span>
+            <span>{loading ? "Wait..." : "Sing Up"}</span>
           </button>
 
         </form>

@@ -9,7 +9,7 @@ import { loginRedux } from "../redux/userSlice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [Loading, setLoading] = useState(true);
+  const [Loading, setLoading] = useState(false);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -34,6 +34,7 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = data;
     if (email && password) {
+      setLoading(true); 
       const fetchData = await fetch(
         `${process.env.REACT_APP_BASE_URL}/user/login`,
         {
@@ -58,13 +59,13 @@ const Login = () => {
           email: "",
         };
       });
-      setLoading(false);
-
     } else {
       toast("Enter required Fields");
-      setLoading(false);
     }
+    setLoading(false); 
   };
+  
+  
 
   return (
     <div className="p-3 md:p-6">
@@ -104,7 +105,7 @@ const Login = () => {
           </div>
 
           <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
-            <span>{Loading ? "Login" : "Wait..."}</span>
+            <span>{Loading ? "Wait.." : "Login"}</span>
           </button>
         </form>
         <p className="text-left text-sm mt-2">

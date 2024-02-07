@@ -77,21 +77,23 @@ const Header = () => {
                   )}
                 </div>
                 {showMenu && (
-                  <div className="absolute right-2 bg-white py-2  shadow drop-shadow-md flex flex-col min-w-[120px] text-center">
+                  <div className="absolute right-2 bg-white py-2  shadow drop-shadow-md flex flex-col min-w-[120px] text-center m-0.5">
                     {userData.email ? 
                       <div>
                       <p
-                        className="cursor-pointer text-white px-2 bg-red-500"
+                        className="cursor-pointer text-white px-2 bg-red-500 "
                         onClick={handleLogout}
                         >
                         Logout ({userData.firstName}){" "}
                       </p>
+                      <p>
                       <Link
                         to={"newproduct"}
                         className="whitespace-nowrap cursor-pointer px-2"
                       >
                         New product
                       </Link>
+                      </p>
                       <Link 
                     to={"restaurant-register"}
                         className="whitespace-nowrap cursor-pointer px-2"

@@ -8,24 +8,7 @@ import Carthome from "./Carthome";
 
 
 const Home = () => {
-  const productData = useSelector((state) => state.product.productList);
-  const homeProductCartList = productData.slice(1, 5);
-  const homeProductCartListVegetables = productData.filter(
-    (el) => el.category === "vegetable",
-    []
-  );
-  const loadingArray = new Array(4).fill(null);
-  const loadingArrayFeature = new Array(10).fill(null);
-
-  const slideProductRef = useRef();
-  const nextProduct = () => {
-    slideProductRef.current.scrollLeft += 200;
-  };
-  const preveProduct = () => {
-    slideProductRef.current.scrollLeft -= 200;
-  };
   const cartItemNumber = useSelector((state)=>state.product.cartItem)
-
   return (
     <div className="flex">
       {cartItemNumber.length > 0 ? (

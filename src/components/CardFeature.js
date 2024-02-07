@@ -19,7 +19,7 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
   return (
     <div className="w-6/12 md:w-4/12 lg:w-4/12 xl:w-3/12 px-3 mb-6">
     <div className="w-full bg-white product_shadow py-3 px-3 cursor-pointer flex flex-col rounded-xl ">
-      {image ? (
+      {name ? (
         <>
           <Link
             to={`/menu/${id}`}
@@ -45,9 +45,10 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
           </button>
         </>
       ) : (
-        <div className="min-h-[150px] flex justify-center items-center">
-          <p>{loading}</p>
-        </div>
+        // <div className="min-h-[150px] flex justify-center items-center">
+        //   <p>{loading}</p>
+        // </div>
+        <p>{loading}</p>
       )}
     </div>
     </div>
