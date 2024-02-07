@@ -49,8 +49,6 @@ function Signup() {
     // console.log("data,data", data);
     const { firstName, lastName, email, password, confirmPassword, image } =
       data;
-
-      
     if (
       firstName &&
       lastName &&
