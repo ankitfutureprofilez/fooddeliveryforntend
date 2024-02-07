@@ -67,23 +67,19 @@ export default function Carthome() {
   };
   return (
     <>
-      <div class="flex flex-col ...">
-        <div>
-        <h2 className="text-lg md:text-2xl font-bold text-slate-600">
-              Your Cart Items
-            </h2>
-        </div>
-        <div>
-          {" "}
-          <div className="p-2 md:p-4">
+      <div class="bg-white p-2 md:p-4 pt-2 border-l h-full "> 
+        <h2 className="text-gray-700 mb-3 text-xl">
+              <strong>Your Cart</strong> Items
+            </h2> 
+        <div> 
             {/* <h2 className="text-lg md:text-2xl font-bold text-slate-600">
               Your Cart Items
             </h2> */}
 
             {productCartItem[0] ? (
-              <div className="my-4 gap-3">
+              <div className="my-4 ">
                 {/* display cart items  */}
-                <div className="w-full max-w-3xl ">
+                <div className="w-full">
                   {productCartItem.map((el) => {
                     return (
                       <CartProduct
@@ -101,10 +97,8 @@ export default function Carthome() {
                 </div>
 
                 {/* total cart item  */}
-                <div className="w-full max-w-md  ml-auto">
-                  <h2 className="bg-blue-500 text-white p-2 text-lg">
-                    Summary
-                  </h2>
+                <div className="w-full mt-10">
+                  <h2 className="text-gray-400 p-2 text-lg">Summary </h2>
                   <div className="flex w-full py-2 text-lg border-b">
                     <p>Total Qty :</p>
                     <p className="ml-auto w-32 font-bold">{totalQty}</p>
@@ -133,9 +127,8 @@ export default function Carthome() {
                   </p>
                 </div>
               
-            )}
-          </div>
-        </div>
+            )}  
+      </div>
       </div>
     </>
   );

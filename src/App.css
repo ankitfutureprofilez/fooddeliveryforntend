@@ -10,3 +10,6 @@ body{font-family: 'Open Sans', sans-serif;font-size: 14px;}
 .product_shadow{
   box-shadow: 0 0 20px rgba(0,0,0,.1);
 }
+.product_shadow:hover{
+  box-shadow: 0 0 20px rgba(0,0,0,.2);
+}
