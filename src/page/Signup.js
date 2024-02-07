@@ -8,7 +8,7 @@ function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -19,71 +19,56 @@ function Signup() {
   });
 
   const handleShowPassword = () => {
-    setShowPassword((preve) => !preve);
+    setShowPassword((prev) => !prev);
   };
+
   const handleShowConfirmPassword = () => {
-    setShowConfirmPassword((preve) => !preve);
+    setShowConfirmPassword((prev) => !prev);
   };
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setData((preve) => {
-      return {
-        ...preve,
-        [name]: value,
-      };
-    });
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleUploadProfileImage = async (e) => {
     const data = await ImagetoBase64(e.target.files[0]);
-    setData((preve) => {
-      return {
-        ...preve,
-        image: data,
-      };
-    });
+    setData((prev) => ({
+      ...prev,
+      image: data,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("data,data", data);
-    const { firstName, lastName, email, password, confirmPassword, image } =
-      data;
-    if (
-      firstName &&
-      lastName &&
-      email &&
-      password &&
-      confirmPassword &&
-      image
-    ) {
-      setLoading(true);
-      const fetchData = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/user/signup`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-          mode: "cors",
-        }
-      );
+    setLoading(true);
 
+    const { firstName, lastName, email, password, confirmPassword, image } = data;
+    if (firstName && lastName && email && password && confirmPassword && image) {
+      const fetchData = await fetch(`${process.env.REACT_APP_BASE_URL}/user/signup`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+        mode: "cors",
+      });
       const fetchRes = await fetchData.json();
-      // console.log("fetchRes", fetchRes);
       toast(fetchRes.message);
-      setData(() => {
-        return {
+      if (fetchRes.status === true) {
+        setData({
           firstName: "",
           lastName: "",
           email: "",
           password: "",
           confirmPassword: "",
           image: "",
-        };
-      });
-      navigate("/login");
+        });
+        navigate("/login");
+      }
     } else {
       toast("Enter required Fields");
     }
