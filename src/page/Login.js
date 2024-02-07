@@ -10,6 +10,7 @@ import Listings from "../Api/Listings";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [Loading, setLoading] = useState(true);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -49,11 +50,12 @@ const Login = () => {
         }
       );
       const fetchRes = await fetchData.json();
-      console.log("fetchRes", fetchRes);
-      const trecord = dispatch(loginRedux(fetchRes?.user[0]));
-      console.log("trecord", trecord);
+      // console.log("fetchRes", fetchRes);
+      const trecord = dispatch(loginRedux(fetchRes?.user));
+      // console.log("trecord", trecord);
       localStorage.setItem("token", fetchRes?.token);
       toast(fetchRes.message);
+      setLoading(false);
       setData(() => {
         return {
           password: "",
@@ -63,6 +65,7 @@ const Login = () => {
       navigate("/");
     } else {
       toast("Enter required Fields");
+      setLoading(false);
     }
   };
 
@@ -104,7 +107,7 @@ const Login = () => {
           </div>
 
           <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
-            Login
+          <span>{Loading ? "Login" : "Wait..."}</span>
           </button>
         </form>
         <p className="text-left text-sm mt-2">

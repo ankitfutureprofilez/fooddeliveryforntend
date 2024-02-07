@@ -4,12 +4,11 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import { toast } from "react-hot-toast";
-import Listings from "../Api/Listings";
-
 function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -44,35 +43,6 @@ function Signup() {
       };
     });
   };
-  //console.log(process.env.REACT_APP_SERVER_DOMIN)
-  // console.log("data", data);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const main = new Listings();
-  //   const response = await main.Signup(data);
-
-  //   console.log("response", response);
-
-  //   try {
-  //     if (response && response.status) {
-  //       toast.success(response.data.message);
-  //       setData({
-  //         firstName: "",
-  //         lastName: "",
-  //         email: "",
-  //         password: "",
-  //         confirmPassword: "",
-  //         image: "",
-  //       });
-  //       navigate("/login");
-  //     } else {
-  //       toast.error("Signup failed");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error handling response:", error);
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,10 +71,10 @@ function Signup() {
       );
 
       const fetchRes = await fetchData.json();
-
-      console.log("fetchRes", fetchRes);
+      setLoading(false);
+      // console.log("fetchRes", fetchRes);
       toast(fetchRes.message);
-
+      setLoading(false);
       setData(() => {
         return {
           firstName: "",
@@ -118,6 +88,7 @@ function Signup() {
       navigate("/login");
     } else {
       toast("Enter required Fields");
+      setLoading(false);
     }
   };
 
@@ -213,8 +184,9 @@ function Signup() {
           </div>
 
           <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
-            Sign up
+            <span>{loading ? "Sign Up" : "Wait..."}</span>
           </button>
+
         </form>
         <p className="text-left text-sm mt-2">
           Already have account ?{" "}

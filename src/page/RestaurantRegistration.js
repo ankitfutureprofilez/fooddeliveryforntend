@@ -72,7 +72,7 @@ export default function RestaurantRegistration() {
       timings,
       coordinates,
     } = data;
-    console.log("Data",data)
+    // console.log("Data",data)
     if (
       O_name &&
       r_name &&

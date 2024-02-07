@@ -12,7 +12,6 @@ const FilterProduct = ({category,onClick,isActive}) => {
          
          {category === "sweet" ? (
           <CiForkAndKnife size={24} />
-
          ) : (
           <></>
          )}

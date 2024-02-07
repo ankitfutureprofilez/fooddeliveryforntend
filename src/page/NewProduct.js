@@ -36,7 +36,7 @@ const Newproduct = () => {
      }
 // console.log("data",data)
    const yourStoredToken =  localStorage && localStorage.getItem("token");
-   console.log("yourStoredToken",yourStoredToken)
+  //  console.log("yourStoredToken",yourStoredToken)
     const handleSubmit = async (e) => {
       e.preventDefault();
       const { name, category, image,price,description} =
@@ -44,7 +44,7 @@ const Newproduct = () => {
       if (
         name && category && image &&  price && description   ) {
         const fetchData = await fetch(
-          `${process.env.REACT_APP_BASE_URL}/product/uploadProduct`,
+          `${process.env.REACT_APP_BASE_URL}/product`,
           {
             method: "POST",
             headers: {
