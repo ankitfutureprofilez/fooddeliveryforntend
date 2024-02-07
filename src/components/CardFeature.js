@@ -17,28 +17,28 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
   };
 
   return (
-    <div className="w-6/12 md:w-4/12 lg:w-3/12 xl:w-2/12 px-4 mb-4">
-    <div className="w-full bg-white product_shadow py-5 px-4 cursor-pointer flex flex-col rounded-xl ">
+    <div className="w-6/12 md:w-4/12 lg:w-4/12 xl:w-3/12 px-3 mb-6">
+    <div className="w-full bg-white product_shadow py-3 px-3 cursor-pointer flex flex-col rounded-xl ">
       {image ? (
         <>
           <Link
             to={`/menu/${id}`}
             onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
           >
-            <div className="h-28 flex flex-col justify-center items-center">
-              <img src={image} className="h-full" />
+            <div className="flex flex-col justify-center items-center">
+              <img  src={image} className="rounded-xl w-full h-44 object-cover" />
             </div>
-            <h3 className="font-semibold text-slate-600  capitalize text-lg mt-4 whitespace-nowrap overflow-hidden">
+            <h3 className="font-bold text-gray-900 capitalize text-sm mt-3 mb-1 whitespace-nowrap overflow-hidden">
               {name}
             </h3>
-            <p className=" text-slate-500  font-medium">{category}</p>
-            <p className=" font-bold">
-              <span className="text-red-500">₹</span>
+            <p className="text-gray-500 mb-1.5">{category}</p>
+            <p className="text-orange-500 mb-3 text-sm font-bold">
+              <span className="">₹</span>
               <span>{price}</span>
             </p>
           </Link>
           <button
-            className="bg-orange-500 py-1 mt-2 rounded hover:bg-orange-600 w-full"
+            className="text-white text-base bg-orange-500 hover:bg-orange-600 tracking-wide-md font-medium px-6 py-2 lg:px-8 lg:py-2 rounded-md outline-none focus:outline-none bg-yellow ease-linear transition-all duration-150"
             onClick={handleAddCartProduct}
           >
             Add Cart

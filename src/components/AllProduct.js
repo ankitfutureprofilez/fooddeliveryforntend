@@ -44,8 +44,8 @@ const AllProduct = ({ heading }) => {
           );
         })}
       </div>
-      <h2 className="text-gray-500 mb-6 text-lg"><strong>Near</strong> You</h2>
-      <div className="flex flex-wrap -mx-4 py-4">
+      <h2 className="text-gray-700 mb-1 text-xl"><strong>Near</strong> You</h2>
+      <div className="flex flex-wrap -mx-3 py-4">
         {dataFilter[0]
           ? dataFilter.map((el) => {
               return (
