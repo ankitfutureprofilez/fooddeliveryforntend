@@ -15,9 +15,9 @@ export default function RestaurantRegistration() {
     staff: "",
     timings: "",
     location: "",
+    coordinates:"",
   });
 
-  console.log("data",data)
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setData((preve) => {
@@ -38,9 +38,29 @@ export default function RestaurantRegistration() {
     });
   };
   const yourStoredToken = localStorage && localStorage.getItem("token");
-  console.log("yourStoredToken",yourStoredToken)
+  //console.log("yourStoredToken",yourStoredToken)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!data.coordinates || data.coordinates.length === 0) {
+      try {
+          // Fetch longitude and latitude from the API
+          const apiUrl = 'https://ipapi.co/json/';
+          const response = await fetch(apiUrl);
+          const jsonData = await response.json();
+          const { latitude, longitude } = jsonData;
+          
+          // Update the coordinates in the data object
+          setData((prevData) => ({
+              ...prevData,
+              coordinates: `${latitude}, ${longitude}`
+          }));
+      } catch (error) {
+          console.error("Error getting coordinates:", error);
+          toast.error("Error getting coordinates");
+          return; // Stop execution if there's an error
+      }
+  }
     const {
       O_name,
       r_name,
@@ -50,7 +70,9 @@ export default function RestaurantRegistration() {
       location,
       staff,
       timings,
+      coordinates,
     } = data;
+    console.log("Data",data)
     if (
       O_name &&
       r_name &&
@@ -59,7 +81,8 @@ export default function RestaurantRegistration() {
       description &&
       location &&
       staff &&
-      timings
+      timings && 
+      coordinates
     ) {
       
       const fetchData = await fetch(
@@ -75,7 +98,7 @@ export default function RestaurantRegistration() {
         }
       );
       const fetchRes = await fetchData.json();
-      console.log("fetchRes",fetchRes)
+      //console.log("fetchRes",fetchRes)
       toast(fetchRes.message);
         setData(() => {
           return {
@@ -86,7 +109,8 @@ export default function RestaurantRegistration() {
               description : "",
               staff:"",
               timings:"",
-              location:""
+              location:"",
+              coordinates:""
           };
         });
     } else {
@@ -113,6 +137,7 @@ export default function RestaurantRegistration() {
           return {
             ...prev,
             location: locationString,
+            coordinates:`${latitude},${longitude}`
           };
         });
       } catch (error) {
