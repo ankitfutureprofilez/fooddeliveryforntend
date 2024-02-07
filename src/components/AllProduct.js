@@ -60,10 +60,13 @@ const AllProduct = ({ heading }) => {
               );
             })
           : 
-          loadingArrayFeature.map((el,index) => (
-              <CardFeature loading="Loading..." key={index+"allProduct"} />
-            ))}
-      </div>
+          (
+            <CardFeature loading="Loading..." key={"allProduct"} />
+
+          )}
+            
+    
+    </div>
     </div>
   );
 };
