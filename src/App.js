@@ -22,7 +22,7 @@ function App() {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-     mode: "cors",
+      mode: "cors",
       });
       const resData = await res.json();
     // console.log("resData", resData);
