@@ -67,23 +67,19 @@ export default function Carthome() {
   };
   return (
     <>
-      <div class="flex flex-col ...">
-        <div>
-        <h2 className="text-lg md:text-2xl font-bold text-slate-600">
-              Your Cart Items
-            </h2>
-        </div>
-        <div>
-          {" "}
-          <div className="p-2 md:p-4">
+      <div class="bg-white p-2 md:p-4 pt-2 border-l border-gray-200 h-full "> 
+        <h2 className="text-gray-700 mb-3 text-xl">
+              <strong>Your Cart</strong> Items
+            </h2> 
+        <div> 
             {/* <h2 className="text-lg md:text-2xl font-bold text-slate-600">
               Your Cart Items
             </h2> */}
 
             {productCartItem[0] ? (
-              <div className="my-4 gap-3">
+              <div className="my-4 ">
                 {/* display cart items  */}
-                <div className="w-full max-w-3xl ">
+                <div className="w-full">
                   {productCartItem.map((el) => {
                     return (
                       <CartProduct
@@ -101,22 +97,21 @@ export default function Carthome() {
                 </div>
 
                 {/* total cart item  */}
-                <div className="w-full max-w-md  ml-auto">
-                  <h2 className="bg-blue-500 text-white p-2 text-lg">
-                    Summary
-                  </h2>
-                  <div className="flex w-full py-2 text-lg border-b">
-                    <p>Total Qty :</p>
-                    <p className="ml-auto w-32 font-bold">{totalQty}</p>
+                <div className="w-full mt-5">
+                  <h2 className="text-gray-700 font-bold text-lg">Summary </h2>
+                  <div className="flex w-full py-2 text-lg border-b items-center border-gray-200">
+                    <p className="text-base">Total Qty :</p>
+                    <p className="ml-auto w-32 font-bold text-right">{totalQty}</p>
                   </div>
-                  <div className="flex w-full py-2 text-lg border-b">
-                    <p>Total Price</p>
-                    <p className="ml-auto w-32 font-bold">
+                  <div className="flex w-full py-2 text-lg border-b items-center border-gray-200">
+                    <p className="text-base">Total Price</p>
+                    <p className="ml-auto w-32 font-bold text-right">
                       <span className="text-orange-500">₹</span> {totalPrice}
                     </p>
                   </div>
                   <button
-                    className="bg-orange-500 w-full text-lg font-bold py-2 text-white"
+                  
+                    className="bg-orange-500 hover:bg-orange-600 rounded-md w-full text-lg font-bold py-2 text-white"
                     onClick={handlePayment}
                   >
                     Payment
@@ -132,9 +127,8 @@ export default function Carthome() {
                   </p>
                 </div>
               
-            )}
-          </div>
-        </div>
+            )}  
+      </div>
       </div>
     </>
   );
