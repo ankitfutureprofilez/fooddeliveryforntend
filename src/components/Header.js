@@ -22,8 +22,6 @@ const Header = () => {
     toast("Logout successfully");
   };
 
-  
-
   const cartItemNumber = useSelector((state)=>state.product.cartItem)
   return (
     <header className="fixed w-full px-4 md:px-8 py-6 z-50 bg-white border-b">
