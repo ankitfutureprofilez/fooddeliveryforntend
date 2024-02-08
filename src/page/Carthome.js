@@ -5,6 +5,7 @@ import emptyCartImage from "../assest/empty.gif";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Payment from "../Api/Payment";
 
 export default function Carthome() {
   const productCartItem = useSelector((state) => state.product.cartItem);
@@ -20,9 +21,12 @@ export default function Carthome() {
   );
 
   const handlePayment = async () => {
+     
     if (user.email) {
       try {
-        const resp = axios.post(`${process.env.REACT_APP_BASE_URL}/create-checkout-session`, {items : productCartItem})
+        const payment = new Payment;
+        const resp = payment.Checkout_cart({items : productCartItem});
+        // const resp = axios.post(`${process.env.REACT_APP_BASE_URL}/stripe/create-checkout-session`, )
         resp.then((res)=>{
           console.log(res.data);
           if(res.data.url){

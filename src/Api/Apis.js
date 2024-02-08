@@ -1,12 +1,12 @@
 import axios from 'axios';
-const APP_URL = process.env.REACT_APP_BASE_URL_TENNIS
+const API_URL = process.env.REACT_APP_API_URL
 function getToken() {
   const data = localStorage && localStorage.getItem('token');
   return data; 
 }
-
+console.log("API_URL",API_URL)
 let Api = axios.create({
-  baseURL: APP_URL,
+  baseURL: API_URL,
   headers: {
     'Accept': 'application/json',
     'Authorization': `Bearer ${getToken()}`,

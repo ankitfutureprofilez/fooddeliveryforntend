@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 // import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
+import Payment from "../Api/Payment";
 
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
@@ -24,7 +25,10 @@ const Cart = () => {
   const handlePayment = async () => {
     if (user.email) {
       try {
-        const resp = axios.post(`${process.env.REACT_APP_BASE_URL}/create-checkout-session`, {items : productCartItem})
+
+        const payment = new Payment();
+        const resp = payment.Checkout_cart({items : productCartItem});
+        // const resp = axios.post(`${process.env.REACT_APP_BASE_URL}/stripe/create-checkout-session`, )
         resp.then((res)=>{
           console.log(res.data);
           if(res.data.url){
