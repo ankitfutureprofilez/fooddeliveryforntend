@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CardFeature from "./CardFeature";
 import FilterProduct from "./FilterProduct";
+import foodImg from "../assest/Food-image.jpg";
 
 const AllProduct = ({ heading }) => {
   const productData = useSelector((state) => state.product.productList);
@@ -48,11 +49,12 @@ const AllProduct = ({ heading }) => {
       <div className="flex flex-wrap -mx-3 py-4">
         {dataFilter[0]
           ? dataFilter.map((el) => {
+            let img = el.image == null ? foodImg : el.image;
               return (
                 <CardFeature
                   key={el._id}
                   id={el._id}
-                  image={el.image}
+                  image={img}
                   name={el.name}
                   category={el.category}
                   price={el.price}

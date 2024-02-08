@@ -8,7 +8,7 @@ const Contact = () => {
     msg: '',
     email: '',
   });
-  console.log("ddd",data)
+  // console.log("ddd",data)
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -38,8 +38,8 @@ const Contact = () => {
       }
 
       const fetchRes = await fetchData.json();
-      console.log('fetchRes', fetchRes);
-      toast(fetchRes.msg);
+      // console.log('fetchRes', fetchRes);
+      toast(fetchRes.message);
 
       setData(() => {
         return {

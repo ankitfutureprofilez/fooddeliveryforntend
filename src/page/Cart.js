@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
-  console.log("user",user)
+  // console.log("user",user)
   const navigate = useNavigate();
 
   const totalPrice = productCartItem.reduce(
@@ -46,13 +46,13 @@ const Cart = () => {
         }
 
         const data = await res.json();
-        console.log("data", data);
+        // console.log("data", data);
 
         toast("Redirect to payment Gateway...!");
         const record = await stripePromise.redirectToCheckout({
           sessionId: data.id,
         });
-        console.log("record", record);
+        // console.log("record", record);
       } catch (error) {
         console.error("Error:", error);
         toast.error("Error during payment");

@@ -16,18 +16,18 @@ function App() {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem('token');
-      console.log("token",token)
+      // console.log("token",token)
       const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/productlist`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-     mode: "cors",
+      mode: "cors",
       });
       const resData = await res.json();
-    console.log("resData", resData);
+    // console.log("resData", resData);
      const trecord =  dispatch(setDataProduct(resData?.data));
-    console.log("trecord",trecord)
+    // console.log("trecord",trecord)
     } catch (error) {
       console.error("Fetch error:", error);
     }

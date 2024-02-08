@@ -2,75 +2,76 @@ import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { BsCloudUpload } from "react-icons/bs";
 import { ImagetoBase64 } from '../utility/ImagetoBase64'
-import Listings from "../Api/Listings";
+import { useNavigate } from 'react-router-dom';
 const Newproduct = () => {
-    const [data,setData] = useState({
-      name : "",
-      category : "",
-      image : "",
-      price : "",
-      description : ""
+  const navigate = useNavigate()
+  const [data, setData] = useState({
+    name: "",
+    category: "",
+    image: "",
+    price: "",
+    description: ""
+  })
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target
+
+    setData((preve) => {
+      return {
+        ...preve,
+        [name]: value
+      }
     })
 
-    const handleOnChange = (e)=>{
-      const {name,value} = e.target
+  }
 
-      setData((preve)=>{
-          return{
-            ...preve,
-            [name] : value
-          }
-      })
-
-    }
-
-    const uploadImage = async(e)=>{
-        const data = await ImagetoBase64(e.target.files[0])
-        // console.log(data)
-        setData((preve)=>{
-          return{
-            ...preve,
-            image : data
-          }
-      })
-     }
-// console.log("data",data)
-   const yourStoredToken =  localStorage && localStorage.getItem("token");
-   console.log("yourStoredToken",yourStoredToken)
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      const { name, category, image,price,description} =
-        data;
-      if (
-        name && category && image &&  price && description   ) {
-        const fetchData = await fetch(
-          `${process.env.REACT_APP_BASE_URL}/product/uploadProduct`,
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-              Authorization: `Bearer ${yourStoredToken}`
-            },
-            body: JSON.stringify(data),
-          }
-        );
-        const fetchRes = await fetchData.json();
-        toast(fetchRes.message);
-  
-        setData(() => {
-          return {
-            name : "",
-            category : "",
-            image : "",
-            price : "",
-            description : ""
-          };
-        });
-       
-      } else {
-        toast("Enter required Fields");
+  const uploadImage = async (e) => {
+    const data = await ImagetoBase64(e.target.files[0])
+    // console.log(data)
+    setData((preve) => {
+      return {
+        ...preve,
+        image: data
       }
-    };
+    })
+  }
+  // console.log("data",data)
+  const yourStoredToken = localStorage && localStorage.getItem("token");
+  //  console.log("yourStoredToken",yourStoredToken)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { name, category, image, price, description } =
+      data;
+    if (
+      name && category && image && price && description) {
+      const fetchData = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/product`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${yourStoredToken}`
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const fetchRes = await fetchData.json();
+      toast(fetchRes.message);
+      navigate('/')
+      setData(() => {
+        return {
+          name: "",
+          category: "",
+          image: "",
+          price: "",
+          description: ""
+        };
+      });
+
+    } else {
+      toast("Enter required Fields");
+    }
+  };
   return (
     <div className="p-4">
       <form
@@ -82,7 +83,7 @@ const Newproduct = () => {
           type={"text"}
           name="name"
           className="bg-slate-200 p-1 my-1"
-           onChange={handleOnChange} value={data.name}
+          onChange={handleOnChange} value={data.name}
         />
 
         <label htmlFor="category">Category</label>
@@ -90,7 +91,7 @@ const Newproduct = () => {
           className="bg-slate-200 p-1 my-1"
           id="category"
           name="category"
-            onChange={handleOnChange} value={data.category}
+          onChange={handleOnChange} value={data.category}
         >
           <option value={"other"}>select category</option>
           <option value={"fruits"}>Fruits</option>
@@ -110,16 +111,16 @@ const Newproduct = () => {
           Image
           <div className="h-40 w-full bg-slate-200  rounded flex items-center justify-center cursor-pointer">
             {
-              data.image ? <img src={data.image} className="h-full" /> 
-              :
-              <span className='text-5xl'><BsCloudUpload/></span> 
+              data.image ? <img src={data.image} className="h-full" />
+                :
+                <span className='text-5xl'><BsCloudUpload /></span>
             }
 
             <input
               type={"file"}
               accept="image/*"
               id="image"
-               onChange={uploadImage}
+              onChange={uploadImage}
               className="hidden"
             />
           </div>
@@ -139,7 +140,7 @@ const Newproduct = () => {
         <label htmlFor="description">Description</label>
         <textarea
           rows={2}
-           value={data.description}
+          value={data.description}
           className="bg-slate-200 p-1 my-1 resize-none"
           name="description"
           onChange={handleOnChange}
