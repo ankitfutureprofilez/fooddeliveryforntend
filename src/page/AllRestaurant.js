@@ -8,7 +8,7 @@ export default function AllRestaurant() {
     axios
       .get("http://localhost:8000/restaurant/get")
       .then((response) => {
-        setRestaurants(response.data.data);
+        setRestaurants(response.data.list);
       })
       .catch((error) => console.log(error));
   }, []);

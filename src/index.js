@@ -12,7 +12,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
  import Home from "./page/Home";
- import Menu from "./page/Menu";
+ //import Menu from "./page/Menu";
 import About from "./page/About";
 import Contact from "./page/Contact";
  import Login from "./page/Login";
@@ -25,6 +25,7 @@ import { Provider } from "react-redux";
  import Cancel from "./page/Cancel";
  import RestaurantRegistration from "./page/RestaurantRegistration";
  import AllRestaurant from "./page/AllRestaurant";
+ import Error404 from "./Error404/Error404"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="cancel" element={<Cancel/>}/>
       <Route path="restaurant-register" element={<RestaurantRegistration/>}/>
       <Route path="restaurants" element={<AllRestaurant/>}/>
+      <Route path="*" element={<Error404 />}></Route>
     </Route>
   )
 );
