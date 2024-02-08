@@ -4,7 +4,7 @@ import { BsCloudUpload } from "react-icons/bs";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function RestaurantRegistration() {
   const navigate = useNavigate();
@@ -16,7 +16,8 @@ export default function RestaurantRegistration() {
     r_name: "",
     description: "",
     staff: "",
-    timings: "",
+    opening_from: "",
+    opening_to: "",
     location: "",
     coordinates: "",
   });
@@ -48,7 +49,7 @@ export default function RestaurantRegistration() {
     if (!data.coordinates || data.coordinates.length === 0) {
       try {
         // Fetch longitude and latitude from the API
-        const apiUrl = 'https://ipapi.co/json/';
+        const apiUrl = "https://ipapi.co/json/";
         const response = await fetch(apiUrl);
         const jsonData = await response.json();
         const { latitude, longitude } = jsonData;
@@ -56,7 +57,7 @@ export default function RestaurantRegistration() {
         // Update the coordinates in the data object
         setData((prevData) => ({
           ...prevData,
-          coordinates: `${latitude}, ${longitude}`
+          coordinates: `${latitude}, ${longitude}`,
         }));
       } catch (error) {
         console.error("Error getting coordinates:", error);
@@ -72,10 +73,11 @@ export default function RestaurantRegistration() {
       description,
       location,
       staff,
-      timings,
+      opening_from,
+      opening_to,
       coordinates,
     } = data;
-    console.log("Data",data)
+    console.log("Data", data);
     if (
       O_name &&
       r_name &&
@@ -84,10 +86,10 @@ export default function RestaurantRegistration() {
       description &&
       location &&
       staff &&
-      timings &&
+      opening_from &&
+      opening_to &&
       coordinates
     ) {
-
       const fetchData = await fetch(
         `${process.env.REACT_APP_BASE_URL}/restaurant/add`,
         {
@@ -103,7 +105,7 @@ export default function RestaurantRegistration() {
       const fetchRes = await fetchData.json();
       //console.log("fetchRes",fetchRes)
       toast(fetchRes.message);
-      navigate("/")
+      navigate("/");
       setData(() => {
         return {
           category: "",
@@ -112,9 +114,10 @@ export default function RestaurantRegistration() {
           r_name: "",
           description: "",
           staff: "",
-          timings: "",
+          opening_from: "",
+          opening_to: "",
           location: "",
-          coordinates: ""
+          coordinates: "",
         };
       });
     } else {
@@ -141,7 +144,7 @@ export default function RestaurantRegistration() {
           return {
             ...prev,
             location: locationString,
-            coordinates: `${latitude},${longitude}`
+            coordinates: `${latitude},${longitude}`,
           };
         });
       } catch (error) {
@@ -257,16 +260,62 @@ export default function RestaurantRegistration() {
           <option value={"20+"}>20+</option>
         </select>
 
-        <label htmlFor="timings" className="my-1">
-          Timings
+        <label htmlFor="opening_from" className="my-1">
+          Opening From
         </label>
-        <input
-          type={"text"}
+        <select
           className="bg-slate-200 p-1 my-1"
-          name="timings"
+          id="opening_from"
+          name="opening_from"
           onChange={handleOnChange}
-          value={data.timings}
-        />
+          value={data.opening_from}
+        >
+          <option value={"other"}>Select</option>
+          <option value={"9am"}>9 AM</option>
+          <option value={"10am"}>10 AM</option>
+          <option value={"11am"}>11 AM</option>
+          <option value={"12pm"}>12 PM</option>
+          <option value={"1pm"}>1 PM</option>
+          <option value={"2pm"}>2 PM</option>
+          <option value={"3pm"}>3 PM</option>
+          <option value={"4pm"}>4 PM</option>
+          <option value={"5pm"}>5 PM</option>
+          <option value={"6pm"}>6 PM</option>
+          <option value={"7pm"}>7 PM</option>
+          <option value={"8pm"}>8 PM</option>
+        </select>
+
+        <label htmlFor="opening_to" className="my-1">
+          Opening Till
+        </label>
+        <select
+          className="bg-slate-200 p-1 my-1"
+          id="opening_to"
+          name="opening_to"
+          onChange={handleOnChange}
+          value={data.opening_to}
+        >
+          <option value={"other"}>Select</option>
+          <option value={"10am"}>10 AM</option>
+          <option value={"11am"}>11 AM</option>
+          <option value={"12pm"}>12 PM</option>
+          <option value={"1pm"}>1 PM</option>
+          <option value={"2pm"}>2 PM</option>
+          <option value={"3pm"}>3 PM</option>
+          <option value={"4pm"}>4 PM</option>
+          <option value={"5pm"}>5 PM</option>
+          <option value={"6pm"}>6 PM</option>
+          <option value={"7pm"}>7 PM</option>
+          <option value={"8pm"}>8 PM</option>
+          <option value={"9pm"}>9 PM</option>
+          <option value={"10pm"}>10 PM</option>
+          <option value={"11pm"}>11 PM</option>
+          <option value={"12am"}>12 AM</option>
+          <option value={"1am"}>1 AM</option>
+          <option value={"2am"}>2 AM</option>
+          <option value={"3am"}>3 AM</option>
+          <option value={"4am"}>4 AM</option>
+        </select>
 
         <label htmlFor="location" className="my-1">
           Location

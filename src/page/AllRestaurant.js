@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import resImg from '../assest/Socorrco.jpg';
 export default function AllRestaurant() {
   const [restaurants, setRestaurants] = useState([]);
 
@@ -22,7 +22,7 @@ export default function AllRestaurant() {
             <div key={restaurant._id} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
               <div className="bg-white rounded-xl overflow-hidden shadow-md">
                 <div className="h-56 overflow-hidden">
-                  <img src={restaurant.image} alt={restaurant.r_name} className="object-cover w-full h-full" />
+                  <img src={resImg} alt={restaurant.r_name} className="object-cover w-full h-full" />
                 </div>
                 <div className="p-4">
                   <h3 className="text-xl font-semibold mb-2">{restaurant.r_name}</h3>
