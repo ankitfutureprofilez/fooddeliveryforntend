@@ -1,41 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from 'react-router-dom';
 
 export default function RestaurantInfo() {
+  const [record, setRecord] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_BASE_URL}/restaurant/get`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode: "cors",
+        });
+        const resData = await res.json();
+        setRecord(resData?.list);
+        console.log("resData", resData)
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
-    // Restaurant data starts here
-    <div>
-      <div>{restaurant.image}</div>
-      <h1>{restaurant.name}</h1>
-      <p>Ratings</p>
-      <div>
-        <p className="text-slate-600 font-medium">
-          Description : {restaurant.description}
-        </p>
-        <p>{restaurant.location}</p>
-        <p>{restaurant.timings}</p>
-      </div>
-      {/* Product Data starts Here */}
-      <div className="w-full max-w-4xl m-auto md:flex bg-white">
-        <div className="max-w-sm  overflow-hidden w-full p-5">
-          <img
-            src={productData?.image}
-            className="hover:scale-105 transition-all h-full"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <h3 className="font-semibold text-slate-600  capitalize text-2xl md:text-4xl">
-            {productData?.name}
+    <div className="flex flex-wrap">
+    {record && record.map((item, index) => (
+      <Link key={index} to={`/restaurants/${item.resId}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 px-3 mb-6">
+        <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
+          <div className="flex flex-col justify-center items-center">
+            <img alt="image" src={item.image} className="rounded-xl w-full h-44 object-cover" />
+          </div>
+          <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
+            {item.O_name}
           </h3>
-          <p className=" text-slate-500  font-medium text-2xl">
-            {productData?.category}
-          </p>
-          <p className=" font-bold md:text-2xl">
-            <span className="text-red-500 ">₹</span>
-            <span>{productData?.price}</span>
-          </p>
+          <p className="text-gray-500 mb-1.5">{item.category}</p>
+          <div className="flex justify-between mt-3">
+            <div>
+              <p className="text-orange-500 text-sm font-bold align-middle">
+                <span>{item.description}</span>
+                <span>{item.location}</span>
+                <span>{item.staff}</span>
+              </p>
+              <p className="text-green-500">Free Delivery</p>
+            </div>
+          </div>
         </div>
-      </div>
-      <AllProduct heading={"Related Product"} />
-    </div>
+      </Link>
+    ))}
+  </div>
+  
+
   );
 }
