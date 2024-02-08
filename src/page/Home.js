@@ -10,25 +10,20 @@ import Carthome from "./Carthome";
 const Home = () => {
   const cartItemNumber = useSelector((state)=>state.product.cartItem)
   return (
-    <div className="flex">
-      {cartItemNumber.length > 0 ? (
-        <>
-          <div className="w-2/3">
-            <div className="bg-white p-2 md:p-4 pt-6 md:pt-10 ">
+
+    <div className="w-full px-4 md:px-8 py-6 z-50 bg-white">
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-wrap -mx-4">
+          <div className="w-full lg:w-8/12">
+            <div className="bg-white p-2 md:p-4 pt-6 md:pt-4 ">
               <AllProduct heading={"Your Product"} />
             </div>
           </div>
-          <div className="w-1/3">
-            <Carthome/>
-          </div>
-        </>
-      ) : (
-        <div className="w-full">
-          <div className="bg-white p-2 md:p-4 pt-6 md:pt-10 ">
-            <AllProduct heading={"Your Product"} />
+          <div className="w-full lg:w-4/12">
+              <Carthome/>
           </div>
         </div>
-      )}
+      </div>     
     </div>
   );
 };
