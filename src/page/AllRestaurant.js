@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 
-export default function AllRestaurant({ image, r_name, description, location, loading }) {
+export default function AllRestaurant() {
   
   const [resaturant, setResaturant] = useState([]);
   
@@ -13,7 +13,7 @@ export default function AllRestaurant({ image, r_name, description, location, lo
       })
       .catch((error) => console.log(error));
     }, []);
-    
+
   return (
     <div>
         <h1>Trending dining restaurants</h1>
