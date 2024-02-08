@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import CartProduct from "../components/CartProduct";
 import emptyCartImage from "../assest/empty.gif";
 import { toast } from "react-hot-toast";
-import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+// import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
-  // console.log("user",user)
   const navigate = useNavigate();
 
   const totalPrice = productCartItem.reduce(
@@ -23,48 +23,29 @@ const Cart = () => {
 
   const handlePayment = async () => {
     if (user.email) {
-      const stripePromise = await loadStripe(
-        `${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`
-      );
-
       try {
-        const res = await fetch(
-          `${process.env.REACT_APP_BASE_URL}/create-checkout-session`,
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(productCartItem),
+        const resp = axios.post(`${process.env.REACT_APP_BASE_URL}/create-checkout-session`, {items : productCartItem})
+        resp.then((res)=>{
+          console.log(res.data);
+          if(res.data.url){
+            window.location.href = res.data.url;
           }
-        );
-
-        if (!res.ok) {
-          console.error("Error creating Checkout Session:", res.statusText);
-          toast.error("Error creating Checkout Session");
-          return;
-        }
-
-        const data = await res.json();
-        // console.log("data", data);
-
-        toast("Redirect to payment Gateway...!");
-        const record = await stripePromise.redirectToCheckout({
-          sessionId: data.id,
+        }).catch((err)=>{
+          console.log(err)
         });
-        // console.log("record", record);
       } catch (error) {
         console.error("Error:", error);
         toast.error("Error during payment");
       }
     } else {
       toast("You have not Login!");
-      // Uncomment the following lines if you want to redirect to login after a delay
       setTimeout(() => {
         navigate("/login");
       }, 1000);
     }
   };
+
+
   return (
     <>
       <div className="p-2 md:p-4">
