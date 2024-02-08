@@ -22,8 +22,6 @@ const Header = () => {
     toast("Logout successfully");
   };
 
-  
-
   const cartItemNumber = useSelector((state)=>state.product.cartItem)
   return (
     <header className="fixed w-full px-4 md:px-8 py-6 z-50 bg-white border-b">
@@ -32,7 +30,7 @@ const Header = () => {
               <div className="flex items-center h-full justify-between">
             <Link to={""}>
               <div className="h-10">
-                <img src="https://toppng.com/uploads/preview/uber-for-food-delivery-app-shopee-cash-on-delivery-11563165491xfz68x9kim.png" className="h-full" />
+                <img src="/logo.png" className="h-full" />
               </div>
             </Link>
             <div className="mx-auto relative max-w-md w-full">

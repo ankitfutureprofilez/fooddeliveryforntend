@@ -1,0 +1,49 @@
+.heading {
+  font-size: 23px;
+  font-weight: 500;
+  color: #000;
+}
+
+.heading strong {
+  font-weight: 900 !important;
+}
+
+.heading.sm {
+  font-size: 19px  !important;
+}
+.heading.lg {
+  font-size: 28px !important;
+}
+
+
+.product_box {
+  background: rgb(255 255 255) !important;
+  box-shadow: 0 0 8px 9px #0001;
+  border-radius: 23px !important;
+}
+
+.bg-blue  { 
+  background:var(--main);
+}
+
+.button {
+  padding: 13px 20px;
+  border-radius: 15px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+}
+.button.sm {
+  padding: 11px 15px !important;
+  border-radius: 12px !important;
+  font-size: 14px !important;
+}
+
+
+.category-box {
+  border-radius: 1.6rem;
+  padding: 18px !important;
+  box-shadow: 0 0 8px 1px #0002;
+  border: 1px solid var(--main);
+  background: #f8f8f8 !important;
+}

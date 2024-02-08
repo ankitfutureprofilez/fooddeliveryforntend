@@ -24,13 +24,15 @@ const FilterProduct = ({category,onClick,isActive}) => {
   }
 
   return (
-    <div className="py-2" onClick={onClick}>
-     <div className={`w-36 px-8 pb-6 relative cursor-pointer before:absolute before:flex before:h-20 before:w-full before:bottom-0 before:left-0 before:shadow-md before:rounded-t-xl before:rounded-b-[2.5rem] ${isActive ? "before:bg-orange-500 text-white" : " text-gray-600 before:bg-white"}`}>
-      <div className={`bg-white w-12 h-12 mx-auto shadow-lg rounded-xl flex items-center justify-center mb-3 relative z-10 ${isActive ? "text-orange-500" : " text-gray-600"}`}>
+    <div className="py-2 " onClick={onClick}>
+     <div className={`w-36 category-box px-8 pb-6 relative cursor-pointer before:absolute before:flex
+      before:h-20 before:w-full before:bottom-0 before:left-0   
+      before:rounded-t-xl before:rounded-b-[1.5rem] ${isActive ? "before:bg-blue-500 text-white" : " text-gray-600 before:bg-white"}`}>
+      <div className={`bg-white w-12 h-12 mx-auto shadow-xl border rounded-xl flex items-center justify-center mb-3 
+      relative z-10 ${isActive ? "text-blue-500" : " text-gray-600"}`}>
         {iconComponent}
-          <CiForkAndKnife size={24} />
           </div>
-          <p className="font-base currentColor font-medium relative z-10 text-center">{category}</p>
+          <h3 className="font-bold text-md capitalize currentColor  relative z-10 text-center">{category}</h3>
       </div>
      
     </div>
