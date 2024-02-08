@@ -1,6 +1,19 @@
 import React from 'react'
+import axios from 'axios';
 
 export default function AllRestaurant({ image, r_name, description, location, loading }) {
+  
+  const [resaturant, setResaturant] = useState([]);
+  
+  useEffect(() => {
+  axios
+      .get("http://localhost:8000/restaurant/get")
+      .then((record) => {
+        setResaturant(record.data);
+      })
+      .catch((error) => console.log(error));
+    }, []);
+    
   return (
     <div>
         <h1>Trending dining restaurants</h1>

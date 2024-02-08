@@ -190,9 +190,10 @@ export default function RestaurantRegistration() {
           <option value={"other"}>Select Category</option>
           <option value={"veg"}>Veg</option>
           <option value={"nonveg"}>Non-Veg</option>
+          <option value={"both"}>Both</option>
         </select>
 
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">Owner Name</label>
         <input
           type={"text"}
           name="O_name"
@@ -251,9 +252,9 @@ export default function RestaurantRegistration() {
           value={data.staff}
         >
           <option value={"other"}>Select Staff</option>
-          <option value={"1-50"}>1-50</option>
-          <option value={"50-100"}>50-100</option>
-          <option value={"100+"}>100+</option>
+          <option value={"1-10"}>1-10</option>
+          <option value={"11-20"}>11-20</option>
+          <option value={"20+"}>20+</option>
         </select>
 
         <label htmlFor="timings" className="my-1">
