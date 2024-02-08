@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
-import CardFeature from "../components/CardFeature";
+import CardFeature from "../components/Product";
 import HomeCard from "../components/HomeCard";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import AllProduct from "../components/AllProduct";

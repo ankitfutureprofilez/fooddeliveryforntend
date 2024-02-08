@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import CardFeature from "./CardFeature";
+import Product from "./Product";
 import FilterProduct from "./FilterProduct";
 import foodImg from "../assest/Food-image.jpg";
 
@@ -32,7 +32,7 @@ const AllProduct = ({ heading }) => {
 
   return (
     <div className="mb-6 block">
-      <h1 className="text-gray-700 mb-6 text-xl"><strong>Menu</strong> Category</h1>
+      <h1 className="heading "><strong>Menu</strong> Category</h1>
       <div className="flex w-full flex-wrap space-x-2 md:space-x-4 mb-6">
         {categoryList.map((el) => {
           return (
@@ -45,13 +45,13 @@ const AllProduct = ({ heading }) => {
           );
         })}
       </div>
-      <h2 className="text-gray-700 mb-1 text-xl"><strong>Near</strong> You</h2>
+      <h2 className="heading"><strong>Near</strong> You</h2>
       <div className="flex flex-wrap -mx-3 py-4">
         {dataFilter[0]
           ? dataFilter.map((el) => {
             let img = el.image == null ? foodImg : el.image;
               return (
-                <CardFeature
+                <Product
                   key={el._id}
                   id={el._id}
                   image={img}
@@ -63,7 +63,7 @@ const AllProduct = ({ heading }) => {
             })
           : 
           (
-            <CardFeature loading="Loading..." key={"allProduct"} />
+            <Product loading="Loading..." key={"allProduct"} />
 
           )}
             
