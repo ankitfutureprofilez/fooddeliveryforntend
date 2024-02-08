@@ -24,13 +24,14 @@ import { Provider } from "react-redux";
  import Success from "./page/Success";
  import Cancel from "./page/Cancel";
  import RestaurantRegistration from "./page/RestaurantRegistration";
+ import AllRestaurant from "./page/AllRestaurant";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
-      <Route path="menu" element={<Menu />} />
-      <Route path="menu/:filterby" element={<Menu />} />
+      {/* <Route path="menu" element={<Menu />} />
+      <Route path="menu/:filterby" element={<Menu />} /> */}
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
       <Route path="login" element={<Login />} />
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
       <Route path="success" element={<Success/>}/>
       <Route path="cancel" element={<Cancel/>}/>
       <Route path="restaurant-register" element={<RestaurantRegistration/>}/>
+      <Route path="restaurants" element={<AllRestaurant/>}/>
     </Route>
   )
 );
