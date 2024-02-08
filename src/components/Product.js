@@ -46,8 +46,6 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
               className="button bg-blue sm"
               onClick={handleAddCartProduct}>+</button>
           </div>
-
-
         </>
       ) : (
         // <div className="min-h-[150px] flex justify-center items-center">
