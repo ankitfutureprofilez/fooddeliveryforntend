@@ -12,7 +12,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
  import Home from "./page/Home";
- import Menu from "./page/Menu";
+ //import Menu from "./page/Menu";
 import About from "./page/About";
 import Contact from "./page/Contact";
  import Login from "./page/Login";
@@ -25,8 +25,12 @@ import { Provider } from "react-redux";
  import Cancel from "./page/Cancel";
  import RestaurantRegistration from "./page/RestaurantRegistration";
  import AllRestaurant from "./page/AllRestaurant";
+<<<<<<< HEAD
 import RestaurantInfo from "./page/RestaurantInfo";
 import Restaurantdetails from "./page/Restaurantdetails";
+=======
+ import Error404 from "./Error404/Error404"
+>>>>>>> 1be1610fc96e40562f42e9f5ac51e899b2cb1029
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,9 +47,14 @@ const router = createBrowserRouter(
       <Route path="success" element={<Success/>}/>
       <Route path="cancel" element={<Cancel/>}/>
       <Route path="restaurant-register" element={<RestaurantRegistration/>}/>
+<<<<<<< HEAD
       <Route path="restaurants" element={<RestaurantInfo/>}/>
       <Route path="restaurants/:resId" element={<Restaurantdetails/>}/>
       {/* <Route path = "/restu" */}
+=======
+      <Route path="restaurants" element={<AllRestaurant/>}/>
+      <Route path="*" element={<Error404 />}></Route>
+>>>>>>> 1be1610fc96e40562f42e9f5ac51e899b2cb1029
     </Route>
   )
 );
