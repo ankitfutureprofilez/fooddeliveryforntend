@@ -12,8 +12,12 @@ export default function PrivateLayout(props ) {
         const token = localStorage.getItem('token');
         console.log("token",token)
         const main = new Listings();
-        const response = await main.privaterouter();
-        dispatch(loginRedux(response.data?.user || null));
+        const response = main.privaterouter();
+        response.then((resp)=>{
+          dispatch(loginRedux(resp.data?.user || null));
+        }).catch((err)=>{
+          console.log("err", err)
+        });
     };
     checkAuthentication();
   }, []);
