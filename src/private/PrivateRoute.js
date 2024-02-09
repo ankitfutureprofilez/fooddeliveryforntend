@@ -4,19 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import Listings from './../Api/Listings';
 
 export default function PrivateRoute(props ) {
+  
   const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
         const token = localStorage.getItem('token');
-        console.log("token",token)
         if (!token) {
           throw new Error('User not authenticated');
         }
         const main = new Listings();
         const response = await main.privaterouter();
-        console.log("response",response)
         if (response) {
           setAuthenticated(true);
         } else {

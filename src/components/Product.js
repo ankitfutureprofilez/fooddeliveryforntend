@@ -16,6 +16,16 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
     }))
   };
 
+  const formatMultiPrice = (amount) => {
+      return new Intl.NumberFormat("en-GB", {
+          style: "currency",
+          currency: "INR",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+      }).format(amount);
+  };
+
+
   return (
     <div className="w-6/12 md:w-4/12 lg:w-4/12 xl:w-3/12  px-3 mb-6">
     <div className="w-full bg-white product_box  py-3 px-3 cursor-pointer flex flex-col rounded-xl ">
@@ -34,11 +44,14 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
             <p className="text-gray-500 mb-1.5">{category}</p>
           </Link>
 
+
+ 
+
           <div className=" flex justify-between mt-3 " >
             <div>
               <p className="text-orange-500 text-sm font-bold align-middle">
-                <span className="">₹</span>
-                <span>{price}</span>
+                <span className=""> </span>
+                <span>{formatMultiPrice(price)}</span>
               </p>
               <p className="text-green-500 " >Free Delivery</p>
             </div>
