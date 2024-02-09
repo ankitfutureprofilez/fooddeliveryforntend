@@ -103,7 +103,7 @@ export default function RestaurantRegistration() {
         }
       );
       const fetchRes = await fetchData.json();
-      //console.log("fetchRes",fetchRes)
+      console.log("fetchRes",fetchRes)
       toast(fetchRes.message);
       navigate("/");
       setData(() => {
@@ -133,12 +133,11 @@ export default function RestaurantRegistration() {
         const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
-        );
+          );
         //console.log(response);
 
         // Extract relevant data from the response if needed
-        const { road, suburb, city, postcode } = response.data.address;
-        const locationString = `${road}, ${suburb} ${city}, ${postcode}`;
+        const locationString = response.data.display_name;
 
         setData((prev) => {
           return {
