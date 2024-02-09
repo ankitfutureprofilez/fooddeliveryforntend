@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_BASE_URL
 function getToken() {
   const data = localStorage && localStorage.getItem('token');
   return data; 
@@ -10,7 +10,8 @@ let Api = axios.create({
   headers: {
     'Accept': 'application/json',
     'Authorization': `Bearer ${getToken()}`,
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
+    "mode":"cors"
   }
 });
 

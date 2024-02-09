@@ -16,7 +16,7 @@ class Listings extends Component {
     return Api.post("/product/contact", data);
   }
 
-  async user() {
+  async privaterouter() {
     return Api.get("/user");
   }
 

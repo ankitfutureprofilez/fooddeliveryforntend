@@ -49,13 +49,12 @@ const Login = () => {
       const fetchRes = await fetchData.json();
       console.log("v",fetchRes)
       if (fetchRes.token) {
-        localStorage.setItem("token", fetchRes.token);
+        localStorage.setItem("token", fetchRes?.token);
         console.log(":token set",fetchRes.token)
       } else {
         console.error("Token not received or invalid");
       }
       dispatch(loginRedux(fetchRes?.user));
-      dispatch(tokenRedux(fetchRes?.token));
       toast(fetchRes.message);
       if (fetchRes.status === true) {
         navigate("/");
