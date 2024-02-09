@@ -45,19 +45,13 @@ const router = createBrowserRouter(
       <Route path="cancel" element={<Cancel />} />
 
       <Route path="restaurant-register" element={
-        <PrivateRoute>
           <RestaurantRegistration />
-        </PrivateRoute>
       } />
       <Route path="restaurants" element={
-        <PrivateRoute>
           <RestaurantInfo />
-        </PrivateRoute>
       } />
       <Route path="restaurants/:resId" element={
-        <PrivateRoute>
           <Restaurantdetails />
-        </PrivateRoute>
       } />
       {/* <Route path = "/restu" */}
     </Route>
