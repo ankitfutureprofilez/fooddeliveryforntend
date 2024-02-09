@@ -15,7 +15,7 @@ export default function Restaurantdetails() {
           mode: "cors",
         });
         const resData = await res.json();
-        setRecord(resData?.list);
+        setRecord(resData.record[0]);
         console.log("resData", resData)
       } catch (error) {
         console.error("Fetch error:", error);
@@ -24,12 +24,32 @@ export default function Restaurantdetails() {
 
     fetchData();
   }, []);
+
+  console.log("record",record)
   return (
     <>
       <div class="flex flex-row ">
-        <div></div>
-        <div>02</div>
-        <div>03</div>
+        <div> 
+          <img src={record.image} alt={record.index}/>
+        </div>
+        <div>
+        <div class="flex flex-nowrap">
+  <div>
+    <h1>{record.restaurantname}</h1>
+    <p>{record.category
+}</p>
+<p>{record.description}</p>
+<p>{record.location}</p>
+<p>Timing :- {record.
+  opening_to
+  } {record.
+opening_from} </p>
+  </div>
+  
+</div>
+
+        </div>
+       
       </div>
     </>
   )
