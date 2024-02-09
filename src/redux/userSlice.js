@@ -23,6 +23,14 @@ export const userSlice = createSlice({
         state.image = userData.image || "";
       }
     },
+
+    tokenRedux: (state, action) => {
+      const userData = action.payload;
+    //  console.log("userData",userData)
+      if (userData) {
+        state.token = userData.token || "";
+      }
+    },
     
     logoutRedux: (state, action) => {
       state._id = "";
@@ -34,6 +42,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { loginRedux ,logoutRedux} = userSlice.actions;
+export const { loginRedux ,logoutRedux,tokenRedux} = userSlice.actions;
 
 export default userSlice.reducer;

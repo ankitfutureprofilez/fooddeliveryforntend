@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginRedux } from "../redux/userSlice";
+import { loginRedux, tokenRedux } from "../redux/userSlice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,8 +47,15 @@ const Login = () => {
         }
       );
       const fetchRes = await fetchData.json();
+      console.log("v",fetchRes)
+      if (fetchRes.token) {
+        localStorage.setItem("token", fetchRes.token);
+        console.log(":token set",fetchRes.token)
+      } else {
+        console.error("Token not received or invalid");
+      }
       dispatch(loginRedux(fetchRes?.user));
-      localStorage.setItem("token", fetchRes?.token);
+      dispatch(tokenRedux(fetchRes?.token));
       toast(fetchRes.message);
       if (fetchRes.status === true) {
         navigate("/");

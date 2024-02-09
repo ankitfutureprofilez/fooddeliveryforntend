@@ -16,6 +16,10 @@ class Listings extends Component {
     return Api.post("/product/contact", data);
   }
 
+  async user() {
+    return Api.get("/user");
+  }
+
   render() {
     return (
       <div>

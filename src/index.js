@@ -11,22 +11,23 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
- import Home from "./page/Home";
- //import Menu from "./page/Menu";
+import Home from "./page/Home";
+//import Menu from "./page/Menu";
 import About from "./page/About";
 import Contact from "./page/Contact";
- import Login from "./page/Login";
+import Login from "./page/Login";
 import Newproduct from "./page/NewProduct";
 import Signup from "./page/Signup";
 import { store } from "./redux/index";
 import { Provider } from "react-redux";
- import Cart from "./page/Cart";
- import Success from "./page/Success";
- import Cancel from "./page/Cancel";
- import RestaurantRegistration from "./page/RestaurantRegistration";
- import AllRestaurant from "./page/AllRestaurant";
+import Cart from "./page/Cart";
+import Success from "./page/Success";
+import Cancel from "./page/Cancel";
+import RestaurantRegistration from "./page/RestaurantRegistration";
+import AllRestaurant from "./page/AllRestaurant";
 import RestaurantInfo from "./page/RestaurantInfo";
 import Restaurantdetails from "./page/Restaurantdetails";
+import PrivateRoute from "./private/PrivateRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,12 +41,24 @@ const router = createBrowserRouter(
       <Route path="newproduct" element={<Newproduct />} />
       <Route path="signup" element={<Signup />} />
       <Route path="cart" element={<Cart />} />
-      <Route path="success" element={<Success/>}/>
-      <Route path="cancel" element={<Cancel/>}/>
-      
-      <Route path="restaurant-register" element={<RestaurantRegistration/>}/>
-      <Route path="restaurants" element={<RestaurantInfo/>}/>
-      <Route path="restaurants/:resId" element={<Restaurantdetails/>}/>
+      <Route path="success" element={<Success />} />
+      <Route path="cancel" element={<Cancel />} />
+
+      <Route path="restaurant-register" element={
+        <PrivateRoute>
+          <RestaurantRegistration />
+        </PrivateRoute>
+      } />
+      <Route path="restaurants" element={
+        <PrivateRoute>
+          <RestaurantInfo />
+        </PrivateRoute>
+      } />
+      <Route path="restaurants/:resId" element={
+        <PrivateRoute>
+          <Restaurantdetails />
+        </PrivateRoute>
+      } />
       {/* <Route path = "/restu" */}
     </Route>
   )
@@ -53,9 +66,9 @@ const router = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-   <Provider store={store} >
+  <Provider store={store} >
     <RouterProvider router={router} />
- </Provider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
