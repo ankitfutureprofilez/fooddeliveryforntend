@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { BsCartFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +27,7 @@ const Header = () => {
   return (
     <header className="fixed w-full px-4 md:px-8 py-6 z-50 bg-white border-b">
       {/* desktop */}
+      
           <div className="container mx-auto px-4 relative z-10">            
               <div className="flex items-center h-full justify-between">
             <Link to={""}>
