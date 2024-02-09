@@ -49,9 +49,10 @@ const Newproduct = () => {
         {
           method: "POST",
           headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${yourStoredToken}`
-          },
+            "Access-Control-Allow-Origin" :"*",
+             "content-type": "application/json",
+             Authorization: `Bearer ${yourStoredToken}`
+         },
           body: JSON.stringify(data),
         }
       );

@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Listings from './../Api/Listings';
 
-export default function PrivateRoute({ props }) {
+export default function PrivateRoute(props ) {
   const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
