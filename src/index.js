@@ -20,11 +20,11 @@ import Newproduct from "./page/NewProduct";
 import Signup from "./page/Signup";
 import { store } from "./redux/index";
 import { Provider } from "react-redux";
-import Cart from "./page/Cart";
-import Success from "./page/Success";
-import Cancel from "./page/Cancel";
-import RestaurantRegistration from "./page/RestaurantRegistration";
-import AllRestaurant from "./page/AllRestaurant";
+ import Cart from "./page/Cart";
+ import Success from "./page/Success";
+ import Cancel from "./page/Cancel";
+ import RestaurantRegistration from "./page/RestaurantRegistration";
+ import AllRestaurant from "./page/AllRestaurant";
 import RestaurantInfo from "./page/RestaurantInfo";
 import Restaurantdetails from "./page/Restaurantdetails";
 import PrivateRoute from "./private/PrivateRoute";
@@ -41,24 +41,19 @@ const router = createBrowserRouter(
       <Route path="newproduct" element={<Newproduct />} />
       <Route path="signup" element={<Signup />} />
       <Route path="cart" element={<Cart />} />
-      <Route path="success" element={<Success />} />
-      <Route path="cancel" element={<Cancel />} />
-
-      <Route path="restaurant-register" element={
-        <PrivateRoute>
-          <RestaurantRegistration />
-        </PrivateRoute>
-      } />
+      <Route path="success" element={<Success/>}/>
+      <Route path="cancel" element={<Cancel/>}/>
+      <Route path="restaurant-register" element={<RestaurantRegistration/>}/>
       <Route path="restaurants" element={
-        <PrivateRoute>
-          <RestaurantInfo />
-        </PrivateRoute>
-      } />
+      <PrivateRoute>
+   <RestaurantInfo/>
+      </PrivateRoute>
+     }/>
       <Route path="restaurants/:resId" element={
-        <PrivateRoute>
-          <Restaurantdetails />
-        </PrivateRoute>
-      } />
+      <PrivateRoute>
+      <Restaurantdetails/>
+      </PrivateRoute>
+      }/>
       {/* <Route path = "/restu" */}
     </Route>
   )
