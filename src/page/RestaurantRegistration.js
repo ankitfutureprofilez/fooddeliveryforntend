@@ -99,7 +99,7 @@ export default function RestaurantRegistration() {
             Authorization: `Bearer ${yourStoredToken}`,
           },
           body: JSON.stringify(data),
-          mode: "cors",
+          mode: "no-cors",
         }
       );
       const fetchRes = await fetchData.json();

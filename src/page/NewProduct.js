@@ -45,7 +45,7 @@ const Newproduct = () => {
     if (
       name && category && image && price && description) {
       const fetchData = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/product`,
+        `${process.env.REACT_APP_BASE_URL}/product/uploadProduct`,
         {
           method: "POST",
           headers: {
