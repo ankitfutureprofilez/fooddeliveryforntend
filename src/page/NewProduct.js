@@ -57,6 +57,7 @@ const Newproduct = () => {
         }
       );
       const fetchRes = await fetchData.json();
+      console.log("fetchRes",fetchRes)
       toast(fetchRes.message);
       navigate('/')
       setData(() => {
