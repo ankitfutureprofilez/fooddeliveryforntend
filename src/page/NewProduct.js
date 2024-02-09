@@ -12,6 +12,7 @@ const Newproduct = () => {
     price: "",
     description: ""
   })
+  console.log("recird djdj" ,data)
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
@@ -26,18 +27,17 @@ const Newproduct = () => {
   }
 
   const uploadImage = async (e) => {
-    const data = await ImagetoBase64(e.target.files[0])
-    // console.log(data)
+    const data =  e.target.files[0]
+    const record =  data.name
+   console.log("data",data.name)
     setData((preve) => {
       return {
         ...preve,
-        image: data
+        image: record
       }
     })
   }
-  // console.log("data",data)
   const yourStoredToken = localStorage && localStorage.getItem("token");
-  //  console.log("yourStoredToken",yourStoredToken)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, category, image, price, description } =
@@ -45,7 +45,7 @@ const Newproduct = () => {
     if (
       name && category && image && price && description) {
       const fetchData = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/product`,
+        `${process.env.REACT_APP_BASE_URL}/product/uploadProduct`,
         {
           method: "POST",
           headers: {

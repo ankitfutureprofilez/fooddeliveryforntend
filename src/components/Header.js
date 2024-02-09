@@ -20,6 +20,7 @@ const Header = () => {
   const handleLogout = () => {
     const record = dispatch(logoutRedux());
     //  console.log("record",record)
+    localStorage && localStorage.removeItem("token")
     toast("Logout successfully");
   };
 
