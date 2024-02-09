@@ -50,10 +50,15 @@ const router = createBrowserRouter(
           <RestaurantRegistration />
       } />
       <Route path="restaurants" element={
+        <PrivateRoute>
+
           <RestaurantInfo />
+        </PrivateRoute>
       } />
       <Route path="restaurants/:resId" element={
+        <PrivateRoute>
           <Restaurantdetails />
+        </PrivateRoute>
       } />
       {/* <Route path = "/restu" */}
     </Route>
