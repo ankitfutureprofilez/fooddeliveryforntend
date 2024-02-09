@@ -177,165 +177,190 @@ export default function RestaurantRegistration() {
   //   };
 
   return (
-    <div className="p-4">
+    <div className="p-8">
       <form
-        className="m-auto w-full max-w-md  shadow flex flex-col p-3 bg-white"
+        className="m-auto w-full max-w-md  grid grid-cols-12 gap-4 p-4 bg-white"
         onSubmit={handleSubmit}
       >
-        <label htmlFor="category">Category</label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="category"
-          name="category"
-          onChange={handleOnChange}
-          value={data.category}
-        >
-          <option value={"other"}>Select Category</option>
-          <option value={"veg"}>Veg</option>
-          <option value={"nonveg"}>Non-Veg</option>
-          <option value={"both"}>Both</option>
-        </select>
 
-        <label htmlFor="name">Owner Name</label>
-        <input
-          type={"text"}
-          name="ownername"
-          className="bg-slate-200 p-1 my-1"
-          onChange={handleOnChange}
-          value={data.ownername}
-        />
-
-        <label htmlFor="image">
-          Images
-          <div className="h-40 w-full bg-slate-200  rounded flex items-center justify-center cursor-pointer">
-            {data.image ? (
-              <img src={data.image} className="h-full" />
-            ) : (
-              <span className="text-5xl">
-                <BsCloudUpload />
-              </span>
-            )}
-
+        <div className="flex flex-row ">
+          <div>
+            <label htmlFor="category">Category</label>
+            <select
+              className="bg-slate-200 p-1 my-1"
+              id="category"
+              name="category"
+              onChange={handleOnChange}
+              value={data.category}
+            >
+              <option value={"other"}>Select Category</option>
+              <option value={"veg"}>Veg</option>
+              <option value={"nonveg"}>Non-Veg</option>
+              <option value={"both"}>Both</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="name">Owner Name</label>
             <input
-              type={"file"}
-              accept="image/*"
-              id="image"
-              onChange={uploadImage}
-              className="hidden"
+              type={"text"}
+              name="ownername"
+              className="bg-slate-200 p-1 my-1"
+              onChange={handleOnChange}
+              value={data.ownername}
             />
           </div>
-        </label>
-
-        <label htmlFor="r_name" className="my-1">
-          Restaurant Name
-        </label>
-        <input
-          type={"text"}
-          className="bg-slate-200 p-1 my-1"
-          name="restaurantname"
-          onChange={handleOnChange}
-          value={data.restaurantname}
-        />
-
-        <label htmlFor="description">Description</label>
-        <textarea
-          rows={2}
-          value={data.description}
-          className="bg-slate-200 p-1 my-1 resize-none"
-          name="description"
-          onChange={handleOnChange}
-        ></textarea>
-
-        <label htmlFor="staff">Staff </label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="staff"
-          name="staff"
-          onChange={handleOnChange}
-          value={data.staff}
-        >
-          <option value={"other"}>Select Staff</option>
-          <option value={"1-10"}>1-10</option>
-          <option value={"11-20"}>11-20</option>
-          <option value={"20+"}>20+</option>
-        </select>
-
-        <label htmlFor="opening_from" className="my-1">
-          Opening From
-        </label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="opening_from"
-          name="opening_from"
-          onChange={handleOnChange}
-          value={data.opening_from}
-        >
-          <option value={"other"}>Select</option>
-          <option value={"9am"}>9 AM</option>
-          <option value={"10am"}>10 AM</option>
-          <option value={"11am"}>11 AM</option>
-          <option value={"12pm"}>12 PM</option>
-          <option value={"1pm"}>1 PM</option>
-          <option value={"2pm"}>2 PM</option>
-          <option value={"3pm"}>3 PM</option>
-          <option value={"4pm"}>4 PM</option>
-          <option value={"5pm"}>5 PM</option>
-          <option value={"6pm"}>6 PM</option>
-          <option value={"7pm"}>7 PM</option>
-          <option value={"8pm"}>8 PM</option>
-        </select>
-
-        <label htmlFor="opening_to" className="my-1">
-          Opening Till
-        </label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="opening_to"
-          name="opening_to"
-          onChange={handleOnChange}
-          value={data.opening_to}
-        >
-          <option value={"other"}>Select</option>
-          <option value={"10am"}>10 AM</option>
-          <option value={"11am"}>11 AM</option>
-          <option value={"12pm"}>12 PM</option>
-          <option value={"1pm"}>1 PM</option>
-          <option value={"2pm"}>2 PM</option>
-          <option value={"3pm"}>3 PM</option>
-          <option value={"4pm"}>4 PM</option>
-          <option value={"5pm"}>5 PM</option>
-          <option value={"6pm"}>6 PM</option>
-          <option value={"7pm"}>7 PM</option>
-          <option value={"8pm"}>8 PM</option>
-          <option value={"9pm"}>9 PM</option>
-          <option value={"10pm"}>10 PM</option>
-          <option value={"11pm"}>11 PM</option>
-          <option value={"12am"}>12 AM</option>
-          <option value={"1am"}>1 AM</option>
-          <option value={"2am"}>2 AM</option>
-          <option value={"3am"}>3 AM</option>
-          <option value={"4am"}>4 AM</option>
-        </select>
-
-        <label htmlFor="location" className="my-1">
-          Location
-        </label>
-        <div className="flex my-1">
-          <input
-            type="text"
-            className="bg-slate-200 p-1 my-1 flex-grow"
-            name="location"
-            onChange={handleOnChange}
-            value={data.location}
-          />
-          <button
-            type="button"
-            className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-2 py-1 ml-2"
-            onClick={handleGetLocation}
-          >
-            Get Location
-          </button>
         </div>
+
+        <div className="flex  flex-row" >
+          <div>
+            <label htmlFor="restaurantname" className="my-1">
+              Restaurant Name
+            </label>
+            <input
+              type={"text"}
+              className="bg-slate-200 p-1 my-1"
+              name="restaurantname"
+              onChange={handleOnChange}
+              value={data.restaurantname}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="description">Description</label>
+            <textarea
+              rows={2}
+              value={data.description}
+              className="bg-slate-200 p-1 my-1 resize-none"
+              name="description"
+              onChange={handleOnChange}
+            ></textarea>
+          </div>
+        </div>
+
+        <div className="flex flex-row">
+          <div>
+            <label htmlFor="staff">Staff </label>
+            <select
+              className="bg-slate-200 p-1 my-1"
+              id="staff"
+              name="staff"
+              onChange={handleOnChange}
+              value={data.staff}
+            >
+              <option value={"other"}>Select Staff</option>
+              <option value={"1-10"}>1-10</option>
+              <option value={"11-20"}>11-20</option>
+              <option value={"20+"}>20+</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="image">
+              Images
+              <div className="h-40 w-full bg-slate-200  rounded flex items-center justify-center cursor-pointer">
+                {data.image ? (
+                  <img src={data.image} className="h-full" />
+                ) : (
+                  <span className="text-5xl">
+                    <BsCloudUpload />
+                  </span>
+                )}
+
+                <input
+                  type={"file"}
+                  accept="image/*"
+                  id="image"
+                  onChange={uploadImage}
+                  className="hidden"
+                />
+              </div>
+            </label>
+          </div>
+        </div>
+        <div className="flex flex-row">
+          <div>
+            <label htmlFor="opening_from" className="my-1">
+              Opening From
+            </label>
+            <select
+              className="bg-slate-200 p-1 my-1"
+              id="opening_from"
+              name="opening_from"
+              onChange={handleOnChange}
+              value={data.opening_from}
+            >
+              <option value={"other"}>Select</option>
+              <option value={"9am"}>9 AM</option>
+              <option value={"10am"}>10 AM</option>
+              <option value={"11am"}>11 AM</option>
+              <option value={"12pm"}>12 PM</option>
+              <option value={"1pm"}>1 PM</option>
+              <option value={"2pm"}>2 PM</option>
+              <option value={"3pm"}>3 PM</option>
+              <option value={"4pm"}>4 PM</option>
+              <option value={"5pm"}>5 PM</option>
+              <option value={"6pm"}>6 PM</option>
+              <option value={"7pm"}>7 PM</option>
+              <option value={"8pm"}>8 PM</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="opening_to" className="my-1">
+              Opening Till
+            </label>
+
+            <select
+              className="bg-slate-200 p-1 my-1"
+              id="opening_to"
+              name="opening_to"
+              onChange={handleOnChange}
+              value={data.opening_to}
+            >
+              <option value={"other"}>Select</option>
+              <option value={"10am"}>10 AM</option>
+              <option value={"11am"}>11 AM</option>
+              <option value={"12pm"}>12 PM</option>
+              <option value={"1pm"}>1 PM</option>
+              <option value={"2pm"}>2 PM</option>
+              <option value={"3pm"}>3 PM</option>
+              <option value={"4pm"}>4 PM</option>
+              <option value={"5pm"}>5 PM</option>
+              <option value={"6pm"}>6 PM</option>
+              <option value={"7pm"}>7 PM</option>
+              <option value={"8pm"}>8 PM</option>
+              <option value={"9pm"}>9 PM</option>
+              <option value={"10pm"}>10 PM</option>
+              <option value={"11pm"}>11 PM</option>
+              <option value={"12am"}>12 AM</option>
+              <option value={"1am"}>1 AM</option>
+              <option value={"2am"}>2 AM</option>
+              <option value={"3am"}>3 AM</option>
+              <option value={"4am"}>4 AM</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="flex flex-row">
+          <label htmlFor="location" className="my-1">
+            Location
+          </label>
+          <div className="flex my-1">
+            <input
+              type="text"
+              className="bg-slate-200 p-1 my-1 flex-grow"
+              name="location"
+              onChange={handleOnChange}
+              value={data.location}
+            />
+            <button
+              type="button"
+              className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-2 py-1 ml-2"
+              onClick={handleGetLocation}
+            >
+              Get Location
+            </button>
+          </div>
+        </div>
+
 
         <button className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium my-2 drop-shadow">
           Submit
