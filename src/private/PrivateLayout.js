@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Listings from './../Api/Listings';
 import { useDispatch } from 'react-redux';
 import { loginRedux } from "../redux/userSlice";
