@@ -11,9 +11,9 @@ export default function RestaurantRegistration() {
 
   const [data, setData] = useState({
     category: "",
-    O_name: "",
+    ownername: "",
     image: "",
-    r_name: "",
+    restaurantname: "",
     description: "",
     staff: "",
     opening_from: "",
@@ -66,8 +66,8 @@ export default function RestaurantRegistration() {
       }
     }
     const {
-      O_name,
-      r_name,
+      restaurantname,
+      ownername,
       category,
       image,
       description,
@@ -79,8 +79,8 @@ export default function RestaurantRegistration() {
     } = data;
     console.log("Data", data);
     if (
-      O_name &&
-      r_name &&
+      restaurantname &&
+      ownername &&
       category &&
       image &&
       description &&
@@ -109,9 +109,9 @@ export default function RestaurantRegistration() {
       setData(() => {
         return {
           category: "",
-          O_name: "",
+          restaurantname: "",
           image: "",
-          r_name: "",
+          ownername: "",
           description: "",
           staff: "",
           opening_from: "",
@@ -199,10 +199,10 @@ export default function RestaurantRegistration() {
         <label htmlFor="name">Owner Name</label>
         <input
           type={"text"}
-          name="O_name"
+          name="ownername"
           className="bg-slate-200 p-1 my-1"
           onChange={handleOnChange}
-          value={data.O_name}
+          value={data.ownername}
         />
 
         <label htmlFor="image">
@@ -232,9 +232,9 @@ export default function RestaurantRegistration() {
         <input
           type={"text"}
           className="bg-slate-200 p-1 my-1"
-          name="r_name"
+          name="restaurantname"
           onChange={handleOnChange}
-          value={data.r_name}
+          value={data.restaurantname}
         />
 
         <label htmlFor="description">Description</label>

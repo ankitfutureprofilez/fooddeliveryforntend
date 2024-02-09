@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 
 export default function RestaurantInfo() {
-  
+
   const [record, setRecord] = useState([])
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +32,7 @@ export default function RestaurantInfo() {
             <img alt="image" src={item.image} className="rounded-xl w-full h-44 object-cover" />
           </div>
           <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
-            {item.O_name}
+            {item.restaurantname} 
           </h3>
           <p className="text-gray-500 mb-1.5">{item.category}</p>
           <div className="flex justify-between mt-3">
@@ -41,6 +41,7 @@ export default function RestaurantInfo() {
                 <span>{item.description}</span>
                 <span>{item.location}</span>
                 <span>{item.staff}</span>
+                <span>{item.ownername}</span>
               </p>
               <p className="text-green-500">Free Delivery</p>
             </div>
