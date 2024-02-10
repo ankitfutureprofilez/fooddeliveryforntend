@@ -5,10 +5,11 @@ import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Listings from "../Api/Listings";
 
 export default function RestaurantRegistration() {
   const navigate = useNavigate();
-
+const[Loading,setLoading] = useState(true)
   const [data, setData] = useState({
     category: "",
     ownername: "",
@@ -41,10 +42,8 @@ export default function RestaurantRegistration() {
       };
     });
   };
-  const yourStoredToken = localStorage && localStorage.getItem("token");
-  //console.log("yourStoredToken",yourStoredToken)
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!data.coordinates || data.coordinates.length === 0) {
       try {
@@ -65,65 +64,37 @@ export default function RestaurantRegistration() {
         return; // Stop execution if there's an error
       }
     }
-    const {
-      restaurantname,
-      ownername,
-      category,
-      image,
-      description,
-      location,
-      staff,
-      opening_from,
-      opening_to,
-      coordinates,
-    } = data;
-    console.log("Data", data);
-    if (
-      restaurantname &&
-      ownername &&
-      category &&
-      image &&
-      description &&
-      location &&
-      staff &&
-      opening_from &&
-      opening_to &&
-      coordinates
-    ) {
-      const fetchData = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/restaurant/add`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${yourStoredToken}`,
-          },
-          body: JSON.stringify(data),
-          mode: "no-cors",
+    const main = new Listings();
+    try {
+        const response = await main.resturantadd(data);
+        console.log("rrr",response)
+        if (response?.data.status === true) {
+            toast.success(response.data.message);
+            setData(() => {
+              return {
+                category: "",
+                restaurantname: "",
+                image: "",
+                ownername: "",
+                description: "",
+                staff: "",
+                opening_from: "",
+                opening_to: "",
+                location: "",
+                coordinates: "",
+              };
+            });
+                    navigate("/")
+        } else {
+            toast.error(" Enter the filed ");
         }
-      );
-      const fetchRes = await fetchData.json();
-      console.log("fetchRes",fetchRes)
-      toast(fetchRes.message);
-      navigate("/");
-      setData(() => {
-        return {
-          category: "",
-          restaurantname: "",
-          image: "",
-          ownername: "",
-          description: "",
-          staff: "",
-          opening_from: "",
-          opening_to: "",
-          location: "",
-          coordinates: "",
-        };
-      });
-    } else {
-      toast("Enter required Fields");
+        setLoading(false);
+    } catch (error) {
+        console.log("error", error);
+        toast.error("invalid Email/password");
+        setLoading(false);
     }
-  };
+}
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {

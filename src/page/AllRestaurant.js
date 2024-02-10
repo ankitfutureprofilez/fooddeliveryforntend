@@ -1,17 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import resImg from '../assest/Socorrco.jpg';
+import Listings from '../Api/Listings';
 export default function AllRestaurant() {
   const [restaurants, setRestaurants] = useState([]);
+const[Loading,setLoading] =useState(true)
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8000/restaurant/get")
+  //     .then((response) => {
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/restaurant/get")
-      .then((response) => {
+
+  
+  const fetchData = async () => {
+    try {
+        const main = new Listings();
+        const response = await main.resturantget();
         setRestaurants(response.data.list);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+        setLoading(false);
+    } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
+    fetchData();
+  }, []); 
+
+  
 
   return (
     <div className='p-2 text-center'>

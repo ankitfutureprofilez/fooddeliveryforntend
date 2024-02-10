@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import { BsCloudUpload } from "react-icons/bs";
 import { ImagetoBase64 } from '../utility/ImagetoBase64'
 import { useNavigate } from 'react-router-dom';
+import Listings from "../Api/Listings";
 const Newproduct = () => {
   const navigate = useNavigate()
   const [data, setData] = useState({
@@ -32,57 +33,44 @@ const Newproduct = () => {
     if (file) {
       setData((prev) => ({
         ...prev,
-        image: file.name 
+        image: file 
       }));
     } else {
       console.error("No file selected");
     }
   };
+  const[loading ,setLoading] =useState(true);
   
-  
-  const yourStoredToken = localStorage && localStorage.getItem("token");
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { name, category, image, price, description } =
-      data;
-    if (
-      name && category && image && price && description) {
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("category", category);
-        formData.append("image", image); 
-        formData.append("price", price);
-        formData.append("description", description);
-      const fetchData = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/product/uploadProduct`,
-        {
-          method: "POST",
-          headers: {
-            "Access-Control-Allow-Origin" :"*",
-             "content-type": "application/json",
-             Authorization: `Bearer ${yourStoredToken}`
-         },
-          body: JSON.stringify(data),
-        }
-      );
-      const fetchRes = await fetchData.json();
-      console.log("fetchRes",fetchRes)
-      toast(fetchRes.message);
-      navigate('/')
-      setData(() => {
-        return {
-          name: "",
-          category: "",
-          image: null,
-          price: "",
-          description: ""
-        };
-      });
+  console.log("data",data)
 
-    } else {
-      toast("Enter required Fields");
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const main = new Listings();
+    try {
+        const response = await main.Prodctadd(data);
+        console.log('ree',response)
+        if (response) {
+            toast.success(response.data.message);
+            setData(() => {
+                    return {
+                      name: "",
+                      category: "",
+                      image: "",
+                      price: "",
+                      description: ""
+                    };
+                  })
+                    navigate("/");
+        } else {
+          toast("Enter required Fields");
+        }
+        setLoading(false);
+    } catch (error) {
+        console.log("error", error);
+        toast.error(error);
+        setLoading(false);
     }
-  };
+}
   return (
     <div className="p-4">
       <form 
