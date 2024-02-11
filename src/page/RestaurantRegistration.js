@@ -33,15 +33,15 @@ export default function RestaurantRegistration() {
     });
   };
   const uploadImage = async (e) => {
-    const data = await ImagetoBase64(e.target.files[0]);
-    // console.log(data)
-    setData((preve) => {
-      return {
-        ...preve,
+    console.log("Event object:", e); // Log the entire event object
+    const data = e.target.files[0];
+    console.log("image", data);
+    setData((prev) => ({
+        ...prev,
         image: data,
-      };
-    });
-  };
+    }));
+};
+  console.log("data",data)
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -131,21 +131,7 @@ export default function RestaurantRegistration() {
       );
     });
   };
-  //  const handleGetLocation = () => {
-  //     if (navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition(
-  //         (position) => {
-  //           setData((prev) => {
-  //             return {
-  //               ...prev,
-  //               location: `${position.coords.latitude}, ${position.coords.longitude}`,
-  //             };
-  //           });
-  //         }
-  //       );
-  //     }
-  //   };
-
+ 
   return (
     <div className="flex justify-center items-center mt-4">
       <div className="w-full max-w-lg">
@@ -211,13 +197,12 @@ export default function RestaurantRegistration() {
           </div>
           {/* Third row */}
           <div className="flex flex-wrap-mx-3  mb-2">
-            <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+          <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
+    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*" onChange={uploadImage} />
+    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm you are logged into your account</div>
+</div>
 
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
-              <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*"
-                onChange={uploadImage} />
-              <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm your are logged into your account</div>
-            </div>
 
             <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
