@@ -58,6 +58,7 @@ const AllProduct = ({ heading }) => {
                   name={el.name}
                   category={el.category}
                   price={el.price}
+                  description ={el.description}
                 />
               );
             })

@@ -34,7 +34,7 @@ class Listings extends Component {
   }
 
   async userproductget(userId){
-    return Api.get(`/my-products/${userId}`)
+    return Api.get(`/product/my-products/${userId}`)
   }
   async privaterouter() {
     return Api.get("/user");

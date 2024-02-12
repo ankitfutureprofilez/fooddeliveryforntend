@@ -10,7 +10,8 @@ import SearchBar from "./SearchBar";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
-  // console.log("userDataheader",userData)
+
+console.log("userDataheader",userData)
   const dispatch = useDispatch();
 
   const handleShowMenu = () => {
@@ -18,12 +19,10 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    const record = dispatch(logoutRedux());
-    //  console.log("record",record)
+ dispatch(logoutRedux());
     localStorage && localStorage.removeItem("token")
     toast("Logout successfully");
   };
-
   const cartItemNumber = useSelector((state) => state.product.cartItem)
   return (
     <header className="fixed w-full px-4 md:px-8 py-6 z-50 bg-white border-b">

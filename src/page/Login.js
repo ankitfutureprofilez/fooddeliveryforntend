@@ -34,35 +34,34 @@ const Login = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     if (Loading) {
-        return false;
+      return false;
     }
     setLoading(true);
     const main = new Listings();
     try {
-        const response = await main.Login(data);
-        console.log("response",response)
-        if (response) {
-    const rcord =      localStorage && localStorage.setItem("token",response?.data.token)
-    console.log("rcord",rcord)
-            toast.success(response.data.message);
-            navigate('/')
-            setData({
-                      email: "",
-                      password: "",
-                    });
-                    
-        } else {
-            toast.error(" Enter the filed ");
-        }
-        setLoading(false);
+      const response = await main.Login(data);
+      console.log("response", response)
+      if (response.data.status) {
+        dispatch(loginRedux(response.data?.user || null));
+        localStorage && localStorage.setItem("token", response?.data.token)
+        toast.success(response.data.message);
+        navigate('/')
+        setData({
+          email: "",
+          password: "",
+        });
+      } else {
+        toast.error(response.data.message);
+      }
+      setLoading(false);
     } catch (error) {
-        console.log("error", error);
-        toast.error("invalid Email/password");
-        setLoading(false);
+      console.log("error", error);
+      toast.error("invalid Email/password");
+      setLoading(false);
     }
-}
-  
-  
+  }
+
+
 
   return (
     <div className="p-3 md:p-6">
@@ -106,7 +105,7 @@ const Login = () => {
           </button>
         </form>
         <p className="text-left text-sm mt-2">
-           Don't have account ?{" "}
+          Don't have account ?{" "}
           <Link to={"/signup"} className="text-red-500 underline">
             Sign Up
           </Link>

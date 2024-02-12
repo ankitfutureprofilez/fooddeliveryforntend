@@ -5,7 +5,6 @@ import { loginRedux } from "../redux/userSlice";
 
 export default function PrivateLayout(props ) {
   const dispatch = useDispatch();
-
   useEffect(() => {
     const checkAuthentication = async () => {
         const token = localStorage.getItem('token');
@@ -15,7 +14,6 @@ export default function PrivateLayout(props ) {
         response.then((resp)=>{
         const record =   dispatch(loginRedux(resp.data?.user || null));
         console.log("record",record);
-        
         }).catch((err)=>{
           console.log("err", err)
         });

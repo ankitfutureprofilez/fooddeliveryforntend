@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { BsCloudUpload } from "react-icons/bs";
-import { ImagetoBase64 } from '../utility/ImagetoBase64'
 import { useNavigate } from 'react-router-dom';
 import Listings from "../Api/Listings";
 const Newproduct = () => {

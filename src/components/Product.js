@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addCartItem,increaseQty } from "../redux/productSlide";
 
-const CardFeature = ({ image, name, price, category, loading, id }) => {
+const CardFeature = ({ image, name, price, category, loading, id ,description}) => {
   const dispatch = useDispatch()
 
   const handleAddCartProduct = (e) => {
@@ -43,14 +43,10 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
             </h3>
             <p className="text-gray-500 mb-1.5">{category}</p>
           </Link>
-
-
- 
-
           <div className=" flex justify-between mt-3 " >
             <div>
               <p className="text-orange-500 text-sm font-bold align-middle">
-                <span className=""> </span>
+              <span className="flex"> {description}</span>
                 <span>{formatMultiPrice(price)}</span>
               </p>
               <p className="text-green-500 " >Free Delivery</p>

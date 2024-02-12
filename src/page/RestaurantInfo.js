@@ -47,9 +47,7 @@ export default function RestaurantInfo() {
                       <span> {item.location}</span>
                       <span> {item.staff}</span>
                       <span> {item.ownername}</span>
-
-                      <span> {item.
-                        opening_from} - {item.opening_to}</span>
+                      <span> {item.opening_from} - {item.opening_to}</span>
                     </p>
                     <p className="text-green-500">Free Delivery</p>
                   </div>
