@@ -19,6 +19,7 @@ export default function Restaurantdetails() {
       setLoading(false);
     }
   };
+  
   useEffect(() => {
     fetchData();
   }, []);
