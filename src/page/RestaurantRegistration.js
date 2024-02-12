@@ -33,47 +33,64 @@ export default function RestaurantRegistration() {
       };
     });
   };
-  const uploadImage = async (e) => {
-    console.log("Event object:", e); // Log the entire event object
-    const data = e.target.files[0];
-    console.log("image", data);
-    setData((prev) => ({
+  const uploadImage = (e) => {
+    const file = e.target.files[0];
+    console.log("file", file)
+    if (file) {
+      setData((prev) => ({
         ...prev,
-        image: data,
-    }));
-};
-  //console.log("data",data)
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (isSubmitting) return; // Prevent multiple submissions
-    setIsSubmitting(true);
-    if (!data.coordinates || data.coordinates.length === 0) {
-      try {
-        // Fetch longitude and latitude from the API
-        const apiUrl = "https://ipapi.co/json/";
-        const response = await fetch(apiUrl);
-        const jsonData = await response.json();
-        const { latitude, longitude } = jsonData;
-
-        // Update the coordinates in the data object
-        setData((prevData) => ({
-          ...prevData,
-          coordinates: `${latitude}, ${longitude}`,
-        }));
-      } catch (error) {
-        console.error("Error getting coordinates:", error);
-        setIsSubmitting(false);
-        toast.error("Error getting coordinates");
-        return; // Stop execution if there's an error
-      }
+        image: file
+      }));
+    } else {
+      console.error("No file selected");
     }
-    const main = new Listings();
+  };
+
+  console.log("data", data)
+
+async function coordinatesdata (){
+  if (!data.coordinates || data.coordinates.length === 0) {
     try {
-      const response = await main.resturantadd(data);
-      console.log("rrr", response)
-      if (response?.data.status === true) {
-        toast.success(response.data.message);
+      const apiUrl = "https://ipapi.co/json/";
+      const response = await fetch(apiUrl);
+      const jsonData = await response.json();
+      const { latitude, longitude } = jsonData;
+      setData((prevData) => ({
+        ...prevData,
+        coordinates: `${latitude}, ${longitude}`,
+      }));
+    } catch (error) {
+      console.error("Error getting coordinates:", error);
+      setIsSubmitting(false);
+      toast.error("Error getting coordinates");
+      return; 
+    }
+  }
+}
+
+
+   function handleSubmit(e) {
+    e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    const formData = new FormData();
+    formData.append("ownername", data.ownername);
+    formData.append("restaurantname", data.restaurantname);
+    formData.append("category", data.category);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("image", data.image);
+    formData.append("staff", data.staff);
+    formData.append("opening_from", data.opening_from);
+    formData.append("opening_to", data.opening_to);
+    formData.append("location", data.location);
+    coordinatesdata();
+    const main = new Listings();
+    const response =  main.resturantadd(formData);
+    response.then((res) => {
+      console.log("rrr", res)
+      if (res?.data.status === true) {
+        toast.success(res.data.message);
         setData(() => {
           return {
             category: "",
@@ -93,12 +110,13 @@ export default function RestaurantRegistration() {
         toast.error(" Enter the filed ");
       }
       setLoading(false);
-    } catch (error) {
+    }).catch((error) => {
       console.log("error", error);
       toast.error("invalid Email/password");
       setLoading(false);
-    }
+    })
   }
+
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
@@ -135,7 +153,7 @@ export default function RestaurantRegistration() {
       );
     });
   };
- 
+
   return (
     <div className="flex justify-center items-center mt-4">
       <div className="w-full max-w-lg">
@@ -201,11 +219,11 @@ export default function RestaurantRegistration() {
           </div>
           {/* Third row */}
           <div className="flex flex-wrap-mx-3  mb-2">
-          <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
-    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*" onChange={uploadImage} />
-    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm you are logged into your account</div>
-</div>
+            <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
+              <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*" onChange={uploadImage} />
+              <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm you are logged into your account</div>
+            </div>
 
 
             <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">

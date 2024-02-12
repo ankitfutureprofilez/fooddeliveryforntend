@@ -23,11 +23,18 @@ export default function UserProduct({ userId }) {
     <>
       <div></div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="w-14 h-14 relative flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-12 h-12 border-4 border-solid border-blue-600 border-opacity-25 rounded-full animate-spin"></div>
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-12 h-12 border-4 border-solid border-blue-600 rounded-full animate-spin"></div>
+          </div>
+        </div>
       ) : (
         <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
           <h1 className="text-3xl font-bold mb-6">Product List</h1>
-          <div className="flex flex-wrap justify-between mx-4"> 
+          <div className="flex flex-wrap justify-between mx-4">
             {record && record.map((item, index) => (
               <div className="w-full md:w-1/3 bg-white product_box py-3 px-3 cursor-pointer m-1 flex flex-col rounded-xl" key={index}>
                 <div className="flex flex-col justify-center items-center">

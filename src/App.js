@@ -40,7 +40,8 @@ const fetchData =  () => {
       const main = new Listings();
       const response =  main.productlist();
       response.then((res)=>{
- dispatch(setDataProduct(res?.data));
+        console.log("res?.data",res?.data)
+      dispatch(setDataProduct(res?.data));
         setLoading(false);
       }).catch((error)=>{
         console.log("error", error);

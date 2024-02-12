@@ -43,14 +43,20 @@ const Newproduct = () => {
 
   console.log("data", data)
 
-  
+
   async function handleSubmit(e) {
     e.preventDefault();
-    if (isSubmitting) return; // Prevent multiple submissions
+    if (isSubmitting) return;
     setIsSubmitting(true);
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("category", data.category);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("image", data.image);
     const main = new Listings();
     try {
-      const response = await main.Prodctadd(data);
+      const response = await main.Prodctadd(formData);
       console.log('ree', response)
       if (response) {
         toast.success(response.data.message);
