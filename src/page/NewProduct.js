@@ -4,7 +4,7 @@ import { BsCloudUpload } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 import Listings from "../Api/Listings";
 const Newproduct = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  //const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate()
   const [data, setData] = useState({
     name: "",
@@ -39,15 +39,15 @@ const Newproduct = () => {
       console.error("No file selected");
     }
   };
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   console.log("data", data)
 
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (isSubmitting) return;
-    setIsSubmitting(true);
+    if (loading==true) return;
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("category", data.category);
@@ -71,7 +71,7 @@ const Newproduct = () => {
         })
         navigate("/");
       } else {
-        setIsSubmitting(false);
+        setLoading(false);
         toast("Enter required Fields");
       }
       setLoading(false);
@@ -160,7 +160,7 @@ const Newproduct = () => {
           ></textarea>
 
           <button className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium my-2 drop-shadow">
-            Save
+          <span>{loading ? "Saving..." : "Save"}</span>
           </button>
         </form>
 
