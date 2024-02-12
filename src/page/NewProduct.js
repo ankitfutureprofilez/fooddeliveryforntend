@@ -5,6 +5,7 @@ import { ImagetoBase64 } from '../utility/ImagetoBase64'
 import { useNavigate } from 'react-router-dom';
 import Listings from "../Api/Listings";
 const Newproduct = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate()
   const [data, setData] = useState({
     name: "",
@@ -13,7 +14,7 @@ const Newproduct = () => {
     price: "",
     description: ""
   })
-  console.log("recird djdj", data)
+  //console.log("recird djdj", data)
 
   const handleOnChange = (e) => {
     const { name, value } = e.target
@@ -41,10 +42,12 @@ const Newproduct = () => {
   };
   const [loading, setLoading] = useState(true);
 
-  console.log("data", data)
+  //console.log("data", data)
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (isSubmitting) return; // Prevent multiple submissions
+    setIsSubmitting(true);
     const main = new Listings();
     try {
       const response = await main.Prodctadd(data);
@@ -62,6 +65,7 @@ const Newproduct = () => {
         })
         navigate("/");
       } else {
+        setIsSubmitting(false);
         toast("Enter required Fields");
       }
       setLoading(false);
@@ -97,14 +101,14 @@ const Newproduct = () => {
             <option value={"other"}>select category</option>
             <option value={"fruits"}>Fruits</option>
             <option value={"vegetable"}>Vegetable</option>
-            <option value={"icream"}>Icream</option>
+            <option value={"icecream"}>Icecream</option>
             <option value={"dosa"}>Dosa</option>
             <option value={"pizza"}>Pizza</option>
-            <option value={"rice"}>rice</option>
+            <option value={"rice"}>Rice</option>
             <option value={"cake"}>Cake</option>
             <option value={"Sweet"}>Sweet</option>
             <option value={"burger"}>Burger</option>
-            <option value={"panner"}>Panner</option>
+            <option value={"paneer"}>Paneer</option>
             <option value={"sandwich"}>Sandwich</option>
           </select>
 

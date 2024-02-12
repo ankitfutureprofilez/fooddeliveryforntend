@@ -9,6 +9,7 @@ import Listings from "../Api/Listings";
 
 export default function RestaurantRegistration() {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [Loading, setLoading] = useState(true)
   const [data, setData] = useState({
     category: "",
@@ -41,10 +42,12 @@ export default function RestaurantRegistration() {
         image: data,
     }));
 };
-  console.log("data",data)
+  //console.log("data",data)
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (isSubmitting) return; // Prevent multiple submissions
+    setIsSubmitting(true);
     if (!data.coordinates || data.coordinates.length === 0) {
       try {
         // Fetch longitude and latitude from the API
@@ -60,6 +63,7 @@ export default function RestaurantRegistration() {
         }));
       } catch (error) {
         console.error("Error getting coordinates:", error);
+        setIsSubmitting(false);
         toast.error("Error getting coordinates");
         return; // Stop execution if there's an error
       }

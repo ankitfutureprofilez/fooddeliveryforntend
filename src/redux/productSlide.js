@@ -13,7 +13,7 @@ export const productSlice = createSlice({
   reducers: {
     setDataProduct: (state, action) => {
         console.log(action)
-      state.productList = [...action.payload];
+      state.productList = [...action.payload.data];
     },
     addCartItem: (state, action) => {
       const check = state.cartItem.some((el) => el._id === action.payload._id);
