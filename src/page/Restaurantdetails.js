@@ -25,31 +25,26 @@ export default function Restaurantdetails() {
     fetchData();
   }, []);
 
-  console.log("record",record)
+  console.log("record", record)
   return (
     <>
-      <div class="flex flex-row ">
-        <div> 
-          <img src={record.image} alt={record.index}/>
+      <div className='bg-white p-2 md:p-4 pt-6 md:pt-10'>
+        <div class="flex flex-row ">
+          <div className='w-full md:w-6/12 '>
+            <img src={record.image} alt={record.index} />
+          </div>
+          <div className='w-full md:w-6/12 '>
+            <div class="flex flex-nowrap">
+              <div>
+                <h1>{record.restaurantname}</h1>
+                <p>{record.category}</p>
+                <p>{record.description}</p>
+                <p>{record.location}</p>
+                <p>Timing :- {record.opening_to} {record.opening_from} </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-        <div class="flex flex-nowrap">
-  <div>
-    <h1>{record.restaurantname}</h1>
-    <p>{record.category
-}</p>
-<p>{record.description}</p>
-<p>{record.location}</p>
-<p>Timing :- {record.
-  opening_to
-  } {record.
-opening_from} </p>
-  </div>
-  
-</div>
-
-        </div>
-       
       </div>
     </>
   )
