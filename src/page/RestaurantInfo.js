@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { LuMapPin } from "react-icons/lu";
 import Listings from "../Api/Listings";
 import RestaurantImg from "../assest/Socorrco.jpg";
+import LoadingPage from "./LoadingPage";
 
 export default function RestaurantInfo() {
 
@@ -24,6 +25,7 @@ export default function RestaurantInfo() {
   useEffect(() => {
     fetchData();
   }, []); console.log("ddd",record)
+
   return (
     <>
       <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
@@ -42,22 +44,24 @@ export default function RestaurantInfo() {
                 <div className="flex justify-between mt-1">
                   <div>
                       <span>{item.description}</span>
-                    <p className="text-gray-400 text-sm align-middle mb-1 relative pl-4">
+                      <p className="text-gray-400 text-sm align-middle mb-1 relative pl-4">
                         <LuMapPin className="inline text-gray-400 absolute -left-1 top-1" size={16} /> 
-                      <span> {item.location}</span>
-                      <span> {item.staff}</span>
-                      <span> {item.ownername}</span>
-                      <span> {item.opening_from} - {item.opening_to}</span>
-                    </p>
-                    <p className="text-green-500">Free Delivery</p>
+                        <span> {item.location}</span>
+                        <span> {item.staff}</span>
+                        <span> {item.ownername}</span>
+                        <span> {item.opening_from} - {item.opening_to}</span>
+                      </p>
+                      <p className="text-green-500">Free Delivery</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
-  )
-}
-
+  );  
+        }
+        
+        
