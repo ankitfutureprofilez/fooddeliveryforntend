@@ -16,8 +16,6 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user);
-  // console.log("uswerData", userData);
   const dispatch = useDispatch();
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
@@ -40,7 +38,6 @@ const Login = () => {
     const main = new Listings();
     try {
       const response = await main.Login(data);
-      console.log("response", response)
       if (response.data.status) {
         dispatch(loginRedux(response.data?.user || null));
         localStorage && localStorage.setItem("token", response?.data.token)

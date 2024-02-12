@@ -39,12 +39,9 @@ const[Loading,setLoading] =useState(true)
 const fetchData =  () => {
       const main = new Listings();
       const response =  main.productlist();
-      console.log("res",response
-      )
       response.then((res)=>{
-        const trecord =  dispatch(setDataProduct(res?.data));
+ dispatch(setDataProduct(res?.data));
         setLoading(false);
-
       }).catch((error)=>{
         console.log("error", error);
         setLoading(false);

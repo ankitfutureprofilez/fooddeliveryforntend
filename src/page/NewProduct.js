@@ -41,7 +41,7 @@ const Newproduct = () => {
   };
   const [loading, setLoading] = useState(true);
 
-  //console.log("data", data)
+  console.log("data", data)
 
   async function handleSubmit(e) {
     e.preventDefault();
