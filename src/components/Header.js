@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { BsCartFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import SearchBar from "./SearchBar";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logoutRedux());
     localStorage && localStorage.removeItem("token")
+    navigate("/")
     toast("Logout successfully");
   };
   const cartItemNumber = useSelector((state) => state.product.cartItem)
