@@ -1,7 +1,4 @@
-//import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from "react";
-import { BsCloudUpload } from "react-icons/bs";
-import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -48,28 +45,26 @@ export default function RestaurantRegistration() {
 
   console.log("data", data)
 
-async function coordinatesdata (){
-  if (!data.coordinates || data.coordinates.length === 0) {
-    try {
-      const apiUrl = "https://ipapi.co/json/";
-      const response = await fetch(apiUrl);
-      const jsonData = await response.json();
-      const { latitude, longitude } = jsonData;
-      setData((prevData) => ({
-        ...prevData,
-        coordinates: `${latitude}, ${longitude}`,
-      }));
-    } catch (error) {
-      console.error("Error getting coordinates:", error);
-      setIsSubmitting(false);
-      toast.error("Error getting coordinates");
-      return; 
+  async function coordinatesdata() {
+    if (!data.coordinates || data.coordinates.length === 0) {
+      try {
+        const apiUrl = "https://ipapi.co/json/";
+        const response = await fetch(apiUrl);
+        const jsonData = await response.json();
+        const { latitude, longitude } = jsonData;
+        setData((prevData) => ({
+          ...prevData,
+          coordinates: `${latitude}, ${longitude}`,
+        }));
+      } catch (error) {
+        console.error("Error getting coordinates:", error);
+        setIsSubmitting(false);
+        toast.error("Error getting coordinates");
+        return;
+      }
     }
   }
-}
-
-
-   function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -86,7 +81,7 @@ async function coordinatesdata (){
     formData.append("location", data.location);
     coordinatesdata();
     const main = new Listings();
-    const response =  main.resturantadd(formData);
+    const response = main.resturantadd(formData);
     response.then((res) => {
       console.log("rrr", res)
       if (res?.data.status === true) {
@@ -127,11 +122,7 @@ async function coordinatesdata (){
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
-        //console.log(response);
-
-        // Extract relevant data from the response if needed
         const locationString = response.data.display_name;
-
         setData((prev) => {
           return {
             ...prev,
@@ -155,26 +146,57 @@ async function coordinatesdata (){
   };
 
   return (
-    <div className="flex justify-center items-center mt-4">
-      <div className="w-full max-w-lg">
+    <div className="flex  mt-7">
+      <div className="w-full">
         <form
-          className="w-full "
+          className="w-full"
           onSubmit={handleSubmit}
         >
           {/* First row */}
-          <div class="flex flex-wrap -mx-3 mb-2">
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <div class="flex flex-wrap mt-7">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                Staff
+                Owner Name
               </label>
               <div class="relative">
 
+                <input required
+                  type={"text"}
+                  name="ownername"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={handleOnChange}
+                  value={data.ownername}
+                />
+              </div>
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Restaurant Name
+              </label>
+              <div class="relative">
+                <input required
+                  type={"text"}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  name="restaurantname"
+                  onChange={handleOnChange}
+                  value={data.restaurantname}
+                />
+              </div>
+            </div>
+          </div>
+          {/* Second row */}
+          <div class="flex flex-wrap mt-7">
+            <div class="w-full md:w-1/4  px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                category
+              </label>
+              <div class="relative">
                 <select
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-state category"
                   name="category"
                   onChange={handleOnChange}
-                  value={data.category}
+                  value={data.category} 
                 >
                   <option value={"other"}>Select Category</option>
                   <option value={"veg"}>Veg</option>
@@ -187,69 +209,11 @@ async function coordinatesdata (){
                 </div>
               </div>
             </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                Owner Name
-              </label>
-              <div class="relative">
-
-                <input
-                  type={"text"}
-                  name="ownername"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  onChange={handleOnChange}
-                  value={data.ownername}
-                />
-              </div>
-            </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                Restaurant Name
-              </label>
-              <div class="relative">
-                <input
-                  type={"text"}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  name="restaurantname"
-                  onChange={handleOnChange}
-                  value={data.restaurantname}
-                />
-              </div>
-            </div>
-          </div>
-          {/* Third row */}
-          <div className="flex flex-wrap-mx-3  mb-2">
-            <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
-              <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*" onChange={uploadImage} />
-              <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm you are logged into your account</div>
-            </div>
-
-
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                Description
-              </label>
-              <div class="relative">
-                <textarea
-                  rows={2}
-                  value={data.description}
-                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                  name="description"
-                  onChange={handleOnChange}
-                ></textarea>
-
-              </div>
-            </div>
-
-          </div>
-          <div class="flex flex-wrap -mx-3 mb-2">
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Staff
               </label>
               <div class="relative">
-
                 <select
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="  grid-state"
@@ -268,18 +232,17 @@ async function coordinatesdata (){
                 </div>
               </div>
             </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Opening Till
               </label>
               <div class="relative">
-
-                <select
+                <select 
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="opening_to  grid-state"
                   name="opening_to"
                   onChange={handleOnChange}
-                  value={data.opening_to}
+                  value={data.opening_to} 
                 >
                   <option value={"other"}>Select</option>
                   <option value={"10am"}>10 AM</option>
@@ -302,18 +265,16 @@ async function coordinatesdata (){
                   <option value={"3am"}>3 AM</option>
                   <option value={"4am"}>4 AM</option>
                 </select>
-
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                 </div>
               </div>
             </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Opening form
               </label>
               <div class="relative">
-
                 <select
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="opening_from   grid-state"
@@ -342,15 +303,38 @@ async function coordinatesdata (){
               </div>
             </div>
           </div>
+          {/* Third row */}
+          <div className="flex flex-wrap mt-7">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
+              <input required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*" onChange={uploadImage} />
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Description
+              </label>
+              <div class="relative">
+                <textarea
+                  rows={2}
+                  required
+                  value={data.description}
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  name="description"
+                  onChange={handleOnChange}
+                ></textarea>
 
+              </div>
+            </div>
+
+          </div>
           {/* Fourth row */}
-          <div className="flex flex-wrap -mx-3 mb-2">
-            <div className="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+          <div className="flex flex-wrap mt-7">
+            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
                 Location
               </label>
               <div className="relative">
-                <input
+                <input required
                   type="text"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   name="location"
@@ -359,7 +343,7 @@ async function coordinatesdata (){
                 />
               </div>
             </div>
-            <div className="w-full md:w-1/3 px-3 flex items-end justify-end">
+            <div className="w-full md:w-1/2 px-3 flex items-end justify-end">
               <button
                 type="button"
                 className="bg-blue-500 hover:bg-blue-600 text-white text-lg py-2 px-3 font-medium rounded-md shadow-md"
@@ -369,12 +353,10 @@ async function coordinatesdata (){
               </button>
             </div>
           </div>
-
-
           {/* Submit button */}
-          <div className="flex justify-center">
-            <button type="submit" className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium px-6 py-3 rounded-md shadow-md">
-              Submit
+          <div className="flex justify-center ">
+            <button type="submit" className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium px-6 py-3 rounded-md shadow-md mt-5">
+              <span>{Loading ? "Submit" : "Wait"}</span>
             </button>
           </div>
         </form>
