@@ -6,10 +6,8 @@ import RestaurantImg from "../assest/Socorrco.jpg";
 import LoadingPage from "./LoadingPage";
 
 export default function RestaurantInfo() {
-
   const [record, setRecord] = useState([])
   const [loading, setLoading] = useState(true)
-
   const fetchData = async () => {
     try {
       const main = new Listings();
