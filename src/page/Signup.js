@@ -4,6 +4,7 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import { toast } from "react-hot-toast";
+import Listings from "../Api/Listings";
 function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -15,8 +16,10 @@ function Signup() {
     email: "",
     password: "",
     confirmPassword: "",
-    image: "",
+    file: "",
   });
+
+  console.log("data",data)
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -33,47 +36,81 @@ function Signup() {
       [name]: value,
     }));
   };
-
-  const handleUploadProfileImage = async (e) => {
-    const data = await ImagetoBase64(e.target.files[0]);
+const [image ,setimage] = useState() 
+console.log("image,image",image)
+  const handleUploadProfileImage =  (e) => {
+    console.log("e.target.files[0]",e.target.files[0])
+    const data =  e.target.files[0];
+    setimage(data)
     setData((prev) => ({
       ...prev,
-      image: data,
+      file: data,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
-
-    const { firstName, lastName, email, password, confirmPassword, image } = data;
-    if (firstName && lastName && email && password && confirmPassword && image) {
-      const fetchData = await fetch(`${process.env.REACT_APP_BASE_URL}/user/signup`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(data),
-        mode: "cors",
-      });
-      const fetchRes = await fetchData.json();
-      toast(fetchRes.message);
-      if (fetchRes.status === true) {
-        setData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          image: "",
-        });
-        navigate("/login");
-      }
-    } else {
-      toast("Enter required Fields");
+    if (loading) {
+        return false;
     }
-    setLoading(false);
-  };
+    setLoading(true);
+    const main = new Listings();
+    try {
+        const response = await main.Signup(data);
+        if (response?.status === true) {
+            toast.success(response.message);
+            setData({
+                      firstName: "",
+                      lastName: "",
+                      email: "",
+                      password: "",
+                      confirmPassword: "",
+                      file: "",
+                    });
+                    navigate("/login")
+        } else {
+            toast.error("invalid email/password");
+        }
+        setLoading(false);
+    } catch (error) {
+        console.log("error", error);
+        toast.error("invalid Email/password");
+        setLoading(false);
+    }
+}
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+
+  //   const { firstName, lastName, email, password, confirmPassword, image } = data;
+  //   if (firstName && lastName && email && password && confirmPassword && image) {
+  //     const fetchData = await fetch(`${process.env.REACT_APP_BASE_URL}/user/signup`, {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //       mode: "cors",
+  //     });
+  //     const fetchRes = await fetchData.json();
+  //     toast(fetchRes.message);
+  //     if (fetchRes.status === true) {
+  //       setData({
+  //         firstName: "",
+  //         lastName: "",
+  //         email: "",
+  //         password: "",
+  //         confirmPassword: "",
+  //         image: "",
+  //       });
+  //       navigate("/login");
+  //     }
+  //   } else {
+  //     toast("Enter required Fields");
+  //   }
+  //   setLoading(false);
+  // };
 
   return (
     <div className="p-3 md:p-4">

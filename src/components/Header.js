@@ -20,6 +20,7 @@ const Header = () => {
   const handleLogout = () => {
     const record = dispatch(logoutRedux());
     //  console.log("record",record)
+    localStorage && localStorage.removeItem("token")
     toast("Logout successfully");
   };
 
@@ -27,7 +28,7 @@ const Header = () => {
   return (
     <header className="fixed w-full px-4 md:px-8 py-6 z-50 bg-white border-b">
       {/* desktop */}
-      
+
           <div className="container mx-auto px-4 relative z-10">            
               <div className="flex items-center h-full justify-between">
             <Link to={""}>

@@ -1,28 +1,67 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import Listings from '../Api/Listings';
 
 export default function Restaurantdetails() {
   const { resId } = useParams();
   console.log("resId", resId)
   const [record, setRecord] = useState([])
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${process.env.REACT_APP_BASE_URL}/restaurant/${resId}`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          mode: "cors",
-        });
-        const resData = await res.json();
-        setRecord(resData.record[0]);
-        console.log("resData", resData)
-      } catch (error) {
-        console.error("Fetch error:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await fetch(`${process.env.REACT_APP_BASE_URL}/restaurant/${resId}`, {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         mode: "cors",
+  //       });
+  //       const resData = await res.json();
+      
+  //       console.log("resData", resData)
+  //     } catch (error) {
+  //       console.error("Fetch error:", error);
+  //     }
+  //   };
 
+  //   fetchData();
+  // }, []);
+
+const[loading ,setLoading] =useState(true);
+
+  const fetchData = async () => {
+    try {
+        const main = new Listings();
+        const response = await main.resturantdetilas(resId);
+        setRecord(response.data.record[0]);
+        setLoading(false);
+    } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
     fetchData();
+  }, []); 
+
+  const userId =record.userId;
+  const fetchproduct = async () => {
+    try {
+        const main = new Listings();
+        const response = await main.userproductget(userId);
+        console.log("ressssusuponse",response)
+        setRecord(response.data.record[0]);
+        setLoading(false);
+    } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
+    if(record){
+      fetchproduct();
+    }
   }, []);
 
   console.log("record", record)

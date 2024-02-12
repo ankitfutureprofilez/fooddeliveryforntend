@@ -16,6 +16,26 @@ class Listings extends Component {
     return Api.post("/product/contact", data);
   }
 
+  async resturantadd(data){
+    return Api.post("/restaurant/add",data)
+  }
+
+  async productlist(){
+    return Api.get("/product/productlist")
+  }
+
+
+  async resturantdetilas(resId){
+    return Api.get(`/restaurant/${resId}`)
+  }
+
+  async resturantget(){
+    return Api.get("/restaurant/get")
+  }
+
+  async userproductget(userId){
+    return Api.get(`/my-products/${userId}`)
+  }
   async privaterouter() {
     return Api.get("/user");
   }

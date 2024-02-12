@@ -4,7 +4,7 @@ function getToken() {
   const data = localStorage && localStorage.getItem('token');
   return data; 
 }
-//console.log("API_URL",API_URL)
+console.log("API_URL",API_URL)
 let Api = axios.create({
   baseURL: API_URL,
   headers: {
