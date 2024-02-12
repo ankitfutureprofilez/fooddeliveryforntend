@@ -8,44 +8,51 @@ import LoadingPage from "./LoadingPage";
 export default function RestaurantInfo() {
 
   const [record, setRecord] = useState([])
-  const [loading ,setLoading] =useState(true)
-  
+  const [loading, setLoading] = useState(true)
+
   const fetchData = async () => {
     try {
-        const main = new Listings();
-        const response = await main.resturantget();
-        setRecord(response.data.list);
-        setLoading(false);
+      const main = new Listings();
+      const response = await main.resturantget();
+      setRecord(response.data.list);
+      setLoading(false);
     } catch (error) {
-        console.log("error", error);
-        setLoading(false);
+      console.log("error", error);
+      setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
-  }, []); console.log("ddd",record)
+  }, []); console.log("ddd", record)
 
   return (
     <>
-      <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
-      <h1 className="text-3xl font-bold mb-6">Trending Dining Restaurants</h1>
-        <div className="flex flex-wrap pt-10 -mx-3">
-          {record && record?.map((item, index) => (
-            <Link key={index} to={`/restaurants/${item.resId}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/6 px-3 mb-6">
-              <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
-                <div className="flex flex-col justify-center items-center">
-                  <img alt="image" src={item.banner_image} className="rounded-xl w-full h-44 object-cover" />
-                </div>
-                <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
-                  {item.restaurantname}
-                </h3>
-                <p className="text-gray-600">{item.category}</p>
-                <div className="flex justify-between mt-1">
-                  <div>
+      {loading ? (
+        <div className="flex items-center justify-center h-screen">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-500 border-r-transparent align-middle motion-reduce:animate-spin_1.5s_linear_infinite" role="status">
+            <span className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 clip-rect(0,0,0,0)">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
+          <h1 className="text-3xl font-bold mb-6">Trending Dining Restaurants</h1>
+          <div className="flex flex-wrap pt-10 -mx-3">
+            {record && record?.map((item, index) => (
+              <Link key={index} to={`/restaurants/${item.resId}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/6 px-3 mb-6">
+                <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
+                  <div className="flex flex-col justify-center items-center">
+                    <img alt="image" src={item.banner_image} className="rounded-xl w-full h-44 object-cover" />
+                  </div>
+                  <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
+                    {item.restaurantname}
+                  </h3>
+                  <p className="text-gray-600">{item.category}</p>
+                  <div className="flex justify-between mt-1">
+                    <div>
                       <span>{item.description}</span>
                       <p className="text-gray-400 text-sm align-middle mb-1 relative pl-4">
-                        <LuMapPin className="inline text-gray-400 absolute -left-1 top-1" size={16} /> 
+                        <LuMapPin className="inline text-gray-400 absolute -left-1 top-1" size={16} />
                         <span> {item.location}</span>
                         <span> {item.staff}</span>
                         <span> {item.ownername}</span>
@@ -59,8 +66,9 @@ export default function RestaurantInfo() {
             ))}
           </div>
         </div>
+      )}
+
     </>
-  );  
-        }
-        
-        
+  );
+}
+
