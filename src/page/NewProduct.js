@@ -43,6 +43,7 @@ const Newproduct = () => {
 
   console.log("data", data)
 
+  
   async function handleSubmit(e) {
     e.preventDefault();
     if (isSubmitting) return; // Prevent multiple submissions
