@@ -70,7 +70,9 @@ const[loading ,setLoading] =useState(true);
       <div className='bg-white p-2 md:p-4 pt-6 md:pt-10'>
         <div class="flex flex-row ">
           <div className='w-full md:w-6/12 '>
-            <img src={record.image} alt={record.index} />
+            <div className=' bg-white product_box  py-3 px-3 cursor-pointer'>
+               <img src={record.image} alt={record.index} />
+            </div>
           </div>
           <div className='w-full md:w-6/12 '>
             <div class="flex flex-nowrap">
