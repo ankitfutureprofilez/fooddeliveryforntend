@@ -234,6 +234,38 @@ export default function RestaurantRegistration() {
             </div>
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Opening form
+              </label>
+              <div class="relative">
+                <select
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="opening_from   grid-state"
+                  name="opening_from"
+                  onChange={handleOnChange}
+                  value={data.opening_from}
+                >
+                  <option value={"other"}>Select</option>
+                  <option value={"9am"}>9 AM</option>
+                  <option value={"10am"}>10 AM</option>
+                  <option value={"11am"}>11 AM</option>
+                  <option value={"12pm"}>12 PM</option>
+                  <option value={"1pm"}>1 PM</option>
+                  <option value={"2pm"}>2 PM</option>
+                  <option value={"3pm"}>3 PM</option>
+                  <option value={"4pm"}>4 PM</option>
+                  <option value={"5pm"}>5 PM</option>
+                  <option value={"6pm"}>6 PM</option>
+                  <option value={"7pm"}>7 PM</option>
+                  <option value={"8pm"}>8 PM</option>
+                </select>
+
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                </div>
+              </div>
+            </div>
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Opening Till
               </label>
               <div class="relative">
@@ -270,38 +302,7 @@ export default function RestaurantRegistration() {
                 </div>
               </div>
             </div>
-            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                Opening form
-              </label>
-              <div class="relative">
-                <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="opening_from   grid-state"
-                  name="opening_from"
-                  onChange={handleOnChange}
-                  value={data.opening_from}
-                >
-                  <option value={"other"}>Select</option>
-                  <option value={"9am"}>9 AM</option>
-                  <option value={"10am"}>10 AM</option>
-                  <option value={"11am"}>11 AM</option>
-                  <option value={"12pm"}>12 PM</option>
-                  <option value={"1pm"}>1 PM</option>
-                  <option value={"2pm"}>2 PM</option>
-                  <option value={"3pm"}>3 PM</option>
-                  <option value={"4pm"}>4 PM</option>
-                  <option value={"5pm"}>5 PM</option>
-                  <option value={"6pm"}>6 PM</option>
-                  <option value={"7pm"}>7 PM</option>
-                  <option value={"8pm"}>8 PM</option>
-                </select>
-
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                </div>
-              </div>
-            </div>
+           
           </div>
           {/* Third row */}
           <div className="flex flex-wrap mt-7">
@@ -355,8 +356,10 @@ export default function RestaurantRegistration() {
           </div>
           {/* Submit button */}
           <div className="flex justify-center ">
-            <button type="submit" className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium px-6 py-3 rounded-md shadow-md mt-5">
-              <span>{Loading ? "Submit" : "Wait"}</span>
+            <button type="submit"
+             disabled={isSubmitting} 
+            className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium px-6 py-3 rounded-md shadow-md mt-5">
+            <span>{isSubmitting ? "Submitting..." : "Submit"}</span>
             </button>
           </div>
         </form>
