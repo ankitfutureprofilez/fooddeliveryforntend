@@ -3,6 +3,7 @@ import LoadingPage from '../page/LoadingPage';
 import Listings from '../Api/Listings';
 import { setDataProduct } from "../redux/productSlide";
 import { useDispatch, useSelector } from "react-redux";
+import NoData from '../components/NoData';
 
 export default function ProductAll() {
     const dispatch = useDispatch()
@@ -32,7 +33,12 @@ export default function ProductAll() {
     ) : (
       <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
         <h1 className="text-3xl font-bold mb-6">Product List</h1>
-        <div className="flex flex-wrap justify-between -mx-4">
+        {record.length ===0 ? (
+             <div className="w-full flex items-center justify-center ">
+              <NoData/>
+              </div>
+          ): (
+          <div className="flex flex-wrap justify-between -mx-4">
           {record && record.map((item, index) => (
             <div className="w-full md:w-1/3 px-4 mb-4 " key={index}>
               <div className='bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl'>
@@ -55,7 +61,8 @@ export default function ProductAll() {
               </div>
             </div>
           ))}
-        </div>
+        </div>)}
+        
       </div>
     )}
   </>

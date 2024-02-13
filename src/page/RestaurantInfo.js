@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { LuMapPin } from "react-icons/lu";
 import Listings from "../Api/Listings";
 import LoadingPage from "./LoadingPage";
+import NoData from "../components/NoData";
 
 export default function RestaurantInfo() {
   const [record, setRecord] = useState([])
@@ -30,7 +31,11 @@ export default function RestaurantInfo() {
       ) : (
       <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
         <div className="flex flex-wrap pt-10 -mx-3">
-          {record && record?.map((item, index) => (
+          {record.length ===0 ? (
+             <div className="w-full flex items-center justify-center ">
+              <NoData/>
+              </div>
+          ): ( record && record?.map((item, index) => (
             <Link key={index} to={`/restaurants/${item.resId}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/6 px-3 mb-6">
               <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
                 <div className="flex flex-col justify-center items-center">
@@ -43,8 +48,8 @@ export default function RestaurantInfo() {
                 <div className="flex justify-between mt-1">
                   <div>
                     <p className="text-gray-400 text-sm align-middle mb-1 relative pl-4">
-                      <span><LuMapPin className="inline text-gray-400 absolute -left-1 top-1" size={16} /> {item.description}</span>
-                      <span> {item.location}</span>
+                      <span>{item.description}</span>
+                      <span><LuMapPin className="inline text-gray-400 absolute -left-1 top-1" size={16} /> {item.location}</span>
                       <span> {item.staff}</span>
                       <span> {item.ownername}</span>
 
@@ -56,7 +61,8 @@ export default function RestaurantInfo() {
                 </div>
               </div>
             </Link>
-          ))}
+          ))) }
+         
         </div>
       </div>)}
     </>
