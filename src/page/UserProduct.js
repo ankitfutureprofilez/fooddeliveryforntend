@@ -25,11 +25,11 @@ export default function UserProduct({ userId }) {
       {loading ? (
        <LoadingPage/>
       ) : (
-        <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
+        <div className="bg-white p-4 md:p-8 pt-6 md:pt-10">
           <h1 className="text-3xl font-bold mb-6">Product List</h1>
-          <div className="flex flex-wrap justify-between -mx-4">
+          <div className="flex flex-wrap -mx-4">
             {record && record.map((item, index) => (
-              <div className="w-full md:w-1/3 px-4 mb-4 " key={index}>
+              <div className="w-full md:w-1/4 px-4 mb-4 " key={index}>
                 <div className='bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl'>
                     <div className="flex flex-col justify-center items-center">
                       <img alt="image" src={item.permalink} className="rounded-xl w-full h-44 object-cover" />
@@ -41,8 +41,8 @@ export default function UserProduct({ userId }) {
                     <div className="flex justify-between mt-1">
                       <div>
                         <span>{item.description}</span>
-                        <p className="text-gray-400 text-sm align-middle mb-1 relative pl-4">
-                          <span>{item.price}</span>
+                        <p className="text-orange-500 text-sm font-bold align-middle">
+                          <span> ₹ {item.price}</span>
                         </p>
                         <p className="text-green-500">Free Delivery</p>
                       </div>
