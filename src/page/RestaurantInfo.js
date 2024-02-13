@@ -4,6 +4,7 @@ import { LuMapPin } from "react-icons/lu";
 import Listings from "../Api/Listings";
 import LoadingPage from "./LoadingPage";
 import NoData from "../components/NoData";
+import restaurantImg from "../assest/Socorrco.jpg";
 
 export default function RestaurantInfo() {
   const [record, setRecord] = useState([])
@@ -40,10 +41,7 @@ export default function RestaurantInfo() {
             <Link key={index} to={`/restaurants/${item.resId}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/6 px-3 mb-6">
               <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
                 <div className="flex flex-col justify-center items-center">
-                  <img alt="image" src={item.image} className="rounded-xl w-full h-44 object-cover" />
-                </div>
-                <div className="flex flex-col justify-center items-center">
-                  <img alt="image" src={item.banner_image} className="rounded-xl w-full h-44 object-cover" />
+                  <img alt="image" src={restaurantImg} className="rounded-xl w-full h-44 object-cover" />
                 </div>
                 <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
                   {item.restaurantname}
