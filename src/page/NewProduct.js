@@ -83,7 +83,7 @@ const Newproduct = () => {
   }
   return (
     <div className="flex justify-center items-center mt-4">
-      <div className="w-full max-w-lg">
+      <div className="w-full">
         <form
           enctype="multipart/form-data"
           className="m-auto w-full max-w-md  shadow flex flex-col p-3 bg-white"

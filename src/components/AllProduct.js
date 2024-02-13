@@ -50,14 +50,16 @@ const AllProduct = ({ heading }) => {
         {dataFilter[0]
           ? dataFilter.map((el) => {
             let img = el.permalink == null ? foodImg : el.permalink;
+            let imgdata = el.image == null ? foodImg : el.image;
               return (
                 <Product
                   key={el._id}
                   id={el._id}
-                  image={ img}
+                  image={img}
                   name={el.name}
                   category={el.category}
                   price={el.price}
+                  imagedata={imgdata}
                   description ={el.description}
                 />
               );

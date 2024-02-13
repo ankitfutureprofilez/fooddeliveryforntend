@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addCartItem, increaseQty } from "../redux/productSlide";
 import LoadingPage from "../page/LoadingPage";
+import productimage from "../assest/apple.jfif"
 
-const CardFeature = ({ image, name, price, category, loading, id, description }) => {
+const CardFeature = ({ image, name, price, category, loading, id, description ,imagedata }) => {
   const dispatch = useDispatch()
 
   const handleAddCartProduct = (e) => {
@@ -13,7 +14,8 @@ const CardFeature = ({ image, name, price, category, loading, id, description })
       name: name,
       price: price,
       category: category,
-      image: image
+      image: image,
+      imagedata: imagedata
     }))
   };
 
@@ -42,7 +44,9 @@ const CardFeature = ({ image, name, price, category, loading, id, description })
                   onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
                 >
                   <div className="flex flex-col justify-center items-center">
-                    <img alt="image" src={image} className="rounded-xl w-full h-44 object-cover" />
+                  <img alt="image" src={imagedata || productimage} className="rounded-xl w-full h-44 object-cover" />
+
+                    <img alt="image" src={image || productimage} className="rounded-xl w-full h-44 object-cover" />
                   </div>
                   <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
                     {name}
