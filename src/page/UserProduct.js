@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Listings from '../Api/Listings';
+import LoadingPage from './LoadingPage';
 export default function UserProduct({ userId }) {
   const [record, setRecord] = useState([])
   const [loading, setLoading] = useState(true);
@@ -22,14 +23,7 @@ export default function UserProduct({ userId }) {
   return (
     <>
       {loading ? (
-        <div className="w-14 h-14 relative flex items-center justify-center">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-12 h-12 border-4 border-solid border-blue-600 border-opacity-25 rounded-full animate-spin"></div>
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-12 h-12 border-4 border-solid border-blue-600 rounded-full animate-spin"></div>
-          </div>
-        </div>
+       <LoadingPage/>
       ) : (
         <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
           <h1 className="text-3xl font-bold mb-6">Product List</h1>

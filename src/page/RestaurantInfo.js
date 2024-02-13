@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { LuMapPin } from "react-icons/lu";
 import Listings from "../Api/Listings";
-import { FaUserGroup } from "react-icons/fa6";
-import { FaUserAlt } from "react-icons/fa";
-import { IoTime } from "react-icons/io5";
+
 export default function RestaurantInfo() {
   const [record, setRecord] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const fetchData = async () => {
     try {
       const main = new Listings();
@@ -26,6 +24,9 @@ export default function RestaurantInfo() {
 
   return (
     <>
+    {loading ? (
+       <LoadingPage/>
+      ) : (
       <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
       <h1 className="text-3xl font-bold mb-6">Restaurant List</h1>
         <div className="flex flex-wrap pt-10 -mx-3">
@@ -59,7 +60,7 @@ export default function RestaurantInfo() {
             </Link>
           ))}
         </div>
-      </div>
+      </div>)}
     </>
   );
 }

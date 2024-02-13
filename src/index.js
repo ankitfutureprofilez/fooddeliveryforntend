@@ -24,7 +24,7 @@ import { Provider } from "react-redux";
  import Success from "./page/Success";
  import Cancel from "./page/Cancel";
  import RestaurantRegistration from "./page/RestaurantRegistration";
- import AllRestaurant from "./page/AllRestaurant";
+ import ProductAll from "./Product/ProductAll";
 import RestaurantInfo from "./page/RestaurantInfo";
 import Restaurantdetails from "./page/Restaurantdetails";
 import PrivateRoute from "./private/PrivateRoute";
@@ -50,6 +50,7 @@ const router = createBrowserRouter(
       <Route path="cart" element={<Cart />} />
       <Route path="success" element={<Success />} />
       <Route path="cancel" element={<Cancel />} />
+      <Route path="products" element={<ProductAll />} />
 
       <Route path="restaurant-register" element={
           <RestaurantRegistration />

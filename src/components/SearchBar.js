@@ -90,7 +90,7 @@ export default function SearchBar() {
           type="search"
           name="search"
           placeholder="Find restaurant in your city"
-          className="h-12 appearance-none block w-full bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 pr-32 pr-12 leading-tight focus:outline-none"
+          className="h-12 appearance-none block w-40 md:w-80 lg:w-96 bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 mr-4 leading-tight focus:outline-none"
           value={searchTerm}
           onChange={(e) => handleSearch(e.target.value)}
         />
@@ -107,7 +107,7 @@ export default function SearchBar() {
             <>
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">Products</h2>
-                <Link to={""}>
+                <Link to={"products"}>
                 <button className="text-blue-500 ">View All</button>{" "}
                 {/* "View All" button */}
                 </Link>
@@ -162,25 +162,6 @@ export default function SearchBar() {
               ))}
             </>
           ) : null}
-
-          {FetchRestaurants.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white rounded-lg shadow-lg p-2 mb-2 flex"
-            >
-              <img
-                src={item.image}
-                alt="restaurant"
-                className="w-24 h-24 mr-2"
-              />
-              <div className="flex flex-col justify-center">
-                <span className="text-left">{item.restaurantname}</span>
-                <span className="text-left">{item.category}</span>
-                <span className="text-left">{item.description}</span>
-                <span className="text-left">{item.location}</span>
-              </div>
-            </div>
-          ))}
         </div>
       )}
     </div>
