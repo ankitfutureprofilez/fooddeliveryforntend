@@ -6,6 +6,7 @@ import LoadingPage from "./LoadingPage";
 import NoData from "../components/NoData";
 
 export default function RestaurantInfo() {
+  
   const [record, setRecord] = useState([])
   const [loading, setLoading] = useState(true);
   const fetchData = async () => {

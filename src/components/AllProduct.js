@@ -66,7 +66,7 @@ const AllProduct = ({ heading }) => {
               <Product
                 key={el._id}
                 id={el._id}
-                image={img}
+                image={foodImg}
                 name={el.name}
                 category={el.category}
                 price={el.price}
