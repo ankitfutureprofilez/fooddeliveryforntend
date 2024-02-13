@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { LuMapPin } from "react-icons/lu";
 import Listings from "../Api/Listings";
+import LoadingPage from "./LoadingPage";
 
 export default function RestaurantInfo() {
   const [record, setRecord] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const fetchData = async () => {
     try {
       const main = new Listings();
@@ -24,6 +25,9 @@ export default function RestaurantInfo() {
 
   return (
     <>
+    {loading ? (
+       <LoadingPage/>
+      ) : (
       <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
         <div className="flex flex-wrap pt-10 -mx-3">
           {record && record?.map((item, index) => (
@@ -54,7 +58,7 @@ export default function RestaurantInfo() {
             </Link>
           ))}
         </div>
-      </div>
+      </div>)}
     </>
   );
 }
