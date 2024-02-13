@@ -1,18 +1,15 @@
 import React from 'react'
-import '../styles/loader.css';
+
 
 export default function LoadingPage() {
     return (
-        <div className="container">
-          <div className="loader">
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--text"></div>
-          </div>
-        </div>
+      <div className="w-14 h-14 relative flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-solid border-blue-600 border-opacity-25 rounded-full animate-spin"></div>
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-solid border-blue-600 rounded-full animate-spin"></div>
+      </div>
+    </div>
       );
 }
