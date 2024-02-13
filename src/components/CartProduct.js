@@ -17,7 +17,6 @@ const CartProduct = ({ id, name, image, category, qty, total, price }) => {
         <div className="flex justify-between items-center">
           <h3 className="font-bold text-gray-800 capitalize text-base md:text-base">
             {name}
-            
           </h3>
           <div className="cursor-pointer text-red-600 hover:text-orange-800  " onClick={()=>dispatch(deleteCartItem(id))}>
             <MdDelete size={20}  />
