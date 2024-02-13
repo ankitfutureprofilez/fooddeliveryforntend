@@ -4,7 +4,7 @@ import { BsCloudUpload } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Listings from "../Api/Listings";
 const Newproduct = () => {
-  //const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
@@ -44,7 +44,7 @@ const Newproduct = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (loading == true) return;
+    if (loading) return;
     setLoading(true);
     const formData = new FormData();
     formData.append("name", data.name);
@@ -189,7 +189,7 @@ const Newproduct = () => {
                 Upload image
               </label>
               <input
-                required
+                
                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 aria-describedby="user_avatar_help"
                 id="user_avatar"
