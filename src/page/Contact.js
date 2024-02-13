@@ -8,8 +8,6 @@ const Contact = () => {
     msg: '',
     email: '',
   });
-  // console.log("ddd",data)
-
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 

@@ -14,7 +14,7 @@ const Home = () => {
       {cartItemNumber.length > 0 ? (
         <>
           <div className="w-2/3">
-            <div className="bg-white p-2 md:p-4 pt-6 md:pt-10 ">
+            <div className="p-2 md:p-4 pt-6 md:pt-10 ">
               <AllProduct heading={"Your Product"} />
             </div>
           </div>
@@ -24,7 +24,7 @@ const Home = () => {
         </>
       ) : (
         <div className="w-full">
-          <div className="bg-white p-2 md:p-4 pt-6 md:pt-10 ">
+          <div className="p-2 md:p-4 pt-6 md:pt-10 ">
             <AllProduct heading={"Your Product"} />
           </div>
         </div>

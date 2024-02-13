@@ -34,19 +34,39 @@ import PrivateLayout from "./private/PrivateLayout";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-        <Route index element={<PrivateRoute> <Home /> </PrivateRoute>} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<PrivateRoute><Contact /></PrivateRoute>} />
-        <Route path="login" element={<Login />} />
-        <Route path="newproduct" element={<PrivateRoute><Newproduct /></PrivateRoute>} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="cart" element={<PrivateRoute><Cart /></PrivateRoute> } />
-        <Route path="success" element={ <Success/> }/>
-        <Route path="cancel" element={<Cancel/> }/>
-        <Route path="restaurant-register" element={<PrivateRoute> <RestaurantRegistration/> </PrivateRoute> }/>
-        <Route path="restaurants" element={<PrivateRoute> <RestaurantInfo/> </PrivateRoute>} />
-        <Route path="restaurants/:resId" element={<PrivateRoute> <Restaurantdetails/> </PrivateRoute>}/>
-      </Route>
+      <Route index element={<Home />} />
+      {/* <Route path="menu" element={<Menu />} />
+      <Route path="menu/:filterby" element={<Menu />} /> */}
+      <Route path="about" element={<About />} />
+      <Route path="contact" element={<Contact />} />
+      <Route path="login" element={<Login />} />
+      <Route path="newproduct" element={
+      <PrivateRoute>
+
+<Newproduct />
+      </PrivateRoute>
+    } />
+      <Route path="signup" element={<Signup />} />
+      <Route path="cart" element={<Cart />} />
+      <Route path="success" element={<Success />} />
+      <Route path="cancel" element={<Cancel />} />
+
+      <Route path="restaurant-register" element={
+          <RestaurantRegistration />
+      } />
+      <Route path="restaurants" element={
+        <PrivateRoute>
+
+          <RestaurantInfo />
+        </PrivateRoute>
+      } />
+      <Route path="restaurants/:resId" element={
+        <PrivateRoute>
+          <Restaurantdetails />
+        </PrivateRoute>
+      } />
+      {/* <Route path = "/restu" */}
+    </Route>
   )
 );
 

@@ -30,7 +30,6 @@ const Cart = () => {
         const resp = payment.Checkout_cart({items : productCartItem});
         // const resp = axios.post(`${process.env.REACT_APP_BASE_URL}/stripe/create-checkout-session`, )
         resp.then((res)=>{
-          console.log(res.data);
           if(res.data.url){
             window.location.href = res.data.url;
           }
@@ -56,7 +55,6 @@ const Cart = () => {
         <h2 className="text-lg md:text-2xl font-bold text-slate-600">
           Your Cart Items
         </h2>
-
         {productCartItem[0] ? (
           <div className="my-4 flex gap-3">
             {/* display cart items  */}

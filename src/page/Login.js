@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRedux, tokenRedux } from "../redux/userSlice";
+import Listings from "../Api/Listings";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,8 +16,6 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user);
-  // console.log("uswerData", userData);
   const dispatch = useDispatch();
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
@@ -30,48 +29,36 @@ const Login = () => {
       };
     });
   };
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const { email, password } = data;
-    if (email && password) {
-      setLoading(true); 
-      const fetchData = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/user/login`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-          mode: "cors",
-        }
-      );
-      const fetchRes = await fetchData.json();
-      console.log("v",fetchRes)
-      if (fetchRes.token) {
-        localStorage.setItem("token", fetchRes?.token);
-        console.log(":token set",fetchRes.token)
-      } else {
-        console.error("Token not received or invalid");
-      }
-      dispatch(loginRedux(fetchRes?.user));
-      toast(fetchRes.message);
-      if (fetchRes.status === true) {
-        navigate("/");
-      }
-      setData(() => {
-        return {
-          password: "",
-          email: "",
-        };
-      });
-    } else {
-      toast("Enter required Fields");
+    if (Loading) {
+      return false;
     }
-    setLoading(false); 
-  };
-  
-  
+    setLoading(true);
+    const main = new Listings();
+    try {
+      const response = await main.Login(data);
+      if (response.data.status) {
+        dispatch(loginRedux(response.data?.user || null));
+        localStorage && localStorage.setItem("token", response?.data.token)
+        toast.success(response.data.message);
+        navigate('/')
+        setData({
+          email: "",
+          password: "",
+        });
+      } else {
+        toast.error(response.data.message);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log("error", error);
+      toast.error("invalid Email/password");
+      setLoading(false);
+    }
+  }
+
+
 
   return (
     <div className="p-3 md:p-6">
@@ -115,7 +102,7 @@ const Login = () => {
           </button>
         </form>
         <p className="text-left text-sm mt-2">
-           Don't have account ?{" "}
+          Don't have account ?{" "}
           <Link to={"/signup"} className="text-red-500 underline">
             Sign Up
           </Link>

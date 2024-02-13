@@ -1,14 +1,13 @@
-//import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from "react";
-import { BsCloudUpload } from "react-icons/bs";
-import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Listings from "../Api/Listings";
 
 export default function RestaurantRegistration() {
   const navigate = useNavigate();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [Loading, setLoading] = useState(true)
   const [data, setData] = useState({
     category: "",
     ownername: "",
@@ -31,99 +30,88 @@ export default function RestaurantRegistration() {
       };
     });
   };
-  const uploadImage = async (e) => {
-    const data = await ImagetoBase64(e.target.files[0]);
-    // console.log(data)
-    setData((preve) => {
-      return {
-        ...preve,
-        image: data,
-      };
-    });
+  const uploadImage = (e) => {
+    const file = e.target.files[0];
+    console.log("file", file)
+    if (file) {
+      setData((prev) => ({
+        ...prev,
+        image: file
+      }));
+    } else {
+      console.error("No file selected");
+    }
   };
-  const yourStoredToken = localStorage && localStorage.getItem("token");
-  //console.log("yourStoredToken",yourStoredToken)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  console.log("data", data)
+
+  async function coordinatesdata() {
     if (!data.coordinates || data.coordinates.length === 0) {
       try {
-        // Fetch longitude and latitude from the API
         const apiUrl = "https://ipapi.co/json/";
         const response = await fetch(apiUrl);
         const jsonData = await response.json();
         const { latitude, longitude } = jsonData;
-
-        // Update the coordinates in the data object
         setData((prevData) => ({
           ...prevData,
           coordinates: `${latitude}, ${longitude}`,
         }));
       } catch (error) {
         console.error("Error getting coordinates:", error);
+        setIsSubmitting(false);
         toast.error("Error getting coordinates");
-        return; // Stop execution if there's an error
+        return;
       }
     }
-    const {
-      restaurantname,
-      ownername,
-      category,
-      image,
-      description,
-      location,
-      staff,
-      opening_from,
-      opening_to,
-      coordinates,
-    } = data;
-    console.log("Data", data);
-    if (
-      restaurantname &&
-      ownername &&
-      category &&
-      image &&
-      description &&
-      location &&
-      staff &&
-      opening_from &&
-      opening_to &&
-      coordinates
-    ) {
-      const fetchData = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/restaurant/add`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${yourStoredToken}`,
-          },
-          body: JSON.stringify(data),
-          mode: "cors",
-        }
-      );
-      const fetchRes = await fetchData.json();
-      //console.log("fetchRes",fetchRes)
-      toast(fetchRes.message);
-      navigate("/");
-      setData(() => {
-        return {
-          category: "",
-          restaurantname: "",
-          image: "",
-          ownername: "",
-          description: "",
-          staff: "",
-          opening_from: "",
-          opening_to: "",
-          location: "",
-          coordinates: "",
-        };
-      });
-    } else {
-      toast("Enter required Fields");
-    }
-  };
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    const formData = new FormData();
+    formData.append("ownername", data.ownername);
+    formData.append("restaurantname", data.restaurantname);
+    formData.append("category", data.category);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("image", data.image);
+    formData.append("staff", data.staff);
+    formData.append("opening_from", data.opening_from);
+    formData.append("opening_to", data.opening_to);
+    formData.append("location", data.location);
+    coordinatesdata();
+    const main = new Listings();
+    const response = main.resturantadd(formData);
+    response.then((res) => {
+      console.log("rrr", res)
+      if (res?.data.status === true) {
+        toast.success(res.data.message);
+        setData(() => {
+          return {
+            category: "",
+            restaurantname: "",
+            image: "",
+            ownername: "",
+            description: "",
+            staff: "",
+            opening_from: "",
+            opening_to: "",
+            location: "",
+            coordinates: "",
+          };
+        });
+        navigate("/")
+      } else {
+        toast.error(" Enter the filed ");
+      }
+      setLoading(false);
+    }).catch((error) => {
+      console.log("error", error);
+      toast.error("invalid Email/password");
+      setLoading(false);
+    })
+  }
+
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
@@ -134,12 +122,7 @@ export default function RestaurantRegistration() {
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
-        //console.log(response);
-
-        // Extract relevant data from the response if needed
-        const { road, suburb, city, postcode } = response.data.address;
-        const locationString = `${road}, ${suburb} ${city}, ${postcode}`;
-
+        const locationString = response.data.display_name;
         setData((prev) => {
           return {
             ...prev,
@@ -161,187 +144,229 @@ export default function RestaurantRegistration() {
       );
     });
   };
-  //  const handleGetLocation = () => {
-  //     if (navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition(
-  //         (position) => {
-  //           setData((prev) => {
-  //             return {
-  //               ...prev,
-  //               location: `${position.coords.latitude}, ${position.coords.longitude}`,
-  //             };
-  //           });
-  //         }
-  //       );
-  //     }
-  //   };
 
   return (
-    <div className="p-4">
-      <form
-        className="m-auto w-full max-w-md  shadow flex flex-col p-3 bg-white"
-        onSubmit={handleSubmit}
-      >
-        <label htmlFor="category">Category</label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="category"
-          name="category"
-          onChange={handleOnChange}
-          value={data.category}
+    <div className="flex  mt-7">
+      <div className="w-full">
+        <form
+          className="w-full"
+          onSubmit={handleSubmit}
         >
-          <option value={"other"}>Select Category</option>
-          <option value={"veg"}>Veg</option>
-          <option value={"nonveg"}>Non-Veg</option>
-          <option value={"both"}>Both</option>
-        </select>
+          {/* First row */}
+          <div class="flex flex-wrap mt-7">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Owner Name
+              </label>
+              <div class="relative">
 
-        <label htmlFor="name">Owner Name</label>
-        <input
-          type={"text"}
-          name="ownername"
-          className="bg-slate-200 p-1 my-1"
-          onChange={handleOnChange}
-          value={data.ownername}
-        />
-
-        <label htmlFor="image">
-          Images
-          <div className="h-40 w-full bg-slate-200  rounded flex items-center justify-center cursor-pointer">
-            {data.image ? (
-              <img src={data.image} className="h-full" />
-            ) : (
-              <span className="text-5xl">
-                <BsCloudUpload />
-              </span>
-            )}
-
-            <input
-              type={"file"}
-              accept="image/*"
-              id="image"
-              onChange={uploadImage}
-              className="hidden"
-            />
+                <input required
+                  type={"text"}
+                  name="ownername"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={handleOnChange}
+                  value={data.ownername}
+                />
+              </div>
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Restaurant Name
+              </label>
+              <div class="relative">
+                <input required
+                  type={"text"}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  name="restaurantname"
+                  onChange={handleOnChange}
+                  value={data.restaurantname}
+                />
+              </div>
+            </div>
           </div>
-        </label>
+          {/* Second row */}
+          <div class="flex flex-wrap mt-7">
+            <div class="w-full md:w-1/4  px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                category
+              </label>
+              <div class="relative">
+                <select
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-state category"
+                  name="category"
+                  onChange={handleOnChange}
+                  value={data.category} 
+                >
+                  <option value={"other"}>Select Category</option>
+                  <option value={"veg"}>Veg</option>
+                  <option value={"nonveg"}>Non-Veg</option>
+                  <option value={"both"}>Both</option>
+                </select>
 
-        <label htmlFor="r_name" className="my-1">
-          Restaurant Name
-        </label>
-        <input
-          type={"text"}
-          className="bg-slate-200 p-1 my-1"
-          name="restaurantname"
-          onChange={handleOnChange}
-          value={data.restaurantname}
-        />
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                </div>
+              </div>
+            </div>
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Staff
+              </label>
+              <div class="relative">
+                <select
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="  grid-state"
+                  name="staff"
+                  onChange={handleOnChange}
+                  value={data.staff}
+                >
+                  <option value={"other"}>Select Staff</option>
+                  <option value={"1-10"}>1-10</option>
+                  <option value={"11-20"}>11-20</option>
+                  <option value={"20+"}>20+</option>
+                </select>
 
-        <label htmlFor="description">Description</label>
-        <textarea
-          rows={2}
-          value={data.description}
-          className="bg-slate-200 p-1 my-1 resize-none"
-          name="description"
-          onChange={handleOnChange}
-        ></textarea>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                </div>
+              </div>
+            </div>
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Opening form
+              </label>
+              <div class="relative">
+                <select
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="opening_from   grid-state"
+                  name="opening_from"
+                  onChange={handleOnChange}
+                  value={data.opening_from}
+                >
+                  <option value={"other"}>Select</option>
+                  <option value={"9am"}>9 AM</option>
+                  <option value={"10am"}>10 AM</option>
+                  <option value={"11am"}>11 AM</option>
+                  <option value={"12pm"}>12 PM</option>
+                  <option value={"1pm"}>1 PM</option>
+                  <option value={"2pm"}>2 PM</option>
+                  <option value={"3pm"}>3 PM</option>
+                  <option value={"4pm"}>4 PM</option>
+                  <option value={"5pm"}>5 PM</option>
+                  <option value={"6pm"}>6 PM</option>
+                  <option value={"7pm"}>7 PM</option>
+                  <option value={"8pm"}>8 PM</option>
+                </select>
 
-        <label htmlFor="staff">Staff </label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="staff"
-          name="staff"
-          onChange={handleOnChange}
-          value={data.staff}
-        >
-          <option value={"other"}>Select Staff</option>
-          <option value={"1-10"}>1-10</option>
-          <option value={"11-20"}>11-20</option>
-          <option value={"20+"}>20+</option>
-        </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                </div>
+              </div>
+            </div>
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Opening Till
+              </label>
+              <div class="relative">
+                <select 
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="opening_to  grid-state"
+                  name="opening_to"
+                  onChange={handleOnChange}
+                  value={data.opening_to} 
+                >
+                  <option value={"other"}>Select</option>
+                  <option value={"10am"}>10 AM</option>
+                  <option value={"11am"}>11 AM</option>
+                  <option value={"12pm"}>12 PM</option>
+                  <option value={"1pm"}>1 PM</option>
+                  <option value={"2pm"}>2 PM</option>
+                  <option value={"3pm"}>3 PM</option>
+                  <option value={"4pm"}>4 PM</option>
+                  <option value={"5pm"}>5 PM</option>
+                  <option value={"6pm"}>6 PM</option>
+                  <option value={"7pm"}>7 PM</option>
+                  <option value={"8pm"}>8 PM</option>
+                  <option value={"9pm"}>9 PM</option>
+                  <option value={"10pm"}>10 PM</option>
+                  <option value={"11pm"}>11 PM</option>
+                  <option value={"12am"}>12 AM</option>
+                  <option value={"1am"}>1 AM</option>
+                  <option value={"2am"}>2 AM</option>
+                  <option value={"3am"}>3 AM</option>
+                  <option value={"4am"}>4 AM</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+          {/* Third row */}
+          <div className="flex flex-wrap mt-7">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
+              <input  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*" onChange={uploadImage} />
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Description
+              </label>
+              <div class="relative">
+                <textarea
+                  rows={2}
+                  required
+                  value={data.description}
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  name="description"
+                  onChange={handleOnChange}
+                ></textarea>
 
-        <label htmlFor="opening_from" className="my-1">
-          Opening From
-        </label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="opening_from"
-          name="opening_from"
-          onChange={handleOnChange}
-          value={data.opening_from}
-        >
-          <option value={"other"}>Select</option>
-          <option value={"9am"}>9 AM</option>
-          <option value={"10am"}>10 AM</option>
-          <option value={"11am"}>11 AM</option>
-          <option value={"12pm"}>12 PM</option>
-          <option value={"1pm"}>1 PM</option>
-          <option value={"2pm"}>2 PM</option>
-          <option value={"3pm"}>3 PM</option>
-          <option value={"4pm"}>4 PM</option>
-          <option value={"5pm"}>5 PM</option>
-          <option value={"6pm"}>6 PM</option>
-          <option value={"7pm"}>7 PM</option>
-          <option value={"8pm"}>8 PM</option>
-        </select>
+              </div>
+            </div>
 
-        <label htmlFor="opening_to" className="my-1">
-          Opening Till
-        </label>
-        <select
-          className="bg-slate-200 p-1 my-1"
-          id="opening_to"
-          name="opening_to"
-          onChange={handleOnChange}
-          value={data.opening_to}
-        >
-          <option value={"other"}>Select</option>
-          <option value={"10am"}>10 AM</option>
-          <option value={"11am"}>11 AM</option>
-          <option value={"12pm"}>12 PM</option>
-          <option value={"1pm"}>1 PM</option>
-          <option value={"2pm"}>2 PM</option>
-          <option value={"3pm"}>3 PM</option>
-          <option value={"4pm"}>4 PM</option>
-          <option value={"5pm"}>5 PM</option>
-          <option value={"6pm"}>6 PM</option>
-          <option value={"7pm"}>7 PM</option>
-          <option value={"8pm"}>8 PM</option>
-          <option value={"9pm"}>9 PM</option>
-          <option value={"10pm"}>10 PM</option>
-          <option value={"11pm"}>11 PM</option>
-          <option value={"12am"}>12 AM</option>
-          <option value={"1am"}>1 AM</option>
-          <option value={"2am"}>2 AM</option>
-          <option value={"3am"}>3 AM</option>
-          <option value={"4am"}>4 AM</option>
-        </select>
+          </div>
+          {/* Fourth row */}
+          <div className="flex flex-wrap mt-7">
+            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
+                Location
+              </label>
+              <div className="relative">
+                <input required
+                  type="text"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  name="location"
+                  onChange={handleOnChange}
+                  value={data.location}
+                />
+              </div>
+            </div>
+            <div className="w-full md:w-1/2 px-3 flex items-end justify-end">
+              <button
+                type="button"
+                className="bg-blue-500 hover:bg-blue-600 text-white text-lg py-2 px-3 font-medium rounded-md shadow-md"
+                onClick={handleGetLocation}
+              >
+                Get Location
+              </button>
+            </div>
+          </div>
+          {/* Submit button */}
+          <div className="flex justify-center ">
+            <button type="submit"
+             disabled={isSubmitting} 
+            className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium px-6 py-3 rounded-md shadow-md mt-5">
+            <span>{isSubmitting ? "Submitting..." : "Submit"}</span>
+            </button>
+          </div>
+        </form>
+      </div>
 
-        <label htmlFor="location" className="my-1">
-          Location
-        </label>
-        <div className="flex my-1">
-          <input
-            type="text"
-            className="bg-slate-200 p-1 my-1 flex-grow"
-            name="location"
-            onChange={handleOnChange}
-            value={data.location}
-          />
-          <button
-            type="button"
-            className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-2 py-1 ml-2"
-            onClick={handleGetLocation}
-          >
-            Get Location
-          </button>
-        </div>
-
-        <button className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium my-2 drop-shadow">
-          Submit
-        </button>
-      </form>
     </div>
+
   );
 }
 
