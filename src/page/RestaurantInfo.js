@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { LuMapPin } from "react-icons/lu";
 import Listings from "../Api/Listings";
+import LoadingPage from "./LoadingPage";
+import { IoTime } from 'react-icons/io5';
+import { FaUserAlt } from 'react-icons/fa';
 
 export default function RestaurantInfo() {
   const [record, setRecord] = useState([])
@@ -47,10 +50,8 @@ export default function RestaurantInfo() {
                     <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5">
                       <span><LuMapPin className="inline text-gray-400 absolute left-0 top-0.5" size={16} /> {item.location}</span></p>
                     <p className="text-gray-400 whitespace-nowrap  text-sm align-middle mb-1 relative pl-5">  <span> <FaUserAlt className="inline text-gray-400 absolute left-0 top-0.5" size={13} /> {item.ownername}</span> </p>
-
                     <div className="flex flex-warp space-x-2 mb-1">
-
-                      <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5"><span> <FaUserGroup className="inline text-gray-400 absolute left-0 top-0.5" size={16} /> {item.staff}</span>  </p>                   
+                      <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5"><span> <FaUserAlt className="inline text-gray-400 absolute left-0 top-0.5" size={16} /> {item.staff}</span>  </p>                   
                       <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5">  <span> <IoTime  className="inline text-gray-400 absolute left-0 top-0.5" size={16} /> {item.opening_from} - {item.opening_to}</span>
                       </p>
                     </div>
@@ -60,7 +61,8 @@ export default function RestaurantInfo() {
             </Link>
           ))}
         </div>
-      </div>)}
+      </div>
+      )}
     </>
   );
 }
