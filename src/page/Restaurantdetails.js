@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Listings from '../Api/Listings';
 import UserProduct from './UserProduct';
-import resturanentimage from "../assest/Socorrco.jpg"
+import restaurantImg from "../assest/Socorrco.jpg";
+
 
 export default function Restaurantdetails() {
   const { resId } = useParams();
@@ -31,7 +32,7 @@ export default function Restaurantdetails() {
         <div class="flex flex-row ">
           <div className='w-full md:w-6/12 '>
             <div className=' bg-white product_box  py-3 px-3 cursor-pointer'>
-               <img src={record.banner_image || resturanentimage} alt={record.index} />
+               <img src={restaurantImg} alt={record.index} />
             </div>
           </div>
           <div className='w-full md:w-6/12 '>

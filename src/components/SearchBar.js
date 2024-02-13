@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Users from "../Api/Users";
 import { Link } from "react-router-dom";
+import productimage from "../assest/apple.jfif"
+import restaurantImg from "../assest/Socorrco.jpg";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -118,7 +120,7 @@ export default function SearchBar() {
                   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex "
                 >
                   <img
-                    src={item.image}
+                    src={productimage}
                     alt="product"
                     className="w-24 h-24 mr-2"
                   />
@@ -148,7 +150,7 @@ export default function SearchBar() {
                   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex"
                 >
                   <img
-                    src={item.image}
+                    src={restaurantImg}
                     alt="restaurant"
                     className="w-24 h-24 mr-2"
                   />
