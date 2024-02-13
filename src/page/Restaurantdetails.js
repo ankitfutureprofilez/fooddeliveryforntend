@@ -28,7 +28,7 @@ export default function Restaurantdetails() {
     <>
       <div class="flex flex-row ">
         <div>
-          <img src={record.image} alt={record.index} />
+          <img src={record.banner_image} alt={record.index} />
         </div>
         <div>
           <div class="flex flex-nowrap">
