@@ -148,6 +148,7 @@ export default function RestaurantRegistration() {
   return (
     <div className="flex  mt-7">
       <div className="w-full">
+    <h1 className="text-3xl font-bold mb-6 flex justify-center">Restaurant Registration</h1>
         <form
           className="w-full"
           onSubmit={handleSubmit}
@@ -234,7 +235,7 @@ export default function RestaurantRegistration() {
             </div>
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                Opening form
+                Opening from
               </label>
               <div class="relative">
                 <select

@@ -11,29 +11,6 @@ import Listings from './Api/Listings';
 function App() {
   const dispatch = useDispatch()
   const productData = useSelector((state)=>state.product)
-//  console.log("productData",productData)
-
-//  useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const token = localStorage.getItem('token');
-//       const res = await fetch(`${process.env.REACT_APP_BASE_URL}/product/productlist`, {
-//         headers: {
-//           'Authorization': `Bearer ${token}`,
-//           'Content-Type': 'application/json',
-//         },
-//       mode: "cors",
-//       });
-//       const resData = await res.json();
-    
-//     } catch (error) {
-//       console.error("Fetch error:", error);
-//     }
-//   };
-
-//   fetchData();
-// }, []);
-
 const[Loading,setLoading] =useState(true)
 
 const fetchData =  () => {

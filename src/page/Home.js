@@ -18,7 +18,7 @@ const Home = () => {
               <AllProduct heading={"Your Product"} />
             </div>
           </div>
-          <div className="w-1/3">
+          <div className="w-1/3 fixed top-200 right-0 h-full overflow-x-auto">
             <Carthome/>
           </div>
         </>

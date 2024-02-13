@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { addCartItem, increaseQty } from "../redux/productSlide";
 import LoadingPage from "../page/LoadingPage";
 import productimage from "../assest/apple.jfif"
+import NoData from "./NoData";
 
 const CardFeature = ({ image, name, price, category, loading, id, description ,imagedata }) => {
   const dispatch = useDispatch()
@@ -27,12 +28,12 @@ const CardFeature = ({ image, name, price, category, loading, id, description ,i
       maximumFractionDigits: 2,
     }).format(amount);
   };
-
+console.log("name",name)
 
   return (
     <>
-      {loading ? (
 
+      {loading ? (
         <LoadingPage/>
       ) : (
         <div className="w-6/12 md:w-4/12 lg:w-4/12 xl:w-3/12  px-3 mb-6">
@@ -65,10 +66,7 @@ const CardFeature = ({ image, name, price, category, loading, id, description ,i
                 </div>
               </>
             ) : (
-              // <div className="min-h-[150px] flex justify-center items-center">
-              //   <p>{loading}</p>
-              // </div>
-              <p>{loading}</p>
+             <NoData/>
             )}
           </div>
         </div>
