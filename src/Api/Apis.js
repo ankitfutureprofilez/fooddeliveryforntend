@@ -4,14 +4,14 @@ function getToken() {
   const data = localStorage && localStorage.getItem('token');
   return data; 
 }
-console.log("API_URL",API_URL)
 let Api = axios.create({
   baseURL: API_URL,
   headers: {
     'Accept': 'application/json',
     'Authorization': `Bearer ${getToken()}`,
     'Access-Control-Allow-Origin': '*',
-    "mode":"cors"
+    "mode":"cors",
+    "Content-Type":'multipart/form-data'
   }
 });
 

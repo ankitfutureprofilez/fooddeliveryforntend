@@ -37,7 +37,7 @@ function Signup() {
     }));
   };
   
-  console.log("data", data.firstName)
+  console.log("data", data)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -49,15 +49,14 @@ function Signup() {
     formData.append("firstName", data.firstName);
     formData.append("lastName", data.lastName);
     formData.append("email", data.email);
-    formData.append("password", data.confirmPassword);
-    formData.append("image", data.image);
-    console.log("fordta",formData);
+    formData.append("password", data.password);
+    formData.append("image",data.image);
     console.log("formData", formData);
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
       console.log("res",res)
-      if (res.data.status) {
+      if (res && res.data && res.data.status) {
         console.log("res success", res.data.message)
         toast.success(res.data.message);
         setData({
