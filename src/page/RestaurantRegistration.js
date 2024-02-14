@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Listings from "../Api/Listings";
+import ImageUpload from "../components/ImageUpload";
 
 export default function RestaurantRegistration() {
   const navigate = useNavigate();
@@ -308,8 +309,7 @@ export default function RestaurantRegistration() {
           {/* Third row */}
           <div className="flex flex-wrap mt-7">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
-              <input  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*" onChange={uploadImage} />
+            <ImageUpload  setImage={(image) => setData((prevData) => ({ ...prevData, image }))}/>
             </div>
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
