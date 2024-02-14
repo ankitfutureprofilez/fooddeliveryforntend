@@ -45,16 +45,15 @@ function Signup() {
       return false;
     }
     setLoading(true);
-    const formData = new FormData();
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("image",data.image);
-    console.log("formData", formData);
+    // let formdata = new FormData();
+    // formdata.append("firstName", data.firstName);
+    // formdata.append("lastName", data.lastName);
+    // formdata.append("email", data.email);
+    // formdata.append("password", data.password);
+    // formdata.append("image",data.image);
+    // console.log("formData", formdata);
     const main = new Listings();
     const response = main.Signup(data);
-    
     response.then((res) => {
       console.log("res",res)
       if (res && res.data && res.data.status) {
