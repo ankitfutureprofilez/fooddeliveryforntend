@@ -48,7 +48,7 @@ function Signup() {
     // formdata.append("password", data.password);
     // formdata.append("image",data.image);
 
-    
+
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
@@ -81,7 +81,7 @@ function Signup() {
 
 return (
   <div className="flex mt-7">
-  <div className="w-full max-w-sm bg-white m-auto p-4">
+  <div className="w-full max-width-sm m-auto p-4">
       {/* <h1 className='text-center text-2xl font-bold'>Sign up</h1> */}
       <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative">
           <FileUpload setImage={(image) => setData((prevData) => ({ ...prevData, image }))} />
@@ -93,7 +93,7 @@ return (
 
         <div className="flex flex-wrap mt-7">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="firstName">
+             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               First Name
             </label>
             <input
@@ -153,12 +153,6 @@ return (
                 value={data.password}
                 onChange={handleOnChange}
               />
-              <span
-                className="absolute top-0 right-0 mt-2 mr-3 text-xl cursor-pointer"
-                onClick={handleShowPassword}
-              >
-                {showPassword ? <BiShow /> : <BiHide />}
-              </span>
             </div>
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -175,12 +169,6 @@ return (
                 value={data.confirmPassword}
                 onChange={handleOnChange}
               />
-              <span
-                className="absolute top-0 right-0 mt-2 mr-3 text-xl cursor-pointer"
-                onClick={handleShowConfirmPassword}
-              >
-                {showConfirmPassword ? <BiShow /> : <BiHide />}
-              </span>
             </div>
           </div>
         </div>
@@ -189,13 +177,13 @@ return (
           <button
             type="submit"
             disabled={loading}
-            className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium px-6 py-3 rounded-md shadow-md"
+            className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium px-6 py-3 rounded-full shadow-md"
           >
             <span>{loading ? "Wait..." : "Sign Up"}</span>
           </button>
         </div>
       </form>
-      <p className="text-left text-sm mt-2">
+      <p className="text-center text-sm mt-2">
         Already have an account?{" "}
         <Link to={"/login"} className="text-red-500 underline">
           Login

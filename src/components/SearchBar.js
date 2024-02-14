@@ -120,7 +120,7 @@ export default function SearchBar() {
                   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex "
                 >
                   <img
-                    src={productimage}
+                    src={item.image}
                     alt="product"
                     className="w-24 h-24 mr-2"
                   />
@@ -150,7 +150,7 @@ export default function SearchBar() {
                   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex"
                 >
                   <img
-                    src={restaurantImg}
+                    src={item.image}
                     alt="restaurant"
                     className="w-24 h-24 mr-2"
                   />
