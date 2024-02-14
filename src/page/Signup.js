@@ -48,6 +48,7 @@ function Signup() {
     // formdata.append("password", data.password);
     // formdata.append("image",data.image);
 
+    
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
