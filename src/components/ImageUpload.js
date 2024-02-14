@@ -15,6 +15,7 @@ export default function ImageUpload({ setImage }) {
                 },
                 params: {
                     key: imagekey,
+                    name: new Date().toISOString() 
                 }
             });
             setLocalImage(response.data.data.display_url);

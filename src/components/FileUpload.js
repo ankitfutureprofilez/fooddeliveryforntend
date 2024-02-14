@@ -9,12 +9,10 @@ const imagekey = process.env.REACT_APP_IMAGE_KEY
         const file = e.target.files[0];
         const formData = new FormData();
         formData.append('image', file);
-
         try {
             const response = await axios.post('https://api.imgbb.com/1/upload', formData, {
                 headers: {
-                    'Content-Type': 'image/*',
-                    "mode" :"no-cors"
+                    'Content-Type': 'multipart/form-data'
                 },
                 params: {
                     key: imagekey,
