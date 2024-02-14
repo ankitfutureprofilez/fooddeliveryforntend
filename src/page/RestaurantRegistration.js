@@ -111,6 +111,7 @@ export default function RestaurantRegistration() {
       .catch((error) => {
         console.log("error", error);
         toast.error("invalid Email/password");
+        setIsSubmitting(false);
         setLoading(false);
       });
   }

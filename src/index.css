@@ -67,3 +67,15 @@
   .browse-button:hover {
     background-color: rgb(14, 14, 14);
   }
+
+/* Other */
+  .dropdownitem li a, .dropdownitem li button {
+    padding: 7px 10px !important;
+    display: block !important;
+}
+.empty-cart-image {
+    width: 300 px;
+    height: 300 px;
+    border-radius: 50%;
+    mix-blend-mode: darken;
+}

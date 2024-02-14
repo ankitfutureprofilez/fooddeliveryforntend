@@ -27,7 +27,7 @@ export default function UserProduct({ userId }) {
       {loading ? (
        <LoadingPage/>
       ) : (
-        <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
+        <div className="p-2 md:p-4 pt-6 md:pt-10">
           <h1 className="text-3xl font-bold mb-6">Product List</h1>
           <div className="flex flex-wrap justify-between -mx-4">
             {record && record.map((item, index) => (

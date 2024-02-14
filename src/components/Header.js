@@ -77,42 +77,41 @@ const Header = () => {
                 )}
               </div>
               {showMenu && (
-                <div className="absolute right-2 bg-white py-2  shadow drop-shadow-md flex flex-col min-w-[120px] text-center m-0.5">
+                <div className="absolute right-2 bg-white rounded-lg  shadow drop-shadow-md flex flex-col min-w-[120px]  m-0.5">
                   {userData.email ?
-                    <div>
-                      <p
-                        className="cursor-pointer text-white px-2 bg-red-500 "
-                        onClick={handleLogout}
-                      >
-                        Logout ({userData.firstName}){" "}
-                      </p>
-                      <p>
-                        <NavLink
-                          to={"newproduct"}
-                          className="whitespace-nowrap cursor-pointer px-2"
-                        >
-                          New product
-                        </NavLink>
-                      </p>
-                      <p>
-                        <NavLink
-                          to={"restaurant-register"}
-                          className="whitespace-nowrap cursor-pointer px-2"
-                        // onClick={handleLogout}
-                        >
-                          Become a Restaurant Owner
-                        </NavLink>
-                      </p>
-                      <p>
-                        <NavLink
-                          to={"restaurants"}
-                          className="whitespace-nowrap cursor-pointer px-2"
-                        // onClick={handleLogout}
-                        >
-                          Restaurant List
-                        </NavLink>
-                      </p>
-                    </div>
+                   <ul className="align-left dropdownitem">
+                   <li
+                     className="cursor-pointer text-white   bg-red-500 rounded-md"
+                     onClick={handleLogout}
+                   >
+                    <button>Logout ({userData.firstName})</button>
+                   </li>
+                   <li>
+                     <NavLink
+                       to={"newproduct"}
+                       className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
+                     >
+                       New product
+                     </NavLink>
+                   </li>
+                   <li>
+                     <NavLink
+                       to={"restaurant-register"}
+                       className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
+                     >
+                       Register Restaurant
+                     </NavLink>
+                   </li>
+                   <li>
+                     <NavLink
+                       to={"restaurants"}
+                       className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300"
+                     >
+                       Restaurant List
+                     </NavLink>
+                   </li>
+                 </ul>
+                 
                     :
                     <NavLink
                       to={"login"}

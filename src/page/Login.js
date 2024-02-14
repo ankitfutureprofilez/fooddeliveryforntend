@@ -62,26 +62,30 @@ const Login = () => {
 
 
   return (
-    <div className="p-3 md:p-6">
-      <div className="w-full max-w-sm bg-white m-auto flex  flex-col p-4">
-        {/* <h1 className='text-center text-2xl font-bold'>Sign up</h1> */}
-        <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto">
-          <img src={loginSignupImage} className="w-full" />
-        </div>
-
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center">
+      <div className="w-full max-w-sm  m-auto flex  flex-col p-4">
+        <h1 className='text-3xl font-bold mb-6 flex justify-center'>
+          Sign in
+          </h1>
         <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email"
+          className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
+          >Email
+          </label>
           <input
             type={"email"}
             id="email"
             name="email"
-            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
+            className="mt-1 mb-2 w-full bg-gray-200 px-2 py-1 rounded focus-within:outline-blue-300"
             value={data.email}
             onChange={handleOnChange}
           />
 
-          <label htmlFor="password">Password</label>
-          <div className="flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
+          <label htmlFor="password"
+          className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" >
+            Password
+            </label>
+          <div className="flex rounded-full mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
             <input
               type={showPassword ? "text" : "password"}
               id="password"
@@ -90,19 +94,13 @@ const Login = () => {
               value={data.password}
               onChange={handleOnChange}
             />
-            <span
-              className="flex text-xl cursor-pointer"
-              onClick={handleShowPassword}
-            >
-              {showPassword ? <BiShow /> : <BiHide />}
-            </span>
           </div>
 
-          <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
+          <button className="flex justify-center w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center py-1 rounded-full mt-4">
             <span>{Loading ? "Wait.." : "Login"}</span>
           </button>
         </form>
-        <p className="text-left text-sm mt-2">
+        <p className="flex justify-center text-sm mt-2">
           Don't have account ?{" "}
           <Link to={"/signup"} className="text-red-500 underline">
             Sign Up
