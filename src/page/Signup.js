@@ -54,6 +54,7 @@ function Signup() {
     console.log("formData", formData);
     const main = new Listings();
     const response = main.Signup(data);
+    
     response.then((res) => {
       console.log("res",res)
       if (res && res.data && res.data.status) {
