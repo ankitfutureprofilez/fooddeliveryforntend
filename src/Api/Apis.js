@@ -7,11 +7,8 @@ function getToken() {
 let Api = axios.create({
   baseURL: API_URL,
   headers: {
-    'Accept': 'application/json',
     'Authorization': `Bearer ${getToken()}`,
-    'Access-Control-Allow-Origin': '*',
-    "mode":"cors",
-    "Content-Type":'multipart/form-data'
+    'Content-Type': 'application/json',
   }
 });
 

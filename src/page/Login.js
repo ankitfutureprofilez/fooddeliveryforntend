@@ -29,18 +29,16 @@ const Login = () => {
       };
     });
   };
+  
   async function handleSubmit(e) {
     e.preventDefault();
     if (Loading) {
       return false;
     }
     setLoading(true);
-    const formdata = new FormData();
-    formdata.append("email", data.email);
-    formdata.append("password", data.password);
     const main = new Listings();
     try {
-      const response = await main.Login(formdata);
+      const response = await main.Login(data);
       if (response.data.status) {
         console.log("response.data?.user",response.data?.user)
         dispatch(loginRedux(response.data?.user || null));

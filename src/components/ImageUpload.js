@@ -2,25 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function ImageUpload({ setImage }) {
+    const imagekey = process.env.REACT_APP_IMAGE_KEY
     const [image, setLocalImage] = useState("");
-    const imagekey = process.env.REACT_APP_IMAGE_KEY;
-
     const uploadfile = async (e) => { 
         const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('image', file);
         try {
-            const response = await axios.post(
-                'https://api.imgbb.com/1/upload',
-                file,
-                {
-                    headers: {
-                        'Content-Type': 'image/*'
-                    },
-                    params: {
-                        key: imagekey,
-                        name: new Date().toISOString() 
-                    }
+            const response = await axios.post('https://api.imgbb.com/1/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                params: {
+                    key: imagekey,
                 }
-            );
+            });
             setLocalImage(response.data.data.display_url);
             setImage(response.data.data.display_url);
         } catch (error) {

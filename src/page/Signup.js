@@ -37,13 +37,9 @@ function Signup() {
     }));
   };
   
-  console.log("data", data)
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (loading) {
-      return false;
-    }
     setLoading(true);
     // let formdata = new FormData();
     // formdata.append("firstName", data.firstName);
@@ -51,7 +47,7 @@ function Signup() {
     // formdata.append("email", data.email);
     // formdata.append("password", data.password);
     // formdata.append("image",data.image);
-    // console.log("formData", formdata);
+
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
@@ -69,8 +65,8 @@ function Signup() {
         });
         navigate("/login")
       } else {
-    toast.error(res.data.message)
-    console.log("reserror",res.data.message)
+        toast.error(res?.data.message || "Something went wrong")
+        console.log("reserror",res?.data.message || "df")
       }
       setLoading(false);
     }).catch((error) => {
