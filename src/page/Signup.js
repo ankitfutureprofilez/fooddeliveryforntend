@@ -36,7 +36,8 @@ function Signup() {
       [name]: value,
     }));
   };
-  console.log("data", data)
+  
+  console.log("data", data.firstName)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -44,6 +45,14 @@ function Signup() {
       return false;
     }
     setLoading(true);
+    const formData = new FormData();
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
+    formData.append("email", data.email);
+    formData.append("password", data.confirmPassword);
+    formData.append("image", data.image);
+    console.log("fordta",formData);
+    console.log("formData", formData);
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
