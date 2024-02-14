@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export default function FileUpload( {setImage } ) {
-
+const imagekey = process.env.REACT_APP_IMAGE_KEY
     const [image, setLocalImage] = useState("");
 
     const uploadfile = async (e) => { 
@@ -16,7 +16,8 @@ export default function FileUpload( {setImage } ) {
                     'Content-Type': 'multipart/form-data'
                 },
                 params: {
-                    key: '7ab4ce77b253a2790850eb611aae5101',
+                    key: imagekey,
+                    name: new Date().toISOString() 
                 }
             });
             setLocalImage(response.data.data.display_url);
