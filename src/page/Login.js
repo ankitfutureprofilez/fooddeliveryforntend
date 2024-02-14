@@ -4,8 +4,8 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loginRedux, tokenRedux } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
+import { loginRedux  } from "../redux/userSlice";
 import Listings from "../Api/Listings";
 
 const Login = () => {
