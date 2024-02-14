@@ -28,7 +28,6 @@ export default function Carthome() {
         const resp = payment.Checkout_cart({items : productCartItem});
         // const resp = axios.post(`${process.env.REACT_APP_BASE_URL}/stripe/create-checkout-session`, )
         resp.then((res)=>{
-          console.log(res.data);
           if(res.data.url){
             window.location.href = res.data.url;
           }

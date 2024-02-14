@@ -34,7 +34,6 @@ export default function RestaurantRegistration() {
   };
   const uploadImage = (e) => {
     const file = e.target.files[0];
-    console.log("file", file)
     if (file) {
       setData((prev) => ({
         ...prev,
@@ -45,7 +44,6 @@ export default function RestaurantRegistration() {
     }
   };
 
-  console.log("data", data)
 
   async function coordinatesdata() {
     if (!data.coordinates || data.coordinates.length === 0) {
@@ -85,7 +83,6 @@ export default function RestaurantRegistration() {
     const main = new Listings();
     const response = main.resturantadd(formData);
     response.then((res) => {
-      console.log("rrr", res)
       if (res?.data.status === true) {
         toast.success(res.data.message);
         setData(() => {

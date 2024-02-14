@@ -7,6 +7,7 @@ import NoData from "./NoData";
 
 const AllProduct = ({ heading }) => {
   const productData = useSelector((state) => state.product.productList);
+  console.log("ddd",productData)
   const categoryList = [
     "All",
     ...new Set(productData.map((el) => el.category)),
@@ -19,7 +20,6 @@ const AllProduct = ({ heading }) => {
   useEffect(() => {
     setDataFilter(productData);
   }, [productData]);
-  console.log("Product Data", productData);
 
   const handleFilterProduct = (category) => {
     setFilterBy(category);

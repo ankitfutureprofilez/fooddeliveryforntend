@@ -14,7 +14,6 @@ export default function ProductAll() {
         const main = new Listings();
         const response =  main.productlist();
         response.then((res)=>{
-          console.log("res data",res?.data)
           setRecord(res.data.data);
         dispatch(setDataProduct(res?.data));
           setLoading(false);

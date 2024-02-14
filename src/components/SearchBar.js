@@ -29,7 +29,6 @@ export default function SearchBar() {
     });
     resp
       .then((res) => {
-        console.log("res", res);
         setFetchProducts(res.data.products);
         setFetchRestaurants(res.data.restaurants);
         setSearchContentVisible(true);

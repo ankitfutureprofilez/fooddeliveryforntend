@@ -18,7 +18,6 @@ export default function UserProduct({ userId }) {
     }
   };
 
-  console.log("record", record)
   useEffect(() => {
     fetchproduct();
   }, [userId]);

@@ -7,13 +7,11 @@ export default function PrivateLayout(props ) {
   const dispatch = useDispatch();
   useEffect(() => {
     const checkAuthentication = async () => {
-        const token = localStorage.getItem('token');
-        console.log("token",token)
+         localStorage.getItem('token');
         const main = new Listings();
         const response = main.privaterouter();
         response.then((resp)=>{
-        const record =   dispatch(loginRedux(resp.data?.user || null));
-        console.log("record",record);
+       dispatch(loginRedux(resp.data?.user || null));
         }).catch((err)=>{
           console.log("err", err)
         });

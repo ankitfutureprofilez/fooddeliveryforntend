@@ -11,7 +11,6 @@ const Header = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
-  console.log("userData",userData)
   const dispatch = useDispatch();
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);

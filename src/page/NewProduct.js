@@ -14,7 +14,6 @@ const Newproduct = () => {
     price: "",
     description: "",
   });
-  //console.log("recird djdj", data)
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +28,6 @@ const Newproduct = () => {
 
   const uploadImage = (e) => {
     const file = e.target.files[0];
-    console.log("file", file);
     if (file) {
       setData((prev) => ({
         ...prev,
@@ -41,7 +39,6 @@ const Newproduct = () => {
   };
   const [loading, setLoading] = useState(false);
 
-  // console.log("data", data)
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -56,7 +53,6 @@ const Newproduct = () => {
     const main = new Listings();
     try {
       const response = await main.Prodctadd(formData);
-      console.log("ree", response);
       if (response) {
         toast.success(response.data.message);
         setData(() => {

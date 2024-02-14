@@ -8,7 +8,6 @@ import { FaRegDotCircle } from "react-icons/fa";
 
 export default function Restaurantdetails() {
   const { resId } = useParams();
-  console.log("resId", resId);
   const [record, setRecord] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchData = async () => {

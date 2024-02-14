@@ -12,22 +12,20 @@ function App() {
   const dispatch = useDispatch()
   const productData = useSelector((state) => state.product)
   const [Loading, setLoading] = useState(true)
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const main = new Listings();
-        const response = await main.productlist();
-        const newData = response?.data;
-        dispatch(setDataProduct(newData));
-        setLoading(false);
-      } catch (error) {
-        console.log("error", error);
-        setLoading(false);
-      }
-    };
-  
-    fetchData(); 
-  }, []);
+  useEffect(()=>{
+    const main = new Listings();
+    const response =  main.productlist();
+    response.then((res)=>{
+      console.log("res?.data",res?.data)
+      const newData = res?.data;
+      dispatch(setDataProduct(newData))
+      setLoading(false)
+    }).catch((error)=>{
+      console.log("error",error)
+      setLoading(false)
+
+    })
+  },[])
   
 
   return (

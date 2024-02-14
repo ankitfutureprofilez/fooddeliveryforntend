@@ -52,9 +52,7 @@ function Signup() {
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
-      console.log("res",res)
       if (res && res.data && res.data.status) {
-        console.log("res success", res.data.message)
         toast.success(res.data.message);
         setData({
           firstName: "",
@@ -67,13 +65,12 @@ function Signup() {
         navigate("/login")
       } else {
         toast.error(res?.data.message || "Something went wrong")
-        console.log("reserror",res?.data.message || "df")
       }
       setLoading(false);
     }).catch((error) => {
       console.log("error", error);
-      toast.error(error.response.data.message);
-      toast.error(error.response.data);
+      toast.error(error?.response.data.message);
+      toast.error(error?.response.data);
       setLoading(false);
     })
   }
