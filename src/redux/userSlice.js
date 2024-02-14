@@ -21,6 +21,7 @@ export const userSlice = createSlice({
         state.lastName = userData.lastName || "";
         state.email = userData.email || "";
         state.image = userData.image || "";
+        state.banner_image = userData.banner_image || "";
       }
     },
 
