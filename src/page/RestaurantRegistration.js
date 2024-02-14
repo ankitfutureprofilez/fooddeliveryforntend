@@ -3,7 +3,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Listings from "../Api/Listings";
-import { FaLocationCrosshairs } from "react-icons/fa6";
 
 export default function RestaurantRegistration() {
   const navigate = useNavigate();
@@ -152,22 +151,20 @@ export default function RestaurantRegistration() {
   return (
     <div className="flex  mt-7">
       <div className="w-full">
-        <h1 className="text-3xl font-bold mb-6 flex justify-center">
-          Restaurant Registration
-        </h1>
-        <form className="w-full" onSubmit={handleSubmit}>
+    <h1 className="text-3xl font-bold mb-6 flex justify-center">Restaurant Registration</h1>
+        <form
+          className="w-full"
+          onSubmit={handleSubmit}
+        >
           {/* First row */}
           <div class="flex flex-wrap mt-7">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Owner Name
               </label>
               <div class="relative">
-                <input
-                  required
+
+                <input required
                   type={"text"}
                   name="ownername"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -177,15 +174,11 @@ export default function RestaurantRegistration() {
               </div>
             </div>
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Restaurant Name
               </label>
               <div class="relative">
-                <input
-                  required
+                <input required
                   type={"text"}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   name="restaurantname"
@@ -198,10 +191,7 @@ export default function RestaurantRegistration() {
           {/* Second row */}
           <div class="flex flex-wrap mt-7">
             <div class="w-full md:w-1/4  px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 category
               </label>
               <div class="relative">
@@ -210,7 +200,7 @@ export default function RestaurantRegistration() {
                   id="grid-state category"
                   name="category"
                   onChange={handleOnChange}
-                  value={data.category}
+                  value={data.category} 
                 >
                   <option value={"other"}>Select Category</option>
                   <option value={"veg"}>Veg</option>
@@ -219,21 +209,12 @@ export default function RestaurantRegistration() {
                 </select>
 
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    class="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                 </div>
               </div>
             </div>
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Staff
               </label>
               <div class="relative">
@@ -251,21 +232,12 @@ export default function RestaurantRegistration() {
                 </select>
 
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    class="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                 </div>
               </div>
             </div>
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Opening from
               </label>
               <div class="relative">
@@ -292,30 +264,21 @@ export default function RestaurantRegistration() {
                 </select>
 
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    class="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                 </div>
               </div>
             </div>
             <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Opening Till
               </label>
               <div class="relative">
-                <select
+                <select 
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="opening_to  grid-state"
                   name="opening_to"
                   onChange={handleOnChange}
-                  value={data.opening_to}
+                  value={data.opening_to} 
                 >
                   <option value={"other"}>Select</option>
                   <option value={"10am"}>10 AM</option>
@@ -339,41 +302,20 @@ export default function RestaurantRegistration() {
                   <option value={"4am"}>4 AM</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    class="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                 </div>
               </div>
             </div>
+           
           </div>
           {/* Third row */}
           <div className="flex flex-wrap mt-7">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="user_avatar"
-              >
-                Upload image
-              </label>
-                <label htmlFor="file" className="file-upload-label">
-                  <div className="file-upload-design w-100">
-                    <svg viewBox="0 0 640 512" height="0.1em">
-                      <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"></path>
-                    </svg>
-                    <span className="browse-button">Browse file</span>
-                  </div>
-                  <input id="file" type="file" onChange={uploadImage} />
-                </label>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload image</label>
+              <input  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*" onChange={uploadImage} />
             </div>
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                 Description
               </label>
               <div class="relative">
@@ -385,51 +327,50 @@ export default function RestaurantRegistration() {
                   name="description"
                   onChange={handleOnChange}
                 ></textarea>
+
               </div>
             </div>
+
           </div>
           {/* Fourth row */}
           <div className="flex flex-wrap mt-7">
-            <div className="w-full px-3 mb-6 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-state"
-              >
+            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
                 Location
               </label>
-              <div className="relative ">
-                <input
-                  required
+              <div className="relative">
+                <input required
                   type="text"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   name="location"
                   onChange={handleOnChange}
                   value={data.location}
                 />
-              <div className="absolute top-2 right-2">
-                <button
-                  type="button"
-                  onClick={handleGetLocation}
-                >
-              <FaLocationCrosshairs size={24} color="#0000ff"/>
-                </button>
-            </div>
               </div>
+            </div>
+            <div className="w-full md:w-1/2 px-3 flex items-end justify-end">
+              <button
+                type="button"
+                className="bg-blue-500 hover:bg-blue-600 text-white text-lg py-2 px-3 font-medium rounded-md shadow-md"
+                onClick={handleGetLocation}
+              >
+                Get Location
+              </button>
             </div>
           </div>
           {/* Submit button */}
           <div className="flex justify-center ">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center"
-            >
-              <span>{isSubmitting ? "Submitting..." : "Submit"}</span>
+            <button type="submit"
+             disabled={isSubmitting} 
+            className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium px-6 py-3 rounded-md shadow-md mt-5">
+            <span>{isSubmitting ? "Submitting..." : "Submit"}</span>
             </button>
           </div>
         </form>
       </div>
+
     </div>
+
   );
 }
 

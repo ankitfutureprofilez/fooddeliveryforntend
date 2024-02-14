@@ -37,21 +37,18 @@ function Signup() {
     }));
   };
   
-  console.log("data", data)
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (loading) {
-      return false;
-    }
     setLoading(true);
-    const formData = new FormData();
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("image",data.image);
-    console.log("formData", formData);
+    // let formdata = new FormData();
+    // formdata.append("firstName", data.firstName);
+    // formdata.append("lastName", data.lastName);
+    // formdata.append("email", data.email);
+    // formdata.append("password", data.password);
+    // formdata.append("image",data.image);
+
+
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
@@ -69,8 +66,8 @@ function Signup() {
         });
         navigate("/login")
       } else {
-    toast.error(res.data.message)
-    console.log("reserror",res.data.message)
+        toast.error(res?.data.message || "Something went wrong")
+        console.log("reserror",res?.data.message || "df")
       }
       setLoading(false);
     }).catch((error) => {
@@ -186,7 +183,7 @@ return (
           </button>
         </div>
       </form>
-      <p className="text-left text-sm mt-2">
+      <p className="text-center text-sm mt-2">
         Already have an account?{" "}
         <Link to={"/login"} className="text-red-500 underline">
           Login

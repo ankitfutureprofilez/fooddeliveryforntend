@@ -61,12 +61,12 @@ const AllProduct = ({ heading }) => {
       <div className="flex flex-wrap -mx-3 py-4">
         {dataFilter[0] ? (
           dataFilter.map((el) => {
-            let img = el.permalink == null ? foodImg : el.permalink;
+            let img = el.image == null ? foodImg : el.image;
             return (
               <Product
                 key={el._id}
                 id={el._id}
-                image={foodImg}
+                image={img}
                 name={el.name}
                 category={el.category}
                 price={el.price}

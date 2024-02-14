@@ -34,7 +34,7 @@ export default function UserProduct({ userId }) {
               <div className="w-full md:w-1/3 px-4 mb-4 " key={index}>
                 <div className='bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl'>
                     <div className="flex flex-col justify-center items-center">
-                      <img alt="image" src={productimage} className="rounded-xl w-full h-44 object-cover" />
+                      <img alt="image" src={item.image} className="rounded-xl w-full h-44 object-cover" />
                     </div>
                     <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
                       {item.name}
