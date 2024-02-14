@@ -200,7 +200,7 @@ const Newproduct = () => {
             </div>
           </div>
           <div className="flex justify-center ">
-            <button className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium px-6 py-3 rounded-md shadow-md mt-5">
+            <button className="rounded-full bg-red-500 hover:bg-blue-600 text-white text-lg font-medium px-6 py-3 shadow-md mt-5">
               <span>{loading ? "Submitting..." : "Submit"}</span>
             </button>
           </div>
