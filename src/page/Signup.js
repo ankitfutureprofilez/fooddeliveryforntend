@@ -20,7 +20,6 @@ function Signup() {
     image: "",
   });
 
-  console.log("data", data)
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -37,6 +36,7 @@ function Signup() {
       [name]: value,
     }));
   };
+  console.log("data", data)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -44,12 +44,6 @@ function Signup() {
       return false;
     }
     setLoading(true);
-    // const formData = new FormData();
-    // formData.append("firstName", data.firstName);
-    // formData.append("lastName", data.lastName);
-    // formData.append("email", data.email);
-    // formData.append("password", data.confirmPassword);
-    // formData.append("image", data.image);
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
