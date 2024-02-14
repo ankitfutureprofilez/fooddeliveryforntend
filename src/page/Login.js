@@ -39,6 +39,7 @@ const Login = () => {
     try {
       const response = await main.Login(data);
       if (response.data.status) {
+        console.log("response.data?.user",response.data?.user)
         dispatch(loginRedux(response.data?.user || null));
         localStorage && localStorage.setItem("token", response?.data.token)
         toast.success(response.data.message);

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import { toast } from "react-hot-toast";
 import Listings from "../Api/Listings";
+import FileUpload from "../components/FileUpload";
 function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -36,17 +37,6 @@ function Signup() {
       [name]: value,
     }));
   };
-  const [image, setimage] = useState()
-  console.log("image,image", image)
-  const handleUploadProfileImage = (e) => {
-    console.log("e.target.files[0]", e.target.files[0])
-    const data = e.target.files[0];
-    setimage(data)
-    setData((prev) => ({
-      ...prev,
-      image: data,
-    }));
-  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -54,16 +44,18 @@ function Signup() {
       return false;
     }
     setLoading(true);
-    const formData = new FormData();
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
-    formData.append("email", data.email);
-    formData.append("password", data.confirmPassword);
-    formData.append("image", data.image);
+    // const formData = new FormData();
+    // formData.append("firstName", data.firstName);
+    // formData.append("lastName", data.lastName);
+    // formData.append("email", data.email);
+    // formData.append("password", data.confirmPassword);
+    // formData.append("image", data.image);
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
-      if (res.data.status === true) {
+      console.log("res",res)
+      if (res.data.status) {
+        console.log("res success", res.data.message)
         toast.success(res.data.message);
         setData({
           firstName: "",
@@ -75,12 +67,14 @@ function Signup() {
         });
         navigate("/login")
       } else {
-        toast.error("invalid email/password");
+    toast.error(res.data.message)
+    console.log("reserror",res.data.message)
       }
       setLoading(false);
     }).catch((error) => {
       console.log("error", error);
-      toast.error("invalid Email/password");
+      toast.error(error.response.data.message);
+      toast.error(error.response.data);
       setLoading(false);
     })
   }
@@ -90,27 +84,13 @@ return (
   <div className="flex mt-7">
   <div className="w-full max-w-sm bg-white m-auto p-4">
       {/* <h1 className='text-center text-2xl font-bold'>Sign up</h1> */}
-      <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative ">
-        <img
-          src={data.image ? data.image : loginSignupImage}
-          className="w-full h-full"
-        >
-        </img>
-        <label htmlFor="profileImage">
-          <div className="absolute bottom-0 h-1/3  bg-slate-500 bg-opacity-50 w-full text-center cursor-pointer">
-            <p className="text-sm p-1 text-white">Upload</p>
-          </div>
-          <input
-            type={"file"}
-            id="profileImage"
-            accept="image/*"
-            className="hidden"
-            onChange={handleUploadProfileImage}
-          />
-        </label>
-      </div>
+      <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative">
+          <FileUpload setImage={(image) => setData((prevData) => ({ ...prevData, image }))} />
+          {data.image && <img src={data.image} alt="Profile" className="object-cover w-full h-full" />}
+        </div>
 
       <form className="w-full" onSubmit={handleSubmit}>
+
 
         <div className="flex flex-wrap mt-7">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -118,6 +98,7 @@ return (
               First Name
             </label>
             <input
+            required
               type="text"
               id="firstName"
               name="firstName"
@@ -131,6 +112,7 @@ return (
               Last Name
             </label>
             <input
+            required
               type="text"
               id="lastName"
               name="lastName"
@@ -147,6 +129,7 @@ return (
               Email
             </label>
             <input
+            required
               type="email"
               id="email"
               name="email"
@@ -163,6 +146,7 @@ return (
             </label>
             <div className="relative">
               <input
+              required
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
@@ -184,6 +168,7 @@ return (
             </label>
             <div className="relative">
               <input
+              required
                 type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
                 name="confirmPassword"
