@@ -2,7 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: screen; /* Set the height to 100% of the viewport height */
+    height: screen; 
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50% , -50%);
+    z-index: 5;
   }
   
   .loader {

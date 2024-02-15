@@ -10,6 +10,7 @@ export default function SearchBar() {
   const [FetchProducts, setFetchProducts] = useState([]);
   const [FetchRestaurants, setFetchRestaurants] = useState([]);
   const [searchContentVisible, setSearchContentVisible] = useState(false);
+  const [Loading, setLoading] = useState()
 
   useEffect(() => {
     function handleBlur() {
@@ -25,6 +26,7 @@ export default function SearchBar() {
   const handleSearch = (value) => {
     setSearchTerm(value);
     if (value.length >= 3) {
+      setLoading(true);
       const main = new Users();
       const resp = main.search({
         search: value,
@@ -34,14 +36,17 @@ export default function SearchBar() {
           setFetchProducts(res.data.products);
           setFetchRestaurants(res.data.restaurants);
           setSearchContentVisible(true);
+          setLoading(false);
         })
         .catch((err) => {
           console.log("err", err);
+          setLoading(false);
         });
     } else {
       setFetchProducts([]);
       setFetchRestaurants([]);
       setSearchContentVisible(false);
+      setLoading(false);
     }
   };
 
@@ -74,11 +79,12 @@ export default function SearchBar() {
           onChange={(e) => handleSearch(e.target.value)}
         />
       </div>
+      {Loading && searchTerm.length > 0 && <div className="text-center py-4">Loading...</div>}
       {searchContentVisible && (
         <div
           className={`mt-2 overflow-y-auto ${FetchProducts.length > 0 || FetchRestaurants.length > 0
-              ? "search-content"
-              : ""
+            ? "search-content"
+            : ""
             }`}
         >
           {FetchProducts.length > 0 ? (
@@ -103,7 +109,7 @@ export default function SearchBar() {
                   <div className="flex flex-col justify-center">
                     <span className="text-center">{item.name}</span>
                     <span className="text-center">Price - {
-                    formatMultiPrice(item.price)
+                      formatMultiPrice(item.price)
                     }</span>
                   </div>
                 </div>
@@ -130,15 +136,15 @@ export default function SearchBar() {
                   />
                   <div className="flex flex-col justify-center">
                     <span className="text-left">{item.restaurantname}</span>
-                    <span className="text-left">{item.category}</span>
+                    <span className="text-left">{item.category}  </span>
                   </div>
                 </div>
               ))}
             </>
           ) : null}
           {FetchProducts.length === 0 && FetchRestaurants.length === 0 && (
-            <div className="text-center text-gray-500 py-4">
-              No products or restaurants found.
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold ">  No products or restaurants found.</h2>
             </div>
           )}
         </div>

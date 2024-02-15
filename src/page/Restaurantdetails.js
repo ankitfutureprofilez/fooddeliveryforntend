@@ -71,6 +71,7 @@ export default function Restaurantdetails() {
 
   return (
     <>
+    {/* {loading ? () ? ()} */}
       <div className="flex flex-col md:flex-row mt-8">
         <div className="w-full md:w-5/12 md:pr-4 lg:pr-8">
           <div className="bg-white rounded-lg overflow-hidden cursor-pointer">
@@ -94,7 +95,7 @@ export default function Restaurantdetails() {
                     Vegetarian Food Available
                   </p>
                 </>
-              ) : record.category === "non-veg" ? (
+              ) : record.category === "nonveg" ? (
                 <>
                   <FaRegDotCircle color="#ff0000" size={15} className="mr-2" />
                   <p className="text-sm text-gray-600">
