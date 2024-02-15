@@ -27,9 +27,7 @@ export default function Restaurantdetails() {
     fetchData();
   }, []);
 
-
-  const [ isOpen ] = useTimeCalculate();
-  
+  const [isOpen] = useTimeCalculate();
 
   const userId = record && record.userId;
 
