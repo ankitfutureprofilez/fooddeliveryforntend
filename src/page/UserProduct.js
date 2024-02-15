@@ -28,7 +28,7 @@ export default function UserProduct({ userId }) {
        <LoadingPage/>
       ) : (
         <div className="bg-white p-4 md:p-8 pt-6 md:pt-10">
-          <h1 className="text-3xl font-bold mb-6">Product List</h1>
+          <h2 className="heading mb-4 ">You Might be <b>Intrested In</b> </h2>
           <div className="flex flex-wrap -mx-4">
             {record && record.map((item, index) => (
               <div className="w-full md:w-1/4 px-4 mb-4 " key={index}>
