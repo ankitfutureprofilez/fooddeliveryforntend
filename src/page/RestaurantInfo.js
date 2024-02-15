@@ -31,7 +31,7 @@ export default function RestaurantInfo() {
   }, []);
   const [ isOpen ] = useTimeCalculate();
 
-  return (
+ return (
     <>
       {loading ? (
         <LoadingPage />
@@ -45,26 +45,24 @@ export default function RestaurantInfo() {
               </div>
             ) : (
               record &&
-              record?.map((item, index) => (
+              record.map((item, index) => (
                 <Link
                   key={index}
                   to={`/restaurants/${item.resId}`}
                   className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/6 px-3 mb-6"
                 >
-                  <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
+                  <div className={`w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl ${isOpen(item.opening_from, item.opening_to) === "Closed" ? 'closedRestaurant' : 'notclosed'}`}>
                     <div className="flex flex-col justify-center items-center relative">
                       <img
                         alt="image"
                         src={item.image}
                         className="rounded-xl w-full h-44 object-cover"
                       />
-                      {isOpen(item.opening_from,item.opening_to)==="Closed"?
-                      (
-                      <div className="warning absolute">
-                        Closed
-                      </div>
-                      )
-                      :(null)}
+                      {isOpen(item.opening_from, item.opening_to) === "Closed" && (
+                        <div className="warning absolute">
+                          Closed
+                        </div>
+                      )}
                     </div>
                     <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
                       {item.restaurantname}
