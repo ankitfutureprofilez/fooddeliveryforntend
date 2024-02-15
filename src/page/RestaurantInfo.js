@@ -111,6 +111,7 @@ export default function RestaurantInfo() {
                             {item.location}
                           </span>
                         </p> */}
+                        
                         <div className="flex flex-warp space-x-2 mb-1">
                           <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5">
                             <span>
@@ -120,7 +121,7 @@ export default function RestaurantInfo() {
                                 size={16}
                               />{" "}
                               {item.staff}
-                              
+
                             </span>{" "}
                           </p>
                           <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5">
