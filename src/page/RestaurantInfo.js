@@ -74,28 +74,27 @@ export default function RestaurantInfo() {
                       {item.restaurantname}
                     </h3>
                    { item.category === "veg" ? (
-                <div className="flex">
-                  <FaRegDotCircle color="Green" size={15} className="mr-2" />
-                  <p className="text-gray-600">
-                    Vegetarian Food Available
-                  </p>
-                </div>
-              ) :item.category === "nonveg" ? (
-                <div className="flex">
-                  <FaRegDotCircle color="#ff0000" size={15} className="mr-2" />
-                  <p className="text-gray-600">
-                    Non Vegetarian Food Available
-                  </p>
-                </div>
-              ) : item.category === "both" ? (
-                <p className="text-gray-600">
-                  Both veg and non-veg Food Available
-                </p>
-              ) : null}
-                    {/* <p className="text-gray-600">{item.category}</p> */}
+                      <div className="flex">
+                        <FaRegDotCircle color="Green" size={15} className="mr-2" />
+                        <p className="text-gray-600">
+                          Vegetarian Food Available
+                        </p>
+                      </div>
+                    ) :item.category === "nonveg" ? (
+                      <div className="flex">
+                        <FaRegDotCircle color="#ff0000" size={15} className="mr-2" />
+                        <p className="text-gray-600">
+                          Non Vegetarian Food Available
+                        </p>
+                      </div>
+                    ) : item.category === "both" ? (
+                      <p className="text-gray-600">
+                        Both veg and non-veg Food Available
+                      </p>
+                    ) : null}
                     <div className="flex justify-between mt-1">
                       <div>
-                        <p className="text-gray-500 text-sm align-middle mb-1 relative ">
+                        {/* <p className="text-gray-500 text-sm align-middle mb-1 relative ">
                           <span> {item.description}</span>
                         </p>
                         <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5">
@@ -106,7 +105,7 @@ export default function RestaurantInfo() {
                             />{" "}
                             {item.location}
                           </span>
-                        </p>
+                        </p> */}
                         <div className="flex flex-warp space-x-2 mb-1">
                           <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5">
                             <span>
