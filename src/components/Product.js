@@ -34,13 +34,10 @@ const CardFeature = ({ image, name, price, category, loading, id, description, i
           <div className="w-full bg-white product_box  py-3 px-3 cursor-pointer flex flex-col rounded-xl ">
             {name ? (
               <>
-               
                   <div className="flex flex-col justify-center items-center">
                     <img alt="image" src={image} className="rounded-xl w-full h-44 object-cover" />
                     <span className="bg-black text-white absolute top-0 left-0">{category}</span>
                   </div>
-
-
                   <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
                     {name}
                   </h3>
