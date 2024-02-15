@@ -36,7 +36,7 @@ export default function Restaurantdetails() {
   return (
     <>
       <div className='bg-white p-4 md:p-8 pt-6 md:pt-10'>
-        {record ? <div class="flex flex-row -mx-4">
+        <div class="flex flex-row -mx-4">
           <div className='w-full md:w-5/12 px-4'>
             <div className=' bg-white product_box  py-3 px-3 cursor-pointer'>
                <img className='max-w-full min-h-[300px]' src={record && record.image} alt={record && record.index} />
@@ -60,7 +60,7 @@ export default function Restaurantdetails() {
                 <p className="text-sm text-gray-700 mb-4 ml-6">{isOpen(record && record.opening_from, record && record.opening_to)}</p>
              ) : null} 
           </div>
-        </div> : ''}
+        </div> 
       </div>
 
       <UserProduct userId={userId} />
