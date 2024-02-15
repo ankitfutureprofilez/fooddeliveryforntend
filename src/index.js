@@ -29,6 +29,8 @@ import RestaurantInfo from "./page/RestaurantInfo";
 import Restaurantdetails from "./page/Restaurantdetails";
 import PrivateRoute from "./private/PrivateRoute";
 import PrivateLayout from "./private/PrivateLayout";
+import Location from "./Location/Location";
+import Orderhistory from "./payment/Orderhistory";
 
 
 const router = createBrowserRouter(
@@ -55,6 +57,12 @@ const router = createBrowserRouter(
       <Route path="restaurant-register" element={
           <RestaurantRegistration />
       } />
+
+<Route path="location" element={
+          <Location />
+      } />
+
+<Route path ="/order_history" element= {<Orderhistory/>}/>
       <Route path="restaurants" element={
         <PrivateRoute>
 
