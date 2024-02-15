@@ -51,7 +51,7 @@ export default function Carthome() {
 
   return (
     <>
-      <div class="bg-white p-2 md:p-4 pt-2 border-l border-gray-200 h-full "> 
+      <div class="bg-white p-2 md:p-4 addpad pt-2 pb-8 border-l border-gray-200 h-full "> 
         <h2 className="text-gray-700 mb-3 text-xl">
               <strong>Your Cart</strong> Items
             </h2> 
