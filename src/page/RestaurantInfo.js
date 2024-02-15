@@ -120,6 +120,7 @@ export default function RestaurantInfo() {
                                 size={16}
                               />{" "}
                               {item.staff}
+                              
                             </span>{" "}
                           </p>
                           <p className="text-gray-400 text-sm align-middle mb-1 relative pl-5">
