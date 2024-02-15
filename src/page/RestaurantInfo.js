@@ -74,22 +74,22 @@ export default function RestaurantInfo() {
                       {item.restaurantname}
                     </h3>
                    { item.category === "veg" ? (
-                      <div className="flex">
+                      <div className="flex items-center">
                         <FaRegDotCircle color="Green" size={15} className="mr-2" />
                         <p className="text-gray-600">
-                          Vegetarian Food Available
+                          Only Vegetarian
                         </p>
                       </div>
-                    ) :item.category === "nonveg" ? (
-                      <div className="flex">
+                    ) :item.category == "nonveg" ? (
+                      <div className="flex items-center">
                         <FaRegDotCircle color="#ff0000" size={15} className="mr-2" />
                         <p className="text-gray-600">
-                          Non Vegetarian Food Available
+                          Non Vegetarian 
                         </p>
                       </div>
                     ) : item.category === "both" ? (
                       <p className="text-gray-600">
-                        Both veg and non-veg Food Available
+                       Veg and Non-veg
                       </p>
                     ) : null}
                     <div className="flex justify-between mt-1">
