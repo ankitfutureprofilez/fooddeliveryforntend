@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <Toaster
-        position="top-right"
+        position="top-left"
         reverseOrder={false}
       />
       <div>
