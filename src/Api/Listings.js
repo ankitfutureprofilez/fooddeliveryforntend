@@ -40,6 +40,10 @@ class Listings extends Component {
     return Api.get("/user");
   }
 
+  async paymentmethod (){
+    return Api.get("/stripe/myorders")
+  }
+
   render() {
     return (
       <div>
