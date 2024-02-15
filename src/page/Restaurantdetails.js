@@ -131,6 +131,7 @@ export default function Restaurantdetails() {
               <p className="text-sm text-gray-700 mb-4 ml-6">Null</p>
             )}  */}
           </div>
+          
         </div>
       </div>
 
