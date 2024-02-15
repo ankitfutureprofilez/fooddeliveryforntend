@@ -79,12 +79,7 @@ const Header = () => {
                         {
                           userData.resId ? (<>
 
-                            <NavLink
-                              to={"newproduct"}
-                              className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
-                            >
-                              New product
-                            </NavLink>
+                           <></>
                           </>) : (
                             <NavLink
                               to={"restaurant-register"}
