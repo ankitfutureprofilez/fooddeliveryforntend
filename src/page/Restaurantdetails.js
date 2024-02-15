@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Listings from "../Api/Listings";
 import UserProduct from "./UserProduct";
-import restaurantImg from "../assest/Socorrco.jpg";
 import { FaLocationCrosshairs, FaRegClock } from "react-icons/fa6";
 import { FaRegDotCircle } from "react-icons/fa";
 import useTimeCalculate from "../hooks/useTimeCalculate";
@@ -32,7 +31,7 @@ export default function Restaurantdetails() {
   const [ isOpen ] = useTimeCalculate();
   
 
-  const userId = record.userId;
+  const userId = record && record.userId;
 
   return (
     <>
@@ -40,7 +39,7 @@ export default function Restaurantdetails() {
         <div class="flex flex-row -mx-4">
           <div className='w-full md:w-5/12 px-4'>
             <div className=' bg-white product_box  py-3 px-3 cursor-pointer'>
-               <img className='max-w-full min-h-[300px]' src={record.banner_image || resturanentimage} alt={record.index} />
+               <img className='max-w-full min-h-[300px]' src={record.banner_image} alt={record.index} />
             </div>
           </div>
           <div className='w-full md:w-6/12 '>
