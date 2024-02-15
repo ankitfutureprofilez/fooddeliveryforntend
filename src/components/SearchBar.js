@@ -90,11 +90,10 @@ export default function SearchBar() {
           {FetchProducts.length > 0 ? (
             <>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Products</h2>
+                {/* <h2 className="text-xl font-bold">Products</h2>
                 <Link to={"products"}>
                   <button className="text-blue-500 ">View All</button>{" "}
-                  {/* "View All" button */}
-                </Link>
+                </Link> */}
               </div>
               {FetchProducts.map((item) => (
                 <div
@@ -119,10 +118,10 @@ export default function SearchBar() {
           {FetchRestaurants.length > 0 ? (
             <>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold ">Restaurants</h2>
+                {/* <h2 className="text-xl font-bold ">Restaurants</h2>
                 <Link to={"restaurants"}>
                   <button className="text-blue-500 ">View All</button>{" "}
-                </Link>
+                </Link> */}
               </div>
               {FetchRestaurants.map((item) => (
                 <div
