@@ -3,9 +3,9 @@ import "../styles/success.css";
 
 const Success = () => {
   return (
-    <div className="card">
-    <div className="header">
-      <div className="image">
+    <div className="success-card ">
+    <div className="success-header">
+      <div className="success-image">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
           <g strokeLinejoin="round" strokeLinecap="round" id="SVGRepo_tracerCarrier"></g>
@@ -14,12 +14,12 @@ const Success = () => {
           </g>
         </svg>
       </div>
-      <div className="content">
-        <span className="title">Order Successful</span>
-        <p className="message">Thank you for your purchase. Your order will be delivered shortly</p>
+      <div className="success-content">
+        <span className="success-title">Order Successful</span>
+        <p className="success-message">Thank you for your purchase. Your order will be delivered shortly</p>
       </div>
-      <div className="actions">
-        <button type="button" className="track">Track my package</button>
+      <div className="success-actions">
+        <button type="button" className="success-track">Track my package</button>
       </div>
     </div>
   </div>  
