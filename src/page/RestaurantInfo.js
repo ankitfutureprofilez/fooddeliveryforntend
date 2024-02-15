@@ -10,6 +10,8 @@ import restaurantImg from "../assest/Socorrco.jpg";
 import { GrUserManager } from "react-icons/gr";
 import { LuMapPin } from "react-icons/lu";
 import useTimeCalculate from "../hooks/useTimeCalculate";
+import { FaLocationCrosshairs, FaRegClock } from "react-icons/fa6";
+import { FaRegDotCircle } from "react-icons/fa";
 
 export default function RestaurantInfo() {
   const [record, setRecord] = useState([]);
@@ -36,7 +38,7 @@ export default function RestaurantInfo() {
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
+        <div className="p-2 md:p-4 pt-6 md:pt-10">
           <h1 className="text-3xl font-bold mb-6">Restaurant List</h1>
           <div className="flex flex-wrap pt-10 -mx-3">
             {record.length === 0 ? (
@@ -51,12 +53,12 @@ export default function RestaurantInfo() {
                   to={`/restaurants/${item.resId}`}
                   className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/6 px-3 mb-6"
                 >
-                  <div className={`w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl ${isOpen(item.opening_from, item.opening_to) === "Closed" ? 'closedRestaurant' : 'notclosed'}`}>
+                  <div className={`w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl `}>
                     <div className="flex flex-col justify-center items-center relative">
                       <img
                         alt="image"
                         src={item.image}
-                        className="rounded-xl w-full h-44 object-cover"
+                        className={`rounded-xl w-full h-44 object-cover ${isOpen(item.opening_from, item.opening_to) === "Closed" ? 'closedRestaurant' : 'notclosed'}`}
                       />
                       {isOpen(item.opening_from, item.opening_to) === "Closed" && (
                         <div className="warning absolute">
@@ -64,10 +66,30 @@ export default function RestaurantInfo() {
                         </div>
                       )}
                     </div>
+                    <div className={`${isOpen(item.opening_from, item.opening_to) === "Closed" ? 'closedRestaurant' : 'notclosed'}`}> 
                     <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
                       {item.restaurantname}
                     </h3>
-                    <p className="text-gray-600">{item.category}</p>
+                   { item.category === "veg" ? (
+                <div className="flex">
+                  <FaRegDotCircle color="Green" size={15} className="mr-2" />
+                  <p className="text-gray-600">
+                    Vegetarian Food Available
+                  </p>
+                </div>
+              ) :item.category === "nonveg" ? (
+                <div className="flex">
+                  <FaRegDotCircle color="#ff0000" size={15} className="mr-2" />
+                  <p className="text-gray-600">
+                    Non Vegetarian Food Available
+                  </p>
+                </div>
+              ) : item.category === "both" ? (
+                <p className="text-gray-600">
+                  Both veg and non-veg Food Available
+                </p>
+              ) : null}
+                    {/* <p className="text-gray-600">{item.category}</p> */}
                     <div className="flex justify-between mt-1">
                       <div>
                         <p className="text-gray-500 text-sm align-middle mb-1 relative ">
@@ -107,6 +129,7 @@ export default function RestaurantInfo() {
                         </div>
                         <p className="text-green-500">Free Delivery</p>
                       </div>
+                    </div>
                     </div>
                   </div>
                 </Link>
