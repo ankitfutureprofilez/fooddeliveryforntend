@@ -39,7 +39,7 @@ const AllProduct = ({ heading }) => {
       <h1 className="heading ">
         <strong>Menu</strong> Category
       </h1>
-      <div className="flex w-full flex-wrap space-x-2 md:space-x-4 mb-6">
+      <div className="flex w-full flex-wrap space-x-2  mb-6">
         {categoryList.map((el) => {
           return (
             <FilterProduct
