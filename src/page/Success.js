@@ -1,5 +1,6 @@
 import React from 'react'
 import "../styles/success.css";
+import { Link } from 'react-router-dom';
 
 const Success = () => {
   return (
@@ -19,7 +20,8 @@ const Success = () => {
         <p className="success-message">Thank you for your purchase. Your order will be delivered shortly</p>
       </div>
       <div className="success-actions">
-        <button type="button" className="success-track">Track my package</button>
+        
+        <Link to="/order_history" className="success-track">Track my package</Link>
       </div>
     </div>
   </div>  
