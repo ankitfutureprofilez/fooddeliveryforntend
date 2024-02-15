@@ -71,14 +71,14 @@ export default function RestaurantInfo() {
                       {item.restaurantname}
                     </h3>
                    { item.category === "veg" ? (
-                <div className="flex">
+                <div className="flex mt-1">
                   <FaRegDotCircle color="Green" size={15} className="mr-2" />
                   <p className="text-gray-600">
                     Vegetarian Food Available
                   </p>
                 </div>
               ) :item.category === "nonveg" ? (
-                <div className="flex">
+                <div className="flex mt-1">
                   <FaRegDotCircle color="#ff0000" size={15} className="mr-2" />
                   <p className="text-gray-600">
                     Non Vegetarian Food Available

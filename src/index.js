@@ -31,6 +31,7 @@ import PrivateRoute from "./private/PrivateRoute";
 import PrivateLayout from "./private/PrivateLayout";
 import Location from "./Location/Location";
 import Orderhistory from "./payment/Orderhistory";
+import OrderDetilas from "./payment/OrderDetilas";
 
 
 const router = createBrowserRouter(
@@ -63,6 +64,8 @@ const router = createBrowserRouter(
       } />
 
 <Route path ="/order_history" element= {<Orderhistory/>}/>
+<Route path="/order_history/:order_id" element={<OrderDetilas />} />
+
       <Route path="restaurants" element={
         <PrivateRoute>
 

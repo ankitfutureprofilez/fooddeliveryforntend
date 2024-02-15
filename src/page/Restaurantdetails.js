@@ -28,15 +28,13 @@ export default function Restaurantdetails() {
     fetchData();
   }, []);
 
-
-  const [ isOpen ] = useTimeCalculate();
-  
+  const [isOpen] = useTimeCalculate();
 
   const userId = record.userId;
 
   return (
     <>
-    {/* {loading ? () ? ()} */}
+      {/* {loading ? () ? ()} */}
       <div className="flex flex-col md:flex-row mt-8">
         <div className="w-full md:w-5/12 md:pr-4 lg:pr-8">
           <div className="bg-white rounded-lg overflow-hidden cursor-pointer">
@@ -45,12 +43,15 @@ export default function Restaurantdetails() {
               alt={record.index}
               className="w-full h-auto"
             />
+            {isOpen(record.opening_from, record.opening_to) === "Closed" && (
+              <div className="warning absolute">Closed</div>
+            )}
           </div>
         </div>
         <div className="w-full md:w-7/12 mt-4 md:mt-0">
           <div className="flex flex-col justify-center h-full">
             <h1 className=" text-3xl font-semibold text-gray-800 mb-8">
-              {record.restaurantname} 
+              {record.restaurantname}
             </h1>
             <div className="flex items-center mb-4">
               {record.category === "veg" ? (
@@ -89,9 +90,6 @@ export default function Restaurantdetails() {
             <p className="text-sm text-gray-700 mb-4 ml-6">
               {record.description}
             </p>
-            {record.opening_from !== null && record.opening_to !== null ? (
-                <p className="text-sm text-gray-700 mb-4 ml-6">{isOpen(record.opening_from, record.opening_to)}</p>
-             ) : null} 
           </div>
         </div>
       </div>
