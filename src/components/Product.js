@@ -27,6 +27,7 @@ const CardFeature = ({ image, name, price, category, loading, id, description, i
   return (
     <>
 
+
       {loading ? (
         <LoadingPage />
       ) : (
