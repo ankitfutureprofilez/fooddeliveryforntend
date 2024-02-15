@@ -87,12 +87,13 @@ export default function RestaurantInfo() {
                     Non Vegetarian Food Available
                   </p>
                 </div>
+                
               ) : item.category === "both" ? (
                 <p className="text-gray-600">
                   Both veg and non-veg Food Available
                 </p>
 
-                
+
               ) : null}
                     {/* <p className="text-gray-600">{item.category}</p> */}
                     <div className="flex justify-between mt-1">
