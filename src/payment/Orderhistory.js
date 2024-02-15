@@ -54,7 +54,7 @@ export default function Orderhistory() {
                                     </tr>
                                 ) : (
                                     record.map((item, index) => (
-                                            <Link to={`order_history/${item.order_id}`} className="">
+                                            // <Link to={`order_history/${item.order_id}`} className="">
                                         <tr key={index} className="border border-gray-200">
                                                 <td className="p-3 border border-gray-200">
                                                     {item._id}
@@ -78,7 +78,7 @@ export default function Orderhistory() {
                                                     <MdStreetview />
                                                 </td>
                                         </tr>
-                                            </Link>
+                                            // </Link>
                                     ))
                                     
                                 )}
