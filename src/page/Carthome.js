@@ -29,6 +29,7 @@ export default function Carthome() {
         // const resp = axios.post(`${process.env.REACT_APP_BASE_URL}/stripe/create-checkout-session`, )
         resp.then((res)=>{
           if(res.data.url){
+            
             window.location.href = res.data.url;
           }
         }).catch((err)=>{
