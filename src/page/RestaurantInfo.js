@@ -8,6 +8,7 @@ import LoadingPage from "./LoadingPage";
 import NoData from "../components/NoData";
 import restaurantImg from "../assest/Socorrco.jpg";
 import { LuMapPin } from "react-icons/lu";
+import useTimeCalculate from "../hooks/useTimeCalculate";
 
 export default function RestaurantInfo() {
   const [record, setRecord] = useState([])
@@ -28,6 +29,9 @@ export default function RestaurantInfo() {
     fetchData();
   }, []); 
 
+
+  const [ isOpen ] = useTimeCalculate();
+
   return (
     <>
     {loading ? (
@@ -47,7 +51,7 @@ export default function RestaurantInfo() {
                   <img alt="image" src={item.image} className="rounded-xl w-full h-44 object-cover" />
                 </div>
                 <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
-                  {item.restaurantname}
+                  {item.restaurantname} {isOpen(item.opening_from, item.opening_to)}
                 </h3>
                 <p className="text-gray-600">{item.category}</p>
                 <div className="flex justify-between mt-1">
