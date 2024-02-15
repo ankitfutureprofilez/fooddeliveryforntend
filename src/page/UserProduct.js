@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Listings from '../Api/Listings';
 import LoadingPage from './LoadingPage';
 import productimage from "../assest/apple.jfif"
+import { formatMultiPrice } from './../components/Valuedata';
 
 export default function UserProduct({ userId }) {
   const [record, setRecord] = useState([])
@@ -43,7 +44,9 @@ export default function UserProduct({ userId }) {
                       <div>
                         <span>{item.description}</span>
                         <p className="text-gray-400 text-sm align-middle mb-1 relative pl-4">
-                          <span>{item.price}</span>
+                          <span>
+                           {formatMultiPrice(item.price)}
+                            </span>
                         </p>
                         <p className="text-green-500">Free Delivery</p>
                       </div>

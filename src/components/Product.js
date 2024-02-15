@@ -5,6 +5,7 @@ import { addCartItem, increaseQty } from "../redux/productSlide";
 import LoadingPage from "../page/LoadingPage";
 import productimage from "../assest/apple.jfif"
 import NoData from "./NoData";
+import { formatMultiPrice } from './Valuedata';
 
 const CardFeature = ({ image, name, price, category, loading, id, description, imagedata }) => {
   const dispatch = useDispatch()
@@ -20,14 +21,7 @@ const CardFeature = ({ image, name, price, category, loading, id, description, i
     }))
   };
 
-  const formatMultiPrice = (amount) => {
-    return new Intl.NumberFormat("en-GB", {
-      style: "currency",
-      currency: "INR",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(amount);
-  };
+ 
   console.log("name", name)
 
   return (
