@@ -40,7 +40,8 @@ const Login = () => {
     try {
       const response = await main.Login(data);
       if (response.data.status) {
-        dispatch(loginRedux(response.data?.user || null));
+     const record =   dispatch(loginRedux(response.data?.user || null));
+     console.log("record",record)
         localStorage && localStorage.setItem("token", response?.data.token)
         toast.success(response.data.message);
         navigate('/')
