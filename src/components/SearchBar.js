@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Users from "../Api/Users";
 import { Link } from "react-router-dom";
-import productimage from "../assest/apple.jfif"
-import restaurantImg from "../assest/Socorrco.jpg";
-import { formatMultiPrice } from './Valuedata';
+
+import Product from "./Product";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -89,29 +88,38 @@ export default function SearchBar() {
         >
           {FetchProducts.length > 0 ? (
             <>
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex search-lists justify-between items-center mb-4">
                 {/* <h2 className="text-xl font-bold">Products</h2>
                 <Link to={"products"}>
                   <button className="text-blue-500 ">View All</button>{" "}
                 </Link> */}
               </div>
               {FetchProducts.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white rounded-lg shadow-lg p-2 mb-2 flex "
-                >
-                  <img
-                    src={item.image}
-                    alt="product"
-                    className="w-12 h-12 mr-2 rounded-full"
-                  />
-                  <div className="flex flex-col justify-center">
-                    <span className="text-center">{item.name}</span>
-                    <span className="text-center">Price - {
-                      formatMultiPrice(item.price)
-                    }</span>
-                  </div>
-                </div>
+                      <Product
+                      key={item._id}
+                      id={item._id}
+                      image={item.image}
+                      name={item.name}
+                      category={item.category}
+                      price={item.price}
+                      description={item.description}
+                    />
+
+                  // <div
+                  //   key={item.id}
+                  //   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex ">
+                  //   <img
+                  //     src={item.image}
+                  //     alt="product"
+                  //     className="w-12 h-12 mr-2 rounded-full"
+                  //   />
+                  //   <div className="flex flex-col justify-center">
+                  //     <span className="text-start">{item.name}</span>
+                  //     <span className="text-start">Price - {
+                  //       formatMultiPrice(item.price)
+                  //     }</span>
+                  //   </div>
+                  // </div>
               ))}
             </>
           ) : null}
@@ -124,6 +132,7 @@ export default function SearchBar() {
                 </Link> */}
               </div>
               {FetchRestaurants.map((item) => (
+                <Link to={`/restaurants/${item.resId}`} >
                 <div
                   key={item.id}
                   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex"
@@ -138,6 +147,7 @@ export default function SearchBar() {
                     <span className="text-left">{item.category}  </span>
                   </div>
                 </div>
+                </Link>
               ))}
             </>
           ) : null}
