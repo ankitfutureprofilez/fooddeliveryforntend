@@ -75,7 +75,7 @@ export default function Restaurantdetails() {
         <div className="w-full md:w-5/12 md:pr-4 lg:pr-8">
           <div className="bg-white rounded-lg overflow-hidden cursor-pointer">
             <img
-              src={restaurantImg}
+              src={record.image}
               alt={record.index}
               className="w-full h-auto"
             />
@@ -131,7 +131,7 @@ export default function Restaurantdetails() {
               <p className="text-sm text-gray-700 mb-4 ml-6">Null</p>
             )}  */}
           </div>
-          
+
         </div>
       </div>
 
