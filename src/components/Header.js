@@ -51,13 +51,7 @@ const Header = () => {
             </div>
 
 
-            <div className="flex items-center gap-4 md:gap-7">
-              <div className="text-2xl text-slate-600 relative">
-                <Link className="text-gray-900" to={"cart"}>
-                  Order History
-                </Link>
-              </div>
-            </div>
+            
             <div className=" text-slate-600" onClick={handleShowMenu}>
               <div className="text-3xl flex items-center just text-gray-900 cursor-pointer w-8 h-8 rounded-full overflow-hidden">
                 {userData.image ? (
