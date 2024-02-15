@@ -91,6 +91,7 @@ export default function RestaurantInfo() {
                 <p className="text-gray-600">
                   Both veg and non-veg Food Available
                 </p>
+
                 
               ) : null}
                     {/* <p className="text-gray-600">{item.category}</p> */}
