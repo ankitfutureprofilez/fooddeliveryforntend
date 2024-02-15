@@ -49,6 +49,7 @@ const CardFeature = ({ image, name, price, category, loading, id, description, i
                     <span className="bg-black text-white absolute top-0 left-0">{category}</span>
                   </div>
 
+
                   <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
                     {name}
                   </h3>
