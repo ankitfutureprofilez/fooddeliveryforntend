@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: screen; /* Set the height to 100% of the viewport height */
+    height: 600px; 
   }
   
   .loader {
