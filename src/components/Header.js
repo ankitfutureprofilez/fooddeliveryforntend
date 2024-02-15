@@ -11,6 +11,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
+  console.log("userdata", userData)
   const dispatch = useDispatch();
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);
@@ -34,24 +35,7 @@ const Header = () => {
             </div>
           </Link>
           <SearchBar />
-          {/* <div className="mx-auto relative max-w-md w-full">
-                  <div className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-500 ">  
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                          </svg>
-                    </div>
-                    <input type="search" name ="search" placeholder="Find and restaurant in your city" className="h-12 appearance-none block w-full bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 pr-32 pr-12 leading-tight focus:outline-none"/>
-                  <div className="absolute top-1/2 right-2  -translate-y-1/2">
-                      <button className="text-white text-base bg-orange-500 tracking-wide-md font-medium px-6 py-2 lg:px-8 lg:py-2 rounded-md outline-none focus:outline-none bg-yellow ease-linear transition-all duration-150">Search</button>
-                  </div>
-            </div> */}
           <div className="flex items-center gap-4 md:gap-7">
-            {/* <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex">
-                <Link to={""}>Home</Link>
-                <Link to={"menu/63f0fdbb3bcc2f97fa53d25d"}>Menu</Link>
-                <Link to={"about"}>About</Link>
-                <Link to={"contact"}>Contact</Link>
-              </nav> */}
             <div className="text-2xl text-slate-600 relative">
               <Link className="text-gray-900" to={"cart"}>
                 {/* <BsCartFill /> */}
@@ -62,6 +46,15 @@ const Header = () => {
                   {cartItemNumber.length}
                 </div>
               </Link>
+            </div>
+
+
+            <div className="flex items-center gap-4 md:gap-7">
+            <div className="text-2xl text-slate-600 relative">
+              <Link className="text-gray-900" to={"cart"}>
+             Order History
+              </Link>
+            </div>
             </div>
             <div className=" text-slate-600" onClick={handleShowMenu}>
               <div className="text-3xl flex items-center just text-gray-900 cursor-pointer w-8 h-8 rounded-full overflow-hidden">
@@ -78,41 +71,42 @@ const Header = () => {
               {showMenu && (
                 <div className="absolute right-2 bg-white rounded-lg  shadow drop-shadow-md flex flex-col min-w-[120px]  m-0.5">
                   {userData.email ?
-                   <ul className="align-left dropdownitem">
-                   <li
-                     className="cursor-pointer text-white   bg-red-500 rounded-md"
-                     onClick={handleLogout}
-                   >
-                    <button>Logout ({userData.firstName})</button>
-                   </li>
-                   <li>
-                     <NavLink
-                       to={"newproduct"}
-                       className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
-                     >
-                       New product
-                     </NavLink>
-                   </li>
-                   <li>
-                     <NavLink
-                       to={"restaurant-register"}
-                       className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
-                     >
-                       Register Restaurant
-                     </NavLink>
-                   </li>
-                   <li>
-                     <NavLink
-                       to={"restaurants"}
-                       className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300"
-                     >
-                       Restaurant List
-                     </NavLink>
-
-                     
-                   </li>
-                 </ul>
-                 
+                    <ul className="align-left dropdownitem">
+                      <li
+                        className="cursor-pointer text-white   bg-red-500 rounded-md"
+                        onClick={handleLogout}
+                      >
+                        <button>Logout ({userData.firstName})</button>
+                      </li>
+                      <li>
+                        <NavLink
+                          to={"newproduct"}
+                          className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
+                        >
+                          New product
+                        </NavLink>
+                      </li>
+                      <li>
+                        {
+                          userData.resId ? (<></>) : (
+                            <NavLink
+                              to={"restaurant-register"}
+                              className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
+                            >
+                              Register Restaurant
+                            </NavLink>
+                          )
+                        }
+                      </li>
+                      <li>
+                        <NavLink
+                          to={"restaurants"}
+                          className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300"
+                        >
+                          Restaurant List
+                        </NavLink>
+                      </li>
+                    </ul>
                     :
                     <NavLink
                       to={"login"}

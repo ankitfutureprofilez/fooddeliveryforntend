@@ -13,6 +13,9 @@ export default function Orderhistory() {
             setRecord(res.data.list);
             setLoading(false);
             console.log("res", res.data.list);
+            res.data.list.forEach(item => {
+                localStorage.setItem(`orderStatus`, item.order_status);
+            });
         }).catch((error) => {
             console.log("error", error);
             setLoading(false);
