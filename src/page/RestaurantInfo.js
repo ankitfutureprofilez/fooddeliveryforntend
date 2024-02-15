@@ -38,8 +38,11 @@ export default function RestaurantInfo() {
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="p-2 md:p-4 pt-6 md:pt-10">
-          <h1 className="text-3xl font-bold mb-6">Restaurant List</h1>
+        <div className="p-2 md:p-4 md:pt-10">
+          <h2 className="heading">
+            <strong>Restaurant </strong> For You
+          </h2>
+
           <div className="flex flex-wrap pt-10 -mx-3">
             {record.length === 0 ? (
               <div className="w-full flex items-center justify-center ">

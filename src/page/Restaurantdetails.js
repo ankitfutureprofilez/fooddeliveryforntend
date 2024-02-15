@@ -36,31 +36,31 @@ export default function Restaurantdetails() {
   return (
     <>
       <div className='bg-white p-4 md:p-8 pt-6 md:pt-10'>
-        <div class="flex flex-row -mx-4">
+        {record ? <div class="flex flex-row -mx-4">
           <div className='w-full md:w-5/12 px-4'>
             <div className=' bg-white product_box  py-3 px-3 cursor-pointer'>
-               <img className='max-w-full min-h-[300px]' src={record.banner_image} alt={record.index} />
+               <img className='max-w-full min-h-[300px]' src={record && record.image} alt={record && record.index} />
             </div>
           </div>
           <div className='w-full md:w-6/12 '>
             <div class="flex flex-nowrap">
               <div>
-                <h1>{record.restaurantname}</h1>
-                <p>{record.category}</p>
-                <p>{record.description}</p>
-                <p>{record.location}</p>
-                <p>Timing :- {record.opening_to} {record.opening_from} </p>
+                <h1>{record && record.restaurantname}</h1>
+                <p>{record && record.category}</p>
+                <p>{record && record.description}</p>
+                <p>{record && record.location}</p>
+                <p>Timing :- {record && record.opening_to} {record && record.opening_from} </p>
               </div>
             </div>
             {/* </div> */}
             <p className="text-sm text-gray-700 mb-4 ml-6">
-              {record.description}
+              {record && record.description}
             </p>
-            {record.opening_from !== null && record.opening_to !== null ? (
-                <p className="text-sm text-gray-700 mb-4 ml-6">{isOpen(record.opening_from, record.opening_to)}</p>
+            {record && record.opening_from !== null && record && record.opening_to !== null ? (
+                <p className="text-sm text-gray-700 mb-4 ml-6">{isOpen(record && record.opening_from, record && record.opening_to)}</p>
              ) : null} 
           </div>
-        </div>
+        </div> : ''}
       </div>
 
       <UserProduct userId={userId} />
