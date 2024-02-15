@@ -102,6 +102,14 @@ const Header = () => {
                         }
                       </li>
                       <li>
+                      <NavLink
+                              to={"newproduct"}
+                              className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
+                            >
+                              New product
+                            </NavLink>
+                      </li>
+                      <li>
                         <NavLink
                           to={"restaurants"}
                           className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300"
