@@ -8,16 +8,14 @@ import useTimeCalculate from "../hooks/useTimeCalculate";
 import LoadingPage from "./LoadingPage";
 
 export default function Restaurantdetails() {
-  const { resId } = useParams();
   const [record, setRecord] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const fetchData = async () => {
     try {
       const main = new Listings();
-      const response = await main.resturantdetilas(resId);
+      const response = await main.resturantget();
       console.log("rsponse", response)
-      setRecord(response.data.record[0]);
+      setRecord(response.data.record);
       setLoading(false);
     } catch (error) {
       console.log("error", error);
