@@ -38,7 +38,7 @@ export default function Restaurantdetails() {
     {loading ? (
       <LoadingPage/>
     ) : (
-       <div className='product-details bg-white p-4 md:p-8 pt-6 md:pt-10'>
+       <div className='product-details md:p-8 pt-6 md:pt-10'>
        <div class="flex flex-row -mx-4">
          <div className='w-full md:w-5/12 px-4'>
            <div className=' bg-white product_box  py-3 px-3 cursor-pointer'>
@@ -91,7 +91,7 @@ export default function Restaurantdetails() {
      </div>
     )}
      
-      <UserProduct userId={userId} />
+      {/* <UserProduct userId={userId} /> */}
     </>
   );
 }

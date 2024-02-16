@@ -86,7 +86,7 @@ const Header = () => {
                               to={"restaurant-register"}
                               className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
                             >
-                              Register Restaurant
+                              Edit My Restaurant
                             </NavLink>
 
 
@@ -107,10 +107,10 @@ const Header = () => {
                       </li>
                       <li>
                         <NavLink
-                          to={"restaurants"}
+                          to={"dashboard"}
                           className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300"
                         >
-                          Restaurant List
+                          Restaurant dashboard
                         </NavLink>
                       </li>
                       <li>
