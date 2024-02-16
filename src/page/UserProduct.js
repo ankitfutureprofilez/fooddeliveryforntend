@@ -42,7 +42,7 @@ const handleAddCartProduct = (item) => {
       {loading ? (
        <LoadingPage/>
       ) : (
-        <div className="bg-white p-4 md:p-8 pt-6 md:pt-10">
+        <div className="md:p-8 pt-6 md:pt-10">
           <h2 className="heading mb-4 ">You Might be <b>Intrested In</b> </h2>
           <div className="flex flex-wrap -mx-4">
             {record && record.map((item, index) => (
