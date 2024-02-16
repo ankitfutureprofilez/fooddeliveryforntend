@@ -42,11 +42,34 @@ export default function Location() {
         await getuser();
     }
     
+    const [deliveryStatus, setDeliveryStatus] = useState('In Transit');
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            navigator.geolocation.getCurrentPosition(position => {
+                setLongitude(position.coords.longitude);
+                setLatitude(position.coords.latitude);
+    
+                if (Math.abs(position.coords.latitude - 26.922070) < 0.01 && Math.abs(position.coords.longitude - 75.778885) < 0.01) {
+                    setDeliveryStatus('Delivered');
+                    clearInterval(interval); 
+                }
+            });
+        }, 5000); 
+    
+        return () => clearInterval(interval); 
+    }, []);
+    
     return (
         <div>
-            <h1>current  loadint </h1>
-            <button onClick={handleuser}>get user</button>
-
-        </div>
+        <h1>Current Location</h1>
+        {deliveryStatus === 'In Transit' ? (
+            <button onClick={handleuser}>Get User Address</button>
+        ) : (
+            <h2>Delivery Successful!</h2>
+        )}
+        {userdata && <p>Address: {userdata}</p>}
+    </div>
     )
 }

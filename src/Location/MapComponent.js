@@ -22,7 +22,7 @@ const MapComponent = () => {
 
   return (
     <GoogleMapReact
-      bootstrapURLKeys={{ key: '1f4194a9d4f54eec9bca1633b35e3bf0' }}
+      bootstrapURLKeys={{ key: 'abc123' }}
       defaultCenter={defaultProps.center}
       defaultZoom={defaultProps.zoom}
     >
