@@ -32,7 +32,7 @@ export default function ProductAll() {
     ) : (
       <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
         <h1 className="text-3xl font-bold mb-6">Product List</h1>
-        {record.length === 0 ? (
+        {record?.length === 0 ? (
              <div className="w-full flex items-center justify-center ">
               <NoData/>
               </div>

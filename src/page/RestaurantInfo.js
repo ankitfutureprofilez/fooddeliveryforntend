@@ -44,7 +44,7 @@ export default function RestaurantInfo() {
           </h2>
 
           <div className="flex flex-wrap pt-10 -mx-3">
-            {record.length === 0 ? (
+            {record?.length === 0 ? (
               <div className="w-full flex items-center justify-center ">
                 <NoData />
               </div>

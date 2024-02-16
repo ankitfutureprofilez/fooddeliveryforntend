@@ -78,7 +78,6 @@ const Header = () => {
                       <li>
                         {
                           userData.resId ? (<>
-
                            <></>
                           </>) : (
                             <NavLink
