@@ -58,7 +58,10 @@ const CardFeature = ({ image, name, price, category, loading, id, description, i
               </div>
             </>
           ) : (
-            <NoData />
+            <div className="w-full">
+              <NoData />
+              
+              </div>
           )}
         </div>
       )}
