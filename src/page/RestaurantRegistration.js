@@ -370,12 +370,10 @@ export default function RestaurantRegistration() {
           </div>
           {/* Third row */}
           <div className="flex flex-wrap mt-7">
-            <div class="w-full md:w-2/2 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <ImageUpload setImage={(image) => setData((prevData) => ({ ...prevData, image }))}  records = {record.image} />
             </div>
-
-            <div className=" w-full   flex flex-wrap mt-7">
-              <div class="w-full  md:w-2/2 px-3 md:mb-0">
+            <div class="w-full  md:w-1/2 px-3 md:mb-0">
                 <label
                   class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   for="grid-state"
@@ -393,7 +391,6 @@ export default function RestaurantRegistration() {
                   ></textarea>
                 </div>
               </div>
-            </div>
           </div>
           {/* Fourth row */}
           <div className="flex flex-wrap mt-7">

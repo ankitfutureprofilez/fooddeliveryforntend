@@ -44,13 +44,11 @@ export default function ImageUpload({ setImage, records }) {
                         {image ? (
                             <>
                                 <img src={image} alt="Uploaded" className="max-w-full rounded-full w-10 h-12" />
-                                <p className="text-sm   text-gray-600">{image}</p>
                             </>
                         ) : (
                             records && (
                                 <>
                                     <img src={records} alt="Uploaded" className="max-w-full rounded-full w-10 h-12" />
-                                    <p className="text-sm   text-gray-600">{records}</p>
                                 </>
                             )
                         )}
