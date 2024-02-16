@@ -143,6 +143,7 @@ export default function RestaurantRegistration() {
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
+        
         const locationString = response.data.display_name;
         setData((prev) => {
           return {
