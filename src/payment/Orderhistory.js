@@ -3,6 +3,7 @@ import Listings from "../Api/Listings";
 import LoadingPage from "../page/LoadingPage";
 import { MdStreetview } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { formatDate } from "../hooks/Formdata";
 export default function Orderhistory() {
   const [loading, setLoading] = useState(true);
   const [record, setRecord] = useState([]);
@@ -25,11 +26,6 @@ export default function Orderhistory() {
       });
   }, []);
 
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    // Extract the date part in "YYYY-MM-DD" format
-    return date.toISOString().split("T")[0];
-  }
 
   return (
     <div>
@@ -43,7 +39,6 @@ export default function Orderhistory() {
                   <th className="p-3 border border-gray-200">
                     Order ID & Date
                   </th>
-
                   <th className="p-3 border border-gray-200">Order Items</th>
                   <th className="p-3 border border-gray-200">Order Status</th>
                   <th className="p-3 border border-gray-200">Created At</th>
