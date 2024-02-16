@@ -3,7 +3,7 @@ import LoadingPage from '../page/LoadingPage';
 import Listings from '../Api/Listings';
 import { useDispatch, useSelector } from "react-redux";
 import NoData from '../components/NoData';
-import {formatMultiPrice} from "../components/Valuedata"; 
+import {formatMultiPrice} from "../hooks/Valuedata"
 
 export default function ProductAll() {
   const [record, setRecord] = useState([])
@@ -32,7 +32,7 @@ export default function ProductAll() {
               <NoData />
             </div>
           ) : (
-            <div className="flex flex-wrap justify-between -mx-4">
+            <div className="flex flex-wrap mx-4">
               {record && record.map((item, index) => (
                 <div className="w-full md:w-1/3 px-4 mb-4 " key={index}>
                   <div className='bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl'>
@@ -46,8 +46,8 @@ export default function ProductAll() {
                     <div className="flex justify-between mt-1">
                       <div>
                         <span>{item.description}</span>
-                        <p className="text-gray-400 text-sm align-middle mb-1 relative pl-4">
-                          <span>{item.price}</span>
+                        <p className="text-gray-400 text-sm mt-1 mb-1 relative">
+                          <span>{formatMultiPrice(item.price)}</span>
                         </p>
                         <p className="text-green-500">Free Delivery</p>
                       </div>
