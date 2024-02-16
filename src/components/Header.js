@@ -77,25 +77,33 @@ const Header = () => {
 
                       <li>
                         {
-                          userData.resId ? (<>
-                           <></>
-                          </>) : (
-                            <NavLink
+                          userData.resId === 1? (<>
+
+                           <>
+                           
+                           </>
+                           <NavLink
                               to={"restaurant-register"}
                               className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
                             >
                               Register Restaurant
                             </NavLink>
-                          )
-                        }
-                      </li>
-                      <li>
-                      <NavLink
+
+
+                            <NavLink
                               to={"newproduct"}
                               className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
                             >
                               New product
                             </NavLink>
+                          </>) : (
+                            <>
+                            </>
+                          )
+                        }
+                      </li>
+                      <li>
+                   
                       </li>
                       <li>
                         <NavLink

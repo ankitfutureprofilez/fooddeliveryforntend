@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 export default function OrderDetilas() {
     const{order_id} =useParams();
-    console.log("order_id",order_id)
+    console.log("order_id",order_id);
   return (
     <div>
          <div className="success-card ">
