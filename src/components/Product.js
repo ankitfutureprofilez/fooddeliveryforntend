@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addCartItem } from "../redux/productSlide";
 import LoadingPage from "../page/LoadingPage";
 import NoData from "./NoData";
-import { formatMultiPrice } from './Valuedata';
+import { formatMultiPrice } from '../hooks/Valuedata';
 
 const CardFeature = ({ image, name, price, category, loading, id, description, imagedata }) => {
   const dispatch = useDispatch()
