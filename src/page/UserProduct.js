@@ -3,6 +3,8 @@ import Listings from '../Api/Listings';
 import LoadingPage from './LoadingPage';
 import productimage from "../assest/apple.jfif"
 import { formatMultiPrice } from './../components/Valuedata';
+import { addCartItem } from '../redux/productSlide';
+import { useDispatch } from 'react-redux';
 
 export default function UserProduct({ userId }) {
   const [record, setRecord] = useState([])
@@ -22,6 +24,19 @@ export default function UserProduct({ userId }) {
   useEffect(() => {
     fetchproduct();
   }, [userId]);
+const dispatch =useDispatch()
+
+
+const handleAddCartProduct = (item) => {
+  dispatch(addCartItem({
+    _id: item._id,
+    name: item.name,
+    price: item.price,
+    category: item.category,
+    image: item.image,
+  }));
+};
+
   return (
     <>
       {loading ? (
@@ -47,6 +62,9 @@ export default function UserProduct({ userId }) {
                           <span> ₹ {item.price}</span>
                         </p>
                         <p className="text-green-500">Free Delivery</p>
+                        <button
+                        className="button bg-blue sm"
+                        onClick={handleAddCartProduct}>+</button>
                       </div>
                     </div>
                 </div>
