@@ -149,6 +149,9 @@ const Cart = () => {
                   </button>
                 </div>
               </div>
+
+
+              
             </div>
 
             {/* total cart item  */}
