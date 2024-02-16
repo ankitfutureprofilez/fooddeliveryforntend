@@ -9,7 +9,7 @@ export default function Dashboard() {
   return (
     <>
       <Restaurantdetails />
-      <div className="flex justify-center my-4 text-lg rounded-all">
+      <div className="flex justify-center mt-16 text-lg rounded-all">
         <button
           className={`mr-4 py-2 px-4 ${activeTab === 'Product' ? 'font-weight:600 bg-gray-200 ' : 'bg-gray-100'} rounded-lg`}
           onClick={() => setActiveTab('Product')}

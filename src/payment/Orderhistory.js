@@ -29,9 +29,8 @@ export default function Orderhistory() {
 
   return (
     <div>
-      <div>
-        <div className="container mx-auto px-4 py-8">
-          <h1 className="text-2xl font-semibold mb-4">Order History</h1>
+        <div className="container mx-auto px-4 pb-14 ">
+          <h1 className="text-3xl font-bold mb-6">Order History</h1>
           <div className="overflow-x-auto">
             <table className="table-auto w-full">
               <thead className=" bg-black  text-white">
@@ -39,9 +38,9 @@ export default function Orderhistory() {
                   <th className="p-3 border border-gray-200">
                     Order ID & Date
                   </th>
-                  <th className="p-3 border border-gray-200">Order Items</th>
-                  <th className="p-3 border border-gray-200">Order Status</th>
-                  <th className="p-3 border border-gray-200">Created At</th>
+                  <th className="p-3 border border-gray-200 ">Order Items</th>
+                  <th className="p-3 border border-gray-200 ">Order Status</th>
+                  <th className="p-3 border border-gray-200 ">View</th>
                 </tr>
               </thead>
               <tbody>
@@ -53,13 +52,13 @@ export default function Orderhistory() {
                   record.map((item, index) => (
             
                     <tr key={index} className="border border-gray-200">
-                      <td className="p-3 border border-gray-200">
+                      <td className="p-3 border border-gray-200 ">
                         {item._id}
                         <span className="flex">
                           {formatDate(item.createdAt)}
                         </span>
                       </td>
-                      <td className="p-3 border border-gray-200">
+                      <td className="p-3 border border-gray-200 ">
                         {JSON.parse(item.order_items).map(
                           (orderItem, index) => (
                             <div
@@ -100,7 +99,6 @@ export default function Orderhistory() {
             </table>
           </div>
         </div>
-      </div>
     </div>
   );
 }
