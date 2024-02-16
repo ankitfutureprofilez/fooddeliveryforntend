@@ -136,7 +136,7 @@ const Cart = () => {
                   type="text"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   name="location"
-                  value={locations}
+                  value={locations.location}
                   onChange={handleLocationChange}
                 />
                 <div className="absolute top-2 right-2">
