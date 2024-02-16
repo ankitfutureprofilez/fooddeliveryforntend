@@ -10,21 +10,19 @@ export default function ProductAll() {
     const productData = useSelector((state)=>state.product)
     const [record, setRecord] = useState([])
   const [loading, setLoading] = useState(true);
-    const fetchData =  () => {
-        const main = new Listings();
-        const response =  main.productlist();
-        response.then((res)=>{
-          setRecord(res.data.data);
-        dispatch(setDataProduct(res?.data));
-          setLoading(false);
-        }).catch((error)=>{
-          console.log("error", error);
-          setLoading(false);
-        })
-    }
-    useEffect(() => {
-        fetchData();
-      }, []);  
+  useEffect(()=>{
+    const main = new Listings();
+    const response =  main.productlist();
+    response.then((res)=>{
+      console.log("res?.data",res?.data)
+      setRecord(res?.data?.data);
+      setLoading(false)
+    }).catch((error)=>{
+      console.log("error",error)
+      setLoading(false)
+
+    })
+  },[])
   return (
     <>
     {loading ? (

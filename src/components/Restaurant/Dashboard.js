@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import Orderhistory from '../../payment/Orderhistory';
 import Restaurantdetails from '../../page/Restaurantdetails';
-import UserProduct from '../../page/UserProduct';
+import ProductAll from './../../Product/ProductAll';
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('restaurant'); // State to manage active tab
+  const [activeTab, setActiveTab] = useState('Product'); 
 
   return (
     <div>
-        <Restaurantdetails />
+      <Restaurantdetails />
       <div className="flex justify-center my-4">
         <button
-          className={`mr-4 py-2 px-4 ${activeTab === 'restaurant' ? 'bg-gray-200' : 'bg-gray-100'} rounded-lg`}
-          onClick={() => setActiveTab('restaurant')}
+          className={`mr-4 py-2 px-4 ${activeTab === 'Product' ? 'bg-gray-200' : 'bg-gray-100'} rounded-lg`}
+          onClick={() => setActiveTab('Product')}
         >
           Products
         </button>
@@ -23,7 +23,7 @@ export default function Dashboard() {
           Order History
         </button>
       </div>
-      {activeTab === 'restaurant' && <UserProduct />}
+      {activeTab === 'Product' && <ProductAll />}
       {activeTab === 'orderHistory' && <Orderhistory />}
     </div>
   );
