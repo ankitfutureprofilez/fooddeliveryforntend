@@ -33,6 +33,8 @@ import Location from "./Location/Location";
 import Orderhistory from "./payment/Orderhistory";
 import OrderDetilas from "./payment/OrderDetilas";
 import MapComponent from "./Location/MapComponent";
+import Map from "./tracking/Map";
+import MapContainer from "./tracking/MapContainer";
 
 
 const router = createBrowserRouter(
@@ -62,6 +64,9 @@ const router = createBrowserRouter(
 
 <Route path="location" element={
           <Location />
+      } />
+<Route path="map" element={
+          <MapContainer />
       } />
 
       
