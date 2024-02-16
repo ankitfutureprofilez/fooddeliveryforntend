@@ -32,6 +32,7 @@ import PrivateLayout from "./private/PrivateLayout";
 import Location from "./Location/Location";
 import Orderhistory from "./payment/Orderhistory";
 import OrderDetilas from "./payment/OrderDetilas";
+import MapComponent from "./Location/MapComponent";
 
 
 const router = createBrowserRouter(
@@ -61,6 +62,11 @@ const router = createBrowserRouter(
 
 <Route path="location" element={
           <Location />
+      } />
+
+      
+<Route path="MapComponent" element={
+          <MapComponent />
       } />
 
 <Route path ="/order_history" element= {<Orderhistory/>}/>
