@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import Listings from '../Api/Listings';
 import UserProduct from  "./UserProduct"
 export default function Restaurantdetails() {
-  const { resId } = useParams();
-  console.log("resId", resId)
+  
   const [record, setRecord] = useState([])
 
 const[loading ,setLoading] =useState(true);
@@ -12,7 +11,7 @@ const[loading ,setLoading] =useState(true);
   const fetchData = async () => {
     try {
         const main = new Listings();
-        const response = await main.resturantdetilas(resId);
+        const response = await main.resturantdetilas();
         setRecord(response.data.record[0]);
         setLoading(false);
     } catch (error) {

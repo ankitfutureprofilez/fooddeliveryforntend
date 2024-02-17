@@ -3,10 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { FaUserGroup } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
+import { LuMapPin } from "react-icons/lu";
 import Listings from "../Api/Listings";
-import { FaUserGroup } from "react-icons/fa6";
-import { FaUserAlt } from "react-icons/fa";
-import { IoTime } from "react-icons/io5";
 
 export default function RestaurantInfo() {
 
@@ -24,7 +22,7 @@ export default function RestaurantInfo() {
         setLoading(false);
     }
   };
-  
+
   
   useEffect(() => {
     fetchData();

@@ -25,8 +25,8 @@ class Listings extends Component {
   }
 
 // Rest.
-  async resturantdetilas(resId){
-    return Api.get(`/restaurant/${resId}`)
+  async resturantdetilas(){
+    return Api.get(`/restaurant`)
   }
 
   async resturantget(){
