@@ -11,8 +11,9 @@ const[loading ,setLoading] =useState(true);
   const fetchData = async () => {
     try {
         const main = new Listings();
-        const response = await main.resturantdetilas();
-        setRecord(response.data.record[0]);
+        const response = await main.resturantget();
+        console.log("response",response)
+        setRecord(response.data.record);
         setLoading(false);
     } catch (error) {
         console.log("error", error);
@@ -31,7 +32,7 @@ const[loading ,setLoading] =useState(true);
         <div class="flex flex-row ">
           <div className='w-full md:w-6/12 '>
             <div className=' bg-white product_box  py-3 px-3 cursor-pointer'>
-               <img src={record.banner_image} alt={record.index} />
+               <img src={record.image} alt={record.index} />
             </div>
           </div>
           <div className='w-full md:w-6/12 '>
