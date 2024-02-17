@@ -11,28 +11,28 @@ export default function OrderDetilas() {
 
   const [packageStatus, setPackageStatus] = useState("picked");
 
-  useEffect(() => {
-    let intervalId;
-    if (packageStatus !== "delivered") {
-      intervalId = setInterval(() => {
-        handleStatusChange();
-      }, 5000);
-    }
-    //  else {
-    //   const timeoutId = setTimeout(() => {
-    //     console.log("Refreshing data");
-    //     setPackageStatus("picked");
-    //   }, 10000);
+  // useEffect(() => {
+    // let intervalId;
+    // if (packageStatus !== "delivered") {
+      // intervalId = setInterval(() => {
+        // handleStatusChange();
+  //     }, 5000);
+  //   }
+  //   //  else {
+  //   //   const timeoutId = setTimeout(() => {
+  //   //     console.log("Refreshing data");
+  //   //     setPackageStatus("picked");
+  //   //   }, 10000);
 
-    //   return () => clearTimeout(timeoutId);
-    // }
+  //   //   return () => clearTimeout(timeoutId);
+  //   // }
 
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [packageStatus]);
+  //   return () => {
+  //     if (intervalId) {
+  //       clearInterval(intervalId);
+  //     }
+  //   };
+  // }, [packageStatus]);
 
   const handleStatusChange = () => {
     let nextStatus;

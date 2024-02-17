@@ -2,48 +2,53 @@ import React, { useState, useEffect } from 'react';
 import Map from './Map';
 
 const MapContainer = ({ restaurent_coordinates, usercoordinates, status }) => {
-  const parsedRestaurantCoordinates = restaurent_coordinates ? JSON.parse(restaurent_coordinates) : null;
-  const parsedUserCoordinates = usercoordinates ? JSON.parse(usercoordinates) : null;
-
-  const [restaurantLocation, setRestaurantLocation] = useState(parsedRestaurantCoordinates || { lat: 28.65195, lng: 77.23149 });
-  const [deliveryLocation, setDeliveryLocation] = useState(parsedUserCoordinates || { lat: 26.92822, lng: 75.7857166 });
-  const [deliveryPersonLocation, setDeliveryPersonLocation] = useState(parsedRestaurantCoordinates || { lat: 28.65195, lng: 77.23149 });
+  const [restaurantLocation, setRestaurantLocation] = useState({ lat: 28.65195, lng: 77.23149 });
+  const [deliveryLocation, setDeliveryLocation] = useState({ lat: 26.92822, lng: 75.7857166 });
+  const [deliveryPersonLocation, setDeliveryPersonLocation] = useState({ lat: 28.65195, lng: 77.23149 });
 
   useEffect(() => {
-    if (parsedRestaurantCoordinates) {
-      setRestaurantLocation(parsedRestaurantCoordinates);
+    if (restaurent_coordinates) {
+      setRestaurantLocation(JSON.parse(restaurent_coordinates));
     }
-    if (parsedUserCoordinates) {
-      setDeliveryLocation(parsedUserCoordinates);
+    if (usercoordinates) {
+      setDeliveryLocation(JSON.parse(usercoordinates));
     }
-  }, [parsedRestaurantCoordinates, parsedUserCoordinates]);
+  }, [restaurent_coordinates, usercoordinates]);
 
   useEffect(() => {
-    let interval;
-    switch (status) {
-      case "picked":
-        setDeliveryPersonLocation(restaurantLocation);
-        break;
-      case "accepted":
-        interval = setInterval(() => {
-          setDeliveryPersonLocation((currentLocation) => {
-            const newLat = currentLocation.lat + (deliveryLocation.lat - currentLocation.lat) * 0.1;
-            const newLng = currentLocation.lng + (deliveryLocation.lng - currentLocation.lng) * 0.1;
-            return { lat: newLat, lng: newLng };
-          });
-        }, 5000);
-        break;
-      case "delivered":
-        setDeliveryPersonLocation(deliveryLocation);
-        break;
-      default:
-        break;
+    let interval = null;
+
+    if (status === "accepted") {
+      interval = setInterval(() => {
+        setDeliveryPersonLocation((currentLocation) => {
+          const deltaLat = deliveryLocation.lat - currentLocation.lat;
+          const deltaLng = deliveryLocation.lng - currentLocation.lng;
+          const distance = Math.sqrt(deltaLat ** 2 + deltaLng ** 2);
+
+          if (distance < 0.001) {
+            clearInterval(interval);
+            return deliveryLocation; 
+          }
+
+          const stepSize = distance * 0.55 ; 
+          const stepLat = deltaLat / distance * stepSize;
+          const stepLng = deltaLng / distance * stepSize;
+
+          return {
+            lat: currentLocation.lat + stepLat,
+            lng: currentLocation.lng + stepLng,
+          };
+        });
+      }, 1000); 
+    } else if (status === "delivered") {
+      clearInterval(interval);
+      setDeliveryPersonLocation(deliveryLocation);
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [status, restaurantLocation, deliveryLocation]);
+  }, [status, deliveryLocation]);
 
   return (
     <>
