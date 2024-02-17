@@ -2,29 +2,67 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Listings from "../Api/Listings";
 import { formatDate } from "../hooks/Formdata";
+import MapContainer from "../tracking/MapContainer";
+import toast from "react-hot-toast";
 
 export default function OrderDetilas() {
   const { order_id } = useParams();
   const [record, setRecord] = useState([])
 
-  const [packageStatus, setPackageStatus] = useState("Picked");
+  const [packageStatus, setPackageStatus] = useState("picked");
+
+  useEffect(() => {
+    let intervalId;
+    if (packageStatus !== "delivered") {
+      intervalId = setInterval(() => {
+        handleStatusChange();
+      }, 5000);
+    }
+    //  else {
+    //   const timeoutId = setTimeout(() => {
+    //     console.log("Refreshing data");
+    //     setPackageStatus("picked");
+    //   }, 10000);
+
+    //   return () => clearTimeout(timeoutId);
+    // }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [packageStatus]);
 
   const handleStatusChange = () => {
+    let nextStatus;
     switch (packageStatus) {
-      case "Picked":
-        setPackageStatus("Accepted");
+      case "picked":
+        nextStatus = "accepted";
         break;
-      case "Accepted":
-        setPackageStatus("Delivered");
+      case "accepted":
+        nextStatus = "delivered";
         break;
-      case "Delivered":
-        // Optionally reset to initial state or do something else
+      case "delivered":
         console.log("Package delivered");
-        break;
+        return;
       default:
-        setPackageStatus("Picked");
+        nextStatus = "picked";
     }
+    setPackageStatus(nextStatus);
+    updateOrderStatus(order_id, nextStatus);
   };
+
+  async function updateOrderStatus(orderId, status) {
+    const main = new Listings();
+    try {
+      const response = await main.ordertracking(orderId, status);
+      toast.success(response.data.msg);
+      console.log("API Response", response);
+    } catch (error) {
+      console.log("API Error", error);
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +82,7 @@ export default function OrderDetilas() {
   }, [order_id]);
 
   return (
+    <>
     <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
       {/* <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ ---> */}
       <div className="flex justify-start item-start space-y-2 flex-col">
@@ -164,12 +203,12 @@ export default function OrderDetilas() {
                 </p>
               </div>
               <div className="w-full flex justify-center items-center">
-        <button
-          onClick={handleStatusChange}
-          className="hover:bg-black dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white"
-        >
-          {packageStatus} Package
-        </button>
+              <button
+        onClick={handleStatusChange} 
+        className="hover:bg-black dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white"
+      >
+        {packageStatus} Package
+      </button>
       </div>
             </div>
           </div>
@@ -273,6 +312,8 @@ export default function OrderDetilas() {
         </div>
       </div>
     </div>
+<MapContainer  restaurent_coordinates ={record?.restaurent_coordinates}  usercoordinates={record?.checkout_coordinates} status ={packageStatus}/>
+    </>
 
     
   );

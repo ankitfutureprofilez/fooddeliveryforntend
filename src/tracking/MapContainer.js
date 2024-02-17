@@ -4,20 +4,7 @@ import Listings from '../Api/Listings';
 
 const MapContainer = () => {
 
-  // {{BASEURL}}/restaurant/update-status/{{order_id}}/{{ picked || delivered }}
-
-  const order_id =1;
-  const type ="picked";
-  async function  halderordertraker () {
-    const main = new Listings()
-    const response = main.ordertracking(order_id ,type);
-    response.then((res)=>{
-      console.log("res",res)
-    }).catch((error)=>{
-      console.log("error",error)
-    })
-  }
-
+  
 
   const [restaurantLocation, setRestaurantLocation] = useState({ lat: 26.9298469, lng: 75.7853946 });
   const [deliveryLocation, setDeliveryLocation] = useState({ lat: 26.92822, lng: 75.7857166 });
@@ -46,9 +33,6 @@ const MapContainer = () => {
       />
     </div>
 
-    <button onClick={halderordertraker}>
-data
-    </button>
   
   </>
   );
