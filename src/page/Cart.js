@@ -25,7 +25,8 @@ const Cart = () => {
 
   const [location, setLocation] = useState({
     phone: "",
-    checkout_coordinates: ''
+    coordinates: '',
+    address:"",
   });
 
   console.log("location", location);
@@ -43,7 +44,13 @@ const Cart = () => {
         setLocation({...location, coordinates: {
           lat: latitude,
           lng: longitude
-        }});
+        },
+        order_coordinates: {
+          lat: latitude,
+          lng: longitude
+        },
+      
+      });
       } catch (error) {
         console.error("Error getting location:", error);
       }
@@ -69,7 +76,7 @@ const Cart = () => {
         resp
           .then((res) => {
             if (res.data.url) {
-              window.location.href = res.data.url;
+              // window.location.href = res.data.url;
             }
           })
           .catch((err) => {
@@ -158,16 +165,20 @@ const Cart = () => {
             Location
           </label>
           <div className="relative">
-            <input
-              required
-              type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              name="location"
-              value={location.location}
-              onChange={(e) =>
-                setLocation((prev) => ({ ...prev, location: e.target.value }))
-              }
-            />
+          <input
+  required
+  type="text"
+  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  name="location"
+  value={
+    location.coordinates.lat && location.coordinates.lng
+      ? `Lat: ${Number(location.coordinates.lat).toFixed(6)}, Lng: ${Number(location.coordinates.lng).toFixed(6)}`
+      : "Fetching location..."
+  }
+  readOnly 
+/>
+
+
             <div className="absolute top-2 right-2">
               <button type="button">
                 <FaLocationCrosshairs
