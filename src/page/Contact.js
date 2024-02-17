@@ -36,7 +36,6 @@ const Contact = () => {
       }
 
       const fetchRes = await fetchData.json();
-      // console.log('fetchRes', fetchRes);
       toast(fetchRes.message);
 
       setData(() => {

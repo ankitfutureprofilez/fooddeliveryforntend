@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import Users from "../Api/Users";
 import { Link } from "react-router-dom";
 
+import Product from "./Product";
+
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [FetchProducts, setFetchProducts] = useState([]);
   const [FetchRestaurants, setFetchRestaurants] = useState([]);
   const [searchContentVisible, setSearchContentVisible] = useState(false);
+  const [Loading, setLoading] = useState()
 
   useEffect(() => {
     function handleBlur() {
@@ -21,51 +24,31 @@ export default function SearchBar() {
 
   const handleSearch = (value) => {
     setSearchTerm(value);
-    const main = new Users();
-    const resp = main.search({
-      search: value,
-    });
-    resp
-      .then((res) => {
-        console.log("res", res);
-        setFetchProducts(res.data.products);
-        setFetchRestaurants(res.data.restaurants);
-        setSearchContentVisible(true);
-      })
-      .catch((err) => {
-        console.log("err", err);
+    if (value.length >= 3) {
+      setLoading(true);
+      const main = new Users();
+      const resp = main.search({
+        search: value,
       });
-    // const resp = {
-    //   products: [
-    //     {
-    //       _id: "65c4889b3abeea42b1d4b354",
-    //       name: "test Product",
-    //       category: "fruits",
-    //       image:
-    //         "https://www.bing.com/th?id=OIP.ILg_L9WAvlCzKgYJpYZVnAHaE7&w=172&h=150&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
-    //       price: "8785",
-    //       description: "sfsdf",
-    //       userId: 1,
-    //       __v: 0,
-    //     },
-    //   ],
-    //   restaurants: [
-    //     {
-    //       _id: "65c4889b3abeea42b1d4b354",
-    //       restaurantname: "The Night Jar",
-    //       category: "Veg",
-    //       image:
-    //         "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D",
-    //       location: "C-Scheme, Jaipur",
-    //       description: "Best veg restaurant in jaipur",
-    //       userId: 1,
-    //       __v: 0,
-    //     },
-    //   ],
-    //   message: "Result fetched successfully !!",
-    //   status: 200,
-    // };
+      resp
+        .then((res) => {
+          setFetchProducts(res.data.products);
+          setFetchRestaurants(res.data.restaurants);
+          setSearchContentVisible(true);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log("err", err);
+          setLoading(false);
+        });
+    } else {
+      setFetchProducts([]);
+      setFetchRestaurants([]);
+      setSearchContentVisible(false);
+      setLoading(false);
+    }
   };
+
 
   return (
     <div className="searchbar flex flex-col ...">
@@ -90,59 +73,66 @@ export default function SearchBar() {
           type="search"
           name="search"
           placeholder="Find restaurant in your city"
-          className="h-12 appearance-none block w-full bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 pr-32 pr-12 leading-tight focus:outline-none"
+          className="h-12 appearance-none block w-40 md:w-80 lg:w-96 bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 mr-4 leading-tight focus:outline-none"
           value={searchTerm}
           onChange={(e) => handleSearch(e.target.value)}
         />
       </div>
+      {Loading && searchTerm.length > 0 && <div className="text-center py-4">Loading...</div>}
       {searchContentVisible && (
         <div
-          className={`mt-2 overflow-y-auto ${
-            FetchProducts.length > 0 || FetchRestaurants.length > 0
-              ? "search-content"
-              : ""
-          }`}
+          className={`mt-2 overflow-y-auto ${FetchProducts.length > 0 || FetchRestaurants.length > 0
+            ? "search-content"
+            : ""
+            }`}
         >
           {FetchProducts.length > 0 ? (
             <>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Products</h2>
-                <Link to={""}>
-                <button className="text-blue-500 ">View All</button>{" "}
-                {/* "View All" button */}
-                </Link>
+              <div className="flex search-lists justify-between items-center mb-4">
+                {/* <h2 className="text-xl font-bold">Products</h2>
+                <Link to={"products"}>
+                  <button className="text-blue-500 ">View All</button>{" "}
+                </Link> */}
               </div>
               {FetchProducts.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white rounded-lg shadow-lg p-2 mb-2 flex "
-                >
-                  <img
-                    src={item.image}
-                    alt="product"
-                    className="w-24 h-24 mr-2"
-                  />
-                  <div className="flex flex-col justify-center">
-                    <span className="text-left">{item.name}</span>
-                    <span className="text-left">{item.category}</span>
-                    <span className="text-left">{item.description}</span>
-                    <span className="text-left">Price - {item.price}</span>
-                  </div>
-                </div>
+                      <Product
+                      key={item._id}
+                      id={item._id}
+                      image={item.image}
+                      name={item.name}
+                      category={item.category}
+                      price={item.price}
+                      description={item.description}
+                    />
+
+                  // <div
+                  //   key={item.id}
+                  //   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex ">
+                  //   <img
+                  //     src={item.image}
+                  //     alt="product"
+                  //     className="w-12 h-12 mr-2 rounded-full"
+                  //   />
+                  //   <div className="flex flex-col justify-center">
+                  //     <span className="text-start">{item.name}</span>
+                  //     <span className="text-start">Price - {
+                  //       formatMultiPrice(item.price)
+                  //     }</span>
+                  //   </div>
+                  // </div>
               ))}
             </>
           ) : null}
-
           {FetchRestaurants.length > 0 ? (
             <>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold ">Restaurants</h2>
+                {/* <h2 className="text-xl font-bold ">Restaurants</h2>
                 <Link to={"restaurants"}>
                   <button className="text-blue-500 ">View All</button>{" "}
-                  {/* "View All" button */}
-                </Link>
+                </Link> */}
               </div>
               {FetchRestaurants.map((item) => (
+                <Link to={`/restaurants/${item.resId}`} >
                 <div
                   key={item.id}
                   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex"
@@ -150,37 +140,22 @@ export default function SearchBar() {
                   <img
                     src={item.image}
                     alt="restaurant"
-                    className="w-24 h-24 mr-2"
+                    className="w-12 h-12 mr-2"
                   />
                   <div className="flex flex-col justify-center">
                     <span className="text-left">{item.restaurantname}</span>
-                    <span className="text-left">{item.category}</span>
-                    <span className="text-left">{item.description}</span>
-                    <span className="text-left">{item.location}</span>
+                    <span className="text-left">{item.category}  </span>
                   </div>
                 </div>
+                </Link>
               ))}
             </>
           ) : null}
-
-          {FetchRestaurants.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white rounded-lg shadow-lg p-2 mb-2 flex"
-            >
-              <img
-                src={item.image}
-                alt="restaurant"
-                className="w-24 h-24 mr-2"
-              />
-              <div className="flex flex-col justify-center">
-                <span className="text-left">{item.restaurantname}</span>
-                <span className="text-left">{item.category}</span>
-                <span className="text-left">{item.description}</span>
-                <span className="text-left">{item.location}</span>
-              </div>
+          {FetchProducts.length === 0 && FetchRestaurants.length === 0 && (
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold ">  No products or restaurants found.</h2>
             </div>
-          ))}
+          )}
         </div>
       )}
     </div>

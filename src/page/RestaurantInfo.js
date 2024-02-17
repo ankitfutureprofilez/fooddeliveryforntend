@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
-import { LuMapPin } from "react-icons/lu";
+import { Link, useParams } from "react-router-dom";
+import { FaUserGroup } from "react-icons/fa6";
+import { FaUserAlt } from "react-icons/fa";
+import { IoTime } from "react-icons/io5";
 import Listings from "../Api/Listings";
 import { FaUserGroup } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
@@ -23,9 +25,12 @@ export default function RestaurantInfo() {
     }
   };
   
+  
   useEffect(() => {
     fetchData();
   }, []); console.log("ddd",record)
+
+  if (loading) return <div>Loading...</div>;
   return (
     <>
       <div className="bg-white p-2 md:p-4 pt-6 md:pt-10">
@@ -57,9 +62,9 @@ export default function RestaurantInfo() {
                      <p className="text-green-500">Free Delivery</p>
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ) )}
+          </div>
       </div>
     </>
   )

@@ -15,7 +15,6 @@ const Menu = () => {
     (element) => element._id === filterby
   );
 
-  // console.log(" productSlide.js", productDisplay);
 
   const handleAddCartProduct = (e) => {
     dispatch(addCartItem(productDisplay));

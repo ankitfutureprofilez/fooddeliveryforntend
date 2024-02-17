@@ -24,11 +24,16 @@ import { Provider } from "react-redux";
  import Success from "./page/Success";
  import Cancel from "./page/Cancel";
  import RestaurantRegistration from "./page/RestaurantRegistration";
- import AllRestaurant from "./page/AllRestaurant";
+ import ProductAll from "./Product/ProductAll";
 import RestaurantInfo from "./page/RestaurantInfo";
 import Restaurantdetails from "./page/Restaurantdetails";
 import PrivateRoute from "./private/PrivateRoute";
 import PrivateLayout from "./private/PrivateLayout";
+import Location from "./Location/Location";
+import Orderhistory from "./payment/Orderhistory";
+import OrderDetilas from "./payment/OrderDetilas";
+import MapComponent from "./Location/MapComponent";
+import Dashboard from "./components/Restaurant/Dashboard";
 
 
 const router = createBrowserRouter(
@@ -50,17 +55,25 @@ const router = createBrowserRouter(
       <Route path="cart" element={<Cart />} />
       <Route path="success" element={<Success />} />
       <Route path="cancel" element={<Cancel />} />
+      <Route path="products" element={<ProductAll />} />
+      <Route path="dashboard" element={<Dashboard />} />
 
       <Route path="restaurant-register" element={
           <RestaurantRegistration />
       } />
-      <Route path="restaurants" element={
-        <PrivateRoute>
 
-          <RestaurantInfo />
-        </PrivateRoute>
+<Route path="location" element={
+          <Location />
       } />
-      <Route path="restaurants/:resId" element={
+
+      
+<Route path="MapComponent" element={
+          <MapComponent />
+      } />
+
+<Route path ="/order_history" element= {<Orderhistory/>}/>
+<Route path="/order_history/:order_id" element={<OrderDetilas />} />
+      <Route path="restaurants" element={
         <PrivateRoute>
           <Restaurantdetails />
         </PrivateRoute>

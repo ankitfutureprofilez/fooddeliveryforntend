@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import loginSignupImage from "../assest/login-animation.gif";
 import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import { ImagetoBase64 } from "../utility/ImagetoBase64";
+// import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import { toast } from "react-hot-toast";
 import Listings from "../Api/Listings";
+import FileUpload from "../components/FileUpload";
 function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +20,6 @@ function Signup() {
     image: "",
   });
 
-  console.log("data", data)
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -36,34 +36,23 @@ function Signup() {
       [name]: value,
     }));
   };
-  const [image, setimage] = useState()
-  console.log("image,image", image)
-  const handleUploadProfileImage = (e) => {
-    console.log("e.target.files[0]", e.target.files[0])
-    const data = e.target.files[0];
-    setimage(data)
-    setData((prev) => ({
-      ...prev,
-      image: data,
-    }));
-  };
+  
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (loading) {
-      return false;
-    }
     setLoading(true);
-    const formData = new FormData();
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
-    formData.append("email", data.email);
-    formData.append("password", data.confirmPassword);
-    formData.append("image", data.image);
+    // let formdata = new FormData();
+    // formdata.append("firstName", data.firstName);
+    // formdata.append("lastName", data.lastName);
+    // formdata.append("email", data.email);
+    // formdata.append("password", data.password);
+    // formdata.append("image",data.image);
+
+
     const main = new Listings();
     const response = main.Signup(data);
     response.then((res) => {
-      if (res.data.status === true) {
+      if (res && res.data && res.data.status) {
         toast.success(res.data.message);
         setData({
           firstName: "",
@@ -75,115 +64,124 @@ function Signup() {
         });
         navigate("/login")
       } else {
-        toast.error("invalid email/password");
+        toast.error(res?.data.message || "Something went wrong")
       }
       setLoading(false);
     }).catch((error) => {
       console.log("error", error);
-      toast.error("invalid Email/password");
+      toast.error(error?.response.data.message);
+      toast.error(error?.response.data);
       setLoading(false);
     })
   }
 
 
 return (
-  <div className="p-3 md:p-4">
-    <div className="w-full max-w-sm bg-white m-auto flex  flex-col p-4">
+  <div className="flex mt-7">
+  <div className="w-full max-width-sm m-auto p-4">
       {/* <h1 className='text-center text-2xl font-bold'>Sign up</h1> */}
-      <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative ">
-        <img
-          src={data.image ? data.image : loginSignupImage}
-          className="w-full h-full"
-        >
-        </img>
-        <label htmlFor="profileImage">
-          <div className="absolute bottom-0 h-1/3  bg-slate-500 bg-opacity-50 w-full text-center cursor-pointer">
-            <p className="text-sm p-1 text-white">Upload</p>
+      <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative">
+          <FileUpload setImage={(image) => setData((prevData) => ({ ...prevData, image }))} />
+          {data.image && <img src={data.image} alt="Profile" className="object-cover w-full h-full" />}
+        </div>
+
+      <form className="w-full" onSubmit={handleSubmit}>
+
+
+        <div className="flex flex-wrap mt-7">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              First Name
+            </label>
+            <input
+            required
+              type="text"
+              id="firstName"
+              name="firstName"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={data.firstName}
+              onChange={handleOnChange}
+            />
           </div>
-          <input
-            type={"file"}
-            id="profileImage"
-            accept="image/*"
-            className="hidden"
-            onChange={handleUploadProfileImage}
-          />
-        </label>
-      </div>
-
-      <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          type={"text"}
-          id="firstName"
-          name="firstName"
-          className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-          value={data.firstName}
-          onChange={handleOnChange}
-        />
-
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          type={"text"}
-          id="lastName"
-          name="lastName"
-          className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-          value={data.lastName}
-          onChange={handleOnChange}
-        />
-
-        <label htmlFor="email">Email</label>
-        <input
-          type={"email"}
-          id="email"
-          name="email"
-          className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-          value={data.email}
-          onChange={handleOnChange}
-        />
-
-        <label htmlFor="password">Password</label>
-        <div className="flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
-          <input
-            type={showPassword ? "text" : "password"}
-            id="password"
-            name="password"
-            className=" w-full bg-slate-200 border-none outline-none "
-            value={data.password}
-            onChange={handleOnChange}
-          />
-          <span
-            className="flex text-xl cursor-pointer"
-            onClick={handleShowPassword}
-          >
-            {showPassword ? <BiShow /> : <BiHide />}
-          </span>
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="lastName">
+              Last Name
+            </label>
+            <input
+            required
+              type="text"
+              id="lastName"
+              name="lastName"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={data.lastName}
+              onChange={handleOnChange}
+            />
+          </div>
         </div>
 
-        <label htmlFor="confirmpassword">Confirm Password</label>
-        <div className="flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2  focus-within:outline focus-within:outline-blue-300">
-          <input
-            type={showConfirmPassword ? "text" : "password"}
-            id="confirmpassword"
-            name="confirmPassword"
-            className=" w-full bg-slate-200 border-none outline-none "
-            value={data.confirmPassword}
-            onChange={handleOnChange}
-          />
-          <span
-            className="flex text-xl cursor-pointer"
-            onClick={handleShowConfirmPassword}
-          >
-            {showConfirmPassword ? <BiShow /> : <BiHide />}
-          </span>
+        
+          <div className="w-full px-3 mb-6 md:mb-0 mt-7">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="email">
+              Email
+            </label>
+            <input
+            required
+              type="email"
+              id="email"
+              name="email"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={data.email}
+              onChange={handleOnChange}
+            />
+          </div>
+
+        <div className="flex flex-wrap mt-7">
+        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="password">
+              Password
+            </label>
+            <div className="relative">
+              <input
+              required
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                value={data.password}
+                onChange={handleOnChange}
+              />
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="confirmPassword">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <input
+              required
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                value={data.confirmPassword}
+                onChange={handleOnChange}
+              />
+            </div>
+          </div>
         </div>
 
-        <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
-          <span>{loading ? "Wait..." : "Sign Up"}</span>
-        </button>
-
+        <div className="flex justify-center mt-7">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium px-6 py-3 rounded-full shadow-md"
+          >
+            <span>{loading ? "Wait..." : "Sign Up"}</span>
+          </button>
+        </div>
       </form>
-      <p className="text-left text-sm mt-2">
-        Already have account ?{" "}
+      <p className="text-center text-sm mt-2">
+        Already have an account?{" "}
         <Link to={"/login"} className="text-red-500 underline">
           Login
         </Link>

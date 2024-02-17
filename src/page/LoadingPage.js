@@ -1,18 +1,10 @@
-import React from 'react'
-import '../styles/loader.css';
+import React from 'react';
+import "../loader.css"
 
 export default function LoadingPage() {
-    return (
-        <div className="container">
-          <div className="loader">
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--dot"></div>
-            <div className="loader--text"></div>
-          </div>
-        </div>
-      );
+  return (
+    <div class="loader-container">
+      <div class="loader"></div>
+       </div>
+  );
 }

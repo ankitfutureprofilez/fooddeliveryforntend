@@ -24,7 +24,7 @@ class Listings extends Component {
     return Api.get("/product/productlist")
   }
 
-
+// Rest.
   async resturantdetilas(resId){
     return Api.get(`/restaurant/${resId}`)
   }
@@ -38,6 +38,14 @@ class Listings extends Component {
   }
   async privaterouter() {
     return Api.get("/user");
+  }
+
+  async paymentmethod (){
+    return Api.get("/stripe/myorders")
+  }
+
+  async orderdetials(order_id) {
+    return Api.get(`/stripe/order/${order_id}`)
   }
 
   render() {

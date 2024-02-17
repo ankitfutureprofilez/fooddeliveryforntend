@@ -1,0 +1,40 @@
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: screen; 
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50% , -50%);
+    z-index: 5;
+  }
+  
+  
+  .loader {
+    width: 5.4em;
+    height: 5.4em;
+    border: 0.4em solid rgb(84, 84, 84);
+    border-left-color: blue;
+    border-radius: 45%;
+    animation: spin 0.7s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loader-text {
+    font-size: 24px;
+    margin-top: 20px;
+    color: blue; /* Text color */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  

@@ -1,39 +1,37 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { BsCloudUpload } from "react-icons/bs";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Listings from "../Api/Listings";
+import ImageUpload from "../components/ImageUpload";
 const Newproduct = () => {
-  //const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate()
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
     category: "",
     image: "",
     price: "",
-    description: ""
-  })
-  //console.log("recird djdj", data)
+    description: "",
+  });
 
   const handleOnChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
 
     setData((preve) => {
       return {
         ...preve,
-        [name]: value
-      }
-    })
-
-  }
+        [name]: value,
+      };
+    });
+  };
 
   const uploadImage = (e) => {
     const file = e.target.files[0];
-    console.log("file", file)
     if (file) {
       setData((prev) => ({
         ...prev,
-        image: file
+        image: file,
       }));
     } else {
       console.error("No file selected");
@@ -41,12 +39,10 @@ const Newproduct = () => {
   };
   const [loading, setLoading] = useState(false);
 
-  console.log("data", data)
-
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (loading==true) return;
+    if (loading) return;
     setLoading(true);
     const formData = new FormData();
     formData.append("name", data.name);
@@ -57,7 +53,6 @@ const Newproduct = () => {
     const main = new Listings();
     try {
       const response = await main.Prodctadd(formData);
-      console.log('ree', response)
       if (response) {
         toast.success(response.data.message);
         setData(() => {
@@ -66,9 +61,9 @@ const Newproduct = () => {
             category: "",
             image: "",
             price: "",
-            description: ""
+            description: "",
           };
-        })
+        });
         navigate("/");
       } else {
         setLoading(false);
@@ -82,89 +77,117 @@ const Newproduct = () => {
     }
   }
   return (
-    <div className="flex justify-center items-center mt-4">
-      <div className="w-full max-w-lg">
-        <form
-          enctype="multipart/form-data"
-          className="m-auto w-full max-w-md  shadow flex flex-col p-3 bg-white"
-          onSubmit={handleSubmit}
-        >
-          <label htmlFor="name">Name</label>
-          <input
-            type={"text"}
-            name="name"
-            className="bg-slate-200 p-1 my-1"
-            onChange={handleOnChange} value={data.name}
-          />
-
-          <label htmlFor="category">Category</label>
-          <select
-            className="bg-slate-200 p-1 my-1"
-            id="category"
-            name="category"
-            onChange={handleOnChange} value={data.category}
-          >
-            <option value={"other"}>select category</option>
-            <option value={"fruits"}>Fruits</option>
-            <option value={"vegetable"}>Vegetable</option>
-            <option value={"icecream"}>Icecream</option>
-            <option value={"dosa"}>Dosa</option>
-            <option value={"pizza"}>Pizza</option>
-            <option value={"rice"}>Rice</option>
-            <option value={"cake"}>Cake</option>
-            <option value={"Sweet"}>Sweet</option>
-            <option value={"burger"}>Burger</option>
-            <option value={"paneer"}>Paneer</option>
-            <option value={"sandwich"}>Sandwich</option>
-          </select>
-
-          <label htmlFor="image">
-            Image
-            <div className="h-40 w-full bg-slate-200 rounded flex items-center justify-center cursor-pointer">
-              {data.imageName ? (
-                <span>{data.imageName}</span>
-              ) : (
-                <span className="text-5xl">
-                  <BsCloudUpload />
-                </span>
-              )}
-
-              <input
-                type="file"
-                accept="image/*"
-                id="image"
-                onChange={uploadImage}
-                className="hidden"
-              />
+    <div className="flex  mt-7">
+    <div className="w-full">
+      <h1 className="text-3xl font-bold mb-6 flex justify-center">
+        Product Registration
+      </h1>
+      <form
+        enctype="multipart/form-data"
+        className="w-full"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex flex-wrap mt-7">
+          <div class="w-24 md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              htmlFor="name"
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            >
+              Name
+            </label>
+            <input
+              type={"text"}
+              name="name"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleOnChange}
+              value={data.name}
+            />
+          </div>
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              htmlFor="price"
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            >
+              Price
+            </label>
+            <input
+              type={"text"}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="price"
+              onChange={handleOnChange}
+              value={data.price}
+            />
+          </div>
+        </div>
+    
+        <div className="flex flex-wrap mt-7">
+          <div class="w-full md:w-1/2  px-3 mb-6 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="category"
+            >
+              Category
+            </label>
+            <div class="relative">
+              <select
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="category"
+                name="category"
+                onChange={handleOnChange}
+                value={data.category}
+              >
+                <option value={"other"}>select category</option>
+                <option value={"fruits"}>Fruits</option>
+                <option value={"vegetable"}>Vegetable</option>
+                <option value={"icecream"}>Icecream</option>
+                <option value={"dosa"}>Dosa</option>
+                <option value={"pizza"}>Pizza</option>
+                <option value={"rice"}>Rice</option>
+                <option value={"cake"}>Cake</option>
+                <option value={"Sweet"}>Sweet</option>
+                <option value={"burger"}>Burger</option>
+                <option value={"paneer"}>Paneer</option>
+                <option value={"sandwich"}>Sandwich</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
             </div>
-          </label>
+          </div>
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="description"
+            >
+              Description
+            </label>
+            <div class="relative"></div>
+            <textarea
+              rows={2}
+              value={data.description}
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              name="description"
+              onChange={handleOnChange}
+            ></textarea>
+          </div>
+        </div>
+        <div className="flex flex-wrap mt-7  ">
+        <ImageUpload  setImage={(image) => setData((prevData) => ({ ...prevData, image }))}/>
+          </div>
 
-          <label htmlFor="price" className="my-1">
-            Price
-          </label>
-          <input
-            type={"text"}
-            className="bg-slate-200 p-1 my-1"
-            name="price"
-            onChange={handleOnChange}
-            value={data.price}
-          />
-
-          <label htmlFor="description">Description</label>
-          <textarea
-            rows={2}
-            value={data.description}
-            className="bg-slate-200 p-1 my-1 resize-none"
-            name="description"
-            onChange={handleOnChange}
-          ></textarea>
-
-          <button className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium my-2 drop-shadow">
-          <span>{loading ? "Saving..." : "Save"}</span>
+        <div className="flex justify-center ">
+          <button className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center">
+            <span>{loading ? "Submitting..." : "Submit"}</span>
           </button>
-        </form>
-
-      </div>
+        </div>
+      </form>
+    </div>
     </div>
   );
 };
