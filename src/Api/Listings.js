@@ -48,6 +48,9 @@ class Listings extends Component {
     return Api.get(`/stripe/order/${order_id}`)
   }
 
+  ordertracking(order_id ,type){
+    return Api.post(`/restaurant/update-status/${order_id}/${type }`)
+  }
   render() {
     return (
       <div>

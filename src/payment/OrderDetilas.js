@@ -7,6 +7,25 @@ export default function OrderDetilas() {
   const { order_id } = useParams();
   const [record, setRecord] = useState([])
 
+  const [packageStatus, setPackageStatus] = useState("Picked");
+
+  const handleStatusChange = () => {
+    switch (packageStatus) {
+      case "Picked":
+        setPackageStatus("Accepted");
+        break;
+      case "Accepted":
+        setPackageStatus("Delivered");
+        break;
+      case "Delivered":
+        // Optionally reset to initial state or do something else
+        console.log("Package delivered");
+        break;
+      default:
+        setPackageStatus("Picked");
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -135,7 +154,7 @@ export default function OrderDetilas() {
                        {/* Delivery
                       <br /> */}
                       <span className="font-normal">
-                        Delivery Status
+                      {packageStatus}       Status
                       </span>
                     </p>
                   </div>
@@ -145,10 +164,13 @@ export default function OrderDetilas() {
                 </p>
               </div>
               <div className="w-full flex justify-center items-center">
-                <button className="hover:bg-black dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white">
-                Track Package
-                </button>
-              </div>
+        <button
+          onClick={handleStatusChange}
+          className="hover:bg-black dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white"
+        >
+          {packageStatus} Package
+        </button>
+      </div>
             </div>
           </div>
         </div>
@@ -251,5 +273,7 @@ export default function OrderDetilas() {
         </div>
       </div>
     </div>
+
+    
   );
 }
