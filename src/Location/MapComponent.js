@@ -26,6 +26,7 @@ const MapComponent = () => {
       defaultCenter={defaultProps.center}
       defaultZoom={defaultProps.zoom}
     >
+      
       <AnyReactComponent
         lat={26.922070} 
         lng={75.778885} 
