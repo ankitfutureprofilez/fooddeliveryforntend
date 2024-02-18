@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Listings from "../Api/Listings";
+import UserProduct from "./UserProduct";
 import { FaLocationCrosshairs, FaRegClock } from "react-icons/fa6";
 import { FaRegDotCircle } from "react-icons/fa";
 import useTimeCalculate from "../hooks/useTimeCalculate";
@@ -41,7 +43,7 @@ export default function Restaurantdetails() {
       ) : (
         <div>
   {/* Image covering the entire width of the screen */}
-  <div className="w-full mt-3 bg-cover bg-center relative">
+  <div className="w-full h-80 bg-cover bg-center">
   <img
     className="w-full h-80 object-cover"
     src={record && record.image}
