@@ -80,7 +80,7 @@ const Newproduct = () => {
     <div className="flex  mt-7">
     <div className="w-full">
       <h1 className="text-3xl font-bold mb-6 flex justify-center">
-        Product Registration
+        Product Add
       </h1>
       <form
         enctype="multipart/form-data"
@@ -88,7 +88,7 @@ const Newproduct = () => {
         onSubmit={handleSubmit}
       >
         <div className="flex flex-wrap mt-7">
-          <div class="w-24 md:w-1/2 px-3 mb-6 md:mb-0">
+          <div class="w-24 md:w-1/3 px-3 mb-6 md:mb-0">
             <label
               htmlFor="name"
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -103,7 +103,7 @@ const Newproduct = () => {
               value={data.name}
             />
           </div>
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label
               htmlFor="price"
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -118,10 +118,7 @@ const Newproduct = () => {
               value={data.price}
             />
           </div>
-        </div>
-    
-        <div className="flex flex-wrap mt-7">
-          <div class="w-full md:w-1/2  px-3 mb-6 md:mb-0">
+          <div class="w-full md:w-1/3  px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="category"
@@ -160,6 +157,9 @@ const Newproduct = () => {
               </div>
             </div>
           </div>
+        </div>
+    
+        <div className="flex flex-wrap mt-7"> 
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -176,10 +176,10 @@ const Newproduct = () => {
               onChange={handleOnChange}
             ></textarea>
           </div>
-        </div>
-        <div className="flex flex-wrap mt-7  ">
+        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
         <ImageUpload  setImage={(image) => setData((prevData) => ({ ...prevData, image }))}/>
           </div>
+        </div>
 
         <div className="flex justify-center ">
           <button className="bg-red-500 hover:bg-blue-600 text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center">

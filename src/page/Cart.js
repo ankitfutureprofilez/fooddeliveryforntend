@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import Payment from "../Api/Payment";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 
-
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
@@ -25,8 +24,8 @@ const Cart = () => {
 
   const [location, setLocation] = useState({
     phone: "",
-    coordinates: '',
-    address:"",
+    coordinates: "",
+    address: "",
   });
 
   console.log("location", location);
@@ -34,23 +33,25 @@ const Cart = () => {
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
-        
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
         const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
-        setLocation({...location, coordinates: {
-          lat: latitude,
-          lng: longitude
-        },
-        order_coordinates: {
-          lat: latitude,
-          lng: longitude
-        },
-      
-      });
+        console.log("respnse",response.data);
+        setLocation({
+          ...location,
+          address:response.data.display_name,
+          coordinates: {
+            lat: latitude,
+            lng: longitude,
+          },
+          order_coordinates: {
+            lat: latitude,
+            lng: longitude,
+          },
+        });
       } catch (error) {
         console.error("Error getting location:", error);
       }
@@ -72,7 +73,10 @@ const Cart = () => {
         console.log("Location:", location);
         const payment = new Payment();
         // const coordinatesString = JSON.stringify(location.coordinates);
-        const resp = payment.Checkout_cart({...location, items: productCartItem});
+        const resp = payment.Checkout_cart({
+          ...location,
+          items: productCartItem,
+        });
         resp
           .then((res) => {
             if (res.data.url) {
@@ -97,10 +101,56 @@ const Cart = () => {
   const handlePhoneChange = (e) => {
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
   };
+  const handleChangeLocation = (e) => {
+    setLocation((prev) => ({ ...prev, address: e.target.value }));
+  };
 
   return (
     <>
-      <div className="p-2 md:p-4 flex flex-col">
+        <div className="flex flex-wrap my-7">
+        <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Location
+          </label>
+          <div className="relative">
+            <input
+              required
+              type="text"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="location"
+              onChange={handleChangeLocation}
+              value={location.address}
+            />
+
+            <div className="absolute top-2 right-2">
+              <button type="button">
+                <FaLocationCrosshairs
+                  size={24}
+                  color="#0000ff"
+                  onClick={handleGetLocation}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Phone
+          </label>
+          <div className="relative">
+            <input
+              required
+              type="Number"
+              maxLength={10}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="phone"
+              value={location.phone}
+              onChange={handlePhoneChange}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="p-2 md:p-4">
         <h2 className="text-lg md:text-2xl font-bold text-slate-600">
           Your Cart Items
         </h2>
@@ -159,54 +209,7 @@ const Cart = () => {
         )}
       </div>
 
-      <div className="flex flex-wrap mt-7">
-        <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-            Location
-          </label>
-          <div className="relative">
-          <input
-  required
-  type="text"
-  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-  name="location"
-  value={
-    location.coordinates.lat && location.coordinates.lng
-      ? `Lat: ${Number(location.coordinates.lat).toFixed(6)}, Lng: ${Number(location.coordinates.lng).toFixed(6)}`
-      : "Fetching location..."
-  }
-  readOnly 
-/>
-
-
-            <div className="absolute top-2 right-2">
-              <button type="button">
-                <FaLocationCrosshairs
-                  size={24}
-                  color="#0000ff"
-                  onClick={handleGetLocation}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-            Phone
-          </label>
-          <div className="relative">
-            <input
-              required
-              type="Number"
-              maxLength={10}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              name="phone"
-              value={location.phone}
-              onChange={handlePhoneChange}
-            />
-          </div>
-        </div>
-      </div>
+      
       {/* New Design for cart Page */}
       {/* <div className="shopping-cart mt-8">
       <h2 className='className="mt-10 text-3xl font-semibold pb-8"'>
@@ -240,33 +243,22 @@ const Cart = () => {
                   <div className="flex items-center">
                     <img
                       className="object-cover w-16 h-20 mr-4"
-                      src={image}
+                      src="https://via.placeholder.com/100"
                       alt="main-image"
                     />
                   </div>
                   <div className="w-full md:w-1/4 text-left">
-                    <p className="text-md"> {name}</p>
+                    <p className="text-md"> Apple MacBook Pro 17</p>
                     <p className="text-gray-500 text-xs pt-2">
                       {" "}
-                      <span>Category:</span>{category}{" "}
+                      <span>Category:</span>Sweet{" "}
                     </p>
                   </div>
                 </div>
               </th>
-              <td className="px-6 py-4">{price}</td>
-              <div className="flex flex-row">
-              <button onClick={()=>dispatch(increaseQty(id))} className="bg-white border border-gray-200 py-1 mt-0 text-orange-500 rounded p-1 hover:bg-orange-500 hover:text-white ease-linear transition-all duration-150">
-              <TbPlus />
-            </button>
-              <td className="px-6 py-4">{qty}</td>
-              <button
-              onClick={()=>dispatch(decreaseQty(id))}
-              className="border border-gray-200 text-orange-500 hover:bg-orange-500 hover:text-white py-1 mt-0 rounded p-1 ease-linear transition-all duration-150"
-            >
-              <TbMinus />
-            </button>
-              </div>
-              <td className="px-6 py-4">{total}</td>
+              <td className="px-6 py-4">Silver</td>
+              <td className="px-6 py-4">Laptop</td>
+              <td className="px-6 py-4">$2999</td>
             </tr>
           </tbody>
         </table>
