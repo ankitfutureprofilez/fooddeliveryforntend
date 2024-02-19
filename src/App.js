@@ -11,7 +11,9 @@ import Listings from './Api/Listings';
 function App() {
   const dispatch = useDispatch()
   const productData = useSelector((state) => state.product)
-  const [Loading, setLoading] = useState(true)
+  const [Loading, setLoading] = useState(true);
+
+
   useEffect(()=>{
     const main = new Listings();
     const response =  main.productlist();
@@ -23,8 +25,19 @@ function App() {
     }).catch((error)=>{
       console.log("error",error)
       setLoading(false)
+    });
 
-    })
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    }
+
   },[])
   
 

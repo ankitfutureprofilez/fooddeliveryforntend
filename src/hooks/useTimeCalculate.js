@@ -8,6 +8,12 @@ export default function useTimeCalculate() {
         }
         const format = timeString && timeString.slice(-2);
         const hours = timeString && timeString.slice(0, -2);
+        // If time is 12 
+        if (hours==12)
+        {
+          if(format=="am"){return 0;}
+          else {return 12;}
+        }
         if(format == 'am'){
           return hours;
         } else { 
