@@ -56,6 +56,7 @@ export default function Restaurantdetails() {
 </div>
 
 </div>
+
   {/* Existing component structure */}
     <div className="flex flex-wrap justify-between product-details flex ">
       <div className="w-full md:w-1/3 ">
