@@ -143,6 +143,7 @@ export default function OrderDetilas() {
       })
       .catch(error => console.error('Error fetching address:', error));
   }
+  
   useEffect(() => {
     if (record && record.checkout_coordinates) {
       const checkout_coordinates = JSON.parse(record?.checkout_coordinates);

@@ -1,13 +1,17 @@
 import React from "react";
+import coverImg from "../assest/cover-image.jpg";
+import mindsetImg from "../assest/Mindset.jpg";
+import learningImg from "../assest/Learning.jpg";
+import sustainImg from "../assest/Sustain.jpg";
 
 const About = () => {
   return (
     <>
-      <div className="bg-blue-200">
-        <div className="w-full h-80 bg-cover bg-center">
+      <div className="bg-blue-500">
+        <div className="w-full h-80 bg-cover bg-center ">
           <img
             className="w-full h-80 object-cover"
-            src="https://blinkit.com/careers/sites/default/files/2022-03/about-masthead-desktop.png"
+            src={coverImg}
             alt="main-image"
           />
         </div>
@@ -64,8 +68,8 @@ const About = () => {
           <div className="w-full md:w-1/2 pr-4 ">
             <div className="flex flex-col justify-center max-h-[560px]">
               <img
-                className="object-cover max-h-[560px]"
-                src="https://blinkit.com/careers/sites/default/files/2021-12/career-mindsets.png"
+                className="w-[400px] h-80 object-cover"
+                src={mindsetImg}
                 alt="main-image"
               />
               <h1 className="mt-4 text-2xl font-semibold pb-4">
@@ -83,8 +87,8 @@ const About = () => {
           <div className="w-full md:w-1/2 ">
             <div className="flex flex-col justify-center max-h-[560px]">
               <img
-                className="object-cover max-h-[560px]"
-                src="https://blinkit.com/careers/sites/default/files/2021-12/career-organisation.png"
+                className="w-[400px] h-80 object-cover"
+                src={learningImg}
                 alt="main-image"
               />
               <h1 className="mt-4 text-2xl font-semibold pb-4">
@@ -102,8 +106,8 @@ const About = () => {
           <div className="w-full">
             <div className="flex flex-col justify-center max-h-[560px]">
               <img
-                className="object-cover max-h-[560px]"
-                src="https://blinkit.com/careers/sites/default/files/2021-12/career-sustainability.png"
+                className="h-[200px] object-cover"
+                src={sustainImg}
                 alt="main-image"
               />
               <h1 className="mt-4 text-2xl font-semibold pb-4">
