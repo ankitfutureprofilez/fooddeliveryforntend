@@ -78,9 +78,9 @@ function Signup() {
 
 return (
   <div className="flex mt-7">
-  <div className="w-full max-width-sm m-auto p-4">
+  <div className="w-full signup-container max-width-sm m-auto p-4">
       {/* <h1 className='text-center text-2xl font-bold'>Sign up</h1> */}
-      <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative">
+      <div className="w-20 h-20 border overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative">
           <FileUpload setImage={(image) => setData((prevData) => ({ ...prevData, image }))} />
           {data.image && <img src={data.image} alt="Profile" className="object-cover w-full h-full" />}
         </div>
@@ -171,15 +171,13 @@ return (
         </div>
 
         <div className="flex justify-center mt-7">
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium px-6 py-3 rounded-full shadow-md"
-          >
+          <button type="submit" disabled={loading}
+            className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium px-6 py-2 rounded-full shadow-md" >
             <span>{loading ? "Wait..." : "Sign Up"}</span>
           </button>
         </div>
       </form>
+      
       <p className="text-center text-sm mt-2">
         Already have an account?{" "}
         <Link to={"/login"} className="text-red-500 underline">

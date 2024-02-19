@@ -98,3 +98,7 @@
   object-fit: cover;
   border-radius: 10px;
 }
+
+.signup-container {
+  max-width: 600px;
+}
