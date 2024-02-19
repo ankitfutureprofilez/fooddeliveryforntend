@@ -366,6 +366,7 @@ export default function OrderDetilas() {
                   {record?.phone_no || "null"}
                 </p>
               </div>
+              
               <div class="flex-auto w-32 ">
                 <h1>
                 restaurants  Address
