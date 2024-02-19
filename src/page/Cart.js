@@ -28,8 +28,6 @@ const Cart = () => {
     coordinates: '',
   });
 
-  console.log("location", location);
-
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
