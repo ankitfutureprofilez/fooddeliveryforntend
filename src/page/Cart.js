@@ -24,6 +24,7 @@ const Cart = () => {
 
 
   const [address, setAddress] = useState("")
+ 
   const [location, setLocation] = useState({
     phone: "",
     coordinates: '',
@@ -66,9 +67,9 @@ const Cart = () => {
     }
   };
 
-  // useEffect(() => {
-  //   handleGetLocation()
-  // }, []);
+  useEffect(() => {
+    handleGetLocation()
+  }, []);
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -144,10 +145,39 @@ const Cart = () => {
   };
 
 
-  const handleChangeLocation = (e) => {
-    setAddress(e.target.value);
+  const handleChangeLocation = async (e) => {
+    const newAddress = e.target.value;
+    setAddress(newAddress);
+    try {
+      const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
+      const response = await axios.get(
+        `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(newAddress)}&key=${API_KEY}`
+      );
+      if (response.data && response.data.length > 0) {
+        const { lat, lon } = response.data[0];
+        setLocation((prevData) => ({
+          ...prevData,
+          coordinates: {
+            lat: parseFloat(lat),
+            lng: parseFloat(lon),
+          },
+        }));
+      } else {
+        setLocation((prevData) => ({
+          ...prevData,
+          coordinates: {},
+        }));
+      }
+    } catch (error) {
+      console.error("Error getting coordinates:", error);
+      toast.error("Error getting coordinates");
+      setLocation((prevData) => ({
+        ...prevData,
+        coordinates: {},
+      }));
+    }
   };
-
+  
   return (
       <div className="p-2 md:p-4">
         <h2 className="text-lg md:text-2xl font-bold text-slate-600">
