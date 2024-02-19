@@ -52,14 +52,11 @@ const MapContainer = ({ restaurent_coordinates, usercoordinates, status }) => {
 
   return (
     <>
-      <div>
-        <h1>Food Delivery</h1>
-        <Map
-          restaurantLocation={restaurantLocation}
-          deliveryLocation={deliveryLocation}
-          deliveryPersonLocation={deliveryPersonLocation}
-        />
-      </div>
+      <Map
+        restaurantLocation={restaurantLocation}
+        deliveryLocation={deliveryLocation}
+        deliveryPersonLocation={deliveryPersonLocation}
+      />
     </>
   );
 };

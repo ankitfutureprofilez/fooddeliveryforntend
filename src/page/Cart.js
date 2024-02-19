@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CartProduct from "../components/CartProduct";
 import emptyCartImage from "../assest/empty.gif";
@@ -22,6 +22,8 @@ const Cart = () => {
     0
   );
 
+
+  const [address, setAddress] = useState("")
   const [location, setLocation] = useState({
     phone: "",
     coordinates: '',
@@ -33,19 +35,24 @@ const Cart = () => {
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
         const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
-        const response = await axios.get(
-          `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
-        );
-        setLocation({...location, coordinates: {
-          lat: latitude,
-          lng: longitude
-        },
+        const response = axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`);
+        response.then((res)=>{
+          setLocation({...location, coordinates: {
+              lat: latitude,
+              lng: longitude
+            }
+          });
+          setAddress(res.data.display_name);
       });
       } catch (error) {
         console.error("Error getting location:", error);
       }
     }
   };
+  
+  useEffect(()=>{
+    handleGetLocation()
+  },[]);
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -90,6 +97,8 @@ const Cart = () => {
   const handlePhoneChange = (e) => {
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
   };
+
+
   const handleChangeLocation = (e) => {
     setLocation((prev) => ({ ...prev, address: e.target.value }));
   };
@@ -106,9 +115,9 @@ const Cart = () => {
               required
               type="text"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              name="location"
+              name="adress" 
               onChange={handleChangeLocation}
-              value={location.address}
+              defaultValue={address}
             />
 
             <div className="absolute top-2 right-2">

@@ -32,7 +32,7 @@ const Map = ({ restaurantLocation, deliveryLocation, deliveryPersonLocation }) =
 
   return (
     <GoogleMap
-      mapContainerStyle={{ width: '100%', height: '400px' }}
+      mapContainerStyle={{ width: '100%', height: '300px' }}
       zoom={10}
       center={restaurantLocation}
       options={{
