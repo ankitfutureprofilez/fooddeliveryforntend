@@ -93,10 +93,8 @@ export default function OrderDetilas() {
       console.log("API Error", error);
     }
   }
-  function getAddressFromCoordinates(restaurantCoordinates ,checkout_coordinates) {
-    console.log("coordinates", restaurantCoordinates);
+  function getAddressFromCoordinates(restaurantCoordinates) {
     const latlng = `${restaurantCoordinates.lat},${restaurantCoordinates.lng}`;
-    console.log("latlng", latlng);
     const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
     console.log(apiKey);
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
@@ -116,7 +114,6 @@ export default function OrderDetilas() {
   useEffect(()=>{
     if (record && record.restaurent_coordinates) {
       const restaurantCoordinates = JSON.parse(record.restaurent_coordinates);
-      console.log("restaurantCoordinates", restaurantCoordinates);
       getAddressFromCoordinates(restaurantCoordinates);
     } else {
       console.error("restaurant coordinates not found in record");
@@ -128,7 +125,7 @@ export default function OrderDetilas() {
  const[checkout ,setcheckout] = useState("")
 
   function getcheckoutFromCoordinates(checkout_coordinates) {
-    console.log("coordinates", checkout_coordinates);
+    console.log("checkout_coordinates", checkout_coordinates);
     const latlng = `${checkout_coordinates.lat},${checkout_coordinates.lng}`;
     console.log("latlng", latlng);
     const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";

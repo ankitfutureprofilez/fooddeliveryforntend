@@ -13,6 +13,7 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
+
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
     0
@@ -27,6 +28,7 @@ const Cart = () => {
   const [location, setLocation] = useState({
     phone: "",
     coordinates: '',
+    address: "",
   });
 
   const handleGetLocation = async () => {
@@ -35,15 +37,27 @@ const Cart = () => {
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
         const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
-        const response = axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`);
-        response.then((res)=>{
-          setLocation({...location, coordinates: {
-              lat: latitude,
-              lng: longitude
-            }
-          });
-          setAddress(res.data.display_name);
+        const response = await axios.get(
+          `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
+        );
+        setLocation({...location, coordinates: {
+          lat: latitude,
+          lng: longitude
+        },
       });
+        console.log("respnse",response.data);
+        setLocation({
+          ...location,
+          address:response.data.display_name,
+          coordinates: {
+            lat: latitude,
+            lng: longitude,
+          },
+          order_coordinates: {
+            lat: latitude,
+            lng: longitude,
+          },
+        });
       } catch (error) {
         console.error("Error getting location:", error);
       }
