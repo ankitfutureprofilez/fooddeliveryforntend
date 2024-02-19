@@ -40,17 +40,12 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={
         <App /> }>
-      <Route index element={
-      <Home />
-        } />
+      <Route index element={   <Home />} />
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
       <Route path="login" element={<Login />} />
       <Route path="newproduct" element={
-        <PrivateRoute>
-
-          <Newproduct />
-        </PrivateRoute>
+        <PrivateRoute> <Newproduct />  </PrivateRoute>
       } />
       <Route path="signup" element={<Signup />} />
       <Route path="cart" element={<Cart />} />
@@ -58,31 +53,13 @@ const router = createBrowserRouter(
       <Route path="cancel" element={<Cancel />} />
       <Route path="products" element={<ProductAll />} />
       <Route path="dashboard" element={<Dashboard />} />
-
-      <Route path="restaurant-register" element={
-        <RestaurantRegistration />
-      } />
-
-      <Route path="location" element={
-        <Location />
-      } />
-      <Route path="map" element={
-        <MapContainer />
-      } />
-
-
-      <Route path="MapComponent" element={
-        <MapComponent />
-      } />
-
+      <Route path="restaurant-register" element={ <RestaurantRegistration />} />
+      <Route path="location" element={  <Location />} />
+      <Route path="map" element={  <MapContainer />} />
+      <Route path="MapComponent" element={ <MapComponent /> } />
       <Route path="/order_history" element={<Orderhistory />} />
       <Route path="/order_history/:order_id" element={<OrderDetilas />} />
-      <Route path="/restaurants" element={
-        <PrivateRoute>
-          <Restaurantdetails />
-        </PrivateRoute>
-      } />
-      {/* <Route path = "/restu" */}
+      <Route path="/restaurants" element={ <PrivateRoute>  <Restaurantdetails /></PrivateRoute> } />
     </Route>
   )
 );
@@ -96,13 +73,4 @@ root.render(
   </Provider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
-
-
-
-// <Route path="menu" element={<Menu />} />
-// <Route path="menu/:filterby" element={<Menu />} /> 
