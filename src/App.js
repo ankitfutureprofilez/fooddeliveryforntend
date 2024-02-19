@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { setDataProduct } from "./redux/productSlide";
 import { useDispatch, useSelector } from "react-redux";
 import Listings from './Api/Listings';
+import Footer from "./components/footer.js";
 
 function App() {
   const dispatch = useDispatch()
@@ -54,6 +55,7 @@ function App() {
             <Outlet />
           </div>
         </main>
+        <Footer/>
       </div>
     </>
   );
