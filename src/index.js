@@ -39,10 +39,9 @@ import Dashboard from "./components/Restaurant/Dashboard";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={
-        <App />
-    }>
+        <App /> }>
       <Route index element={
-      <PrivateRoute> <Home /></PrivateRoute>
+      <Home />
         } />
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
