@@ -158,6 +158,7 @@ export default function RestaurantRegistration() {
     }
   };
 
+  
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
@@ -171,7 +172,7 @@ export default function RestaurantRegistration() {
     <div className="flex  mt-7">
       <div className="w-full">
         <h1 className="text-3xl font-bold mb-6 flex justify-center">
-          Restaurant Registration
+          Restaurant Detilas 
         </h1>
         <form className="w-full" onSubmit={handleSubmit}>
           {/* First row */}

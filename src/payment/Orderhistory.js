@@ -50,7 +50,6 @@ export default function Orderhistory() {
                   </tr>
                 ) : (
                   record.map((item, index) => (
-            
                     <tr key={index} className="border border-gray-200">
                       <td className="p-3 border border-gray-200 ">
                         {item._id}
@@ -65,11 +64,6 @@ export default function Orderhistory() {
                               key={index}
                               className="flex items-center space-x-4"
                             >
-                              <img
-                                src={orderItem.image}
-                                alt={orderItem.name}
-                                className="w-16 h-16 rounded"
-                              />
                               <div>
                                 <p className="font-semibold">
                                   {orderItem.name}

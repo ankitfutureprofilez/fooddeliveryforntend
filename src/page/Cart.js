@@ -207,6 +207,60 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      {/* New Design for cart Page */}
+      {/* <div className="shopping-cart mt-8">
+      <h2 className='className="mt-10 text-3xl font-semibold pb-8"'>
+        Your Bag
+      </h2>
+      <div className="relative mt-8 overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-center rtl:text-center">
+          <thead className="text-sm uppercase bg-gray-200 ">
+            <tr>
+              <th scope="col" className="px-6 py-6">
+                Product
+              </th>
+              <th scope="col" className="px-6 py-6">
+                Price
+              </th>
+              <th scope="col" className="px-6 py-6">
+                Quantity
+              </th>
+              <th scope="col" className="px-6 py-6">
+                Total
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="bg-white mt-2">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium whitespace-nowrap "
+              >
+                <div className="flex flex-wrap justify-center product-details flex ">
+                  <div className="flex items-center">
+                    <img
+                      className="object-cover w-16 h-20 mr-4"
+                      src="https://via.placeholder.com/100"
+                      alt="main-image"
+                    />
+                  </div>
+                  <div className="w-full md:w-1/4 text-left">
+                    <p className="text-md"> Apple MacBook Pro 17</p>
+                    <p className="text-gray-500 text-xs pt-2">
+                      {" "}
+                      <span>Category:</span>Sweet{" "}
+                    </p>
+                  </div>
+                </div>
+              </th>
+              <td className="px-6 py-4">Silver</td>
+              <td className="px-6 py-4">Laptop</td>
+              <td className="px-6 py-4">$2999</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> */}
     </>
   );
 };
