@@ -23,31 +23,6 @@ export default function OrderDetilas() {
       );
     });
   };
-
-
-  // useEffect(() => {
-  // let intervalId;
-  // if (packageStatus !== "delivered") {
-  // intervalId = setInterval(() => {
-  // handleStatusChange();
-  //     }, 10000);
-  //   }
-  //    else {
-  //     const timeoutId = setTimeout(() => {
-  //       console.log("Refreshing data");
-  //       setPackageStatus("picked");
-  //     }, 10000);
-
-  //     return () => clearTimeout(timeoutId);
-  //   }
-
-  //   return () => {
-  //     if (intervalId) {
-  //       clearInterval(intervalId);
-  //     }
-  //   };
-  // }, [packageStatus]);
-
   // UPDATE ORDER
   const [updateOrder, setUpdateOrder] = useState();
   const fetchData = async () => {
@@ -60,6 +35,7 @@ export default function OrderDetilas() {
       console.log("error", error);
     }
   };
+  console.log("")
   useEffect(() => {
     const interval = setInterval(() => {
       if (record && record.order_status == 'picked' && record && record.deliveredAt == null) {
@@ -159,7 +135,7 @@ export default function OrderDetilas() {
       .then(response => response.json())
       .then(data => {
         if (data) {
-          const address = data.results[1].formatted_address;
+          const address = data.results[0].formatted_address;
           setcheckout(address);
         } else {
           console.error('Failed to fetch address:', data.status);
@@ -312,19 +288,19 @@ export default function OrderDetilas() {
 
                 {/* !userData.resId || packageStatus === 'delivered' */}
 
-                {userData.resId == '1' && record && record.order_status == 'initiated' ?
+                {userData.resId && record && record.order_status === 'initiated' ?
                   <button
                     onClick={() => updateOrderStatus("accepted")}
                     className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
                     Mark As Order Accepted
                   </button>
-                  : record && record.order_status == 'accepted' ?
+                  : userData.resId && record && record.order_status === 'accepted' ?
                     <button
                       onClick={() => updateOrderStatus("picked")}
                       className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
                       Mark As Order Picked
                     </button>
-                    : record && record.order_status == 'picked' ?
+                    : userData.resId && record && record.order_status === 'picked' ?
                       <button
                         onClick={() => updateOrderStatus("delivered")}
                         className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
@@ -333,7 +309,7 @@ export default function OrderDetilas() {
                       : ''
                 }
 
-                {record && record.order_status == 'delivered' ?
+                {record && record.order_status === 'delivered' ?
                   <p className="text-green-500 text-base" >Order has been delivred at {record && record.deliveredAt}. </p>
                   : ''}
 
@@ -375,7 +351,7 @@ export default function OrderDetilas() {
                 </h1>
 
                 <p>
-                  {record?.phone_no}
+                  {record?.phone_no || null}
                 </p>
               </div>
               <div class="flex-auto w-32 ">
