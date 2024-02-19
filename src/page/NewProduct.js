@@ -134,17 +134,9 @@ const Newproduct = () => {
                 value={data.category}
               >
                 <option value={"other"}>select category</option>
-                <option value={"fruits"}>Fruits</option>
-                <option value={"vegetable"}>Vegetable</option>
-                <option value={"icecream"}>Icecream</option>
-                <option value={"dosa"}>Dosa</option>
-                <option value={"pizza"}>Pizza</option>
-                <option value={"rice"}>Rice</option>
-                <option value={"cake"}>Cake</option>
-                <option value={"Sweet"}>Sweet</option>
-                <option value={"burger"}>Burger</option>
-                <option value={"paneer"}>Paneer</option>
-                <option value={"sandwich"}>Sandwich</option>
+                <option value={"sweet"}>Sweet</option>
+                <option value={"fastfood"}>Fast Food</option>
+                <option value={"mainCourse"}>Main Course</option>
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg

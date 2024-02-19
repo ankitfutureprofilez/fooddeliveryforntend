@@ -73,7 +73,7 @@ export default function SearchBar() {
           type="search"
           name="search"
           placeholder="Find restaurant in your city"
-          className="h-12 appearance-none block w-40 md:w-80 lg:w-96 bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 mr-4 leading-tight focus:outline-none"
+          className="h-12 appearance-none block w-40 md:w-80 lg:w-96 bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 leading-tight focus:outline-none"
           value={searchTerm}
           onChange={(e) => handleSearch(e.target.value)}
         />
@@ -89,10 +89,6 @@ export default function SearchBar() {
           {FetchProducts.length > 0 ? (
             <>
               <div className="flex search-lists justify-between items-center mb-4">
-                {/* <h2 className="text-xl font-bold">Products</h2>
-                <Link to={"products"}>
-                  <button className="text-blue-500 ">View All</button>{" "}
-                </Link> */}
               </div>
               {FetchProducts.map((item) => (
                       <Product
@@ -104,32 +100,12 @@ export default function SearchBar() {
                       price={item.price}
                       description={item.description}
                     />
-
-                  // <div
-                  //   key={item.id}
-                  //   className="bg-white rounded-lg shadow-lg p-2 mb-2 flex ">
-                  //   <img
-                  //     src={item.image}
-                  //     alt="product"
-                  //     className="w-12 h-12 mr-2 rounded-full"
-                  //   />
-                  //   <div className="flex flex-col justify-center">
-                  //     <span className="text-start">{item.name}</span>
-                  //     <span className="text-start">Price - {
-                  //       formatMultiPrice(item.price)
-                  //     }</span>
-                  //   </div>
-                  // </div>
               ))}
             </>
           ) : null}
           {FetchRestaurants.length > 0 ? (
             <>
               <div className="flex justify-between items-center mb-4">
-                {/* <h2 className="text-xl font-bold ">Restaurants</h2>
-                <Link to={"restaurants"}>
-                  <button className="text-blue-500 ">View All</button>{" "}
-                </Link> */}
               </div>
               {FetchRestaurants.map((item) => (
                 <Link to={`/restaurants/${item.resId}`} >

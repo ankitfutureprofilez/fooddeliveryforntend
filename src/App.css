@@ -41,7 +41,7 @@ label.file-upload-label {
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
-  min-height: 240px;
+   height: 240px; 
   max-height: 230px;
 }
 .dis-bg{background-image: url(assest/dis-bg.jpg);}
