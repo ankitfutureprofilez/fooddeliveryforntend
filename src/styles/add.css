@@ -51,7 +51,11 @@
 }
 
 
-.search-lists {}
+
+.search-lists img{
+  width: 10px !important;
+  height: 10px !important;
+}
 
 .search-content .product_box {
     width: 100% !important;
@@ -68,8 +72,8 @@
 }
 
 .search-content .product_box .items-center img {
-    width: 80px !important;
-    height: 60px !important;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 .search-content .product_box  .flex.mt-3 {
