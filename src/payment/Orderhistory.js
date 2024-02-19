@@ -88,7 +88,7 @@ export default function Orderhistory() {
                     <td className="p-3 border border-gray-200 ">
                       {item.order_status ==="initiated" ? (
                         <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        initiated
+                        Accepted
                         </span>
                       ) : (<></>)  }
                       
@@ -97,7 +97,7 @@ export default function Orderhistory() {
                      picked
                         </span>
                       ) : (<></>)  }
-                      {item.order_status ==="delivered" ? (
+                      {item.order_status === "delivered" ? (
                         <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                           delivered
                         </span>
@@ -105,7 +105,7 @@ export default function Orderhistory() {
                     </td>
                     <td className="p-3 border border-gray-200 text-center">
                       <Link to={`/order_history/${item.order_id}`}>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Tracker </button>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Track </button>
                       </Link>
                     </td>
                   </tr>
