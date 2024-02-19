@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Listings from '../Api/Listings';
 import LoadingPage from './LoadingPage';
 import productimage from "../assest/apple.jfif"
-import { formatMultiPrice } from './../components/Valuedata';
+import { formatMultiPrice } from '../hooks/Valuedata';
 import { addCartItem } from '../redux/productSlide';
 import { useDispatch } from 'react-redux';
 

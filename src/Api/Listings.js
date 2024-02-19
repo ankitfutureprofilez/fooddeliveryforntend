@@ -24,9 +24,9 @@ class Listings extends Component {
     return Api.get("/product/productlist")
   }
 
-
-  async resturantdetilas(resId){
-    return Api.get(`/restaurant/${resId}`)
+// Rest.
+  async resturantdetilas(){
+    return Api.get(`/restaurant`)
   }
 
   async resturantget(){
@@ -48,6 +48,9 @@ class Listings extends Component {
     return Api.get(`/stripe/order/${order_id}`)
   }
 
+  ordertracking(order_id ,type){
+    return Api.post(`/restaurant/update-status/${order_id}/${type }`)
+  }
   render() {
     return (
       <div>

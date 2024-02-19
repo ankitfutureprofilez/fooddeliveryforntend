@@ -96,40 +96,26 @@ const Header = () => {
                             >
                               New product
                             </NavLink>
-                          </>) : (
-                            <>
-                            </>
-                          )
-                        }
-                      </li>
-                      <li>
-                   
-                      </li>
-                      <li>
-                        <NavLink
+
+                            <NavLink
                           to={"dashboard"}
                           className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300"
                         >
                           Restaurant dashboard
                         </NavLink>
-                      </li>
-                      <li>
-                        {status ? (
-                          <NavLink
+                          </>) : (
+                            <>
+
+<NavLink
                             to={"order_history"}
                             className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300"
                           >
                             Order History
                           </NavLink>
-                        ) : (
-                          <></>
-                        )}
+                            </>
+                          )
+                        }
                       </li>
-
-
-                      {
-
-                      }
                     </ul>
                     :
                     <NavLink

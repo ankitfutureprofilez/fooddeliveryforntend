@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
+import CardFeature from "../components/Product";
+import HomeCard from "../components/HomeCard";
+import { GrPrevious, GrNext } from "react-icons/gr";
 import AllProduct from "../components/AllProduct";
-import Carthome from "./Carthome";
-
-
 const Home = () => {
-  const cartItemNumber = useSelector((state)=>state.product.cartItem);
+  const cartItemNumber = useSelector((state)=>state.product.cartItem)
   return (
     <div className="flex">
       {cartItemNumber.length > 0 ? (
@@ -15,15 +15,14 @@ const Home = () => {
               <AllProduct heading={"Your Product"} />
             </div>
           </div>
-          <div className="w-1/3 fixed top-200 right-0 h-full overflow-x-auto">
+          {/* <div className="w-1/3 fixed top-200 right-0 h-full overflow-x-auto">
             <Carthome/>
-          </div>
+          </div> */}
         </>
       ) : (
         <div className="w-full">
           <div className="p-2 md:p-4 pt-6 md:pt-10 ">
             <AllProduct heading={"Your Product"} />
-            
           </div>
         </div>
       )}
@@ -31,4 +30,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home; 

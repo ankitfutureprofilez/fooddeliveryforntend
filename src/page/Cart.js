@@ -23,36 +23,34 @@ const Cart = () => {
     0
   );
 
-  const [locations, setLocation] = useState({
-    location: "",
-    coordinates: "",
-  }
-  )
-  ;
+  const [location, setLocation] = useState({
+    phone: "",
+    coordinates: '',
+    address:"",
+  });
 
-
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-  };
-
+  console.log("location", location);
 
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
+        
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
         const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
-        const locationString = response.data.display_name;
-        setLocation((prev) => {
-          return {
-            ...prev,
-            location: locationString,
-            coordinates: `${latitude},${longitude}`,
-          };
-        });
+        setLocation({...location, coordinates: {
+          lat: latitude,
+          lng: longitude
+        },
+        order_coordinates: {
+          lat: latitude,
+          lng: longitude
+        },
+      
+      });
       } catch (error) {
         console.error("Error getting location:", error);
       }
@@ -67,16 +65,14 @@ const Cart = () => {
       );
     });
   };
+
   const handlePayment = async () => {
     if (user.email) {
       try {
-        console.log("Location:", locations);
+        console.log("Location:", location);
         const payment = new Payment();
-        const resp = payment.Checkout_cart({ 
-          items: productCartItem,
-          location: locations.location,
-          coordinates: locations.coordinates
-        });
+        // const coordinatesString = JSON.stringify(location.coordinates);
+        const resp = payment.Checkout_cart({...location, items: productCartItem});
         resp
           .then((res) => {
             if (res.data.url) {
@@ -97,7 +93,10 @@ const Cart = () => {
       }, 1000);
     }
   };
-  
+
+  const handlePhoneChange = (e) => {
+    setLocation((prev) => ({ ...prev, phone: e.target.value }));
+  };
 
   return (
     <>
@@ -126,31 +125,6 @@ const Cart = () => {
             </div>
 
             {/* location input */}
-            <div className="w-full max-w-md ml-auto">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Location
-              </label>
-              <div className="relative">
-                <input
-                  required
-                  type="text"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  name="location"
-                  value={locations.location}
-                  onChange={handleLocationChange}
-                />
-                <div className="absolute top-2 right-2">
-                  <button type="button">
-                    <FaLocationCrosshairs
-                      size={24}
-                      color="#0000ff"
-                      onClick={handleGetLocation}
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-
             {/* total cart item  */}
             <div className="w-full max-w-md  ml-auto">
               <h2 className="bg-blue-500 text-white p-2 text-lg">Summary</h2>
@@ -184,6 +158,109 @@ const Cart = () => {
           </>
         )}
       </div>
+
+      <div className="flex flex-wrap mt-7">
+        <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Location
+          </label>
+          <div className="relative">
+          <input
+  required
+  type="text"
+  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  name="location"
+  value={
+    location.coordinates.lat && location.coordinates.lng
+      ? `Lat: ${Number(location.coordinates.lat).toFixed(6)}, Lng: ${Number(location.coordinates.lng).toFixed(6)}`
+      : "Fetching location..."
+  }
+  readOnly 
+/>
+
+
+            <div className="absolute top-2 right-2">
+              <button type="button">
+                <FaLocationCrosshairs
+                  size={24}
+                  color="#0000ff"
+                  onClick={handleGetLocation}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            Phone
+          </label>
+          <div className="relative">
+            <input
+              required
+              type="Number"
+              maxLength={10}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="phone"
+              value={location.phone}
+              onChange={handlePhoneChange}
+            />
+          </div>
+        </div>
+      </div>
+      {/* New Design for cart Page */}
+      {/* <div className="shopping-cart mt-8">
+      <h2 className='className="mt-10 text-3xl font-semibold pb-8"'>
+        Your Bag
+      </h2>
+      <div className="relative mt-8 overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-center rtl:text-center">
+          <thead className="text-sm uppercase bg-gray-200 ">
+            <tr>
+              <th scope="col" className="px-6 py-6">
+                Product
+              </th>
+              <th scope="col" className="px-6 py-6">
+                Price
+              </th>
+              <th scope="col" className="px-6 py-6">
+                Quantity
+              </th>
+              <th scope="col" className="px-6 py-6">
+                Total
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="bg-white mt-2">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium whitespace-nowrap "
+              >
+                <div className="flex flex-wrap justify-center product-details flex ">
+                  <div className="flex items-center">
+                    <img
+                      className="object-cover w-16 h-20 mr-4"
+                      src="https://via.placeholder.com/100"
+                      alt="main-image"
+                    />
+                  </div>
+                  <div className="w-full md:w-1/4 text-left">
+                    <p className="text-md"> Apple MacBook Pro 17</p>
+                    <p className="text-gray-500 text-xs pt-2">
+                      {" "}
+                      <span>Category:</span>Sweet{" "}
+                    </p>
+                  </div>
+                </div>
+              </th>
+              <td className="px-6 py-4">Silver</td>
+              <td className="px-6 py-4">Laptop</td>
+              <td className="px-6 py-4">$2999</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> */}
     </>
   );
 };

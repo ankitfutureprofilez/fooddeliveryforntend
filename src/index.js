@@ -78,14 +78,7 @@ const router = createBrowserRouter(
 
 <Route path ="/order_history" element= {<Orderhistory/>}/>
 <Route path="/order_history/:order_id" element={<OrderDetilas />} />
-
       <Route path="restaurants" element={
-        <PrivateRoute>
-
-          <RestaurantInfo />
-        </PrivateRoute>
-      } />
-      <Route path="restaurants/:resId" element={
         <PrivateRoute>
           <Restaurantdetails />
         </PrivateRoute>

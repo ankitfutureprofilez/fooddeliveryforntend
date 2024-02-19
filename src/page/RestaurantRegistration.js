@@ -143,6 +143,7 @@ export default function RestaurantRegistration() {
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
+        
         const locationString = response.data.display_name;
         setData((prev) => {
           return {
@@ -157,6 +158,7 @@ export default function RestaurantRegistration() {
     }
   };
 
+  
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
@@ -170,7 +172,7 @@ export default function RestaurantRegistration() {
     <div className="flex  mt-7">
       <div className="w-full">
         <h1 className="text-3xl font-bold mb-6 flex justify-center">
-          Restaurant Registration
+          Restaurant Detilas 
         </h1>
         <form className="w-full" onSubmit={handleSubmit}>
           {/* First row */}
@@ -369,12 +371,10 @@ export default function RestaurantRegistration() {
           </div>
           {/* Third row */}
           <div className="flex flex-wrap mt-7">
-            <div class="w-full md:w-2/2 px-3 mb-6 md:mb-0">
-              <ImageUpload setImage={(image) => setData((prevData) => ({ ...prevData, image }))}  records = {record.image} />
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <ImageUpload setImage={(image) => setData((prevData) => ({ ...prevData, image }))}  records = {record?.image} />
             </div>
-
-            <div className=" w-full   flex flex-wrap mt-7">
-              <div class="w-full  md:w-2/2 px-3 md:mb-0">
+            <div class="w-full  md:w-1/2 px-3 md:mb-0">
                 <label
                   class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   for="grid-state"
@@ -392,7 +392,6 @@ export default function RestaurantRegistration() {
                   ></textarea>
                 </div>
               </div>
-            </div>
           </div>
           {/* Fourth row */}
           <div className="flex flex-wrap mt-7">
