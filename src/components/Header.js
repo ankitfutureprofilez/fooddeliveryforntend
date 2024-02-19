@@ -38,8 +38,6 @@ const Header = () => {
           </Link>
           <SearchBar />
           <div className="flex items-center gap-4 md:gap-7">
-
-
             <div className="text-2xl text-slate-600 relative">
               <Link className="text-gray-900" to={"cart"}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
