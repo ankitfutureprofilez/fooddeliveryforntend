@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function ImageUpload({ setImage, records }) {
-    console.log("records", records)
     const imagekey = process.env.REACT_APP_IMAGE_KEY
     const [image, setLocalImage] = useState("");
+    const [loading, setLoading] = useState(false); 
 
     const uploadfile = async (e) => {
+        setLoading(true); 
         const file = e.target.files[0];
         const formData = new FormData();
         formData.append('image', file);
@@ -24,6 +25,8 @@ export default function ImageUpload({ setImage, records }) {
             setImage(response.data.data.display_url);
         } catch (error) {
             console.error('Error uploading image:', error);
+        } finally {
+            setLoading(false); 
         }
     }
 
@@ -41,7 +44,9 @@ export default function ImageUpload({ setImage, records }) {
             <label htmlFor="file" className="file-upload-label">
                 <div className="file-upload-design w-250">
                     <div className="flex justify-between w-full items-center" >
-                        {image ? (
+                        {loading ? ( 
+                            <div className ="text-center bg-black">Loading...</div>
+                        ) : image ? (
                             <>
                                 <img src={image} alt="Uploaded" className="max-w-full rounded-full w-10 h-12" />
                             </>

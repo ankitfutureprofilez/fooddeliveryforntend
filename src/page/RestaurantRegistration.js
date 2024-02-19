@@ -8,6 +8,7 @@ import ImageUpload from "../components/ImageUpload";
 
 export default function RestaurantRegistration() {
   const navigate = useNavigate();
+  const cloud =process.env.REACT_CLOUD_KEY
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [Loading, setLoading] = useState(true)
   const [data, setData] = useState({
