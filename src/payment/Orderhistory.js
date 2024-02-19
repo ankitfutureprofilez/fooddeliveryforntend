@@ -70,7 +70,7 @@ export default function Orderhistory() {
                     </td>
                     <td className="p-3 border border-gray-200 text-center">
                       <Link to={`/order_history/${item.order_id}`}>
-                        <SiPivotaltracker size={22} />
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Tracker </button>
                       </Link>
                     </td>
 

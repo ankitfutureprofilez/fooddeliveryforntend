@@ -6,6 +6,7 @@ import MapContainer from "../tracking/MapContainer";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { formatMultiPrice } from "../hooks/Valuedata";
+import Restaurantdetails from './../page/Restaurantdetails';
 
 export default function OrderDetilas() {
 
@@ -23,58 +24,33 @@ export default function OrderDetilas() {
       );
     });
   };
-
-
-  // useEffect(() => {
-  // let intervalId;
-  // if (packageStatus !== "delivered") {
-  // intervalId = setInterval(() => {
-  // handleStatusChange();
-  //     }, 10000);
-  //   }
-  //    else {
-  //     const timeoutId = setTimeout(() => {
-  //       console.log("Refreshing data");
-  //       setPackageStatus("picked");
-  //     }, 10000);
-
-  //     return () => clearTimeout(timeoutId);
-  //   }
-
-  //   return () => {
-  //     if (intervalId) {
-  //       clearInterval(intervalId);
-  //     }
-  //   };
-  // }, [packageStatus]);
-
   // UPDATE ORDER
   const [updateOrder, setUpdateOrder] = useState();
   const fetchData = async () => {
     try {
       const main = new Listings();
       const response = await main.orderdetials(order_id);
+      console.log("response.data.order",)
       setRecord(response.data.order);
     } catch (error) {
       console.log("error", error);
     }
   };
-
   useEffect(() => {
     const interval = setInterval(() => {
-      if(record && record.order_status == 'picked' && record && record.deliveredAt == null){
+      if (record && record.order_status === 'picked' && record && record.deliveredAt === null) {
         updatePickedAndDeliveredStatus('picked');
       }
-    }, 7000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [record]);
 
   useEffect(() => {
     fetchData();
   }, [order_id, updateOrder]);
-   
 
-  const updatePickedAndDeliveredStatus = async (type, show = false) => { 
+
+  const updatePickedAndDeliveredStatus = async (type, show = false) => {
     const main = new Listings();
     const position = await getCurrentPosition();
     const { latitude, longitude } = position.coords;
@@ -84,39 +60,102 @@ export default function OrderDetilas() {
         lng: longitude
       }
     });
-    response.then((res)=>{
-      if(show){ 
+    response.then((res) => {
+      if (show) {
         toast.success(res.data.msg);
       }
       setUpdateOrder(new Date());
-    }).catch((err)=>{
+    }).catch((err) => {
       toast.success("Failed to update status");;
-      console.log("err",err)
+      console.log("err", err)
     })
   }
+
+  const[coordinator ,setCoordinator] = useState("")
 
   // UPDATE ORDER STATUS
   async function updateOrderStatus(type) {
     try {
-      if(type == 'accepted'){
+      if (type === 'accepted') {
         const main = new Listings();
-        const response =  main.ordertracking(type, record && record.order_id);
-        response.then((res)=>{
+        const response = main.ordertracking(type, record && record.order_id);
+        response.then((res) => {
           toast.success(res.data.msg);
           setUpdateOrder(new Date());
-        }).catch((err)=>{
+        }).catch((err) => {
           toast.success("Failed to update status");;
           console.log("err", err)
         })
-      } else { 
+      } else {
         updatePickedAndDeliveredStatus(type, 'show');
       }
     } catch (error) {
       console.log("API Error", error);
     }
   }
+  function getAddressFromCoordinates(restaurantCoordinates ,checkout_coordinates) {
+    console.log("coordinates", restaurantCoordinates);
+    const latlng = `${restaurantCoordinates.lat},${restaurantCoordinates.lng}`;
+    console.log("latlng", latlng);
+    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
+    console.log(apiKey);
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          const address = data.results[1].formatted_address;
+          setCoordinator(address);
+        } else {
+          console.error('Failed to fetch address:', data.status);
+        }
+      })
+      .catch(error => console.error('Error fetching address:', error));
+  }
 
+  useEffect(()=>{
+    if (record && record.restaurent_coordinates) {
+      const restaurantCoordinates = JSON.parse(record.restaurent_coordinates);
+      console.log("restaurantCoordinates", restaurantCoordinates);
+      getAddressFromCoordinates(restaurantCoordinates);
+    } else {
+      console.error("restaurant coordinates not found in record");
+    }
 
+ 
+  },[record.restaurent_coordinates])
+  
+ const[checkout ,setcheckout] = useState("")
+
+  function getcheckoutFromCoordinates(checkout_coordinates) {
+    console.log("coordinates", checkout_coordinates);
+    const latlng = `${checkout_coordinates.lat},${checkout_coordinates.lng}`;
+    console.log("latlng", latlng);
+    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
+    console.log(apiKey);
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          const address = data.results[1].formatted_address;
+          setcheckout(address);
+        } else {
+          console.error('Failed to fetch address:', data.status);
+        }
+      })
+      .catch(error => console.error('Error fetching address:', error));
+  }
+  useEffect(()=>{
+    if (record && record.checkout_coordinates) {
+      const checkout_coordinates = JSON.parse(record.checkout_coordinates);
+      console.log("restaurantCoordinates", checkout_coordinates);
+      getcheckoutFromCoordinates(checkout_coordinates);
+    } else {
+      console.error("checkout_coordinates coordinates not found in record");
+    }
+  },[])
+  
   return (
     <>
       <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
@@ -191,7 +230,7 @@ export default function OrderDetilas() {
                       </span>
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                    {formatMultiPrice(0)}
+                      {formatMultiPrice(0)}
                     </p>
                   </div>
                   <div className="flex justify-between items-center w-full">
@@ -199,7 +238,7 @@ export default function OrderDetilas() {
                       Delivery Charges
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                    {formatMultiPrice(0)}
+                      {formatMultiPrice(0)}
                     </p>
                   </div>
                 </div>
@@ -236,99 +275,70 @@ export default function OrderDetilas() {
                   </p>
                 </div>
 
-                 {/* !userData.resId || packageStatus === 'delivered' */}
+                {/* !userData.resId || packageStatus === 'delivered' */}
 
-                 {userData.resId == '1' && record && record.order_status == 'initiated' ? 
+                {userData.resId == '1' && record && record.order_status == 'initiated' ?
                   <button
-                    onClick={()=>updateOrderStatus("accepted")}
+                    onClick={() => updateOrderStatus("accepted")}
                     className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
                     Mark As Order Accepted
                   </button>
-                : record && record.order_status == 'accepted' ?
-                  <button
-                    onClick={()=>updateOrderStatus("picked")}
-                    className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
-                    Mark As Order Picked
-                  </button> 
-                  : record && record.order_status == 'picked' ? 
+                  : record && record.order_status == 'accepted' ?
                     <button
-                    onClick={()=>updateOrderStatus("delivered")}
-                    className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
-                    Mark As Order delivered
+                      onClick={() => updateOrderStatus("picked")}
+                      className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
+                      Mark As Order Picked
                     </button>
-                  : ''
-                 }
+                    : record && record.order_status == 'picked' ?
+                      <button
+                        onClick={() => updateOrderStatus("delivered")}
+                        className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
+                        Mark As Order delivered
+                      </button>
+                      : ''
+                }
 
-                 {record && record.order_status == 'delivered' ? 
-                    <p className="text-green-500 text-base" >Order has been delivred at {record && record.deliveredAt}. </p>
+                {record && record.order_status == 'delivered' ?
+                  <p className="text-green-500 text-base" >Order has been delivred at {record && record.deliveredAt}. </p>
                   : ''}
-
-                {/* <button
-                  disabled={!userData.resId || packageStatus === 'delivered'}
-                  onClick={handleStatusChange}
-                  className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 ${userData.resId && packageStatus !== 'delivered'
-                    ? "accepted"
-                      ? 'bg-blue-500 hover:bg-blue-700 text-white'
-                      : "picked"
-                        ? 'bg-black text-white'
-                        : 'bg-gray-800 hover:bg-black text-white'
-                    : 'bg-gray-300 text-gray-600'
-                    }`}
-                >
-                  {packageStatus} Package
-                </button> */}
-
               </div>
             </div>
           </div>
           <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
-            <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
-              Customer
-            </h3>
+  <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
+    Customer
+  </h3>
+<div class="flex mt-5 w-full justify-between">
+  <div class="flex-auto  w-32 ">
+    <h1>
+      User Address 
+    </h1>
 
-            <div className="flex flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0">
-              <div className="flex justify-between xl:h-full items-stretch w-full flex-col mt-6 md:mt-0">
-                <div className="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-12 md:space-y-0 md:flex-row items-center md:items-start">
-                  <div className="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4 xl:mt-8">
-                    <p className="text-base dark:text-white font-semibold leading-4 text-center md:text-left text-gray-800">
-                      Shipping Address
+   <p>
+{checkout}
+   </p>
+  </div>
+  <div class="flex-auto w-32">
+  <h1>
+       Phone 
+    </h1>
 
-                    </p>
-                    <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                      User Address
-                    </p>
-                  </div>
-                  <div className="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4">
-                    <div className="flex justify-center text-gray-800 dark:text-white md:justify-start items-center space-x-4 py-4 border-b border-gray-200 w-full">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5Z"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M3 7L12 13L21 7"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                      <p className="cursor-pointer text-sm leading-5 ">
-                        david89@gmail.com
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+   <p>
+{record?.phone_no}
+   </p>
+  </div>
+  <div class="flex-auto w-32 ">
+  <h1>
+     Resturantor Address 
+    </h1>
+
+   <p>
+{coordinator}
+   </p>
+  </div>
+</div>
+</div>
+
         </div>
       </div>
     </>
