@@ -26,7 +26,6 @@ const Cart = () => {
   const [location, setLocation] = useState({
     phone: "",
     coordinates: '',
-    address:"",
   });
 
   console.log("location", location);
@@ -45,11 +44,6 @@ const Cart = () => {
           lat: latitude,
           lng: longitude
         },
-        order_coordinates: {
-          lat: latitude,
-          lng: longitude
-        },
-      
       });
       } catch (error) {
         console.error("Error getting location:", error);
@@ -100,7 +94,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="p-2 md:p-4">
+      <div className="p-2 md:p-4 flex flex-col">
         <h2 className="text-lg md:text-2xl font-bold text-slate-600">
           Your Cart Items
         </h2>
@@ -240,22 +234,33 @@ const Cart = () => {
                   <div className="flex items-center">
                     <img
                       className="object-cover w-16 h-20 mr-4"
-                      src="https://via.placeholder.com/100"
+                      src={image}
                       alt="main-image"
                     />
                   </div>
                   <div className="w-full md:w-1/4 text-left">
-                    <p className="text-md"> Apple MacBook Pro 17</p>
+                    <p className="text-md"> {name}</p>
                     <p className="text-gray-500 text-xs pt-2">
                       {" "}
-                      <span>Category:</span>Sweet{" "}
+                      <span>Category:</span>{category}{" "}
                     </p>
                   </div>
                 </div>
               </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
+              <td className="px-6 py-4">{price}</td>
+              <div className="flex flex-row">
+              <button onClick={()=>dispatch(increaseQty(id))} className="bg-white border border-gray-200 py-1 mt-0 text-orange-500 rounded p-1 hover:bg-orange-500 hover:text-white ease-linear transition-all duration-150">
+              <TbPlus />
+            </button>
+              <td className="px-6 py-4">{qty}</td>
+              <button
+              onClick={()=>dispatch(decreaseQty(id))}
+              className="border border-gray-200 text-orange-500 hover:bg-orange-500 hover:text-white py-1 mt-0 rounded p-1 ease-linear transition-all duration-150"
+            >
+              <TbMinus />
+            </button>
+              </div>
+              <td className="px-6 py-4">{total}</td>
             </tr>
           </tbody>
         </table>
