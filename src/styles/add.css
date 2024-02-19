@@ -98,12 +98,10 @@
   object-fit: cover;
   border-radius: 10px;
 }
-
 .signup-container {
   max-width: 600px;
 }
-
-.dfg {
+.cart-item {
   background: #fff;
   padding: 14px !important;
   box-shadow: 0 0 9px 1px #0001;
