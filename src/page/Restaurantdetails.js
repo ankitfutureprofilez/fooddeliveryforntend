@@ -13,7 +13,7 @@ export default function Restaurantdetails() {
   const fetchData = async () => {
     try {
       const main = new Listings();
-      
+
       const response = await main.resturantget();
       console.log("rsponse", response);
       setRecord(response.data.record);
@@ -56,6 +56,7 @@ export default function Restaurantdetails() {
 </div>
 
 </div>
+
   {/* Existing component structure */}
     <div className="flex flex-wrap justify-between product-details flex ">
       <div className="w-full md:w-1/3 ">

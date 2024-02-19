@@ -4,6 +4,7 @@ import LoadingPage from "../page/LoadingPage";
 import { MdStreetview } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { formatDate } from "../hooks/Formdata";
+import { SiPivotaltracker } from "react-icons/si";
 export default function Orderhistory() {
   const [loading, setLoading] = useState(true);
   const [record, setRecord] = useState([]);
@@ -29,70 +30,59 @@ export default function Orderhistory() {
 
   return (
     <div>
-        <div className="container mx-auto px-4 pb-14 ">
-          <h1 className="text-3xl font-bold mb-6">Order History</h1>
-          <div className="overflow-x-auto">
-            <table className="table-auto w-full">
-              <thead className=" bg-black  text-white">
+      <div className="container mx-auto px-4 pb-14 ">
+        <div className="overflow-x-auto">
+          <table className="w-full overflow-x-auto">
+            <thead className="bg-black text-white text-left">
+              <tr>
+                <th className="p-3 border border-gray-200">Order ID</th>
+                <th className="p-3 border border-gray-200">Order Date</th>
+                <th className="p-3 border border-gray-200">Order Items</th>
+                <th className="p-3 border border-gray-200">Order Status</th>
+                <th className="p-3 border border-gray-200 text-center">Tracker</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
                 <tr>
-                  <th className="p-3 border border-gray-200">
-                    Order ID & Date
-                  </th>
-                  <th className="p-3 border border-gray-200 ">Order Items</th>
-                  <th className="p-3 border border-gray-200 ">Order Status</th>
-                  <th className="p-3 border border-gray-200 ">View</th>
+                  <LoadingPage />
                 </tr>
-              </thead>
-              <tbody>
-                {loading ? (
-                  <tr>
-                    <LoadingPage />
+              ) : (
+                record.map((item, index) => (
+                  <tr key={index} className="border border-gray-200">
+                    <td className="p-3 border border-gray-200">{item._id}</td>
+                    <td className="p-3 border border-gray-200">{formatDate(item.createdAt)}</td>
+                    <td className="p-3 border border-gray-200">
+                      {JSON.parse(item.order_items).map((orderItem, index) => (
+                        <div key={index} className="flex items-center ">
+                          <div>
+                            <p className="font-semibold">{orderItem.name},</p>
+                          </div>
+                        </div>
+                      ))}
+                    </td>
+                    <td className="p-3 border border-gray-200">
+                      {item.order_status === "accepted" ? (
+                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Accepted</button>
+                      ) : (
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Initialized</button>
+                      )}
+                    </td>
+                    <td className="p-3 border border-gray-200 text-center">
+                      <Link to={`/order_history/${item.order_id}`}>
+                        <SiPivotaltracker size={22} />
+                      </Link>
+                    </td>
+
                   </tr>
-                ) : (
-                  record.map((item, index) => (
-                    <tr key={index} className="border border-gray-200">
-                      <td className="p-3 border border-gray-200 ">
-                        {item._id}
-                        <span className="flex">
-                          {formatDate(item.createdAt)}
-                        </span>
-                      </td>
-                      <td className="p-3 border border-gray-200 ">
-                        {JSON.parse(item.order_items).map(
-                          (orderItem, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center space-x-4"
-                            >
-                              <div>
-                                <p className="font-semibold">
-                                  {orderItem.name}
-                                </p>
-                                <p>Price: {orderItem.price}</p>
-                                  <Link
-                                    to={`/order_history/${item.order_id}`}
-                                    className="text-blue-600"
-                                  >
-                                    Details
-                                  </Link>
-                              </div>
-                            </div>
-                          )
-                        )}
-                      </td>
-                      <td className="p-3 border border-gray-200">
-                        {item.order_status}
-                      </td>
-                      <td className="p-3 border border-gray-200">
-                        <MdStreetview />
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              )}
+            </tbody>
+          </table>
+
+
         </div>
+      </div>
     </div>
   );
 }

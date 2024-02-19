@@ -13,6 +13,7 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
+
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
     0
@@ -26,6 +27,7 @@ const Cart = () => {
     phone: "",
     coordinates: "",
     address: "",
+    coordinates: '',
   });
 
   console.log("location", location);
@@ -52,6 +54,11 @@ const Cart = () => {
             lng: longitude,
           },
         });
+        setLocation({...location, coordinates: {
+          lat: latitude,
+          lng: longitude
+        },
+      });
       } catch (error) {
         console.error("Error getting location:", error);
       }
