@@ -18,7 +18,7 @@ const MapContainer = ({ restaurent_coordinates, usercoordinates, status }) => {
   useEffect(() => {
     let interval = null;
 
-    if (status === "accepted") {
+    if (status === "picked") {
       interval = setInterval(() => {
         setDeliveryPersonLocation((currentLocation) => {
           const deltaLat = deliveryLocation.lat - currentLocation.lat;

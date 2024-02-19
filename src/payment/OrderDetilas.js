@@ -6,14 +6,12 @@ import MapContainer from "../tracking/MapContainer";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { formatMultiPrice } from "../hooks/Valuedata";
-import Restaurantdetails from './../page/Restaurantdetails';
-
 export default function OrderDetilas() {
   const { order_id } = useParams();
-  const [record, setRecord] = useState([]);
-  const [packageStatus, setPackageStatus] = useState("picked");
+  const [record, setRecord] = useState([])
+  const [packageStatus, setPackageStatus] = useState("");
   const userData = useSelector((state) => state.user);
-  console.log("record", record);
+  console.log("record", record)
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -23,68 +21,94 @@ export default function OrderDetilas() {
       );
     });
   };
+
+
+  // useEffect(() => {
+  // let intervalId;
+  // if (packageStatus !== "delivered") {
+  // intervalId = setInterval(() => {
+  // handleStatusChange();
+  //     }, 10000);
+  //   }
+  //    else {
+  //     const timeoutId = setTimeout(() => {
+  //       console.log("Refreshing data");
+  //       setPackageStatus("picked");
+  //     }, 10000);
+
+  //     return () => clearTimeout(timeoutId);
+  //   }
+
+  //   return () => {
+  //     if (intervalId) {
+  //       clearInterval(intervalId);
+  //     }
+  //   };
+  // }, [packageStatus]);
+
   // UPDATE ORDER
   const [updateOrder, setUpdateOrder] = useState();
   const fetchData = async () => {
     try {
       const main = new Listings();
       const response = await main.orderdetials(order_id);
-      console.log("response.data.order",)
       setRecord(response.data.order);
     } catch (error) {
       console.log("error", error);
     }
   };
-  console.log("")
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (record && record.order_status == 'picked' && record && record.deliveredAt == null) {
-        updatePickedAndDeliveredStatus('picked');
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [record]);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (record && record.order_status == 'accepted' && record && record.deliveredAt == null) {
+  //       updatePickedAndDeliveredStatus('accepted');
+  //       setPackageStatus('accepted');
+  //     }
+  //   }, 7000);
+  //   return () => clearInterval(interval);
+  // }, [record.order_status]);
+  
 
   useEffect(() => {
     fetchData();
   }, [order_id, updateOrder]);
+   
 
-
-  const updatePickedAndDeliveredStatus = async (type, show = false) => {
+  const updatePickedAndDeliveredStatus = async (type, show = false) => { 
     const main = new Listings();
     const position = await getCurrentPosition();
     const { latitude, longitude } = position.coords;
     const response = main.ordertracking(type, record && record.order_id, {
       coordinates: {
         lat: latitude,
-        lng: longitude,
-      },
+        lng: longitude
+      }
     });
-    response.then((res) => {
-      if (show) {
+    response.then((res)=>{
+      if(show){ 
         toast.success(res.data.msg);
       }
       setUpdateOrder(new Date());
-    }).catch((err) => {
+    }).catch((err)=>{
       toast.success("Failed to update status");;
-      console.log("err", err)
+      console.log("err",err)
     })
   }
 
   // UPDATE ORDER STATUS
   async function updateOrderStatus(type) {
     try {
-      if (type == 'accepted') {
+      if(type == 'accepted'){
         const main = new Listings();
-        const response = main.ordertracking(type, record && record.order_id);
-        response.then((res) => {
+        const response =  main.ordertracking(type, record && record.order_id);
+        response.then((res)=>{
           toast.success(res.data.msg);
           setUpdateOrder(new Date());
-        }).catch((err) => {
+        }).catch((err)=>{
           toast.success("Failed to update status");;
           console.log("err", err)
         })
-      } else {
+      } else { 
         updatePickedAndDeliveredStatus(type, 'show');
       }
     } catch (error) {
@@ -136,6 +160,7 @@ export default function OrderDetilas() {
       .then(data => {
         if (data) {
           const address = data.results[0].formatted_address;
+          console.log("addresschecki",address)
           setcheckout(address);
         } else {
           console.error('Failed to fetch address:', data.status);
@@ -143,7 +168,7 @@ export default function OrderDetilas() {
       })
       .catch(error => console.error('Error fetching address:', error));
   }
-  
+
   useEffect(() => {
     if (record && record.checkout_coordinates) {
       const checkout_coordinates = JSON.parse(record?.checkout_coordinates);
@@ -310,24 +335,10 @@ export default function OrderDetilas() {
                       : ''
                 }
 
-                {record && record.order_status === 'delivered' ?
-                  <p className="text-green-500 text-base" >Order has been delivred at {record && record.deliveredAt}. </p>
-                  : ''}
+{record && record.order_status === 'delivered' ?
+  <p className="text-green-500 text-base">Order has been delivered at {record && record.deliveredAt}. </p>
+  : ''}
 
-                {/* <button
-                  disabled={!userData.resId || packageStatus === 'delivered'}
-                  onClick={handleStatusChange}
-                  className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 ${userData.resId && packageStatus !== 'delivered'
-                    ? "accepted"
-                      ? 'bg-blue-500 hover:bg-blue-700 text-white'
-                      : "picked"
-                        ? 'bg-black text-white'
-                        : 'bg-gray-800 hover:bg-black text-white'
-                    : 'bg-gray-300 text-gray-600'
-                    }`}
-                >
-                  {packageStatus} Package
-                </button> */}
 
               </div>
             </div>
@@ -352,12 +363,12 @@ export default function OrderDetilas() {
                 </h1>
 
                 <p>
-                  {record?.phone_no || null}
+                  {record?.phone_no || "null"}
                 </p>
               </div>
               <div class="flex-auto w-32 ">
                 <h1>
-                  Resturantor Address
+                restaurants  Address
                 </h1>
 
                 <p>
