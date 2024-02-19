@@ -116,7 +116,6 @@ const Cart = () => {
               if (res.data.url) {
                 window.location.href = res.data.url;
               }
-
             }
           })
           .catch((err) => {
