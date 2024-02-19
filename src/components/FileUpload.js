@@ -29,7 +29,7 @@ const imagekey = process.env.REACT_APP_IMAGE_KEY
     return <>
          <label htmlFor="profileImage">
           <div className="absolute bottom-0 h-1/3  bg-slate-500 bg-opacity-50 w-full text-center cursor-pointer">
-            <p className="text-sm p-1 text-white">Upload</p>
+            <p className="text-sm p-1 pb-2 text-white text-small">Upload</p>
           </div>
           <input
           required
