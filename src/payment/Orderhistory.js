@@ -61,11 +61,11 @@ export default function Orderhistory() {
                         </div>
                       ))}
                     </td>
-                    <td className="p-3 border border-gray-200">
+                    <td className="p-3 border border-gray-200 ">
                       {item.order_status === "accepted" ? (
-                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Accepted</button>
+                        <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Accepted</span>
                       ) : (
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Initialized</button>
+                        <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Initialized</span>
                       )}
                     </td>
                     <td className="p-3 border border-gray-200 text-center">

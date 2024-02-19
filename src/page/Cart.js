@@ -13,7 +13,6 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
     0
@@ -64,9 +63,9 @@ const Cart = () => {
     }
   };
   
-  useEffect(()=>{
-    handleGetLocation()
-  },[]);
+  // useEffect(()=>{
+  //   handleGetLocation()
+  // },[]);
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -80,9 +79,26 @@ const Cart = () => {
   const handlePayment = async () => {
     if (user.email) {
       try {
-        console.log("Location:", location);
+        if (!location.coordinates=="" || location.coordinates.length === 0) {
+          try {
+            const apiUrl = "https://ipapi.co/json/";
+            const response = await fetch(apiUrl);
+            const jsonData = await response.json();
+            // console.log(jsonData);
+            const { latitude, longitude } = jsonData;
+            setLocation((prevData) => ({
+              ...prevData,
+              coordinates: `${latitude}, ${longitude}`,
+            }));
+          } catch (error) {
+            console.error("Error getting coordinates:", error);
+            toast.error("Error getting coordinates");
+            return;
+          }
+        }
         const payment = new Payment();
-        // const coordinatesString = JSON.stringify(location.coordinates);
+        console.log("Location:", location);
+        const coordinatesString = JSON.stringify(location.coordinates);
         const resp = payment.Checkout_cart({
           ...location,
           items: productCartItem,
@@ -107,6 +123,7 @@ const Cart = () => {
       }, 1000);
     }
   };
+  
 
   const handlePhoneChange = (e) => {
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
@@ -114,7 +131,7 @@ const Cart = () => {
 
 
   const handleChangeLocation = (e) => {
-    setLocation((prev) => ({ ...prev, address: e.target.value }));
+    setAddress(e.target.value);
   };
 
   return (
