@@ -50,11 +50,11 @@ export default function Restaurantdetails() {
     src={record && record.image}
     alt={record && record.index}
   />
-</div>
-
   <span className="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 m-4 rounded-lg">
     {openStatus}
   </span>
+</div>
+
 </div>
   {/* Existing component structure */}
     <div className="flex flex-wrap justify-between product-details flex ">
