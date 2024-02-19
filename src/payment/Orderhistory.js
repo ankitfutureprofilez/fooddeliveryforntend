@@ -27,7 +27,6 @@ export default function Orderhistory() {
       });
   }, []);
 
-
   return (
     <div>
       <div className="container mx-auto px-4 pb-14 ">
@@ -39,7 +38,9 @@ export default function Orderhistory() {
                 <th className="p-3 border border-gray-200">Order Date</th>
                 <th className="p-3 border border-gray-200">Order Items</th>
                 <th className="p-3 border border-gray-200">Order Status</th>
-                <th className="p-3 border border-gray-200 text-center">Tracker</th>
+                <th className="p-3 border border-gray-200 text-center">
+                  Tracker
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -51,7 +52,9 @@ export default function Orderhistory() {
                 record.map((item, index) => (
                   <tr key={index} className="border border-gray-200">
                     <td className="p-3 border border-gray-200">{item._id}</td>
-                    <td className="p-3 border border-gray-200">{formatDate(item.createdAt)}</td>
+                    <td className="p-3 border border-gray-200">
+                      {formatDate(item.createdAt)}
+                    </td>
                     <td className="p-3 border border-gray-200">
                       {JSON.parse(item.order_items).map((orderItem, index) => (
                         <div key={index} className="flex items-center ">
@@ -63,9 +66,13 @@ export default function Orderhistory() {
                     </td>
                     <td className="p-3 border border-gray-200 ">
                       {item.order_status === "accepted" ? (
-                        <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Accepted</span>
+                        <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                          Accepted
+                        </span>
                       ) : (
-                        <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Initialized</span>
+                        <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                          Initialized
+                        </span>
                       )}
                     </td>
                     <td className="p-3 border border-gray-200 text-center">
@@ -73,14 +80,11 @@ export default function Orderhistory() {
                       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Tracker </button>
                       </Link>
                     </td>
-
                   </tr>
                 ))
               )}
             </tbody>
           </table>
-
-
         </div>
       </div>
     </div>

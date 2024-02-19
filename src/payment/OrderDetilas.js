@@ -159,7 +159,8 @@ export default function OrderDetilas() {
       .then(response => response.json())
       .then(data => {
         if (data) {
-          const address = data.results[1].formatted_address;
+          const address = data.results[0].formatted_address;
+
           setcheckout(address);
         } else {
           console.error('Failed to fetch address:', data.status);
