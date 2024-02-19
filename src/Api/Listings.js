@@ -44,6 +44,10 @@ class Listings extends Component {
     return Api.get("/stripe/myorders")
   }
 
+
+  async adminorder() {
+    return Api.get('/stripe/allorder')
+  }
   async orderdetials(order_id) {
     return Api.get(`/stripe/order/${order_id}`)
   }

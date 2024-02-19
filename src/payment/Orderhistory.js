@@ -5,28 +5,49 @@ import { MdStreetview } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { formatDate } from "../hooks/Formdata";
 import { SiPivotaltracker } from "react-icons/si";
+import { useSelector } from 'react-redux';
 export default function Orderhistory() {
+
+  const userData = useSelector((state) => state.user);
+
   const [loading, setLoading] = useState(true);
   const [record, setRecord] = useState([]);
 
   useEffect(() => {
-    const main = new Listings();
-    const response = main.paymentmethod();
-    response
-      .then((res) => {
-        setRecord(res.data.list);
-        setLoading(false);
-        console.log("res", res.data.list);
-        res.data.list.forEach((item) => {
-          localStorage.setItem(`orderStatus`, item.order_status);
+    if(userData.resId){
+      const main = new Listings();
+      const response = main.adminorder();
+      response
+        .then((res) => {
+          setRecord(res.data.list);
+          setLoading(false);
+          console.log("res", res.data.list);
+          res.data.list.forEach((item) => {
+            localStorage.setItem(`orderStatus`, item.order_status);
+          });
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setLoading(false);
         });
-      })
-      .catch((error) => {
-        console.log("error", error);
-        setLoading(false);
-      });
-  }, []);
 
+    }else{
+      const main = new Listings();
+      const response = main.paymentmethod();
+      response
+        .then((res) => {
+          setRecord(res.data.list);
+          setLoading(false);
+          res.data.list.forEach((item) => {
+            localStorage.setItem(`orderStatus`, item.order_status);
+          });
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setLoading(false);
+        });
+    }
+  }, []);
   return (
     <div>
       <div className="container mx-auto px-4 pb-14 ">
@@ -72,12 +93,12 @@ export default function Orderhistory() {
                       ) : (<></>)  }
                       
                       {item.order_status ==="picked" ? (
-                        <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                        <span className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
                      picked
                         </span>
                       ) : (<></>)  }
                       {item.order_status ==="delivered" ? (
-                        <span className="bg-grey-500 hover:bg-grey-700 text-white font-bold py-2 px-4 rounded-full">
+                        <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                           delivered
                         </span>
                       ) : (<></>)  }
