@@ -23,28 +23,7 @@ export default function OrderDetilas() {
   };
 
 
-  // useEffect(() => {
-  // let intervalId;
-  // if (packageStatus !== "delivered") {
-  // intervalId = setInterval(() => {
-  // handleStatusChange();
-  //     }, 10000);
-  //   }
-  //    else {
-  //     const timeoutId = setTimeout(() => {
-  //       console.log("Refreshing data");
-  //       setPackageStatus("picked");
-  //     }, 10000);
-
-  //     return () => clearTimeout(timeoutId);
-  //   }
-
-  //   return () => {
-  //     if (intervalId) {
-  //       clearInterval(intervalId);
-  //     }
-  //   };
-  // }, [packageStatus]);
+  
 
   // UPDATE ORDER
   const [updateOrder, setUpdateOrder] = useState();
@@ -58,15 +37,14 @@ export default function OrderDetilas() {
     }
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (record && record.order_status == 'accepted' && record && record.deliveredAt == null) {
-  //       updatePickedAndDeliveredStatus('accepted');
-  //       setPackageStatus('accepted');
-  //     }
-  //   }, 7000);
-  //   return () => clearInterval(interval);
-  // }, [record.order_status]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (record && record.order_status == 'picked' && record && record.deliveredAt == null) {
+        updatePickedAndDeliveredStatus('picked');
+      }
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [record]);
   
 
   useEffect(() => {
@@ -102,13 +80,14 @@ export default function OrderDetilas() {
         const main = new Listings();
         const response =  main.ordertracking(type, record && record.order_id);
         response.then((res)=>{
+          console.log("res",res)
           toast.success(res.data.msg);
           setUpdateOrder(new Date());
         }).catch((err)=>{
           toast.success("Failed to update status");;
-          console.log("err", err)
         })
       } else { 
+        console.log("updatePickedAndDeliveredStatus",updatePickedAndDeliveredStatus())
         updatePickedAndDeliveredStatus(type, 'show');
       }
     } catch (error) {
@@ -120,7 +99,6 @@ export default function OrderDetilas() {
   function getAddressFromCoordinates(restaurantCoordinates) {
     const latlng = `${restaurantCoordinates.lat},${restaurantCoordinates.lng}`;
     const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
-    console.log(apiKey);
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
     fetch(url)
       .then(response => response.json())
@@ -149,18 +127,14 @@ export default function OrderDetilas() {
   const [checkout, setcheckout] = useState("")
 
   function getcheckoutFromCoordinates(checkout_coordinates) {
-    console.log("checkout_coordinates", checkout_coordinates);
     const latlng = `${checkout_coordinates.lat},${checkout_coordinates.lng}`;
-    console.log("latlng", latlng);
     const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
-    console.log(apiKey);
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
     fetch(url)
       .then(response => response.json())
       .then(data => {
         if (data) {
           const address = data.results[0].formatted_address;
-          console.log("addresschecki",address)
           setcheckout(address);
         } else {
           console.error('Failed to fetch address:', data.status);
@@ -235,7 +209,7 @@ export default function OrderDetilas() {
             <MapContainer
               restaurent_coordinates={record?.restaurent_coordinates}
               usercoordinates={record?.checkout_coordinates}
-              status={packageStatus}
+              status={record && record.order_status}
             />
 
             <div className="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
@@ -314,19 +288,19 @@ export default function OrderDetilas() {
 
                 {/* !userData.resId || packageStatus === 'delivered' */}
 
-                {userData.resId && record && record.order_status === 'initiated' ?
+                {userData.resId && record && record.order_status == 'initiated' ?
                   <button
                     onClick={() => updateOrderStatus("accepted")}
                     className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
                     Mark As Order Accepted
                   </button>
-                  : userData.resId && record && record.order_status === 'accepted' ?
+                  : userData.resId && record && record.order_status == 'accepted' ?
                     <button
                       onClick={() => updateOrderStatus("picked")}
                       className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
                       Mark As Order Picked
                     </button>
-                    : userData.resId && record && record.order_status === 'picked' ?
+                    : userData.resId && record && record.order_status == 'picked' ?
                       <button
                         onClick={() => updateOrderStatus("delivered")}
                         className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
@@ -336,7 +310,9 @@ export default function OrderDetilas() {
                 }
 
 {record && record.order_status === 'delivered' ?
-  <p className="text-green-500 text-base">Order has been delivered at {record && record.deliveredAt}. </p>
+  <p className="text-green-500 text-base text-center">Order has been delivered at {
+    formatDate(   record && record.deliveredAt)
+ }. </p>
   : ''}
 
 
@@ -366,7 +342,7 @@ export default function OrderDetilas() {
                   {record?.phone_no || "null"}
                 </p>
               </div>
-              
+
               <div class="flex-auto w-32 ">
                 <h1>
                 restaurants  Address

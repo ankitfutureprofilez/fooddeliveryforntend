@@ -65,15 +65,21 @@ export default function Orderhistory() {
                       ))}
                     </td>
                     <td className="p-3 border border-gray-200 ">
-                      {item.order_status === "accepted" ? (
-                        <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                          Accepted
-                        </span>
-                      ) : (
+                      {item.order_status ==="initiated" ? (
                         <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                          Initialized
+                        initiated
                         </span>
-                      )}
+                      ) : (<></>)  }
+                      {item.order_status ==="picked" ? (
+                        <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                     picked
+                        </span>
+                      ) : (<></>)  }
+                      {item.order_status ==="delivered" ? (
+                        <span className="bg-grey-500 hover:bg-grey-700 text-white font-bold py-2 px-4 rounded-full">
+                          delivered
+                        </span>
+                      ) : (<></>)  }
                     </td>
                     <td className="p-3 border border-gray-200 text-center">
                       <Link to={`/order_history/${item.order_id}`}>
