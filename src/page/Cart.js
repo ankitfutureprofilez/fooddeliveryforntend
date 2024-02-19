@@ -26,7 +26,6 @@ const Cart = () => {
   const [location, setLocation] = useState({
     phone: "",
     coordinates: '',
-    address:"",
   });
 
   console.log("location", location);
@@ -45,11 +44,6 @@ const Cart = () => {
           lat: latitude,
           lng: longitude
         },
-        order_coordinates: {
-          lat: latitude,
-          lng: longitude
-        },
-      
       });
       } catch (error) {
         console.error("Error getting location:", error);
