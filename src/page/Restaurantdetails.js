@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-<<<<<<<<< Temporary merge branch 1
 import { useParams } from "react-router-dom";
 import UserProduct from "./UserProduct";
 import { FaLocationCrosshairs, FaRegClock } from "react-icons/fa6";
 import { FaRegDotCircle } from "react-icons/fa";
 import useTimeCalculate from "../hooks/useTimeCalculate";
 import LoadingPage from "./LoadingPage";
+import Listings from "../Api/Listings";
 
 export default function Restaurantdetails() {
   const [record, setRecord] = useState([]);
@@ -13,6 +13,7 @@ export default function Restaurantdetails() {
   const fetchData = async () => {
     try {
       const main = new Listings();
+      
       const response = await main.resturantget();
       console.log("rsponse", response);
       setRecord(response.data.record);
@@ -33,8 +34,6 @@ export default function Restaurantdetails() {
   if (record && record.opening_from && record.opening_to) {
     openStatus = isOpen(record.opening_from, record.opening_to);
   }
-
->>>>>>>>> Temporary merge branch 2
   const userId = record && record.userId;
 
   return (
@@ -44,29 +43,19 @@ export default function Restaurantdetails() {
       ) : (
         <div>
   {/* Image covering the entire width of the screen */}
-<<<<<<<<< Temporary merge branch 1
   <div className="w-full h-80 bg-cover bg-center">
-=========
   <div className="w-full mt-3 bg-cover bg-center relative">
->>>>>>>>> Temporary merge branch 2
   <img
     className="w-full h-80 object-cover"
     src={record && record.image}
     alt={record && record.index}
   />
-<<<<<<<<< Temporary merge branch 1
 </div>
 
-
-=========
   <span className="absolute top-0 right-0 bg-red-600 text-white py-1 px-3 m-4 rounded-lg">
     {openStatus}
   </span>
 </div>
-
-
-
->>>>>>>>> Temporary merge branch 2
   {/* Existing component structure */}
     <div className="flex flex-wrap justify-between product-details flex ">
       <div className="w-full md:w-1/3 ">
