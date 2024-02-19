@@ -11,7 +11,7 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
-  console.log("user",user)
+  // console.log("user",user)
 
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
@@ -48,9 +48,9 @@ const Cart = () => {
           },
         });
         console.log("respnse", response.data);
+        setAddress(response.data.display_name);
         setLocation({
           ...location,
-          address: response.data.display_name,
           coordinates: {
             lat: latitude,
             lng: longitude,
@@ -66,9 +66,9 @@ const Cart = () => {
     }
   };
 
-  useEffect(() => {
-    handleGetLocation()
-  }, []);
+  // useEffect(() => {
+  //   handleGetLocation()
+  // }, []);
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -82,6 +82,11 @@ const Cart = () => {
   const navigate = useNavigate()
 
   const handlePayment = async () => {
+    if(location.phone.length===0)
+    {
+      toast("Enter phone number!");
+      return;
+    }
     if (user.email) {
       try {
         if (!location.coordinates == "" || location.coordinates.length === 0) {
@@ -144,16 +149,12 @@ const Cart = () => {
   };
 
   return (
-    <>
-
-
       <div className="p-2 md:p-4">
         <h2 className="text-lg md:text-2xl font-bold text-slate-600">
           Your Cart Items
         </h2>
         {productCartItem[0] ? (
           <>
-
             <div className="flex flex-wrap my-7">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -199,9 +200,9 @@ const Cart = () => {
             </div>
 
 
-            <div className="my-4 flex gap-3">
+            <div className="my-4 flex flex-wrap my-7">
               {/* display cart items  */}
-              <div className="w-full max-w-3xl">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0 ">
                 {productCartItem.map((el) => {
                   return (
                     <CartProduct
@@ -220,7 +221,7 @@ const Cart = () => {
 
               {/* location input */}
               {/* total cart item  */}
-              <div className="w-full max-w-md  ml-auto">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
                 <h2 className="bg-blue-500 text-white p-2 text-lg">Summary</h2>
                 <div className="flex w-full py-2 text-lg border-b">
                   <p>Total Qty :</p>
@@ -253,7 +254,6 @@ const Cart = () => {
           </>
         )}
       </div>
-    </>
   );
 };
 
