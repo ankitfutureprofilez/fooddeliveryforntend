@@ -25,7 +25,6 @@ import Success from "./page/Success";
 import Cancel from "./page/Cancel";
 import RestaurantRegistration from "./page/RestaurantRegistration";
 import ProductAll from "./Product/ProductAll";
-import RestaurantInfo from "./page/RestaurantInfo";
 import Restaurantdetails from "./page/Restaurantdetails";
 import PrivateRoute from "./private/PrivateRoute";
 import PrivateLayout from "./private/PrivateLayout";
@@ -33,7 +32,6 @@ import Location from "./Location/Location";
 import Orderhistory from "./payment/Orderhistory";
 import OrderDetilas from "./payment/OrderDetilas";
 import MapComponent from "./Location/MapComponent";
-import Map from "./tracking/Map";
 import MapContainer from "./tracking/MapContainer";
 import Dashboard from "./components/Restaurant/Dashboard";
 
@@ -44,13 +42,8 @@ const router = createBrowserRouter(
         <App />
     }>
       <Route index element={
-      <PrivateRoute>
-
-        <Home />
-        </PrivateRoute>
+      <PrivateRoute> <Home /></PrivateRoute>
         } />
-      {/* <Route path="menu" element={<Menu />} />
-      <Route path="menu/:filterby" element={<Menu />} /> */}
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
       <Route path="login" element={<Login />} />
