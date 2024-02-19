@@ -33,7 +33,7 @@ const Header = () => {
         <div className="flex items-center h-full justify-between">
           <Link to={""}>
             <div className="h-10">
-              <img src="/logo.png" className="h-full" />
+              <img src="/logo.png" className="h-full object-cover" />
             </div>
           </Link>
           <SearchBar />

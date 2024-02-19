@@ -9,8 +9,8 @@ export default function Dashboard() {
 
   return (
     <>
-      <Restaurantdetails
-       />
+
+      <Restaurantdetails/>
       <div className="flex justify-left mt-16 mb-3 text-lg rounded-all">
         <button
           className={`mr-4 py-2 px-4 ${activeTab === 'Product' ? 'font-weight:600 bg-gray-200 ' : 'bg-gray-100'} rounded-lg`}

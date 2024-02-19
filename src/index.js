@@ -20,11 +20,11 @@ import Newproduct from "./page/NewProduct";
 import Signup from "./page/Signup";
 import { store } from "./redux/index";
 import { Provider } from "react-redux";
- import Cart from "./page/Cart";
- import Success from "./page/Success";
- import Cancel from "./page/Cancel";
- import RestaurantRegistration from "./page/RestaurantRegistration";
- import ProductAll from "./Product/ProductAll";
+import Cart from "./page/Cart";
+import Success from "./page/Success";
+import Cancel from "./page/Cancel";
+import RestaurantRegistration from "./page/RestaurantRegistration";
+import ProductAll from "./Product/ProductAll";
 import RestaurantInfo from "./page/RestaurantInfo";
 import Restaurantdetails from "./page/Restaurantdetails";
 import PrivateRoute from "./private/PrivateRoute";
@@ -40,19 +40,26 @@ import Dashboard from "./components/Restaurant/Dashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route index element={<Home />} />
+    <Route path="/" element={
+        <App />
+    }>
+      <Route index element={
+      <PrivateRoute>
+
+        <Home />
+        </PrivateRoute>
+        } />
       {/* <Route path="menu" element={<Menu />} />
       <Route path="menu/:filterby" element={<Menu />} /> */}
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
       <Route path="login" element={<Login />} />
       <Route path="newproduct" element={
-      <PrivateRoute>
+        <PrivateRoute>
 
-<Newproduct />
-      </PrivateRoute>
-    } />
+          <Newproduct />
+        </PrivateRoute>
+      } />
       <Route path="signup" element={<Signup />} />
       <Route path="cart" element={<Cart />} />
       <Route path="success" element={<Success />} />
@@ -61,23 +68,23 @@ const router = createBrowserRouter(
       <Route path="dashboard" element={<Dashboard />} />
 
       <Route path="restaurant-register" element={
-          <RestaurantRegistration />
+        <RestaurantRegistration />
       } />
 
-<Route path="location" element={
-          <Location />
+      <Route path="location" element={
+        <Location />
       } />
-<Route path="map" element={
-          <MapContainer />
-      } />
-
-      
-<Route path="MapComponent" element={
-          <MapComponent />
+      <Route path="map" element={
+        <MapContainer />
       } />
 
-<Route path ="/order_history" element= {<Orderhistory/>}/>
-<Route path="/order_history/:order_id" element={<OrderDetilas />} />
+
+      <Route path="MapComponent" element={
+        <MapComponent />
+      } />
+
+      <Route path="/order_history" element={<Orderhistory />} />
+      <Route path="/order_history/:order_id" element={<OrderDetilas />} />
       <Route path="/restaurants" element={
         <PrivateRoute>
           <Restaurantdetails />
@@ -91,8 +98,8 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store} >
-      <PrivateLayout>
-        <RouterProvider router={router} />  
+    <PrivateLayout>
+      <RouterProvider router={router} />
     </PrivateLayout>
   </Provider>
 );
