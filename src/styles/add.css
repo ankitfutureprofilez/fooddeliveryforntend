@@ -98,3 +98,12 @@
   object-fit: cover;
   border-radius: 10px;
 }
+.signup-container {
+  max-width: 600px;
+}
+.cart-item {
+  background: #fff;
+  padding: 14px !important;
+  box-shadow: 0 0 9px 1px #0001;
+  border-radius: 14px;
+}
