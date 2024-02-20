@@ -110,6 +110,7 @@ export default function OrderDetilas() {
         if (res.data) {
           const address = res.data.results && res.data.results[0] && res.data.results[0].formatted_address;
           console.log("address sss", address)
+          
           setAdds(address);
         } else {
           console.error("Failed to fetch address:", res.data.status);
