@@ -9,7 +9,7 @@ const Home = () => {
   const cartItemNumber = useSelector((state)=>state.product.cartItem)
   return (
         <div className="w-full">
-          <div className="p-2 md:p-4 pt-6 md:pt-10 ">
+          <div className=" ">
             <AllProduct heading={"Your Product"} />
             
           </div>

@@ -24,7 +24,7 @@ const Header = () => {
   };
   const cartItemNumber = useSelector((state) => state.product.cartItem);
   return (
-    <header className="fixed w-full px-4 md:px-8 py-6 z-50 bg-white border-b">
+    <header className="fixed w-full  food-header">
       {/* desktop */}
 
       <div className="container mx-auto px-4 relative z-10">
