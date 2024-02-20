@@ -6,6 +6,7 @@ import MapContainer from "../tracking/MapContainer";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { formatMultiPrice } from "../hooks/Valuedata";
+import { GiConsoleController } from "react-icons/gi";
 export default function OrderDetilas() {
   const { order_id } = useParams();
   const [record, setRecord] = useState([])
@@ -88,43 +89,17 @@ export default function OrderDetilas() {
     }
   }
 
-  const [coordinator, setCoordinator] = useState("")
-  function getAddressFromCoordinates(restaurantCoordinates) {
-    const latlng = `${restaurantCoordinates.lat},${restaurantCoordinates.lng}`;
-    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (data) {
-          const address = data.results[1].formatted_address;
-          setCoordinator(address);
-        } else {
-          console.error('Failed to fetch address:', data.status);
-        }
-      })
-      .catch(error => console.error('Error fetching address:', error));
-  }
-
-  useEffect(() => {
-    if (record && record.restaurent_coordinates) {
-      const restaurantCoordinates = JSON.parse(record.restaurent_coordinates);
-      getAddressFromCoordinates(restaurantCoordinates);
-    } else {
-      console.error("restaurant coordinates not found in record");
-    }
-  }, [record.restaurent_coordinates])
-
   const [checkout, setcheckout] = useState("")
   function getcheckoutFromCoordinates(checkout_coordinates) {
-    const latlng = `${checkout_coordinates.lat},${checkout_coordinates.lng}`;
+    const latlng = `${checkout_coordinates}`;
+    console.log("latlng",latlng)
     const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
     fetch(url)
       .then(response => response.json())
       .then(data => {
         if (data) {
-          const address = data.results[0].formatted_address;
+          const address = data.results[0]?.formatted_address;
           setcheckout(address);
         } else {
           console.error('Failed to fetch address:', data.status);
@@ -136,11 +111,12 @@ export default function OrderDetilas() {
   useEffect(() => {
     if (record && record.checkout_coordinates) {
       const checkout_coordinates = JSON.parse(record?.checkout_coordinates);
+      console.log("heckout_coordinates",checkout_coordinates)
       getcheckoutFromCoordinates(checkout_coordinates);
     } else {
       console.error("checkout_coordinates coordinates not found in record");
     }
-  }, []);
+  }, [record.checkout_coordinates]);
 
 
   return (
@@ -329,15 +305,6 @@ export default function OrderDetilas() {
                 </h1>
                 <p>
                   {record?.phone_no || "null"}
-                </p>
-              </div>
-              <div class="flex-auto w-32 ">
-                <h1>
-                restaurants  Address
-                </h1>
-
-                <p>
-                  {coordinator}
                 </p>
               </div>
             </div>
