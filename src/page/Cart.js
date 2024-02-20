@@ -9,7 +9,7 @@ import Payment from "../Api/Payment";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 
 const Cart = () => {
-  console.log("aaa",process.env.REACT_GOOGLE_API__KEY);
+  // console.log("aaa",process.env.REACT_GOOGLE_API__KEY);
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
 
@@ -30,8 +30,8 @@ const Cart = () => {
     address: "",
   });
 
-console.log("addess",address)
-console.log(" location",location )
+// console.log("addess",address)
+// console.log(" location",location )
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
@@ -132,32 +132,39 @@ console.log(" location",location )
   const handleChangeLocation = async (e) => {
     const newAddress = e.target.value;
     setAddress(newAddress);
-    const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
-    const response = axios.get(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(newAddress)}&key=${API_KEY}`);
-    console.log("response",await response);
-    response.then((res)=>{
-      console.log("res", res);
-      if (res.data) {
-        console.log("res.data[0]", res.data);
-        const { lat, lon } = res.data[0];
-        setLocation((prevData) => ({
-          ...prevData,
-          coordinates: {
-            lat: parseFloat(lat),
-            lng: parseFloat(lon),
-          },
-        }));
-      } else {
-        setLocation((prevData) => ({...prevData,coordinates: {}}));
+    const apiKeygoogle = process.env.REACT_APP_GOOGLE_API_KEY;
+    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+      newAddress
+    )}&key=${apiKeygoogle}`;
+    
+    try {
+      const response = await axios.get(apiUrl);
+      if (response.status !== 200) {
+        throw new Error('Network response was not ok');
       }
-    }).catch((err)=>{
-      console.error("Error getting coordinates:", err);
+      const data = response.data;
+      console.log(data);
+      // Extract latitude and longitude from the API response
+      const location = data.results[0].geometry.location;
+      const latitude = location.lat;
+      const longitude = location.lng;setLocation((prevData) => ({
+        ...prevData,
+        coordinates: {
+          lat: parseFloat(latitude),
+          lng: parseFloat(longitude),
+        },
+      }));
+  
+      // Use the latitude and longitude
+      // console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    } catch(error){
+      console.error("Error getting coordinates:", error);
       toast.error("Error getting coordinates");
       setLocation((prevData) => ({
         ...prevData,
         coordinates: {},
       }));
-    });
+    };
   }  
   
   return (
