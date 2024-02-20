@@ -21,9 +21,6 @@ export default function OrderDetilas() {
     });
   };
 
-
-  
-
   // UPDATE ORDER
   const [updateOrder, setUpdateOrder] = useState();
   const fetchData = async () => {
@@ -92,20 +89,43 @@ export default function OrderDetilas() {
     }
   }
 
-  const [checkout, setcheckout] = useState("")
-
-  console.log("checkout",checkout)
-  function getcheckoutFromCoordinates(checkout_coordinates) {
-    const latlng = `${checkout_coordinates?.lat},${checkout_coordinates?.lng}`;
-    console.log("latlng",latlng)
+  const [coordinator, setCoordinator] = useState("")
+  function getAddressFromCoordinates(restaurantCoordinates) {
+    const latlng = `${restaurantCoordinates.lat},${restaurantCoordinates.lng}`;
     const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
     fetch(url)
       .then(response => response.json())
       .then(data => {
         if (data) {
-          const address = data?.results[0]?.formatted_address;
-          console.log()
+          const address = data.results[1].formatted_address;
+          setCoordinator(address);
+        } else {
+          console.error('Failed to fetch address:', data.status);
+        }
+      })
+      .catch(error => console.error('Error fetching address:', error));
+  }
+
+  useEffect(() => {
+    if (record && record.restaurent_coordinates) {
+      const restaurantCoordinates = JSON.parse(record.restaurent_coordinates);
+      getAddressFromCoordinates(restaurantCoordinates);
+    } else {
+      console.error("restaurant coordinates not found in record");
+    }
+  }, [record.restaurent_coordinates])
+
+  const [checkout, setcheckout] = useState("")
+  function getcheckoutFromCoordinates(checkout_coordinates) {
+    const latlng = `${checkout_coordinates.lat},${checkout_coordinates.lng}`;
+    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          const address = data.results[0].formatted_address;
           setcheckout(address);
         } else {
           console.error('Failed to fetch address:', data.status);
@@ -121,7 +141,7 @@ export default function OrderDetilas() {
     } else {
       console.error("checkout_coordinates coordinates not found in record");
     }
-  }, [])
+  }, []);
 
 
   return (
@@ -176,14 +196,17 @@ export default function OrderDetilas() {
                   </div>
                 ))}
             </div>
+
+
             <MapContainer
               restaurent_coordinates={record?.restaurent_coordinates}
-              usercoordinates={record?.checkout_coordinates}
+              order_coordinates={record?.order_coordinates}
+              checkout_coordinates={record?.checkout_coordinates}
               status={record && record.order_status}
             />
 
-            <div className="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8 ">
-              <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6 border-solid border-2 border-black-600">
+            <div className="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
+              <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6">
                 <h3 className="text-xl font-semibold leading-5 text-gray-800">
                   Summary
                 </h3>
@@ -239,7 +262,7 @@ export default function OrderDetilas() {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col justify-center px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6 border-solid border-2 border-black-600">
+              <div className="flex flex-col justify-center px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6">
                 <h3 className="text-xl font-semibold leading-5 text-gray-800">
                   Shipping
                 </h3>
@@ -279,32 +302,47 @@ export default function OrderDetilas() {
                       : ''
                 }
 
-{record && record.order_status === 'delivered' ?
-  <p className="text-green-500 text-base text-center">Order has been delivered at {
-    formatDate(   record && record.deliveredAt)
- }. </p>
-  : ''}
-
+    `            {record && record.order_status === 'delivered' ?
+                  <p className="text-green-500 text-base text-center">Order has been delivered at {
+                    formatDate(   record && record.deliveredAt)
+                }. </p>
+                  : ''}`
 
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 w-full xl:w-96 justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex flex-col">
-  <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
-    Customer
-  </h3>
-  <div className="flex mt-5 w-full justify-between flex-col md:flex-row">
-    <div className="flex-auto w-full md:w-32 mb-4 md:mb-0">
-      <h1>User Address</h1>
-      <p>{checkout}</p>
-    </div>
-    <div className="flex-auto w-full md:w-32">
-      <h1>Phone</h1>
-      <p>{record?.phone_no || "null"}</p>
-    </div>
-  </div>
-</div>
+          <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+            <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
+              Customer
+            </h3>
+            <div class="flex mt-5 w-full justify-between">
+              <div class="flex-auto  w-32 ">
+                <h1>
+                  User Address
+                </h1>
+                <p>
+                  {checkout}
+                </p>
+              </div>
+              <div class="flex-auto w-32">
+                <h1>
+                  Phone
+                </h1>
+                <p>
+                  {record?.phone_no || "null"}
+                </p>
+              </div>
+              <div class="flex-auto w-32 ">
+                <h1>
+                restaurants  Address
+                </h1>
 
+                <p>
+                  {coordinator}
+                </p>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
