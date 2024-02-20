@@ -21,9 +21,6 @@ export default function OrderDetilas() {
     });
   };
 
-
-  
-
   // UPDATE ORDER
   const [updateOrder, setUpdateOrder] = useState();
   const fetchData = async () => {
@@ -117,12 +114,9 @@ export default function OrderDetilas() {
     } else {
       console.error("restaurant coordinates not found in record");
     }
-
-
   }, [record.restaurent_coordinates])
 
   const [checkout, setcheckout] = useState("")
-
   function getcheckoutFromCoordinates(checkout_coordinates) {
     const latlng = `${checkout_coordinates.lat},${checkout_coordinates.lng}`;
     const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
@@ -147,7 +141,7 @@ export default function OrderDetilas() {
     } else {
       console.error("checkout_coordinates coordinates not found in record");
     }
-  }, [])
+  }, []);
 
 
   return (
@@ -202,9 +196,12 @@ export default function OrderDetilas() {
                   </div>
                 ))}
             </div>
+
+
             <MapContainer
               restaurent_coordinates={record?.restaurent_coordinates}
-              usercoordinates={record?.checkout_coordinates}
+              order_coordinates={record?.order_coordinates}
+              checkout_coordinates={record?.checkout_coordinates}
               status={record && record.order_status}
             />
 
@@ -305,12 +302,11 @@ export default function OrderDetilas() {
                       : ''
                 }
 
-{record && record.order_status === 'delivered' ?
-  <p className="text-green-500 text-base text-center">Order has been delivered at {
-    formatDate(   record && record.deliveredAt)
- }. </p>
-  : ''}
-
+    `            {record && record.order_status === 'delivered' ?
+                  <p className="text-green-500 text-base text-center">Order has been delivered at {
+                    formatDate(   record && record.deliveredAt)
+                }. </p>
+                  : ''}`
 
               </div>
             </div>
@@ -324,7 +320,6 @@ export default function OrderDetilas() {
                 <h1>
                   User Address
                 </h1>
-
                 <p>
                   {checkout}
                 </p>
@@ -333,12 +328,10 @@ export default function OrderDetilas() {
                 <h1>
                   Phone
                 </h1>
-
                 <p>
                   {record?.phone_no || "null"}
                 </p>
               </div>
-
               <div class="flex-auto w-32 ">
                 <h1>
                 restaurants  Address
