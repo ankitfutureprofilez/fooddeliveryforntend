@@ -26,8 +26,6 @@ export default function useTimeCalculate() {
     let e = convert12to24(closingTime);
     let date = new Date();
     const currenttime =  date.getHours(); 
-    // console.log("Current hour",currenttime)
-    // console.log("Closing time",e)
     if(e<s){e=e+24;}
     
     if (e > currenttime & s <= currenttime ) {

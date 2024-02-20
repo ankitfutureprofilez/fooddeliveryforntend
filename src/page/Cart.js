@@ -9,9 +9,9 @@ import Payment from "../Api/Payment";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 
 const Cart = () => {
+  console.log("aaa",process.env.REACT_GOOGLE_API__KEY);
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
-  // console.log("user",user)
 
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
@@ -30,8 +30,8 @@ const Cart = () => {
     address: "",
   });
 
-  console.log("location", location);
-
+console.log("addess",address)
+console.log(" location",location )
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
@@ -42,25 +42,12 @@ const Cart = () => {
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
         setLocation({
-          ...location,
-          coordinates: {
+          ...location, coordinates: {
             lat: latitude,
-            lng: longitude,
+            lng: longitude
           },
         });
-        console.log("respnse", response.data);
         setAddress(response.data.display_name);
-        setLocation({
-          ...location,
-          coordinates: {
-            lat: latitude,
-            lng: longitude,
-          },
-          order_coordinates: {
-            lat: latitude,
-            lng: longitude,
-          },
-        });
       } catch (error) {
         console.error("Error getting location:", error);
       }
@@ -94,7 +81,6 @@ const Cart = () => {
             const apiUrl = "https://ipapi.co/json/";
             const response = await fetch(apiUrl);
             const jsonData = await response.json();
-            // console.log(jsonData);
             const { latitude, longitude } = jsonData;
             setLocation((prevData) => ({
               ...prevData,
@@ -107,7 +93,6 @@ const Cart = () => {
           }
         }
         const payment = new Payment();
-        console.log("Location:", location);
         const coordinatesString = JSON.stringify(location.coordinates);
         const resp = payment.Checkout_cart({
           ...location,
@@ -115,9 +100,11 @@ const Cart = () => {
         });
         resp
           .then((res) => {
-            if (user.resId) {
-              navigate("/dashboard");
-            } else {
+            if(user.resId){
+              if (res.data.url) {
+                window.location.href = res.data.url;
+              }
+            }else{
               if (res.data.url) {
                 window.location.href = res.data.url;
               }
@@ -145,15 +132,14 @@ const Cart = () => {
   const handleChangeLocation = async (e) => {
     const newAddress = e.target.value;
     setAddress(newAddress);
-    try {
-      const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
-      const response = await axios.get(
-        `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(
-          newAddress
-        )}&key=${API_KEY}`
-      );
-      if (response.data && response.data.length > 0) {
-        const { lat, lon } = response.data[0];
+    const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
+    const response = axios.get(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(newAddress)}&key=${API_KEY}`);
+    console.log("response",await response);
+    response.then((res)=>{
+      console.log("res", res);
+      if (res.data) {
+        console.log("res.data[0]", res.data);
+        const { lat, lon } = res.data[0];
         setLocation((prevData) => ({
           ...prevData,
           coordinates: {
@@ -162,21 +148,18 @@ const Cart = () => {
           },
         }));
       } else {
-        setLocation((prevData) => ({
-          ...prevData,
-          coordinates: {},
-        }));
+        setLocation((prevData) => ({...prevData,coordinates: {}}));
       }
-    } catch (error) {
-      console.error("Error getting coordinates:", error);
+    }).catch((err)=>{
+      console.error("Error getting coordinates:", err);
       toast.error("Error getting coordinates");
       setLocation((prevData) => ({
         ...prevData,
         coordinates: {},
       }));
-    }
-  };
-
+    });
+  }  
+  
   return (
     <div className="p-2 md:p-4">
       <h2 className="text-xl md:text-2xl mt-3 font-bold">Your Cart Items</h2>

@@ -11,7 +11,6 @@ export default function OrderDetilas() {
   const [record, setRecord] = useState([])
   const [packageStatus, setPackageStatus] = useState("");
   const userData = useSelector((state) => state.user);
-  console.log("record", record)
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -80,14 +79,12 @@ export default function OrderDetilas() {
         const main = new Listings();
         const response =  main.ordertracking(type, record && record.order_id);
         response.then((res)=>{
-          console.log("res",res)
           toast.success(res.data.msg);
           setUpdateOrder(new Date());
         }).catch((err)=>{
           toast.success("Failed to update status");;
         })
       } else { 
-        console.log("updatePickedAndDeliveredStatus",updatePickedAndDeliveredStatus())
         updatePickedAndDeliveredStatus(type, 'show');
       }
     } catch (error) {
@@ -146,7 +143,6 @@ export default function OrderDetilas() {
   useEffect(() => {
     if (record && record.checkout_coordinates) {
       const checkout_coordinates = JSON.parse(record?.checkout_coordinates);
-      console.log("restaurantCoordinates", checkout_coordinates);
       getcheckoutFromCoordinates(checkout_coordinates);
     } else {
       console.error("checkout_coordinates coordinates not found in record");

@@ -31,7 +31,6 @@ export default function RestaurantRegistration() {
       const response = await main.resturantget();
       setRecord(response.data.record);
       const userdata = response.data.record;
-      console.log("response.data.record", userdata)
       setData({
         category: userdata.category,
         ownername: userdata.ownername,
@@ -55,7 +54,6 @@ export default function RestaurantRegistration() {
     fetchData();
   }, []);
 
-  console.log("record", record)
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;

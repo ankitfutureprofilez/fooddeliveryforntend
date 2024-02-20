@@ -19,7 +19,6 @@ function App() {
     const main = new Listings();
     const response =  main.productlist();
     response.then((res)=>{
-      console.log("res?.data",res?.data)
       const newData = res?.data;
       dispatch(setDataProduct(newData))
       setLoading(false)

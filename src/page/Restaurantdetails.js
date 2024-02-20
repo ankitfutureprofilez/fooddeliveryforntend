@@ -15,7 +15,6 @@ export default function Restaurantdetails() {
       const main = new Listings();
 
       const response = await main.resturantget();
-      console.log("rsponse", response);
       setRecord(response.data.record);
       setLoading(false);
     } catch (error) {

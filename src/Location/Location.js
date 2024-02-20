@@ -26,8 +26,6 @@ export default function Location() {
     },[]);
 
     useEffect(()=>{ 
-        console.log("longitde", longitde);
-        console.log("Latitude", Latitude);
     },[longitde, Latitude]);
 
     const getuser = async () => {
