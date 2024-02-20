@@ -97,7 +97,8 @@ export default function OrderDetilas() {
     }
   }
 
-  const [adds, setAdds] = useState("");
+
+  const [adds, setAdds] = useState('');
   async function getAddressFromCoordinates(e) {
     if (e) {
       const add = JSON.parse(e);
@@ -105,28 +106,24 @@ export default function OrderDetilas() {
       const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
       const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
       const resp = axios.get(url);
-      resp
-        .then((res) => {
-          if (res.data) {
-            const address =
-              res.data.results &&
-              res.data.results[0] &&
-              res.data.results[0].formatted_address;
-            console.log("address sss", address);
-            setAdds(address);
-          } else {
-            console.error("Failed to fetch address:", res.data.status);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching address:", error);
-        });
-    }
+      resp.then((res)=>{
+        if (res.data) {
+          const address = res.data.results && res.data.results[0] && res.data.results[0].formatted_address;
+          console.log("address sss", address)
+          setAdds(address);
+        } else {
+          console.error("Failed to fetch address:", res.data.status);
+        }
+      }).catch((error)=>{
+         console.error("Error fetching address:", error);
+      });
+  }
   }
 
-  useEffect(() => {
-    getAddressFromCoordinates(record && record.checkout_coordinates);
-  }, []);
+  useEffect(()=>{
+    getAddressFromCoordinates(record && record.checkout_coordinates)
+  },[]);
+   
 
   return (
     <>
@@ -285,8 +282,7 @@ export default function OrderDetilas() {
                   record.order_status == "picked" ? (
                   <button
                     onClick={() => updateOrderStatus("delivered")}
-                    className={`bg-gray-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}
-                  >
+                    className={`bg-gray-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}>
                     Mark As Order delivered
                   </button>
                 ) : (
@@ -306,6 +302,7 @@ export default function OrderDetilas() {
             </div>
           </div>
           <div className="bg-gray-50 bg-gray-50 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+            
             <div class="flex w-full justify-between">
               <div class="flex-auto ">
                 <h1>Address</h1>
@@ -313,7 +310,7 @@ export default function OrderDetilas() {
               </div>
               <div class="flex-auto ">
                 <h1>Phone</h1>
-                <p>{(record && record?.phone_no) || "null"}</p>
+                <p>{record&& record?.phone_no || "null"}</p>
               </div>
             </div>
           </div>

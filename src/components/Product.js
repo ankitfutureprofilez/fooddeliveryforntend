@@ -21,7 +21,6 @@ const Product = ({ image, name, price, category, loading, id, description, image
 
   return (
     <>
-
       <div className="w-1/4 px-2.5">
         <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
           <>
