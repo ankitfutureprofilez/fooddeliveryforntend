@@ -34,8 +34,8 @@ import OrderDetilas from "./payment/OrderDetilas";
 import MapComponent from "./Location/MapComponent";
 import MapContainer from "./tracking/MapContainer";
 import Dashboard from "./components/Restaurant/Dashboard";
-import Error404 from "./Error404/Error404";
 import CheckLocation from "./page/CheckLocation";
+import Error404 from './Error404/Error404';
 
 
 const router = createBrowserRouter(
