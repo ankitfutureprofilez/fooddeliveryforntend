@@ -6,9 +6,10 @@ import MapContainer from "../tracking/MapContainer";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { formatMultiPrice } from "../hooks/Valuedata";
+import axios from "axios";
 export default function OrderDetilas() {
   const { order_id } = useParams();
-  const [record, setRecord] = useState([])
+  const [record, setRecord] = useState([]);
   const [packageStatus, setPackageStatus] = useState("");
   const userData = useSelector((state) => state.user);
 
@@ -35,114 +36,94 @@ export default function OrderDetilas() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (record && record.order_status == 'picked' && record && record.deliveredAt == null) {
-        updatePickedAndDeliveredStatus('picked');
+      if (
+        record &&
+        record.order_status == "picked" &&
+        record &&
+        record.deliveredAt == null
+      ) {
+        updatePickedAndDeliveredStatus("picked");
       }
     }, 7000);
     return () => clearInterval(interval);
   }, [record]);
-  
 
   useEffect(() => {
     fetchData();
   }, [order_id, updateOrder]);
-   
 
-  const updatePickedAndDeliveredStatus = async (type, show = false) => { 
+  const updatePickedAndDeliveredStatus = async (type, show = false) => {
     const main = new Listings();
     const position = await getCurrentPosition();
     const { latitude, longitude } = position.coords;
     const response = main.ordertracking(type, record && record.order_id, {
       coordinates: {
         lat: latitude,
-        lng: longitude
-      }
+        lng: longitude,
+      },
     });
-    response.then((res)=>{
-      if(show){ 
-        toast.success(res.data.msg);
-      }
-      setUpdateOrder(new Date());
-    }).catch((err)=>{
-      toast.success("Failed to update status");;
-      console.log("err",err)
-    })
-  }
+    response
+      .then((res) => {
+        if (show) {
+          toast.success(res.data.msg);
+        }
+        setUpdateOrder(new Date());
+      })
+      .catch((err) => {
+        toast.success("Failed to update status");
+        console.log("err", err);
+      });
+  };
 
   // UPDATE ORDER STATUS
   async function updateOrderStatus(type) {
     try {
-      if(type == 'accepted'){
+      if (type == "accepted") {
         const main = new Listings();
-        const response =  main.ordertracking(type, record && record.order_id);
-        response.then((res)=>{
-          toast.success(res.data.msg);
-          setUpdateOrder(new Date());
-        }).catch((err)=>{
-          toast.success("Failed to update status");;
-        })
-      } else { 
-        updatePickedAndDeliveredStatus(type, 'show');
+        const response = main.ordertracking(type, record && record.order_id);
+        response
+          .then((res) => {
+            toast.success(res.data.msg);
+            setUpdateOrder(new Date());
+          })
+          .catch((err) => {
+            toast.success("Failed to update status");
+          });
+      } else {
+        updatePickedAndDeliveredStatus(type, "show");
       }
     } catch (error) {
       console.log("API Error", error);
     }
   }
 
-  const [coordinator, setCoordinator] = useState("")
-  function getAddressFromCoordinates(restaurantCoordinates) {
-    const latlng = `${restaurantCoordinates.lat},${restaurantCoordinates.lng}`;
-    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (data) {
-          const address = data.results[1].formatted_address;
-          setCoordinator(address);
+
+  const [adds, setAdds] = useState('');
+  async function getAddressFromCoordinates(e) {
+    if (e) {
+      const add = JSON.parse(e);
+      const latlng = `${add.lat},${add.lng}`;
+      const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
+      const resp = axios.get(url);
+      resp.then((res)=>{
+        if (res.data) {
+          const address = res.data.results && res.data.results[0] && res.data.results[0].formatted_address;
+          console.log("address sss", address)
+          setAdds(address);
         } else {
-          console.error('Failed to fetch address:', data.status);
+          console.error("Failed to fetch address:", res.data.status);
         }
-      })
-      .catch(error => console.error('Error fetching address:', error));
+      }).catch((error)=>{
+         console.error("Error fetching address:", error);
+      });
+  }
   }
 
-  useEffect(() => {
-    if (record && record.restaurent_coordinates) {
-      const restaurantCoordinates = JSON.parse(record.restaurent_coordinates);
-      getAddressFromCoordinates(restaurantCoordinates);
-    } else {
-      console.error("restaurant coordinates not found in record");
-    }
-  }, [record.restaurent_coordinates])
-
-  const [checkout, setcheckout] = useState("")
-  function getcheckoutFromCoordinates(checkout_coordinates) {
-    const latlng = `${checkout_coordinates.lat},${checkout_coordinates.lng}`;
-    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (data) {
-          const address = data.results[0].formatted_address;
-          setcheckout(address);
-        } else {
-          console.error('Failed to fetch address:', data.status);
-        }
-      })
-      .catch(error => console.error('Error fetching address:', error));
-  }
-
-  useEffect(() => {
-    if (record && record.checkout_coordinates) {
-      const checkout_coordinates = JSON.parse(record?.checkout_coordinates);
-      getcheckoutFromCoordinates(checkout_coordinates);
-    } else {
-      console.error("checkout_coordinates coordinates not found in record");
-    }
-  }, []);
-
+  useEffect(()=>{
+    getAddressFromCoordinates(record && record.checkout_coordinates)
+  },[]);
+   
 
   return (
     <>
@@ -196,7 +177,6 @@ export default function OrderDetilas() {
                   </div>
                 ))}
             </div>
-
 
             <MapContainer
               restaurent_coordinates={record?.restaurent_coordinates}
@@ -278,72 +258,66 @@ export default function OrderDetilas() {
                     {record && record.order_status}
                   </p>
                 </div>
-
                 {/* !userData.resId || packageStatus === 'delivered' */}
-
-                {userData.resId && record && record.order_status == 'initiated' ?
+                {userData.resId &&
+                record &&
+                record.order_status == "initiated" ? (
                   <button
                     onClick={() => updateOrderStatus("accepted")}
-                    className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
-                    Mark As Order Accepted
+                    className={`bg-green-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}
+                  >
+                    Accept Order
                   </button>
-                  : userData.resId && record && record.order_status == 'accepted' ?
-                    <button
-                      onClick={() => updateOrderStatus("picked")}
-                      className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
-                      Mark As Order Picked
-                    </button>
-                    : userData.resId && record && record.order_status == 'picked' ?
-                      <button
-                        onClick={() => updateOrderStatus("delivered")}
-                        className={`py-5 w-96 md:w-full text-base font-medium leading-4 transition-colors duration-300 bg-gray-300 text-gray-600`} >
-                        Mark As Order delivered
-                      </button>
-                      : ''
-                }
-
-    `            {record && record.order_status === 'delivered' ?
-                  <p className="text-green-500 text-base text-center">Order has been delivered at {
-                    formatDate(   record && record.deliveredAt)
-                }. </p>
-                  : ''}`
-
+                ) : userData.resId &&
+                  record &&
+                  record.order_status == "accepted" ? (
+                  <button
+                    onClick={() => updateOrderStatus("picked")}
+                    className={`bg-blue-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}
+                  >
+                    Mark As Order Picked
+                  </button>
+                ) : userData.resId &&
+                  record &&
+                  record.order_status == "picked" ? (
+                  <button
+                    onClick={() => updateOrderStatus("delivered")}
+                    className={`bg-gray-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}>
+                    Mark As Order delivered
+                  </button>
+                ) : (
+                  ""
+                )}
+                `{" "}
+                {record && record.order_status === "delivered" ? (
+                  <p className="text-green-500 text-base text-center">
+                    Order has been delivered at{" "}
+                    {formatDate(record && record.deliveredAt)}.{" "}
+                  </p>
+                ) : (
+                  ""
+                )}
+                `
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
-            <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
-              Customer
-            </h3>
-            <div class="flex mt-5 w-full justify-between">
-              <div class="flex-auto  w-32 ">
-                <h1>
-                  User Address
-                </h1>
-                <p>
-                  {checkout}
-                </p>
+          <div className="bg-gray-50 bg-gray-50 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+            
+            <div class="flex w-full justify-between">
+              <div class="flex-auto ">
+                <h1>Address</h1>
+                <p>{adds}</p>
               </div>
-              <div class="flex-auto w-32">
-                <h1>
-                  Phone
-                </h1>
-                <p>
-                  {record?.phone_no || "null"}
-                </p>
+              <div class="flex-auto ">
+                <h1>Phone</h1>
+                <p>{record&& record?.phone_no || "null"}</p>
               </div>
-              <div class="flex-auto w-32 ">
-                <h1>
-                restaurants  Address
-                </h1>
 
-                <p>
-                  {coordinator}
-                </p>
-              </div>
+              
             </div>
-          </div>
 
+
+          </div>
         </div>
       </div>
     </>
