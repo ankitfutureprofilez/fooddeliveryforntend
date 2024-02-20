@@ -102,7 +102,9 @@ console.log(" location",location )
         resp
           .then((res) => {
             if(user.resId){
-              navigate('/dashboard')
+              if (res.data.url) {
+                window.location.href = res.data.url;
+              }
             }else{
               if (res.data.url) {
                 window.location.href = res.data.url;
