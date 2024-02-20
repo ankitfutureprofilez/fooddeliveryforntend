@@ -26,9 +26,9 @@ export default function HomeSlider() {
     <div className="newly-added-sec">
       <div className="container mx-auto">
         <h2>Newly Added</h2>
-        <div className="flex overflow-x-auto">
+        <div className="flex ">
           {newData.map((item) => (
-            <div key={item.id} className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl mr-4">
+            <div key={item.id} className="sm:w-full md:w-1/4 lg:w-1/5 xl:w-3/12 px-3 mb-6 bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl mr-4">
               <div className="flex justify-center items-center">
                 <img
                   alt="image"
