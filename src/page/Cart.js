@@ -168,75 +168,86 @@ const Cart = () => {
   
   return (
     <div className="p-2 md:p-4">
-    <h2 className="text-xl md:text-2xl mt-3 font-bold">Your Cart Items</h2>
-    {productCartItem[0] ? (
-      <>
-        <div className="flex flex-wrap my-7">
-          {/* display cart items  */}
-          <div className=" md:w-1/2 px-3 mb-6 md:mb-0 ">
-            {productCartItem.map((el) => {
-              return (
-                <CartProduct
-                  key={el._id}
-                  id={el._id}
-                  name={el.name}
-                  image={el.image}
-                  category={el.category}
-                  qty={el.qty}
-                  total={el.total}
-                  price={el.price}
-                />
-              );
-            })}
-          </div>
-          <div className="flex flex-col md:w-1/2">
-            <div className=" px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Location
-              </label>
-              <div className="relative">
-                <input
-                  required
-                  type="text"
-                  className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  name="address"
-                  onChange={handleChangeLocation}
-                  value={address}
-                />
-
-                <div className="absolute top-2 right-2.5">
-                  <button type="button">
-                    <FaLocationCrosshairs
-                      size={24}
-                      color="#0000ff"
-                      onClick={handleGetLocation}
-                    />
-                  </button>
+      <h2 className="text-xl md:text-3xl mt-3 ml-4 font-bold">Cart</h2>
+      {productCartItem[0] ? (
+        <>
+          <div className="flex flex-wrap my-7">
+            {/* display cart items  */}
+            <div className=" md:w-1/2 px-3 mb-6 md:mb-0 ">
+              {productCartItem.map((el) => {
+                return (
+                  <CartProduct
+                    key={el._id}
+                    id={el._id}
+                    name={el.name}
+                    image={el.image}
+                    category={el.category}
+                    qty={el.qty}
+                    total={el.total}
+                    price={el.price}
+                  />
+                );
+              })}
+            </div>
+            <div className="flex flex-col md:w-1/2">
+              {/* Location */}
+              <div className=" px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                  Location
+                </label>
+                <div className="relative">
+                  <input
+                    required
+                    type="text"
+                    className="form-input shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="address"
+                    onBlur={handleChangeLocation}
+                  />
+                  <div className="absolute top-2 right-2.5">
+                    <button type="button">
+                      <FaLocationCrosshairs
+                        size={24}
+                        color="#0000ff"
+                        onClick={handleGetLocation}
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* Phone Number */}
-            <div className="px-3 mb-6 md:mb-0 mt-5">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Phone
-              </label>
-              <div className="relative">
-                <input
-                  required
-                  type="Number"
-                  maxLength={10}
-                  className="form-input shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  name="phone"
-                  value={location.phone}
-                  onChange={handlePhoneChange}
-                />
+              {/* Phone Number */}
+              <div className="px-3 mb-6 my-4 ">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                  Phone
+                </label>
+                <div className="relative">
+                  <input
+                    required
+                    type="Number"
+                    maxLength={10}
+                    className="form-input shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="phone"
+                    value={location.phone}
+                    onChange={handlePhoneChange}
+                  />
+                </div>
               </div>
-            </div>
-            {/* total cart item  */}
-            <div className="px-3 mb-6 md:mb-0 mt-5">
-              <div className="flex w-full py-2 text-lg border-b">
-                <p>Total Qty :</p>
-                <p className="ml-auto w-32 font-bold">{totalQty}</p>
+              {/* total cart item  */}
+              <div className="px-3 mb-6 md:mb-0">
+                <div className="flex w-full py-2 text-base border-b">
+                  <p>Total Qty :</p>
+                  <p className="ml-auto w-32 font-bold">{totalQty}</p>
+                </div>
+                <div className="flex w-full py-2 text-base border-b">
+                  <p>Total Price</p>
+                  <p className="ml-auto w-32 font-bold">
+                    <span className="text-orange-500">₹</span> {totalPrice}
+                  </p>
+                </div>
+                <button disabled={!addressValid}
+                  className="bg-orange-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center"
+                  onClick={handlePayment}>
+                  Payment
+                </button>
               </div>
             </div>
           </div>
