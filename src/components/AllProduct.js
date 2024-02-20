@@ -55,7 +55,7 @@ const AllProduct = ({ heading }) => {
         })}
       </div>
 
-      
+
       <h2 className="heading">
         <strong>Near</strong> You
       </h2>
@@ -90,7 +90,7 @@ const AllProduct = ({ heading }) => {
         </div>
         <div className="pl-3.5 w-2/4">
           <div className=" px-10 py-14 off-bg bg-cover bg-no-repeat bg-center rounded-xl h-96">
-              <h2 className="text-5xl font-normal text-gray-100 uppercase mb-3.5 poppins-regular">Special Food <strong className="font-bold">Food</strong><br></br> offer</h2>
+              <h2 className="text-5xl font-normal text-gray-100 uppercase mb-3.5 poppins-regular">Special<br></br> <strong className="font-bold">Food Offer</strong>  </h2>
               <p className="text-gray-100 text-lg poppins-regular">Try our Latest main <br></br>Course at <strong className="font-bold">40%</strong> Discount </p>
           </div>
         </div>
