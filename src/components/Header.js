@@ -20,7 +20,7 @@ const Header = () => {
     dispatch(logoutRedux());
     localStorage && localStorage.removeItem("token");
     navigate("/login");
-    toast("Logout successfully");
+    toast.success("Logout successfully");
   };
 
   const cartItemNumber = useSelector((state) => state.product.cartItem);
