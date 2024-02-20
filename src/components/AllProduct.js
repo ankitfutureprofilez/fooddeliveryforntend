@@ -42,15 +42,12 @@ const AllProduct = ({ heading }) => {
   return (
     <>
     <Homehero/>
-    <HomeSlider />
-
-    
     <div className="newly-added-sec">
       <div className='container mx-auto'>
         <div className=" block">
-          <h1 className="heading mx-auto">
-            <strong>Menu</strong> Category
-          </h1>
+          <div className="heading mx-auto">
+          <h2>Newly Added</h2>
+          </div>
           <div className="flex w-full flex-wrap space-x-2  mb-6">
             {categoryList.map((el) => {
               return (

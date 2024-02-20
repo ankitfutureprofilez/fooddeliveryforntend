@@ -3,6 +3,7 @@ import Orderhistory from '../../payment/Orderhistory';
 import Restaurantdetails from '../../page/Restaurantdetails';
 import ProductAll from './../../Product/ProductAll';
 import RestaurantInfo from '../../page/RestaurantInfo';
+import CardFeature from '../Product';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('Product'); 

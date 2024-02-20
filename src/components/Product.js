@@ -1,11 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "../redux/productSlide";
-import LoadingPage from "../page/LoadingPage";
-import NoData from "./NoData";
 import { formatMultiPrice } from '../hooks/Valuedata';
 
-const CardFeature = ({ image, name, price, category, loading, id, description, imagedata }) => {
+const Product = ({ image, name, price, category, loading, id, description, imagedata }) => {
   const dispatch = useDispatch()
 
   const handleAddCartProduct = (e) => {
@@ -57,4 +55,4 @@ const CardFeature = ({ image, name, price, category, loading, id, description, i
   );
 };
 
-export default CardFeature;
+export default Product;
