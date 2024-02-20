@@ -11,7 +11,6 @@ const Home = () => {
         <div className="w-full">
           <div className="p-2 md:p-4 pt-6 md:pt-10 ">
             <AllProduct heading={"Your Product"} />
-            
           </div>
         </div>
   );

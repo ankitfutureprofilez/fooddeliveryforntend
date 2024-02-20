@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import Listings from "../Api/Listings";
 import ImageUpload from "../components/ImageUpload";
 const Newproduct = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
@@ -26,20 +25,7 @@ const Newproduct = () => {
     });
   };
 
-  const uploadImage = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setData((prev) => ({
-        ...prev,
-        image: file,
-      }));
-    } else {
-      console.error("No file selected");
-    }
-  };
   const [loading, setLoading] = useState(false);
-
-
   async function handleSubmit(e) {
     e.preventDefault();
     if (loading) return;
@@ -79,8 +65,8 @@ const Newproduct = () => {
   return (
     <div className="flex  mt-7">
     <div className="w-full">
-      <h1 className="text-3xl font-bold mb-6 flex justify-center">
-        Product Add
+      <h1 className="text-3xl mt-3 font-bold mb-6 flex justify-center">
+        Add New Product
       </h1>
       <form
         enctype="multipart/form-data"
@@ -89,11 +75,8 @@ const Newproduct = () => {
       >
         <div className="flex flex-wrap mt-7">
           <div class="w-24 md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              htmlFor="name"
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            >
-              Name
+            <label htmlFor="name"
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"> Name
             </label>
             <input
               type={"text"}
@@ -104,14 +87,10 @@ const Newproduct = () => {
             />
           </div>
           <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              htmlFor="price"
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            >
-              Price
+            <label htmlFor="price" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Price
             </label>
             <input
-              type={"text"}
+              type={"number"}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               name="price"
               onChange={handleOnChange}
@@ -121,8 +100,7 @@ const Newproduct = () => {
           <div class="w-full md:w-1/3  px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="category"
-            >
+              htmlFor="category" >
               Category
             </label>
             <div class="relative">
