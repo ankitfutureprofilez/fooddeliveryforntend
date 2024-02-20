@@ -19,12 +19,13 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logoutRedux());
     localStorage && localStorage.removeItem("token");
-    navigate("/");
-    toast("Logout successfully");
+    navigate("/login");
+    toast.success("Logout successfully");
   };
+
   const cartItemNumber = useSelector((state) => state.product.cartItem);
   return (
-    <header className="fixed w-full px-4 md:px-8 py-6 z-50 bg-white border-b">
+    <header className="fixed w-full  food-header">
       {/* desktop */}
 
       <div className="container mx-auto px-4 relative z-10">
@@ -86,34 +87,27 @@ const Header = () => {
                     <ul className="align-left dropdownitem">
                       <li
                         className="cursor-pointer text-white   bg-red-500 rounded-md"
-                        onClick={handleLogout}
+                        
                       >
-                        <button>Logout ({userData.firstName})</button>
+                        <button onClick={handleLogout} >Logout ({userData.firstName})</button>
                       </li>
 
                       <li>
                         {userData.resId === 1 ? (
                           <>
                             <></>
-                            <NavLink
-                              to={"restaurant-register"}
-                              className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
-                            >
-                              Edit My Restaurant
-                            </NavLink>
-
+                            
                             <NavLink
                               to={"newproduct"}
-                              className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
-                            >
-                              New product
+                              className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300">
+                              Add Product
                             </NavLink>
 
                             <NavLink
                               to={"dashboard"}
                               className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300"
                             >
-                              Restaurant dashboard
+                              My Dashboard
                             </NavLink>
                           </>
                         ) : (

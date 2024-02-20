@@ -35,6 +35,7 @@ import MapComponent from "./Location/MapComponent";
 import MapContainer from "./tracking/MapContainer";
 import Dashboard from "./components/Restaurant/Dashboard";
 import CheckLocation from "./page/CheckLocation";
+import Error404 from './Error404/Error404';
 
 
 const router = createBrowserRouter(
@@ -62,6 +63,7 @@ const router = createBrowserRouter(
       <Route path="/order_history" element={<Orderhistory />} />
       <Route path="/order_history/:order_id" element={<OrderDetilas />} />
       <Route path="/restaurants" element={ <PrivateRoute>  <Restaurantdetails /></PrivateRoute> } />
+      <Route path="*" element={ <Error404 /> } />
     </Route>
   )
 );

@@ -22,11 +22,10 @@ export default function RestaurantInfo() {
         setLoading(false);
     }
   };
-
-  
   useEffect(() => {
     fetchData();
-  }, []); console.log("ddd",record)
+  }, []);
+  
 
   if (loading) return <div>Loading...</div>;
   return (
@@ -36,10 +35,10 @@ export default function RestaurantInfo() {
           {record && record?.map((item, index) => (
             <Link key={index} to={`/restaurants/${item.resId}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/5 px-3 mb-6">
               <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
-                <div className="flex flex-col justify-center items-center">
+                <div className="mt-3 flex flex-col justify-center items-center">
                   <img alt="image" src={item.banner_image} className="rounded-xl w-full h-44 object-cover" />
                 </div>
-                <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
+                <h3 className="font-bolder text-xl text-gray-900 capitalize text-base mt-2 mb-1 whitespace-nowrap overflow-hidden">
                   {item.restaurantname}
                 </h3>
                 <p className="text-gray-600 mb-2">{item.category}</p>

@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import Map from './Map';
 
-const MapContainer = ({ restaurent_coordinates, usercoordinates, status }) => {
-  const [restaurantLocation, setRestaurantLocation] = useState({ lat: 28.65195, lng: 77.23149 });
-  const [deliveryLocation, setDeliveryLocation] = useState({ lat: 26.92822, lng: 75.7857166 });
-  const [deliveryPersonLocation, setDeliveryPersonLocation] = useState({ lat: 28.65195, lng: 77.23149 });
+const MapContainer = ({ restaurent_coordinates, order_coordinates, checkout_coordinates, status }) => {
 
+  const [restaurantLocation, setRestaurantLocation] = useState({ lat: 26.9298469, lng: 75.7853946 });
+  const [deliveryLocation, setDeliveryLocation] = useState({ lat: null, lng: null });
+  const [deliveryPersonLocation, setDeliveryPersonLocation] = useState({ lat: null, lng: null });
+  
   useEffect(() => {
-    if (restaurent_coordinates) {
-      setRestaurantLocation(JSON.parse(restaurent_coordinates));
+    const rest_cord = restaurent_coordinates ? JSON.parse(restaurent_coordinates) : null;
+    const order_cord  = order_coordinates ? JSON.parse(order_coordinates) : null;
+    const checkout_cord  = checkout_coordinates ? JSON.parse(checkout_coordinates) : null;
+    console.log("restaurent_coordinates", rest_cord);
+    console.log("order_coordinates", order_cord);
+    console.log("checkout_coordinates", checkout_cord);
+
+    if (order_cord && order_cord.lat) {
+      setDeliveryPersonLocation({
+        lat: order_cord.lat, lng: order_cord.lng
+      });
     }
-    if (usercoordinates) {
-      setDeliveryLocation(JSON.parse(usercoordinates));
+    if (checkout_cord && checkout_cord.lat) {
+      setDeliveryLocation({
+        lat: checkout_cord.lat, lng: checkout_cord.lng
+      });
     }
-  }, [restaurent_coordinates, usercoordinates]);
+  }, [restaurent_coordinates, order_coordinates, checkout_coordinates]);
 
   useEffect(() => {
     let interval = null;

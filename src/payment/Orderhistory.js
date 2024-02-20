@@ -49,7 +49,7 @@ export default function Orderhistory() {
   }, []);
   return (
     <div>
-      <div className="container mx-auto px-4 pb-14 ">
+      <div className="container py-4 pb-14 ">
         <div className="overflow-x-auto">
           <table className="w-full overflow-x-auto">
             <thead className="bg-black text-white text-left">
@@ -86,18 +86,18 @@ export default function Orderhistory() {
                     </td>
                     <td className="p-3 border border-gray-200 ">
                       {item.order_status === "initiated" ? (
-                        <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                          Accepted
+                        <span className="bg-blue-500  text-white font-bold py-2 px-4 rounded-full">
+                          Placed
                         </span>
                       ) : (<></>)}
 
                       {item.order_status === "picked" ? (
-                        <span className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
+                        <span className="bg-gray-500 text-white font-bold py-2 px-4 rounded-full">
                           picked
                         </span>
                       ) : (<></>)}
                       {item.order_status === "delivered" ? (
-                        <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                        <span className="bg-green-500 text-white font-bold py-2 px-4 rounded-full">
                           delivered
                         </span>
                       ) : (<></>)}

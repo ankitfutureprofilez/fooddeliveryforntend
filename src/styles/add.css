@@ -111,3 +111,19 @@
   box-shadow: 0 0 9px 1px #0001;
   border-radius: 14px;
 }
+
+.tabs-wrapper button {
+  background: transparent !important;
+  font-weight: 500;
+  color: #707070;
+  border-bottom: 5px solid transparent;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+  padding-bottom: 10px !important;
+  text-transform: uppercase;
+}
+
+.tabs-wrapper button.active {
+  color: #eb2532;
+  border-color: #eb2532;
+}

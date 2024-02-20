@@ -6,8 +6,6 @@ import { deleteCartItem,increaseQty,decreaseQty } from "../redux/productSlide";
 
 const CartProduct = ({ id, name, image, category, qty, total, price }) => {
     const dispatch = useDispatch()
-
-    
   return (
     <div className="cart-item py-3 flex mb-2 border-gray-200">
       <div className="pr-3 bg-white overflow-hidden">

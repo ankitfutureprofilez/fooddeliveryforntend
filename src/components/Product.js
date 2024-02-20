@@ -24,7 +24,7 @@ const CardFeature = ({ image, name, price, category, loading, id, description, i
   return (
     <>
       <div className="w-6/12 md:w-4/12 lg:w-4/12 xl:w-3/12 px-3 mb-6">
-        {loading && name ? (
+        {loading ? (
           <LoadingPage />
         ) : (
           <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
