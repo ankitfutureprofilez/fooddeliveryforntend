@@ -42,6 +42,7 @@ const AllProduct = ({ heading }) => {
   return (
     <> 
     <Homehero/>
+    <HomeSlider/>
     <div className="best-food-sec">
       <div className='container mx-auto'>
         <div className=" block">
