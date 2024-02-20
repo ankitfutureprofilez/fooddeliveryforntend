@@ -12,7 +12,6 @@ const Map = ({ restaurantLocation, deliveryLocation, deliveryPersonLocation }) =
   useEffect(() => {
     if (restaurantLocation && deliveryLocation) {
       const directionsService = new window.google.maps.DirectionsService();
-
       directionsService.route(
         {
           origin: restaurantLocation,
@@ -49,7 +48,6 @@ const Map = ({ restaurantLocation, deliveryLocation, deliveryPersonLocation }) =
         />
       )}
       
-
       {deliveryLocation && (
         <CustomMarker
           position={deliveryLocation}
@@ -59,7 +57,6 @@ const Map = ({ restaurantLocation, deliveryLocation, deliveryPersonLocation }) =
           }}
         />
       )}
-
 
       {deliveryPersonLocation && (
         <CustomMarker
