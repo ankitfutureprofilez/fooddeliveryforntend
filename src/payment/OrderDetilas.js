@@ -46,7 +46,6 @@ export default function OrderDetilas() {
   useEffect(() => {
     fetchData();
   }, [order_id, updateOrder]);
-   
 
   const updatePickedAndDeliveredStatus = async (type, show = false) => { 
     const main = new Listings();
