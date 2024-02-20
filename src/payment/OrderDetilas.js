@@ -197,7 +197,6 @@ export default function OrderDetilas() {
                 ))}
             </div>
 
-
             <MapContainer
               restaurent_coordinates={record?.restaurent_coordinates}
               order_coordinates={record?.order_coordinates}
