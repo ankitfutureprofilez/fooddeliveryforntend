@@ -9,7 +9,7 @@ const CartProduct = ({ id, name, image, category, qty, total, price }) => {
 
     
   return (
-    <div className="py-3 flex border-b border-gray-200">
+    <div className="cart-item py-3 flex mb-2 border-gray-200">
       <div className="pr-3 bg-white overflow-hidden">
         <img src={image} className="h-20 w-28 object-cover rounded-lg" />
       </div>
