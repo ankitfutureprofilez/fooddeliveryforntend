@@ -48,9 +48,9 @@ export default function ProductAll() {
       {record?.length === 0 ? (
         <NoData />
       ) : (
-        <div className="w-1/4 px-2.5">
+        <div className="w-1/2 px-2.5 flex flex-row gap-3">
           {record && record.map((item,index)=>(
-        <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
+        <div className="w-full bg-white product_box py-3 px-3 cursor-pointer  flex flex-col rounded-xl">
           <>
             <div className="flex flex-col justify-center items-center">
               <img alt="image" src={item.image} className="rounded-xl w-full h-44 object-cover" />

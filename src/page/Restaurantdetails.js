@@ -40,7 +40,7 @@ export default function Restaurantdetails() {
       {loading ? (
         <LoadingPage />
       ) : (
-        <div>
+        <>
           <div className="w-full h-80 bg-cover bg-center mt-8 ">
             <div className="w-full mt-3 bg-cover bg-center rounded-xl overflow-hidden relative">
             <img
@@ -56,7 +56,7 @@ export default function Restaurantdetails() {
 
           <div className="flex  pt-3 flex-wrap justify-between product-details flex ">
             <div className="">
-              <div className="flex flex-col justify-center h-full md:pt-4 pt-3 ">
+              <div className="flex flex-col justify-center h-full md:pt-4 pt-3 pe-4 ">
                   <h1 className="text-3xl font-semibold text-gray-800 mb-2">
                     {record && record.restaurantname}
                   </h1>
@@ -115,7 +115,7 @@ export default function Restaurantdetails() {
               Add New Product
             </NavLink>
           </div>
-        </div>
+        </>
 
 
       )}
