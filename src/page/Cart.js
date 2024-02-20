@@ -9,6 +9,7 @@ import Payment from "../Api/Payment";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 
 const Cart = () => {
+  console.log("aaa",process.env.REACT_GOOGLE_API__KEY);
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
 
