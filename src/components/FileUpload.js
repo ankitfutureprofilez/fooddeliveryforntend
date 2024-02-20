@@ -3,9 +3,11 @@ import { useState } from 'react';
 
 export default function FileUpload( {setImage } ) {
 const imagekey = process.env.REACT_APP_IMAGE_KEY
+const [loading, setLoading] = useState(false); 
     const [image, setLocalImage] = useState("");
 
     const uploadfile = async (e) => { 
+        setLoading(true); 
         const file = e.target.files[0];
         const formData = new FormData();
         formData.append('image', file);

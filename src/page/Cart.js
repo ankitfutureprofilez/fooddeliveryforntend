@@ -9,7 +9,6 @@ import Payment from "../Api/Payment";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 
 const Cart = () => {
-  console.log("aaa",process.env.REACT_GOOGLE_API__KEY);
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
 
@@ -31,8 +30,6 @@ const Cart = () => {
     address: "",
   });
 
-console.log("addess",address)
-console.log(" location",location )
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
@@ -141,8 +138,11 @@ console.log(" location",location )
       const response = await axios.get(
         `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(newAddress)}&key=${API_KEY}`
       );
-      if (response.data && response.data.length > 0) {
+      console.log("response",response)
+      if (response && response) {
+        console.log("response.data[0]",response.data[0])
         const { lat, lon } = response.data[0];
+        console.log("lat, lon ",lat, lon )
         setLocation((prevData) => ({
           ...prevData,
           coordinates: {

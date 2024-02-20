@@ -45,7 +45,7 @@ export default function ImageUpload({ setImage, records }) {
                 <div className="file-upload-design w-250">
                     <div className="flex justify-between w-full items-center" >
                         {loading ? ( 
-                            <div className ="text-center bg-black">Loading...</div>
+                            <div className ="text-center">Loading...</div>
                         ) : image ? (
                             <>
                                 <img src={image} alt="Uploaded" className="max-w-full rounded-full w-10 h-12" />
