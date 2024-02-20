@@ -49,7 +49,7 @@ export default function Orderhistory() {
   }, []);
   return (
     <div>
-      <div className="container mx-auto px-4 pb-14 ">
+      <div className="container py-4 pb-14 ">
         <div className="overflow-x-auto">
           <table className="w-full overflow-x-auto">
             <thead className="bg-black text-white text-left">

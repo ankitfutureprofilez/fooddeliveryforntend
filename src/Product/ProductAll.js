@@ -10,7 +10,6 @@ export default function ProductAll() {
   const [record, setRecord] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,7 +44,7 @@ export default function ProductAll() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="p-4 md:p-6">
+    <div className="py-4">
       {record?.length === 0 ? (
         <NoData />
       ) : (

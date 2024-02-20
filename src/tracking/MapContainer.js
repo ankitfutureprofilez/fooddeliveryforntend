@@ -6,7 +6,7 @@ const MapContainer = ({ restaurent_coordinates, order_coordinates, checkout_coor
   const [restaurantLocation, setRestaurantLocation] = useState({ lat: 26.9298469, lng: 75.7853946 });
   const [deliveryLocation, setDeliveryLocation] = useState({ lat: null, lng: null });
   const [deliveryPersonLocation, setDeliveryPersonLocation] = useState({ lat: null, lng: null });
-
+  
   useEffect(() => {
     const rest_cord = restaurent_coordinates ? JSON.parse(restaurent_coordinates) : null;
     const order_cord  = order_coordinates ? JSON.parse(order_coordinates) : null;

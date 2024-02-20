@@ -6,6 +6,23 @@ body{ font-family: 'Inter', sans-serif;
 .product_shadow{
   box-shadow: 0 0 20px rgba(0,0,0,.1);
 }
+.food-header { padding: 20px 0; box-shadow: 0px 10px 80px 0px #0000000D; z-index: 9; background: #fff; }
+.search-bar-head { background: #efefef; }
+.food-hero-sec {position: relative; background: linear-gradient(97.32deg, #3859CD 0%, #6080F2 100%); padding: 100px 0 122px 72px; border-radius: 30px; }
+.food-hero-sec h1 { font-family: Poppins; font-size: 60px; font-weight: 700; line-height: 70px; letter-spacing: -0.02em; text-align: left; color: #FFFFFF; } 
+.food-hero-sec p { font-family: Poppins; font-size: 25px; font-weight: 500; line-height: 38px; letter-spacing: -0.02em; text-align: left; color: #fff; } 
+.food-hero-sec a { background: #1E1E1E; font-family: Poppins; font-size: 18px; font-weight: 500; line-height: 27px; letter-spacing: -0.02em; text-align: left; padding: 20px 40px; border-radius: 40px; display: inline-flex; color: #fff; align-items: center; margin-top: 30px; } 
+.food-hero-sec a svg { margin-left: 12px; }
+.food-hero-sec img { position: absolute; right: 0; top: 0; max-width: 560px; width: 100%; }
+.newly-added-sec { background: #4f70e30d; padding: 50px 0 60px; }
+.newly-added-sec h2 { font-family: Poppins; font-size: 30px; font-weight: 700; line-height: 45px; letter-spacing: -0.02em; text-align: left; color: #1E1E1E; margin-bottom: 18px; padding: 0 10px; }
+.newly-added-sec h4 { font-family: Poppins; font-size: 20px; font-weight: 600; line-height: 30px; letter-spacing: -0.02em; text-align: left; color: #1E1E1E; }
+button.cart-btn { background: #3D5ED1; width: 42px; height: 42px; border-radius: 50px; display: flex; align-items: center; justify-content: center; }
+.best-food-sec { padding: 70px 0 80px; }
+
+
+
+
 .Poppins{font-family: popins;}
 .product_shadow:hover{
   box-shadow: 0 0 20px rgba(0,0,0,.2);
@@ -26,6 +43,14 @@ form select, form textarea {
   padding: 14px 22px !important;
   box-shadow: none !important;
   border: 1px solid #e4e4e4 !important;
+}
+.form-input{
+    background: #fff !important;
+    border: 0 !important;
+    border-radius: 24px !important;
+    padding: 14px 22px !important;
+    box-shadow: none !important;
+    border: 1px solid #e4e4e4 !important;
 }
 
 label.file-upload-label { 

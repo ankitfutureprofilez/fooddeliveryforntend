@@ -8,6 +8,8 @@ import { setDataProduct } from "./redux/productSlide";
 import { useDispatch, useSelector } from "react-redux";
 import Listings from './Api/Listings';
 import Footer from "./components/footer.js";
+import Homehero from './components/Homehero.js';
+import HomeSlider from './components/HomeSlider.js';
 
 function App() {
   const dispatch = useDispatch()
@@ -51,9 +53,12 @@ function App() {
       <div>
         <Header />
         <main className="pt-24 bg-slate-100 min-h-[calc(100vh)]">
-          <div className='container mx-auto'>
+        
+
+          
             <Outlet />
-          </div>
+
+          
         </main>
         <Footer/>
       </div>
