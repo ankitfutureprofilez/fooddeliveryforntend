@@ -33,7 +33,6 @@ const AllProduct = ({ heading }) => {
     }
   };
 
-  const loadingArrayFeature = new Array(10).fill(null);
 
   return (
     <div className="mb-6 block">
@@ -55,6 +54,8 @@ const AllProduct = ({ heading }) => {
           );
         })}
       </div>
+
+      
       <h2 className="heading">
         <strong>Near</strong> You
       </h2>
@@ -78,6 +79,8 @@ const AllProduct = ({ heading }) => {
           <Product loading="Loading..." key={"allProduct"} />
         )}
       </div>
+
+
       <div className="flex flex-wrap -mx-3 py-4">
         <div className="w-2/4 pr-3.5 ">
           <div className=" px-10 py-14 dis-bg bg-cover bg-no-repeat bg-center rounded-xl h-96">

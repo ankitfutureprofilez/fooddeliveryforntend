@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import UserProduct from "./UserProduct";
 import { FaLocationCrosshairs, FaRegClock } from "react-icons/fa6";
 import { FaRegDotCircle } from "react-icons/fa";
@@ -105,7 +105,18 @@ export default function Restaurantdetails() {
             </div>
           </div>
           <p className="text-xl text-gray-700 mb-4 ">{record && record.description}</p>
+          <div className="flex mt-3 rest-actions" >
+            <NavLink to={"/restaurant-register"}
+              className="whitespace-nowrap cursor-pointer me-4 bg-blue-500 px-4 py-3 uppercase text-white  rounded-md text-gray-800 hover:bg-blue-300 transition duration-300" >
+              Edit My Restaurant
+            </NavLink>
+            <NavLink to={"/newproduct"}
+              className="whitespace-nowrap cursor-pointer me-4 bg-blue-500 px-4 py-3 uppercase text-white  rounded-md text-gray-800 hover:bg-blue-300 transition duration-300" >
+              Add New Product
+            </NavLink>
+          </div>
         </div>
+
 
       )}
     </>

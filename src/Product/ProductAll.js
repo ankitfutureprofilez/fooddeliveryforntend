@@ -10,7 +10,6 @@ export default function ProductAll() {
   const [record, setRecord] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
   const dispatch = useDispatch();
 
   useEffect(() => {
