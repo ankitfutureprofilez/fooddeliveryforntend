@@ -54,7 +54,7 @@ const Cart = () => {
     }
   };
 
-  
+ 
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -64,6 +64,10 @@ const Cart = () => {
       );
     });
   };
+
+  useEffect(()=>{
+    handleGetLocation()
+  },[])
 
   const navigate = useNavigate()
 
@@ -100,9 +104,7 @@ const Cart = () => {
         resp
           .then((res) => {
             if(user.resId){
-              if (res.data.url) {
-                window.location.href = res.data.url;
-              }
+              <></>
             }else{
               if (res.data.url) {
                 window.location.href = res.data.url;
@@ -179,7 +181,7 @@ const Cart = () => {
                     onChange={handleChangeLocation}
                     value={address}
                   />
-                  
+
 
                   <div className="absolute top-2 right-2">
                     <button type="button">
