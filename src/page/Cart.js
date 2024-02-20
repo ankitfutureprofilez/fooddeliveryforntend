@@ -127,22 +127,21 @@ console.log(" location",location )
     }
   };
 
-
   const handlePhoneChange = (e) => {
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
   };
 
-
   const handleChangeLocation = async (e) => {
     const newAddress = e.target.value;
     setAddress(newAddress);
-    try {
-      const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
-      const response = await axios.get(
-        `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(newAddress)}&key=${API_KEY}`
-      );
-      if (response.data && response.data.length > 0) {
-        const { lat, lon } = response.data[0];
+    const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
+    const response = axios.get(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(newAddress)}&key=${API_KEY}`);
+    console.log("response",await response);
+    response.then((res)=>{
+      console.log("res", res);
+      if (res.data) {
+        console.log("res.data[0]", res.data);
+        const { lat, lon } = res.data[0];
         setLocation((prevData) => ({
           ...prevData,
           coordinates: {
@@ -151,20 +150,17 @@ console.log(" location",location )
           },
         }));
       } else {
-        setLocation((prevData) => ({
-          ...prevData,
-          coordinates: {},
-        }));
+        setLocation((prevData) => ({...prevData,coordinates: {}}));
       }
-    } catch (error) {
-      console.error("Error getting coordinates:", error);
+    }).catch((err)=>{
+      console.error("Error getting coordinates:", err);
       toast.error("Error getting coordinates");
       setLocation((prevData) => ({
         ...prevData,
         coordinates: {},
       }));
-    }
-  };
+    });
+  }  
   
   return (
       <div className="p-2 md:p-4">
