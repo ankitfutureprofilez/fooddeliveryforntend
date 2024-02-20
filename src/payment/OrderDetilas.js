@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { formatMultiPrice } from "../hooks/Valuedata";
 import axios from "axios";
+import { GiConsoleController } from "react-icons/gi";
 export default function OrderDetilas() {
   const { order_id } = useParams();
   const [record, setRecord] = useState([]);
@@ -98,32 +99,41 @@ export default function OrderDetilas() {
   }
 
 
-  const [adds, setAdds] = useState('');
-  async function getAddressFromCoordinates(e) {
-    if (e) {
-      const add = JSON.parse(e);
-      const latlng = `${add.lat},${add.lng}`;
-      const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
-      const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
-      const resp = axios.get(url);
-      resp.then((res)=>{
-        if (res.data) {
-          const address = res.data.results && res.data.results[0] && res.data.results[0].formatted_address;
-          console.log("address sss", address)
-          
-          setAdds(address);
-        } else {
-          console.error("Failed to fetch address:", res.data.status);
-        }
-      }).catch((error)=>{
-         console.error("Error fetching address:", error);
-      });
-  }
-  }
 
-  useEffect(()=>{
-    getAddressFromCoordinates(record && record.checkout_coordinates)
-  },[]);
+  const [adds, setAdds] = useState('');
+  
+let checkoutCoordinates = record && record.checkout_coordinates; 
+
+async function getAddressFromCoordinates(checkout_coordinates) {
+  if (checkout_coordinates) { 
+    const add = JSON.parse(checkout_coordinates);
+    const latlng = `${add.lat},${add.lng}`;
+    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
+    
+    try {
+      const response = await axios.get(url); 
+      if (response.data && response.data.results && response.data.results.length > 0) {
+        const address = response.data.results[0].formatted_address;
+        console.log("address:", address);
+        setAdds(address);
+      } else {
+        console.error("Failed to fetch address:", response.data.status);
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error);
+    }
+  } else {
+    console.error("Invalid checkout_coordinates:", checkout_coordinates);
+  }
+}
+
+console.log(record && record.checkout_coordinates);
+
+useEffect(() => {
+  getAddressFromCoordinates(checkoutCoordinates); 
+}, [checkoutCoordinates]);
+  
    
 
   return (

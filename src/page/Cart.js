@@ -184,7 +184,6 @@ console.log(" location",location )
             })}
           </div>
           <div className="flex flex-col md:w-1/2">
-            {/* Location */}
             <div className=" px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Location
@@ -193,7 +192,7 @@ console.log(" location",location )
                 <input
                   required
                   type="text"
-                  className="form-input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   name="address"
                   onChange={handleChangeLocation}
                   value={address}
@@ -220,7 +219,7 @@ console.log(" location",location )
                   required
                   type="Number"
                   maxLength={10}
-                  className="form-input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="form-input shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   name="phone"
                   value={location.phone}
                   onChange={handlePhoneChange}

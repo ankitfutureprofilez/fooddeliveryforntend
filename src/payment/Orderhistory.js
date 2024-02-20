@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 import { formatDate } from "../hooks/Formdata";
 import { SiPivotaltracker } from "react-icons/si";
 import { useSelector } from 'react-redux';
+
 export default function Orderhistory() {
-
   const userData = useSelector((state) => state.user);
-
   const [loading, setLoading] = useState(true);
   const [record, setRecord] = useState([]);
 
@@ -47,9 +46,10 @@ export default function Orderhistory() {
         });
     }
   }, []);
+
   return (
-    <div>
-      <div className="container py-4 pb-14 ">
+    <div className="w-full">
+      <div className="container py-4 pb-14 mx-auto">
         <div className="overflow-x-auto">
           <table className="w-full overflow-x-auto">
             <thead className="bg-black text-white text-left">
@@ -86,7 +86,7 @@ export default function Orderhistory() {
                     </td>
                     <td className="p-3 border border-gray-200 ">
                       {item.order_status === "initiated" ? (
-                        <span className="bg-blue-500  text-white font-bold py-2 px-4 rounded-full">
+                        <span className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full">
                           Placed
                         </span>
                       ) : (<></>)}
