@@ -151,6 +151,7 @@ const Cart = () => {
               lng: parseFloat(longitude),
             },
           }));
+          setAddress(res.data.results[0].formatted_address)
           setAddressValid(true);
         } else {
           toast.error("You have entered invalid address. Please enter valid address.");
