@@ -49,7 +49,7 @@ const router = createBrowserRouter(
         <PrivateRoute> <Newproduct />  </PrivateRoute>
       } />
       <Route path="signup" element={<Signup />} />
-      <Route path="checklocation" element={<CheckLocation />} />
+      {/* <Route path="checklocation" element={<CheckLocation />} /> */}
       <Route path="cart" element={<Cart />} />
       <Route path="success" element={<Success />} />
       <Route path="cancel" element={<Cancel />} />
