@@ -44,10 +44,10 @@ const AllProduct = ({ heading }) => {
 
     <Homehero/>
     <HomeSlider/>
-    <div className="best-food-sec">
+    <div className="newly-added-sec">
       <div className='container mx-auto'>
         <div className=" block">
-          <h1 className="heading ">
+          <h1 className="heading mx-auto">
             <strong>Menu</strong> Category
           </h1>
           <div className="flex w-full flex-wrap space-x-2  mb-6">
@@ -65,7 +65,7 @@ const AllProduct = ({ heading }) => {
               );
             })}
           </div>
-          <h2 className="heading">
+          <h2 className="heading mx-auto">
             <strong>Near</strong> You
           </h2>
           <div className="flex flex-wrap -mx-3 py-4">
@@ -95,7 +95,7 @@ const AllProduct = ({ heading }) => {
                   <h3 className="text-base poppins-regular text-base text-gray-100 bg-blue-tran py-3 rounded-full px-5 inline-block">Use Coupon Code : 2Jk5T45  </h3>
               </div>
             </div>
-            
+
             <div className="px-3.5 w-full lg:w-2/4">
               <div className="p-5 lg:p-8 xl:px-10 xl:py-14 off-bg bg-cover bg-no-repeat bg-center rounded-xl h-56 lg:h-72 xl:h-96">
                   <h2 className="lg:text-5xl text-4xl font-normal text-gray-100 uppercase mb-3.5 poppins-regular xl:w-4/5">Special Food <strong className="font-bold">Food</strong> offer</h2>
