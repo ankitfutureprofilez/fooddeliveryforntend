@@ -39,6 +39,7 @@ export default function HomeSlider() {
               <div>
                 <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
                   {item.name}
+                  
                 </h3>
                 <div className="flex justify-between mt-3">
                   <div>
