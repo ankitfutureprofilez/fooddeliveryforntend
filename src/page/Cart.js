@@ -31,8 +31,7 @@ const Cart = () => {
     address: "",
   });
 
-console.log("addess",address)
-console.log(" location",location )
+
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
@@ -55,9 +54,7 @@ console.log(" location",location )
     }
   };
 
-  useEffect(() => {
-    handleGetLocation()
-  }, []);
+ 
 
   const getCurrentPosition = () => {
     return new Promise((resolve, reject) => {
@@ -67,6 +64,10 @@ console.log(" location",location )
       );
     });
   };
+  
+  useEffect(()=>{
+    handleGetLocation()
+  },[])
 
   const navigate = useNavigate()
 
@@ -103,9 +104,7 @@ console.log(" location",location )
         resp
           .then((res) => {
             if(user.resId){
-              if (res.data.url) {
-                window.location.href = res.data.url;
-              }
+              <></>
             }else{
               if (res.data.url) {
                 window.location.href = res.data.url;
@@ -131,12 +130,13 @@ console.log(" location",location )
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
   };
 
+
   const handleChangeLocation = async (e) => {
     const newAddress = e.target.value;
     setAddress(newAddress);
     const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
     const response = axios.get(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(newAddress)}&key=${API_KEY}`);
-    console.log("response",await response);
+    console.log("response", response);
     response.then((res)=>{
       console.log("res", res);
       if (res.data) {
@@ -161,16 +161,32 @@ console.log(" location",location )
       }));
     });
   }  
-  
   return (
-      <div className="p-2 md:p-4">
-        <h2 className="text-lg md:text-2xl font-bold text-slate-600">
-          Your Cart Items
-        </h2>
-        {productCartItem[0] ? (
-          <>
-            <div className="flex flex-wrap my-7">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+    <div className="p-2 md:p-4">
+      <h2 className="text-xl md:text-2xl mt-3 font-bold">Your Cart Items</h2>
+      {productCartItem[0] ? (
+        <>
+          <div className="flex flex-wrap my-7">
+            {/* display cart items  */}
+            <div className=" md:w-1/2 px-3 mb-6 md:mb-0 ">
+              {productCartItem.map((el) => {
+                return (
+                  <CartProduct
+                    key={el._id}
+                    id={el._id}
+                    name={el.name}
+                    image={el.image}
+                    category={el.category}
+                    qty={el.qty}
+                    total={el.total}
+                    price={el.price}
+                  />
+                );
+              })}
+            </div>
+            <div className="flex flex-col md:w-1/2">
+              {/* Location */}
+              <div className=" px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Location
                 </label>
@@ -178,13 +194,13 @@ console.log(" location",location )
                   <input
                     required
                     type="text"
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="form-input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="address"
                     onChange={handleChangeLocation}
                     value={address}
                   />
 
-                  <div className="absolute top-2 right-2">
+                  <div className="absolute top-3 right-2.5">
                     <button type="button">
                       <FaLocationCrosshairs
                         size={24}
@@ -195,7 +211,8 @@ console.log(" location",location )
                   </div>
                 </div>
               </div>
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+              {/* Phone Number */}
+              <div className="px-3 mb-6 md:mb-0 mt-5">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Phone
                 </label>
@@ -204,39 +221,15 @@ console.log(" location",location )
                     required
                     type="Number"
                     maxLength={10}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="form-input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="phone"
                     value={location.phone}
                     onChange={handlePhoneChange}
                   />
                 </div>
               </div>
-            </div>
-
-
-            <div className="my-4 flex flex-wrap my-7">
-              {/* display cart items  */}
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0 ">
-                {productCartItem.map((el) => {
-                  return (
-                    <CartProduct
-                      key={el._id}
-                      id={el._id}
-                      name={el.name}
-                      image={el.image}
-                      category={el.category}
-                      qty={el.qty}
-                      total={el.total}
-                      price={el.price}
-                    />
-                  );
-                })}
-              </div>
-
-              {/* location input */}
               {/* total cart item  */}
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <h2 className="bg-blue-500 text-white p-2 text-lg">Summary</h2>
+              <div className="px-3 mb-6 md:mb-0 mt-4">
                 <div className="flex w-full py-2 text-lg border-b">
                   <p>Total Qty :</p>
                   <p className="ml-auto w-32 font-bold">{totalQty}</p>
@@ -248,26 +241,27 @@ console.log(" location",location )
                   </p>
                 </div>
                 <button
-                  className="bg-orange-500 w-full text-lg font-bold py-2 text-white"
+                  className="bg-orange-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center"
                   onClick={handlePayment}
                 >
                   Payment
                 </button>
               </div>
             </div>
-          </>
-        ) : (
-          <>
-            <div className="flex w-full justify-center items-center flex-col">
-              <img
-                src={emptyCartImage}
-                className="w-full empty-cart-image max-w-sm"
-              />
-              <p className="text-slate-500 text-3xl font-bold">Empty Cart</p>
-            </div>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="flex w-full justify-center items-center flex-col">
+            <img
+              src={emptyCartImage}
+              className="w-full empty-cart-image max-w-sm"
+            />
+            <p className="text-slate-500 text-3xl font-bold">Empty Cart</p>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 
