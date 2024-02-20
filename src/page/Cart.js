@@ -102,9 +102,7 @@ const Cart = () => {
         resp
           .then((res) => {
             if(user.resId){
-              if (res.data.url) {
-                window.location.href = res.data.url;
-              }
+            <></>
             }else{
               if (res.data.url) {
                 window.location.href = res.data.url;
