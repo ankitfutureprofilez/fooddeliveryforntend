@@ -41,9 +41,10 @@ const AllProduct = ({ heading }) => {
 
   return (
     <>
-
     <Homehero/>
-    <HomeSlider/>
+    <HomeSlider />
+
+    
     <div className="newly-added-sec">
       <div className='container mx-auto'>
         <div className=" block">
@@ -55,7 +56,6 @@ const AllProduct = ({ heading }) => {
               return (
                 <FilterProduct
                   category={el}
-                  key={el}
                   isActive={
                     el.toLowerCase() === filterby.toLowerCase() ||
                     (el === "All" && filterby === "")
@@ -73,6 +73,7 @@ const AllProduct = ({ heading }) => {
               dataFilter.map((el) => {
                 let img = el.image == null ? foodImg : el.image;
                 return (
+                  <>
                   <Product
                     key={el._id}
                     id={el._id}
@@ -82,6 +83,7 @@ const AllProduct = ({ heading }) => {
                     price={el.price}
                     description={el.description}
                   />
+                  </>
                 );
               })
             ) : (
