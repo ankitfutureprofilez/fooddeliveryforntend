@@ -14,14 +14,13 @@ export default function Orderhistory() {
   const [record, setRecord] = useState([]);
 
   useEffect(() => {
-    if(userData.resId){
+    if (userData.resId) {
       const main = new Listings();
       const response = main.adminorder();
       response
         .then((res) => {
           setRecord(res.data.list);
           setLoading(false);
-          console.log("res", res.data.list);
           res.data.list.forEach((item) => {
             localStorage.setItem(`orderStatus`, item.order_status);
           });
@@ -31,7 +30,7 @@ export default function Orderhistory() {
           setLoading(false);
         });
 
-    }else{
+    } else {
       const main = new Listings();
       const response = main.paymentmethod();
       response
@@ -86,28 +85,27 @@ export default function Orderhistory() {
                       ))}
                     </td>
                     <td className="p-3 border border-gray-200 ">
-                      {item.order_status ==="initiated" ? (
+                      {item.order_status === "initiated" ? (
                         <span className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        Accepted
+                          Accepted
                         </span>
-                      ) : (<></>)  }
-                      
-                      {item.order_status ==="picked" ? (
+                      ) : (<></>)}
+
+                      {item.order_status === "picked" ? (
                         <span className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
-                     picked
+                          picked
                         </span>
-                      ) : (<></>)  }
+                      ) : (<></>)}
                       {item.order_status === "delivered" ? (
                         <span className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                           delivered
                         </span>
-                      ) : (<></>)  }
+                      ) : (<></>)}
                     </td>
                     <td className="p-3 border border-gray-200 text-center">
                       <Link to={`/order_history/${item.order_id}`}>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Track </button>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Track </button>
                       </Link>
-                      
                     </td>
                   </tr>
                 ))

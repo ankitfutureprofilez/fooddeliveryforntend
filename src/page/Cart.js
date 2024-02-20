@@ -11,7 +11,6 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
-  // console.log("user",user)
 
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
@@ -31,8 +30,8 @@ const Cart = () => {
     address: "",
   });
 
-  console.log("location" ,location)
-
+console.log("addess",address)
+console.log(" location",location )
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
@@ -48,19 +47,7 @@ const Cart = () => {
             lng: longitude
           },
         });
-        console.log("respnse", response.data);
         setAddress(response.data.display_name);
-        setLocation({
-          ...location,
-          coordinates: {
-            lat: latitude,
-            lng: longitude,
-          },
-          order_coordinates: {
-            lat: latitude,
-            lng: longitude,
-          },
-        });
       } catch (error) {
         console.error("Error getting location:", error);
       }
@@ -95,7 +82,6 @@ const Cart = () => {
             const apiUrl = "https://ipapi.co/json/";
             const response = await fetch(apiUrl);
             const jsonData = await response.json();
-            // console.log(jsonData);
             const { latitude, longitude } = jsonData;
             setLocation((prevData) => ({
               ...prevData,
@@ -108,7 +94,6 @@ const Cart = () => {
           }
         }
         const payment = new Payment();
-        console.log("Location:", location);
         const coordinatesString = JSON.stringify(location.coordinates);
         const resp = payment.Checkout_cart({
           ...location,
