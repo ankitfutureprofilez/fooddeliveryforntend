@@ -64,10 +64,7 @@ const Cart = () => {
       );
     });
   };
-
-  useEffect(()=>{
-    handleGetLocation()
-  },[])
+  
 
   const navigate = useNavigate()
 

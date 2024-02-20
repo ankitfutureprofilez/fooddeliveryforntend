@@ -34,6 +34,7 @@ import OrderDetilas from "./payment/OrderDetilas";
 import MapComponent from "./Location/MapComponent";
 import MapContainer from "./tracking/MapContainer";
 import Dashboard from "./components/Restaurant/Dashboard";
+import CheckLocation from "./page/CheckLocation";
 
 
 const router = createBrowserRouter(
@@ -48,6 +49,7 @@ const router = createBrowserRouter(
         <PrivateRoute> <Newproduct />  </PrivateRoute>
       } />
       <Route path="signup" element={<Signup />} />
+      <Route path="checklocation" element={<CheckLocation />} />
       <Route path="cart" element={<Cart />} />
       <Route path="success" element={<Success />} />
       <Route path="cancel" element={<Cancel />} />
