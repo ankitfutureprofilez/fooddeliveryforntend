@@ -198,7 +198,7 @@ console.log(" location",location )
                   value={address}
                 />
 
-                <div className="absolute top-3 right-2.5">
+                <div className="absolute top-2 right-2.5">
                   <button type="button">
                     <FaLocationCrosshairs
                       size={24}
@@ -210,7 +210,7 @@ console.log(" location",location )
               </div>
             </div>
             {/* Phone Number */}
-            <div className="px-3 mb-6 md:mb-0">
+            <div className="px-3 mb-6 md:mb-0 mt-5">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Phone
               </label>
@@ -227,7 +227,7 @@ console.log(" location",location )
               </div>
             </div>
             {/* total cart item  */}
-            <div className="px-3 mb-6 md:mb-0">
+            <div className="px-3 mb-6 md:mb-0 mt-5">
               <div className="flex w-full py-2 text-lg border-b">
                 <p>Total Qty :</p>
                 <p className="ml-auto w-32 font-bold">{totalQty}</p>
