@@ -56,6 +56,10 @@ class Listings extends Component {
     return Api.post(`/restaurant/update-status/${order_id}/${type}`, form)
   }
 
+  async newproduct(){
+    return Api.get("/product/newproduct")
+  }
+
 
   render() {
     return (

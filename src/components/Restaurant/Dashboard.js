@@ -3,12 +3,13 @@ import Orderhistory from '../../payment/Orderhistory';
 import Restaurantdetails from '../../page/Restaurantdetails';
 import ProductAll from './../../Product/ProductAll';
 import RestaurantInfo from '../../page/RestaurantInfo';
+import CardFeature from '../Product';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('Product'); 
 
   return (
-    <>
+    <div className='container m-auto'>
       <Restaurantdetails/>
       <div className='detail-wrapper pb-8'  >
         <div className="tabs-wrapper flex justify-left mt-16 mb-3 text-lg rounded-all">
@@ -26,6 +27,6 @@ export default function Dashboard() {
         {activeTab === 'Product' && <ProductAll />}
         {activeTab === 'orderHistory' && <Orderhistory />}
       </div>
-    </>
+    </div>
   );
 }

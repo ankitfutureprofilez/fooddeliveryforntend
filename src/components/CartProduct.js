@@ -20,7 +20,6 @@ const CartProduct = ({ id, name, image, category, qty, total, price }) => {
             <MdDelete size={20}  />
           </div>
         </div>
-        {/* <p className=" text-slate-500  font-medium ">{category}</p> */}
         <p className="font-bold text-base text-orange-500 leading-5">
           <span className=" ">₹</span>
           <span>{price}</span>

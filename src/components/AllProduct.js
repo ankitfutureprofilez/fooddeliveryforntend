@@ -40,15 +40,14 @@ const AllProduct = ({ heading }) => {
   const loadingArrayFeature = new Array(10).fill(null);
 
   return (
-    <>
-
+    <> 
     <Homehero/>
     <HomeSlider/>
-    <div className="newly-added-sec">
+    <div className="best-food-sec">
       <div className='container mx-auto'>
         <div className=" block">
-          <h1 className="heading mx-auto">
-            <strong>Menu</strong> Category
+          <h1 className="heading ">
+          Best Foods
           </h1>
           <div className="flex w-full flex-wrap space-x-2  mb-6">
             {categoryList.map((el) => {
@@ -65,10 +64,8 @@ const AllProduct = ({ heading }) => {
               );
             })}
           </div>
-          <h2 className="heading mx-auto">
-            <strong>Near</strong> You
-          </h2>
-          <div className="flex flex-wrap -mx-3 py-4">
+
+          <div className="flex flex-wrap -mx-3">
             {dataFilter[0] ? (
               dataFilter.map((el) => {
                 let img = el.image == null ? foodImg : el.image;
@@ -88,18 +85,17 @@ const AllProduct = ({ heading }) => {
               <Product loading="Loading..." key={"allProduct"} />
             )}
           </div>
-          <div className="flex flex-wrap -mx-3 py-4">
+          <div className="flex flex-wrap -mx-3 py-4 dis-offer">
             <div className="lg:w-2/4 w-full mb-4 lg:mb-0 px-3.5 ">
-              <div className="p-5 lg:p-8 xl:px-10 xl:py-14 dis-bg bg-cover bg-no-repeat bg-center rounded-xl h-56 lg:h-72 xl:h-96">
-                  <h2 className="lg:text-5xl text-4xl font-normal text-gray-100 uppercase mb-3.5 poppins-regular xl:w-3/5">Get <strong className="font-bold">50%</strong> Discount </h2>
-                  <h3 className="text-base poppins-regular text-base text-gray-100 bg-blue-tran py-3 rounded-full px-5 inline-block">Use Coupon Code : 2Jk5T45  </h3>
+              <div className="p-8 xl:px-10 xl:py-14 dis-bg bg-cover bg-no-repeat bg-center rounded-xl h-56 lg:h-72 xl:h-96 discount-1">
+                  <h2 className="lg:text-5xl text-4xl font-normal text-gray-100 uppercase mb-3.5 poppins-regular w-4/5 sm:w-3/5">Get <strong className="font-bold">50%</strong> Discount </h2>
+                  
               </div>
             </div>
-
             <div className="px-3.5 w-full lg:w-2/4">
-              <div className="p-5 lg:p-8 xl:px-10 xl:py-14 off-bg bg-cover bg-no-repeat bg-center rounded-xl h-56 lg:h-72 xl:h-96">
-                  <h2 className="lg:text-5xl text-4xl font-normal text-gray-100 uppercase mb-3.5 poppins-regular xl:w-4/5">Special Food <strong className="font-bold">Food</strong> offer</h2>
-                  <p className="text-gray-100 text-lg poppins-regular xl:w-1/2 ">Try our Latest main Course at <strong className="font-bold">40%</strong> Discount </p>
+              <div className="p-8 xl:px-10 xl:py-14 off-bg bg-cover bg-no-repeat bg-center rounded-xl h-56 lg:h-72 xl:h-96 discount-1">
+                  <h2 className="lg:text-5xl text-4xl font-normal text-gray-100 uppercase mb-3.5 poppins-regular w-4/5 sm:w-4/5">Special Food <strong className="font-bold">Food</strong> offer</h2>
+                 
               </div>
             </div>
           </div>
