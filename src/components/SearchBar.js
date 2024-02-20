@@ -53,7 +53,7 @@ export default function SearchBar() {
   return (
     <div className="searchbar flex flex-col ...">
       <div className="mx-auto relative max-w-md w-full">
-        <div className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-500">
+        <div className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-500 search-btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -69,11 +69,12 @@ export default function SearchBar() {
             />
           </svg>
         </div>
+        
         <input
           type="search"
           name="search"
           placeholder="Find restaurant in your city"
-          className="h-12 appearance-none block w-40 md:w-80 lg:w-96 bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 leading-tight focus:outline-none search-bar-head"
+          className="h-12 appearance-none block w-40 md:w-80 lg:w-96 bg-gray-100 text-gray-900  text-base rounded-lg py-3 px-3 pl-12 leading-tight focus:outline-none search-bar-head "
           value={searchTerm}
           onChange={(e) => handleSearch(e.target.value)}
         />
