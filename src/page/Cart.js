@@ -9,7 +9,7 @@ import Payment from "../Api/Payment";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 
 const Cart = () => {
-  console.log("aaa",process.env.REACT_GOOGLE_API__KEY);
+  // console.log("aaa",process.env.REACT_GOOGLE_API__KEY);
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
 
@@ -22,23 +22,23 @@ const Cart = () => {
     0
   );
 
+  const [address, setAddress] = useState("");
 
-  const [address, setAddress] = useState("")
- 
   const [location, setLocation] = useState({
     phone: "",
-    coordinates: '',
+    coordinates: "",
     address: "",
   });
 
-console.log("addess",address)
-console.log(" location",location )
+// console.log("addess",address)
+// console.log(" location",location )
   const handleGetLocation = async () => {
     if (navigator.geolocation) {
       try {
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
-        const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
+        const API_KEY =  "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
+        console.log("api",API_KEY)
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
@@ -56,7 +56,7 @@ console.log(" location",location )
   };
 
   useEffect(() => {
-    handleGetLocation()
+    // handleGetLocation();
   }, []);
 
   const getCurrentPosition = () => {
@@ -68,11 +68,10 @@ console.log(" location",location )
     });
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handlePayment = async () => {
-    if(location.phone.length===0)
-    {
+    if (location.phone.length === 0) {
       toast("Enter phone number!");
       return;
     }
@@ -129,35 +128,42 @@ console.log(" location",location )
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
   };
 
+
+  const [addressValid, setAddressValid] = useState(false);
   const handleChangeLocation = async (e) => {
     const newAddress = e.target.value;
     setAddress(newAddress);
-    const API_KEY = "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
-    const response = axios.get(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(newAddress)}&key=${API_KEY}`);
-    console.log("response",await response);
-    response.then((res)=>{
-      console.log("res", res);
-      if (res.data) {
-        console.log("res.data[0]", res.data);
-        const { lat, lon } = res.data[0];
-        setLocation((prevData) => ({
-          ...prevData,
-          coordinates: {
-            lat: parseFloat(lat),
-            lng: parseFloat(lon),
-          },
-        }));
-      } else {
+    const apiKeygoogle = process.env.REACT_APP_GOOGLE_API_KEY;
+    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(newAddress)}&key=${apiKeygoogle}`;
+      const response = axios.get(apiUrl);
+      response.then((res)=>{
+        console.log("res", res.data)
+        if(res.data.status === 'OK'){
+          const location = res.data.results[0].geometry.location;
+          const latitude = location.lat;
+          const longitude = location.lng;
+          setLocation((prevData) => ({
+            ...prevData,
+            coordinates: {
+              lat: parseFloat(latitude),
+              lng: parseFloat(longitude),
+            },
+          }));
+          setAddressValid(true);
+        } else {
+          toast.error("You have entered invalid address. Please enter valid address.");
+          setLocation((prevData) => ({
+            ...prevData,
+            coordinates: {},
+          }));
+          setAddressValid(false);
+        }
+      }).catch((error)=>{
+        console.error("Error getting coordinates:", error);
+        toast.error("Failed to get your entred address please try again in sometime.");
         setLocation((prevData) => ({...prevData,coordinates: {}}));
-      }
-    }).catch((err)=>{
-      console.error("Error getting coordinates:", err);
-      toast.error("Error getting coordinates");
-      setLocation((prevData) => ({
-        ...prevData,
-        coordinates: {},
-      }));
-    });
+        setAddressValid(false);
+      })
   }  
   
   return (
@@ -232,34 +238,21 @@ console.log(" location",location )
                 <p>Total Qty :</p>
                 <p className="ml-auto w-32 font-bold">{totalQty}</p>
               </div>
-              <div className="flex w-full py-2 text-lg border-b">
-                <p>Total Price</p>
-                <p className="ml-auto w-32 font-bold">
-                  <span className="text-orange-500">₹</span> {totalPrice}
-                </p>
-              </div>
-              <button
-                className="bg-orange-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center"
-                onClick={handlePayment}
-              >
-                Payment
-              </button>
             </div>
           </div>
-        </div>
-      </>
-    ) : (
-      <>
-        <div className="flex w-full justify-center items-center flex-col">
-          <img
-            src={emptyCartImage}
-            className="w-full empty-cart-image max-w-sm"
-          />
-          <p className="text-slate-500 text-3xl font-bold">Empty Cart</p>
-        </div>
-      </>
-    )}
-  </div>
+        </>
+      ) : (
+        <>
+          <div className="flex w-full justify-center items-center flex-col">
+            <img
+              src={emptyCartImage}
+              className="w-full empty-cart-image max-w-sm"
+            />
+            <p className="text-slate-500 text-3xl font-bold">Empty Cart</p>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 
