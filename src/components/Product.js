@@ -23,7 +23,7 @@ const CardFeature = ({ image, name, price, category, loading, id, description, i
 
   return (
     <>
-      <div className="w-6/12 md:w-4/12 lg:w-4/12 xl:w-3/12 px-3 mb-6">
+      <div className="w-full sm:w-6/12 md:w-4/12 lg:w-4/12 xl:w-3/12 px-3 mb-6">
         {loading && name ? (
           <LoadingPage />
         ) : (
