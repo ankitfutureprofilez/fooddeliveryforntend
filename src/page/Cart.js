@@ -252,7 +252,7 @@ const Cart = () => {
                     <span className="text-orange-500">₹</span> {totalPrice}
                   </p>
                 </div>
-                <button disabled={!addressValid}
+                <button
                   className="bg-orange-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center"
                   onClick={handlePayment}>
                   Payment
