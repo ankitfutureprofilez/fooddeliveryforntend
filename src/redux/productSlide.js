@@ -17,6 +17,7 @@ export const productSlice = createSlice({
     setNewProduct: (state, action) => {
       state.record = [...action.payload];
     },
+   
     addCartItem: (state, action) => {
       const check = state.cartItem.some((item) => item._id === action.payload._id);
       if (check) {
