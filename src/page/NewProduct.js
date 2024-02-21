@@ -63,6 +63,7 @@ const Newproduct = () => {
     }
   }
   return (
+    <div className="container m-auto">
     <div className="flex  mt-7">
     <div className="w-full">
       <h1 className="text-3xl mt-3 font-bold mb-6 flex justify-center">
@@ -112,9 +113,12 @@ const Newproduct = () => {
                 value={data.category}
               >
                 <option value={"other"}>select category</option>
-                <option value={"sweet"}>Sweet</option>
                 <option value={"fastfood"}>Fast Food</option>
+                <option value={"soup"}>Soup</option>
+                <option value={"beverages"}>Beverages</option>
                 <option value={"mainCourse"}>Main Course</option>
+                <option value={"combo"}>Combo</option>
+                <option value={"Desserts"}>Desserts</option>
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
@@ -157,6 +161,7 @@ const Newproduct = () => {
           </button>
         </div>
       </form>
+    </div>
     </div>
     </div>
   );
