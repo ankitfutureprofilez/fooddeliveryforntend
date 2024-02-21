@@ -75,7 +75,7 @@ const Newproduct = () => {
         onSubmit={handleSubmit}
       >
         <div className="flex flex-wrap mt-7">
-          <div class="w-24 md:w-1/3 px-3 mb-6 md:mb-0">
+          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label htmlFor="name"
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"> Name
             </label>
