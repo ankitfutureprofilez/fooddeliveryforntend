@@ -128,7 +128,6 @@ async function getAddressFromCoordinates(checkout_coordinates) {
   }
 }
 
-// console.log(record && record.checkout_coordinates);
 
 useEffect(() => {
   getAddressFromCoordinates(checkoutCoordinates); 

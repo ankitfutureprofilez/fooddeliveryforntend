@@ -33,7 +33,6 @@ export default function Location() {
         const loc = await fetch(user);
         const data = await loc.json();
         setuserdata(data?.results[0]?.formatted)
-        console.log("data", data?.results[0].components)
     }
 
     const handleuser = async () => {

@@ -15,7 +15,7 @@ export const productSlice = createSlice({
       state.productList = [...action.payload.data];
     },
     setNewProduct: (state, action) => {
-      state.productdata = [...action.payload.data];
+      state.record = [...action.payload];
     },
     addCartItem: (state, action) => {
       const check = state.cartItem.some((item) => item._id === action.payload._id);
@@ -31,29 +31,7 @@ export const productSlice = createSlice({
       }
     },
 
-    addProductItem: (state, action) => {
-      const index = state.cartItem.some((item) => item._id === action.payload._id);
-      if (index !== -1) {
-        console.log("Item already exists in cart");
-      } else {
-        state.cartItems.push({ ...action.payload, qty: 1 });
-      }
-    },
     
-    incrementQuantity: (state, action) => {
-      const { _id } = action.payload;
-      const itemIndex = state.cartItem.findIndex(item => item._id === _id);
-      if (itemIndex !== -1) {
-        state.cartItem[itemIndex].qty++;
-      }
-    },
-    decrementQuantity: (state, action) => {
-      const { _id } = action.payload;
-      const itemIndex = state.cartItems.findIndex(item => item._id === _id);
-      if (itemIndex !== -1 && state.cartItem[itemIndex].qty > 1) {
-        state.cartItem[itemIndex].qty--;
-      }
-    },
     deleteCartItem: (state, action) => {
       toast("one Item Delete");
       const index = state.cartItem.findIndex((el) => el._id === action.payload);

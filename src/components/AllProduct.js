@@ -8,34 +8,25 @@ import { Link } from "react-router-dom";
 import Heroplet from "../assest/hero-plet.png";
 import Homehero from "./Homehero";
 import HomeSlider from "./HomeSlider";
+import { GiConsoleController } from "react-icons/gi";
+import { setNewProduct } from "../redux/productSlide";
 
 
 const AllProduct = ({ heading }) => {
-
-
+  
   const productData = useSelector((state) => state.product.productList);
-
-  const NewPrdouct = useSelector((state) => state.product.productdata);
-  console.log("NewPrdouct",NewPrdouct)
   const categoryList = [
     "All",
     ...new Set(productData.map((el) => el.category)),
-  ]; // Adding "All" category
-
-  // filter data display
+  ];
   const [filterby, setFilterBy] = useState("");
-
-  const [dataProduct, setDataProduct] = useState([]);
-
-  useEffect(() => {
-    setDataProduct(NewPrdouct);
-  }, [NewPrdouct]);
-
   const [dataFilter, setDataFilter] = useState([]);
-
   useEffect(() => {
     setDataFilter(productData);
   }, [productData]);
+
+
+ 
 
   const handleFilterProduct = (category) => {
     setFilterBy(category);
@@ -48,8 +39,6 @@ const AllProduct = ({ heading }) => {
       setDataFilter(filter);
     }
   };
-
-  console.log("dataFilter",dataFilter)
   const loadingArrayFeature = new Array(10).fill(null);
 
   return (
@@ -61,26 +50,9 @@ const AllProduct = ({ heading }) => {
             <h1 className="heading ">
               Newly Added
             </h1>
-            {/* <div className="flex flex-wrap -mx-3">
-              {dataProduct[0] ? (
-                dataProduct.map((el) => {
-                  let img = el.image == null ? foodImg : el.image;
-                  return (
-                    <Product
-                      key={el._id}
-                      id={el._id}
-                      image={img}
-                      name={el.name}
-                      category={el.category}
-                      price={el.price}
-                      description={el.description}
-                    />
-                  );
-                })
-              ) : (
-                <Product loading="Loading..." key={"allProduct"} />
-              )}
-            </div> */}
+            <div className="flex flex-wrap -mx-3">
+     <HomeSlider/>
+            </div>
           </div>
         </div>
       </div>

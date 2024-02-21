@@ -36,6 +36,7 @@ import MapContainer from "./tracking/MapContainer";
 import Dashboard from "./components/Restaurant/Dashboard";
 import CheckLocation from "./page/CheckLocation";
 import Error404 from './Error404/Error404';
+import HomeSlider from "./components/HomeSlider";
 
 
 const router = createBrowserRouter(
@@ -45,6 +46,8 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
       <Route path="login" element={<Login />} />
+      <Route path="/home" element={<HomeSlider />} />
+
       <Route path="newproduct" element={
         
         <PrivateRoute> <Newproduct />  </PrivateRoute>
