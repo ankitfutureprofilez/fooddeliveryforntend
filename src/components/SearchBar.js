@@ -7,7 +7,6 @@ import Product from "./Product";
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [FetchProducts, setFetchProducts] = useState([]);
-  const [FetchRestaurants, setFetchRestaurants] = useState([]);
   const [searchContentVisible, setSearchContentVisible] = useState(false);
   const [Loading, setLoading] = useState()
 
@@ -33,7 +32,6 @@ export default function SearchBar() {
       resp
         .then((res) => {
           setFetchProducts(res.data.products);
-          setFetchRestaurants(res.data.restaurants);
           setSearchContentVisible(true);
           setLoading(false);
         })
@@ -43,7 +41,6 @@ export default function SearchBar() {
         });
     } else {
       setFetchProducts([]);
-      setFetchRestaurants([]);
       setSearchContentVisible(false);
       setLoading(false);
     }
@@ -53,14 +50,14 @@ export default function SearchBar() {
   return (
     <div className="searchbar flex flex-col ...">
       <div className="mx-auto relative max-w-md w-full">
-        <div className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-500 search-btn">
+        <div className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-500 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-20"
           >
             <path
               strokeLinecap="round"
@@ -82,7 +79,7 @@ export default function SearchBar() {
       {Loading && searchTerm.length > 0 && <div className="text-center py-4">Loading...</div>}
       {searchContentVisible && (
         <div
-          className={`mt-2 overflow-y-auto ${FetchProducts.length > 0 || FetchRestaurants.length > 0
+          className={`mt-2 overflow-y-auto ${FetchProducts.length > 0
             ? "search-content"
             : ""
             }`}
@@ -104,31 +101,7 @@ export default function SearchBar() {
               ))}
             </>
           ) : null}
-          {FetchRestaurants.length > 0 ? (
-            <>
-              <div className="flex justify-between items-center mb-4">
-              </div>
-              {FetchRestaurants.map((item) => (
-                <Link to={`/restaurants/${item.resId}`} >
-                <div
-                  key={item.id}
-                  className="bg-white rounded-lg shadow-lg p-2 mb-2 flex"
-                >
-                  <img
-                    src={item.image}
-                    alt="restaurant"
-                    className="w-12 h-12 mr-2"
-                  />
-                  <div className="flex flex-col justify-center">
-                    <span className="text-left">{item.restaurantname}</span>
-                    <span className="text-left">{item.category}  </span>
-                  </div>
-                </div>
-                </Link>
-              ))}
-            </>
-          ) : null}
-          {FetchProducts.length === 0 && FetchRestaurants.length === 0 && (
+          {FetchProducts.length === 0 && (
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold ">  No products or restaurants found.</h2>
             </div>

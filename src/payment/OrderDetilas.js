@@ -108,14 +108,14 @@ async function getAddressFromCoordinates(checkout_coordinates) {
   if (checkout_coordinates) { 
     const add = JSON.parse(checkout_coordinates);
     const latlng = `${add.lat},${add.lng}`;
-    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
     
     try {
       const response = await axios.get(url); 
       if (response.data && response.data.results && response.data.results.length > 0) {
         const address = response.data.results[0].formatted_address;
-        console.log("address:", address);
+        // console.log("address:", address);
         setAdds(address);
       } else {
         console.error("Failed to fetch address:", response.data.status);
@@ -128,7 +128,7 @@ async function getAddressFromCoordinates(checkout_coordinates) {
   }
 }
 
-console.log(record && record.checkout_coordinates);
+// console.log(record && record.checkout_coordinates);
 
 useEffect(() => {
   getAddressFromCoordinates(checkoutCoordinates); 

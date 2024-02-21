@@ -139,7 +139,7 @@ const Cart = () => {
     const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(newAddress)}&key=${apiKeygoogle}`;
       const response = axios.get(apiUrl);
       response.then((res)=>{
-        console.log("res", res.data)
+        // console.log("res", res.data)
         if(res.data.status === 'OK'){
           const location = res.data.results[0].geometry.location;
           const latitude = location.lat;
@@ -171,9 +171,10 @@ const Cart = () => {
   
   return (
     <div className="p-2 md:p-4">
-      <h2 className="text-xl md:text-3xl mt-3 ml-4 font-bold">Cart</h2>
+     
       {productCartItem[0] ? (
         <>
+         <h2 className="text-xl md:text-3xl mt-3 ml-4 font-bold">Cart</h2>
           <div className="flex flex-wrap my-7">
             {/* display cart items  */}
             <div className=" md:w-1/2 px-3 mb-6 md:mb-0 ">
