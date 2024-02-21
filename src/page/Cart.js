@@ -37,8 +37,7 @@ const Cart = () => {
       try {
         const position = await getCurrentPosition();
         const { latitude, longitude } = position.coords;
-        const API_KEY =  "AIzaSyDdc-XHVxNW5sw6Yi8MA5ck_EtkX2uNgSs";
-        console.log("api",API_KEY)
+        const API_KEY =  process.env.REACT_OPEN_STREET_API_KEY;
         const response = await axios.get(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&key=${API_KEY}`
         );
@@ -127,6 +126,9 @@ const Cart = () => {
   const handlePhoneChange = (e) => {
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
   };
+  const locationTyping = (e) => {
+    setAddress(e.target.value);
+  };
 
 
   const [addressValid, setAddressValid] = useState(false);
@@ -149,6 +151,7 @@ const Cart = () => {
               lng: parseFloat(longitude),
             },
           }));
+          setAddress(res.data.results[0].formatted_address)
           setAddressValid(true);
         } else {
           toast.error("You have entered invalid address. Please enter valid address.");
@@ -199,8 +202,10 @@ const Cart = () => {
                   <input
                     required
                     type="text"
+                    value={address}
                     className="form-input shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     name="address"
+                    onChange={locationTyping}
                     onBlur={handleChangeLocation}
                   />
                   <div className="absolute top-2 right-2.5">

@@ -37,7 +37,7 @@ export default function ImageUpload({ setImage, records }) {
 
     return (
         <div className="w-full  px-3 mb-6 md:mb-0">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file">
+            <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="file">
                 Upload image
             </label>
 
