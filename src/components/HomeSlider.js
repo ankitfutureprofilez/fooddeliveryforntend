@@ -23,7 +23,7 @@ export default function HomeSlider() {
   }, []);
 
   return (
-    
+
     <div className="newly-added-sec">
       <div className="container mx-auto">
         <h2>Newly Added</h2>
@@ -42,6 +42,7 @@ export default function HomeSlider() {
                   {item.name}
                   
                 </h3>
+                
                 <div className="flex justify-between mt-3">
                   <div>
                     <p className="text-orange-500 text-sm font-bold align-middle">
