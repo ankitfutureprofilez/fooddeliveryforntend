@@ -80,24 +80,25 @@ export default function SearchBar() {
       {searchContentVisible && (
         <div
           className={`mt-2 overflow-y-auto ${FetchProducts.length > 0
-            ? "search-content"
+            ? "search-content Productadd"
             : ""
             }`}
         >
           {FetchProducts.length > 0 ? (
             <>
-              <div className="flex search-lists justify-between items-center mb-4">
+              <div className="flex search-lists justify-between items-center mb-4 product ">
               </div>
               {FetchProducts.map((item) => (
-                      <Product
-                      key={item._id}
-                      id={item._id}
-                      image={item.image}
-                      name={item.name}
-                      category={item.category}
-                      price={item.price}
-                      description={item.description}
-                    />
+
+                  <Product
+                  key={item._id}
+                  id={item._id}
+                  image={item.image}
+                  name={item.name}
+                  category={item.category}
+                  price={item.price}
+                  description={item.description}
+                />
               ))}
             </>
           ) : null}

@@ -4,7 +4,9 @@ import { formatMultiPrice } from "../hooks/Valuedata";
 import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem, setNewProduct } from "../redux/productSlide";
 import LoadingPage from "../page/LoadingPage";
-import NoData from "./NoData";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function HomeSlider() {
     const productData = useSelector((state) => state.product.record);
@@ -30,6 +32,8 @@ export default function HomeSlider() {
         dispatch(addCartItem(product));
     };
 
+
+   
     return (
         <>
             {loading ? (
