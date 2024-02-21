@@ -22,7 +22,6 @@ function App() {
     const response =  main.productlist();
     response.then((res)=>{
       const newData = res?.data;
-      
       dispatch(setDataProduct(newData))
       setLoading(false)
     }).catch((error)=>{

@@ -23,7 +23,7 @@ const Product = ({ image, name, price, category, loading, id, description, image
 
   return (
     <>
-      <div className="w-full sm:w-6/12 md:w-1/4 lg:w-1/5 xl:w-3/12 px-3 mb-6">
+      <div className="w-full sm:w-6/12 md:w-1/4 xl:w-1/5 2xl:w-3/12 px-3 mb-6">
         {loading && name ? (
           <LoadingPage />
         ) : (
