@@ -86,7 +86,7 @@ label.file-upload-label {
   .food-hero-sec h1 {font-size: 50px; line-height: 60px;}
   .food-hero-sec p {font-size: 22px; }
   .food-hero-sec a {font-size: 16px; padding: 15px 40px;margin-top: 20px; }
-  .best-food-sec { padding: 60px 0; }
+  /* .best-food-sec { padding: 60px 0; } */
 }
 @media (max-width:1199px){
 }
