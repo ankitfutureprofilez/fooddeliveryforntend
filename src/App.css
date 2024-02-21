@@ -123,7 +123,7 @@ label.file-upload-label {
     margin-bottom: 10px;
     padding: 8px 20px;
     min-width: auto;
-
+}
 }
 @media (max-width:380px){
   .food-header img { width: 130px; }
