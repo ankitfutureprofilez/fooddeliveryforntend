@@ -23,6 +23,7 @@ export default function HomeSlider() {
   }, []);
 
   return (
+    
     <div className="newly-added-sec">
       <div className="container mx-auto">
         <h2>Newly Added</h2>
