@@ -61,7 +61,7 @@ const AllProduct = ({ heading }) => {
             <h1 className="heading ">
               Newly Added
             </h1>
-            <div className="flex flex-wrap -mx-3">
+            {/* <div className="flex flex-wrap -mx-3">
               {dataProduct[0] ? (
                 dataProduct.map((el) => {
                   let img = el.image == null ? foodImg : el.image;
@@ -80,7 +80,7 @@ const AllProduct = ({ heading }) => {
               ) : (
                 <Product loading="Loading..." key={"allProduct"} />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
