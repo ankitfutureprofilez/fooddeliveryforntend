@@ -77,9 +77,7 @@ const Product = ({ image, name, price, category, loading, id, description, image
           <LoadingPage />
         ) : (
           <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
-            {name ? (
-              <>
-                <div className="flex flex-col justify-center items-center ">
+            <div className="flex flex-col justify-center items-center ">
                   <img alt="image" src={image} className="rounded-xl w-full h-44 object-cover" />
                 </div>
                 <div>
@@ -96,13 +94,6 @@ const Product = ({ image, name, price, category, loading, id, description, image
                    <AddtoCart />
                   </div>
                 </div>
-              </>
-            ) : (
-              <div className="w-full">
-                <NoData />
-
-              </div>
-            )}
           </div>
         )}
       </div>
