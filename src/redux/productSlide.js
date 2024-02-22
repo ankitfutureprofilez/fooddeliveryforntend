@@ -23,7 +23,7 @@ export const productSlice = createSlice({
       if (check) {
         toast("Already Item in Cart");
       } else {
-        toast("Item Add successfully");
+        // toast("Item Add successfully");
         const total = action.payload.price;
         state.cartItem = [
           ...state.cartItem,

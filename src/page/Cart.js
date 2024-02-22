@@ -68,7 +68,7 @@ const Cart = () => {
 
   const navigate = useNavigate();
   const handlePayment = async () => {
-    try {
+    // try {
       if (location.phone.length === 0) {
         toast.error("Please enter your phone number.");
         return;
@@ -103,26 +103,18 @@ const Cart = () => {
       }
   
       const payment = new Payment();
-      const resp = await payment.Checkout_cart({
+      const resp = payment.Checkout_cart({
         ...location,
         items: productCartItem
       });
-  
-      console.log("Payment response:", resp);
-  
-      if (user.resId) {
-        toast.success("Order Placed Successfully");
-        navigate("/home");
-      } else if (resp.data.url) {
-        console.log("Redirecting to payment gateway:", resp.data.url);
-        window.location.href = resp.data.url;
-      } else {
+      resp.then((res)=>{
+        if (res.data.url) {
+          console.log("Redirecting to payment gateway:", res.data.url);
+          window.location.href = res.data.url;
+        }
+      }).catch((res)=>{
         toast.error("Unknown response from payment gateway.");
-      }
-    } catch (error) {
-      console.error("Error during payment:", error);
-      toast.error("Error during payment. Please try again later.");
-    }
+      })
   };
   
 
@@ -196,7 +188,7 @@ const Cart = () => {
                 );
               })}
             </div>
-            <div className="flex flex-col md:w-1/2">
+            <div className="flex flex-col w-full md:w-1/2">
               {/* Location */}
               <div className=" px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -207,7 +199,7 @@ const Cart = () => {
                     required
                     type="text"
                     value={address}
-                    className="form-input shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className=" form-input shadow appearance-none border rounded-xl w-full p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-11   "
                     name="address"
                     onChange={locationTyping}
                     onBlur={handleChangeLocation}
@@ -233,7 +225,7 @@ const Cart = () => {
                     required
                     type="Number"
                     maxLength={10}
-                    className="form-input shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className=" form-input shadow appearance-none border rounded-xl w-full p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-11   "
                     name="phone"
                     value={location.phone}
                     onChange={handlePhoneChange}

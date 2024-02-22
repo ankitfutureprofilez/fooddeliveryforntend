@@ -42,7 +42,7 @@ form input:not([type="file"]),
 form select, form textarea {
   background: #fff !important;
   border: 0 !important;
-  border-radius: 10px !important;
+  border-radius: 13px !important;
   padding: 14px 22px !important;
   box-shadow: none !important;
   border: 1px solid #e4e4e4 !important;
@@ -100,8 +100,35 @@ label.file-upload-label {
   img.logo-footer { width: 150px; }
 }
 @media (max-width:767px){
-  .searchbar { display: none; }
-  .search-btn {display: block; padding: 7px; border: 1px solid #a3a3a3; border-radius: 5px; }
+  .searchbarHide { display: none; }
+  .searchbar > div { width: 100% !important; max-width: 100% !important; }
+  .search-btn {
+    position: fixed;
+    right: 101px;
+    top: 20px;
+    display: block;
+     padding: 7px;
+     border-radius: 5px;
+     }
+  .searchbar {
+    /* display: none; */
+    position: fixed;
+    width: 100% !important;
+    z-index: 22;
+    max-width: 100%;
+    padding: 15px;
+    background: #fff;
+    left: 0; transition: 0.5s;
+    top: 0px !IMPORTANT;
+  }
+  .search-bar-head {
+    width: 100%;
+  }
+  .searchbar {
+    border-bottom-left-radius: 14px !important;
+    border-bottom-right-radius: 14px !important;
+    box-shadow: 0 0 10px 10px #0001;
+  }
   .food-hero-sec img { max-width: 290px; }
   .food-hero-sec { padding: 50px 0 50px 30px; }
   .food-hero-sec p { font-size: 18px; width: 280px; line-height: 25px; }

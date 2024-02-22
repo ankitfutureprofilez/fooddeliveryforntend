@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Listings from "../Api/Listings";
-import { formatDate } from "../hooks/Formdata";
 import MapContainer from "../tracking/MapContainer";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { formatMultiPrice } from "../hooks/Valuedata";
 import axios from "axios";
 import { GiConsoleController } from "react-icons/gi";
+import { DateFormat } from "../hooks/DateFormat";
 export default function OrderDetilas() {
   const { order_id } = useParams();
   const [record, setRecord] = useState([]);
@@ -142,9 +142,7 @@ useEffect(() => {
           <h2 className="text-2xl lg:text-4xl font-semibold leading-7 lg:leading-9 ">
             Order {record.order_id}
           </h2>
-          <p className="text-base text-gray-500 text-sm leading-6 text-gray-600">
-            {formatDate(record.createdAt)}
-          </p>
+          
         </div>
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
@@ -266,6 +264,18 @@ useEffect(() => {
                     {record && record.order_status}
                   </p>
                 </div>
+                <div className="flex justify-between items-start w-full">
+                  <div className="flex justify-center items-center space-x-4">
+                    <div className="flex flex-col justify-start items-center">
+                      <p className="text-lg leading-6 font-semibold text-gray-800">
+                        <span className="font-normal">Time</span>
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-lg font-semibold leading-6 uppercase text-gray-800">
+                        <DateFormat dateString={record.createdAt} />
+                  </p>
+                </div>
                 {/* !userData.resId || packageStatus === 'delivered' */}
                 {userData.resId &&
                 record &&
@@ -296,16 +306,19 @@ useEffect(() => {
                 ) : (
                   ""
                 )}
-                `{" "}
-                {record && record.order_status === "delivered" ? (
+                {" "}
+                {(record && record.order_status === "delivered") && (record.deliveredAt)  ? (
                   <p className="text-green-500 text-base text-center">
-                    Order has been delivered at{" "}
-                    {formatDate(record && record.deliveredAt)}.{" "}
+                    Order has been delivered <DateFormat dateString={record.deliveredAt} />.
                   </p>
                 ) : (
                   ""
                 )}
-                `
+
+             
+
+
+                
               </div>
             </div>
           </div>

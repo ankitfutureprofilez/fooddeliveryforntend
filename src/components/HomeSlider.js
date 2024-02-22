@@ -7,6 +7,7 @@ import LoadingPage from "../page/LoadingPage";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Product from "./Product";
 
 export default function HomeSlider() {
     const productData = useSelector((state) => state.product.record);
@@ -28,11 +29,6 @@ export default function HomeSlider() {
         fetchData();
     }, [dispatch]);
 
-    const handleAddCartProduct = (product) => {
-        dispatch(addCartItem(product));
-    };
-
-
    
     return (
         <>
@@ -40,7 +36,7 @@ export default function HomeSlider() {
                 <LoadingPage />
             ) : (
                 <>
-                    {productData.map((product) => (
+                    {/* {productData.map((product) => (
                         <div key={product._id} className=" px-3 mb-6 product-buy-box">
                             <div className="bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
                                 <div className="flex flex-col justify-center items-center">
@@ -76,7 +72,24 @@ export default function HomeSlider() {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    ))} */}
+
+                    {productData[0] ? ( productData.map((el) => {
+                        return (
+                            <Product
+                                key={el._id}
+                                id={el._id}
+                                image={el.image}
+                                name={el.name}
+                                category={el.category}
+                                price={el.price}
+                                description={el.description}
+                            />
+                        );
+                    })
+                    ) : (
+                    <Product loading="Loading..." key={"allProduct"} />
+                    )}
                     </>
             )}
         </>

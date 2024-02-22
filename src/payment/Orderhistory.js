@@ -3,9 +3,10 @@ import Listings from "../Api/Listings";
 import LoadingPage from "../page/LoadingPage";
 import { MdStreetview } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { formatDate } from "../hooks/Formdata";
+ 
 import { SiPivotaltracker } from "react-icons/si";
 import { useSelector } from 'react-redux';
+import { DateFormat } from "../hooks/DateFormat";
 
 export default function Orderhistory() {
   const userData = useSelector((state) => state.user);
@@ -73,7 +74,7 @@ export default function Orderhistory() {
                   <tr key={index} className="border border-gray-200">
                     <td className="p-3 border border-gray-200">{item._id}</td>
                     <td className="p-3 border border-gray-200">
-                      {formatDate(item.createdAt)}
+                      <DateFormat dateString={item.createdAt} />
                     </td>
                     <td className="p-3 border border-gray-200">
                       {JSON.parse(item.order_items).map((orderItem, index) => (
