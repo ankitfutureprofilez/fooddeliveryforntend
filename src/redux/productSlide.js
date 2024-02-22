@@ -14,12 +14,16 @@ export const productSlice = createSlice({
     setDataProduct: (state, action) => {
       state.productList = [...action.payload.data];
     },
+    setNewProduct: (state, action) => {
+      state.record = [...action.payload];
+    },
+   
     addCartItem: (state, action) => {
-      const check = state.cartItem.some((el) => el._id === action.payload._id);
+      const check = state.cartItem.some((item) => item._id === action.payload._id);
       if (check) {
         toast("Already Item in Cart");
       } else {
-        toast("Item Add successfully");
+        // toast("Item Add successfully");
         const total = action.payload.price;
         state.cartItem = [
           ...state.cartItem,
@@ -27,6 +31,8 @@ export const productSlice = createSlice({
         ];
       }
     },
+
+    
     deleteCartItem: (state, action) => {
       toast("one Item Delete");
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
@@ -68,6 +74,10 @@ export const {
   deleteCartItem,
   increaseQty,
   decreaseQty,
+  incrementQuantity,
+  decrementQuantity,
+  setNewProduct,
+  addProductItem
 } = productSlice.actions;
 
 export default productSlice.reducer;

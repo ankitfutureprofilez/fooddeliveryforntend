@@ -24,9 +24,9 @@ class Listings extends Component {
     return Api.get("/product/productlist")
   }
 
-
-  async resturantdetilas(resId){
-    return Api.get(`/restaurant/${resId}`)
+// Rest.
+  async resturantdetilas(){
+    return Api.get(`/restaurant`)
   }
 
   async resturantget(){
@@ -40,11 +40,30 @@ class Listings extends Component {
     return Api.get("/user");
   }
 
+  async paymentmethod (){
+    return Api.get("/stripe/myorders")
+  }
+
+
+  async adminorder() {
+    return Api.get('/stripe/allorder')
+  }
+  async orderdetials(order_id) {
+    return Api.get(`/stripe/order/${order_id}`)
+  }
+
+  async ordertracking(type,order_id, form){
+    return Api.post(`/restaurant/update-status/${order_id}/${type}`, form)
+  }
+
+  async newproduct(){
+    return Api.get("/product/newproduct")
+  }
+
+
   render() {
     return (
-      <div>
         <></>
-      </div>
     );
   }
 }

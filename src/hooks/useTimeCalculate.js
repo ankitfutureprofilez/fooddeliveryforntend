@@ -8,6 +8,12 @@ export default function useTimeCalculate() {
         }
         const format = timeString && timeString.slice(-2);
         const hours = timeString && timeString.slice(0, -2);
+        // If time is 12 
+        if (hours==12)
+        {
+          if(format=="am"){return 0;}
+          else {return 12;}
+        }
         if(format == 'am'){
           return hours;
         } else { 
@@ -20,8 +26,6 @@ export default function useTimeCalculate() {
     let e = convert12to24(closingTime);
     let date = new Date();
     const currenttime =  date.getHours(); 
-    // console.log("Current hour",currenttime)
-    // console.log("Closing time",e)
     if(e<s){e=e+24;}
     
     if (e > currenttime & s <= currenttime ) {

@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Listings from "../Api/Listings";
+import { NavLink, useParams } from "react-router-dom";
 import UserProduct from "./UserProduct";
-import restaurantImg from "../assest/Socorrco.jpg";
 import { FaLocationCrosshairs, FaRegClock } from "react-icons/fa6";
 import { FaRegDotCircle } from "react-icons/fa";
 import useTimeCalculate from "../hooks/useTimeCalculate";
+import LoadingPage from "./LoadingPage";
+import Listings from "../Api/Listings";
 
 export default function Restaurantdetails() {
-  const { resId } = useParams();
   const [record, setRecord] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const fetchData = async () => {
     try {
       const main = new Listings();
-      const response = await main.resturantdetilas(resId);
-      setRecord(response.data.record[0]);
+
+      const response = await main.resturantget();
+      setRecord(response.data.record);
       setLoading(false);
     } catch (error) {
       console.log("error", error);
@@ -28,94 +27,98 @@ export default function Restaurantdetails() {
     fetchData();
   }, []);
 
+  const [isOpen] = useTimeCalculate();
 
-  const [ isOpen ] = useTimeCalculate();
-  
-
-  const userId = record.userId;
+  let openStatus = "Closed";
+  if (record && record.opening_from && record.opening_to) {
+    openStatus = isOpen(record.opening_from, record.opening_to);
+  }
+  const userId = record && record.userId;
 
   return (
     <>
-<<<<<<< HEAD
-    {/* {loading ? () ? ()} */}
-      <div className="flex flex-col md:flex-row mt-8">
-        <div className="w-full md:w-5/12 md:pr-4 lg:pr-8">
-          <div className="bg-white rounded-lg overflow-hidden cursor-pointer">
+      {loading ? (
+        <LoadingPage />
+      ) : (
+        <>
+          <div className="w-full h-80 bg-cover bg-center mt-8 ">
+            <div className="w-full mt-3 bg-cover bg-center rounded-xl overflow-hidden relative">
             <img
-              src={record.image}
-              alt={record.index}
-              className="w-full h-auto"
+              className="w-full h-80 object-cover"
+              src={record && record.image || 'https://www.privatediningrooms.co.uk/wp-content/uploads/2016/06/Hakkasan-Mayfair-Private-Dining-Room-Image2-1.jpg'}
+              alt={record && record.index}
             />
+            <span className={`${openStatus == 'Open' ? 'bg-green-600 ' : 'bg-red-600 ' } uppercase absolute top-0 left-0 text-white py-1 pt-2 px-3 m-4 rounded-lg`}>
+             Currently {openStatus}
+            </span>
           </div>
         </div>
-        <div className="w-full md:w-7/12 mt-4 md:mt-0">
-          <div className="flex flex-col justify-center h-full">
-            <h1 className=" text-3xl font-semibold text-gray-800 mb-8">
-              {record.restaurantname} 
-            </h1>
-            <div className="flex items-center mb-4">
-              {record.category === "veg" ? (
-                <>
-                  <FaRegDotCircle color="Green" size={15} className="mr-2" />
-                  <p className="text-sm text-gray-600">
-                    Vegetarian Food Available
-                  </p>
-                </>
-              ) : record.category === "nonveg" ? (
-                <>
-                  <FaRegDotCircle color="#ff0000" size={15} className="mr-2" />
-                  <p className="text-sm text-gray-600">
-                    Non Vegetarian Food Available
-                  </p>
-                </>
-              ) : record.category === "both" ? (
-                <p className="text-sm text-gray-600 ml-6">
-                  Both veg and non-veg Food Available
-                </p>
-              ) : null}
-=======
-      <div className='bg-white p-4 md:p-8 pt-6 md:pt-10'>
-        <div class="flex flex-row -mx-4">
-          <div className='w-full md:w-5/12 px-4'>
-            <div className=' bg-white product_box  py-3 px-3 cursor-pointer'>
-               <img className='max-w-full min-h-[300px]' src={record.banner_image || resturanentimage} alt={record.index} />
-            </div>
-          </div>
-          <div className='w-full md:w-7/12 px-4 lg:pl-16 '>
-            <div class="flex flex-nowrap">
-              <div>
-                <h1 className='font-bold text-2xl mb-2'>{record.restaurantname}</h1>
-                <p className='font-lg font-semibold text-gray-500 mb-3'>{record.category}</p>
-                <p className='font-base text-gray-500 mb-6'>{record.description}</p>
-                <p className='text-gray-400 text-sm align-middle mb-5 relative pl-4'> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="inline text-gray-400 absolute -left-1 top-0.5" height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg> {record.location}</p>
-                <p className='font-base text-gray-500 mb-6'><span className='font-bold'>Timing :-</span> {record.opening_to} {record.opening_from} </p>
+
+          <div className="flex  pt-3 flex-wrap justify-between product-details flex ">
+            <div className="">
+              <div className="flex flex-col justify-center h-full md:pt-4 pt-3 pe-4 ">
+                  <h1 className="text-3xl font-semibold text-gray-800 mb-2">
+                    {record && record.restaurantname}
+                  </h1>
+                  <p className="pb-3 text-lg" >{record && record.location}</p>
               </div>
->>>>>>> 00c769cd54284dde5486843852453050899cbbf7
             </div>
-
-            {/* <div className="flex flex-wrap items-center mb-4"> */}
-            <div className="flex items-center mb-4 mr-4">
-              <FaLocationCrosshairs size={22} className="mr-3" />
-              <p className="text-sm text-gray-600">{record.location}</p>
+            <div className="">
+              <div className="flex flex-col justify-center h-full ">
+              <div className="flex items-center mb-4">
+                {record && record.category === "veg" ? (
+                  <>
+                    <FaRegDotCircle
+                      color="Green"
+                      size={15}
+                      className="mr-2"
+                    />
+                    <p className="text-sm text-gray-600">
+                      Vegetarian Food Available
+                    </p>
+                  </>
+                ) : record && record.category === "nonveg" ? (
+                  <>
+                    <FaRegDotCircle
+                      color="#ff0000"
+                      size={15}
+                      className="mr-2"
+                    />
+                    <p className="text-sm text-gray-600">
+                      Non Vegetarian Food Available
+                    </p>
+                  </>
+                ) : record && record.category === "both" ? (
+                  <p className="text-sm text-gray-600">
+                    Both veg and non-veg Food Available
+                  </p>
+                ) : null}
+              </div>
+                <div className="flex items-center mb-4">
+                  <p className="text-lg text-gray-600 flex ">
+                    <FaRegClock size={20} className="mr-2 mt-0.5" /> Timing:{" "}
+                    {record && record.opening_from} -{" "}
+                    {record && record.opening_to}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center mb-4">
-              <FaRegClock size={15} className="mr-2" />
-              <p className="text-sm text-gray-600 ">
-                Timing: {record.opening_from} - {record.opening_to}
-              </p>
-            </div>
-            {/* </div> */}
-            <p className="text-sm text-gray-700 mb-4 ml-6">
-              {record.description}
-            </p>
-            {record.opening_from !== null && record.opening_to !== null ? (
-                <p className="text-sm text-gray-700 mb-4 ml-6">{isOpen(record.opening_from, record.opening_to)}</p>
-             ) : null} 
           </div>
-        </div>
-      </div>
+          <p className="text-xl text-gray-700 mb-4 ">{record && record.description}</p>
+          <div className="flex mt-3 rest-actions" >
+            <NavLink to={"/restaurant-register"}
+              className="whitespace-nowrap cursor-pointer me-4 bg-blue-500 px-4 py-3 uppercase text-white  rounded-md text-gray-800 hover:bg-blue-300 transition duration-300" >
+              Edit My Restaurant
+            </NavLink>
+            <NavLink to={"/newproduct"}
+              className="whitespace-nowrap cursor-pointer me-4 bg-blue-500 px-4 py-3 uppercase text-white  rounded-md text-gray-800 hover:bg-blue-300 transition duration-300" >
+              Add New Product
+            </NavLink>
+          </div>
+        </>
 
-      <UserProduct userId={userId} />
+
+      )}
     </>
   );
 }

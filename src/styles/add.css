@@ -49,3 +49,92 @@
   border: 1px solid var(--main);
   background: #f8f8f8 !important;
 }
+
+
+
+.search-lists img{
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.search-content .product_box {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+.search-content > div {
+    width: 100% !important;
+}
+
+.search-content .product_box .items-center {
+    margin-right: 10px !important;
+}
+
+.search-content .product_box .items-center img {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.search-content .product_box  .flex.mt-3 {
+    margin-top: 0 !important;
+    width: 100% !important;
+}
+
+.search-content .product_box .items-center + div {
+    width: 100% !important;
+}
+
+.search-content .product_box  .text-green-500 {
+    display: none !important;
+}
+
+.search-content .product_box  .button.sm {
+    margin-top: -20px;
+}
+
+.addpad { 
+    padding-bottom: 100px !important;
+}
+.product-details .product_box  img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.signup-container {
+  max-width: 600px;
+}
+.cart-item {
+  background: #fff;
+  padding: 14px !important;
+  box-shadow: 0 0 9px 1px #0001;
+  border-radius: 14px;
+}
+
+.tabs-wrapper button {
+  background: transparent !important;
+  font-weight: 500;
+  color: #707070;
+  border-bottom: 5px solid transparent;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+  padding-bottom: 10px !important;
+  text-transform: uppercase;
+  
+}
+.tabs-wrapper button.active {
+  color: #eb2532;
+  border-color: #eb2532;
+}
+@media (max-width:576px) {
+  .food-hero-sec img{max-width:430px !important;
+    position:static !important;transform:none !important;
+    order:1 !important;margin:auto !important;display:table !important;margin-left:-1.5vh !important;}
+  .food-hero-sec{padding:30px !important;display:flex !important;flex-wrap:wrap !important;padding-top:0 !important;}
+  .left-hero{order:2;text-align:center !important;width:100% !important;}
+  .left-hero *{text-align:center !important;}
+}
+
+
+

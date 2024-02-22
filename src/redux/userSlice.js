@@ -14,20 +14,18 @@ export const userSlice = createSlice({
   reducers: {
     loginRedux: (state, action) => {
       const userData = action.payload;
-    // console.log("userData",userData)
       if (userData) {
         state._id = userData._id || "";
         state.firstName = userData.firstName || "";
         state.lastName = userData.lastName || "";
         state.email = userData.email || "";
         state.image = userData.image || "";
-        state.banner_image = userData.banner_image || "";
+        state.resId =userData.resId|| "";
       }
     },
 
     tokenRedux: (state, action) => {
       const userData = action.payload;
-    //  console.log("userData",userData)
       if (userData) {
         state.token = userData.token || "";
       }

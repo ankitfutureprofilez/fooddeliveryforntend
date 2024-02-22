@@ -6,10 +6,8 @@ import { deleteCartItem,increaseQty,decreaseQty } from "../redux/productSlide";
 
 const CartProduct = ({ id, name, image, category, qty, total, price }) => {
     const dispatch = useDispatch()
-
-    
   return (
-    <div className="py-3 flex border-b border-gray-200">
+    <div className="cart-item py-3 flex mb-2 border-gray-200">
       <div className="pr-3 bg-white overflow-hidden">
         <img src={image} className="h-20 w-28 object-cover rounded-lg" />
       </div>
@@ -22,7 +20,6 @@ const CartProduct = ({ id, name, image, category, qty, total, price }) => {
             <MdDelete size={20}  />
           </div>
         </div>
-        {/* <p className=" text-slate-500  font-medium ">{category}</p> */}
         <p className="font-bold text-base text-orange-500 leading-5">
           <span className=" ">₹</span>
           <span>{price}</span>

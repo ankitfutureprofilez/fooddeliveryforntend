@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html {
+  scroll-behavior: smooth;
+}
 .searchbar {
   position: relative;
 }
@@ -15,6 +19,9 @@
   border-radius: 12px 12px 10px 10px;
   max-height: 230px;
 }
+.Productadd .product_box { background: none !IMPORTANT; box-shadow: none; } 
+.Productadd .w-full.sm\:w-6\/12.md\:w-1\/4.xl\:w-1\/5.\32 xl\:w-3\/12.px-3.mb-6 { margin: 0; padding: 0; } 
+.Productadd { padding: 0 15px; }
 
 /* Image Upload Form */
 .file-upload-form {
