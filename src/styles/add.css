@@ -138,3 +138,26 @@
 
 
 
+.refreshing {
+  position: absolute;
+  left: 0;
+  top: 0 !important;
+  z-index: 8888;
+  width: 100%;
+  width: 100% !important;
+  text-align: center;
+  margin: auto;
+  color: #16a24a;
+  font-size: 20px;
+  padding: 30px 0 !important;
+  background: #ffffff2e;
+}
+
+.refreshing svg {
+  margin: auto !important;
+  display: table;
+}
+
+.refreshing svg path {
+  fill: #16a24a!important;
+}

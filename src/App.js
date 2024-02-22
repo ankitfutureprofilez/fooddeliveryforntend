@@ -10,6 +10,7 @@ import Listings from './Api/Listings';
 import Footer from "./components/footer.js";
 import Homehero from './components/Homehero.js';
 import HomeSlider from './components/HomeSlider.js';
+import PullToRefresh from './components/PulltoRefresh.js';
 
 function App() {
   const dispatch = useDispatch()
@@ -45,6 +46,7 @@ function App() {
 
   return (
     <>
+    <PullToRefresh>
       <Toaster
         position="top-left"
         reverseOrder={false}
@@ -52,15 +54,11 @@ function App() {
       <div>
         <Header />
         <main className="pt-24 bg-slate-100 min-h-[calc(100vh)]">
-        
-
-          
             <Outlet />
-
-          
         </main>
         <Footer/>
       </div>
+      </PullToRefresh>
     </>
   );
 }
