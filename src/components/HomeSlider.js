@@ -41,10 +41,10 @@ export default function HomeSlider() {
             ) : (
                 <>
                     {productData.map((product) => (
-                        <div key={product._id} className="w-full sm:w-5/12 md:w-3/12  xl:w-2/12 2xl:w-2/12 px-3 mb-6">
+                        <div key={product._id} className=" px-3 mb-6 product-buy-box">
                             <div className="bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
                                 <div className="flex flex-col justify-center items-center">
-                                    <img alt="image" src={product.image} className="rounded-xl w-full h-44 object-cover" />
+                                    <img alt="image" src={product.image} className="rounded-xl w-full object-cover" />
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">

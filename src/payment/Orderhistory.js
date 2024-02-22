@@ -48,7 +48,7 @@ export default function Orderhistory() {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full order-table-sec">
       <div className="container py-4 pb-14 mx-auto">
         <div className="overflow-x-auto">
           <table className="w-full overflow-x-auto">
