@@ -74,7 +74,6 @@ const Login = () => {
             value={data.email}
             onChange={handleOnChange}
           />
-
           <label htmlFor="password"
           className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" >
             Password
@@ -89,13 +88,12 @@ const Login = () => {
               onChange={handleOnChange}
             />
           </div>
-
           <button className="flex justify-center w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center py-2 rounded-full mt-4">
             <span>{Loading ? "Wait.." : "Login"}</span>
           </button>
         </form>
         <p className="flex justify-center text-sm mt-2">
-          Don't have account ? <Link to={"/signup"} className="text-red-500 underline"> Sign Up</Link>
+          Don't have account ? &nbsp; <Link to={"/signup"} className="text-red-500 underline"> Sign Up</Link>
         </p>
       </div>
     </div>
