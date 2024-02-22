@@ -12,6 +12,8 @@ const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
 
+  console.log("user",user)
+  console.log("user.resIdu",user.resId)
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
     0
@@ -65,60 +67,64 @@ const Cart = () => {
   };
 
   const navigate = useNavigate();
-
   const handlePayment = async () => {
-    if (location.phone.length === 0) {
-      toast("Enter phone number!");
-      return;
-    }
-    if (user.email) {
-      try {
-        if (!location.coordinates == "" || location.coordinates.length === 0) {
-          try {
-            const apiUrl = "https://ipapi.co/json/";
-            const response = await fetch(apiUrl);
-            const jsonData = await response.json();
-            const { latitude, longitude } = jsonData;
-            setLocation((prevData) => ({
-              ...prevData,
-              coordinates: `${latitude}, ${longitude}`,
-            }));
-          } catch (error) {
-            console.error("Error getting coordinates:", error);
-            toast.error("Error getting coordinates");
-            return;
-          }
-        }
-        const payment = new Payment();
-        const coordinatesString = JSON.stringify(location.coordinates);
-        const resp = payment.Checkout_cart({
-          ...location,
-          items: productCartItem,
-        });
-        resp
-          .then((res) => {
-            if(user.resId){
-            <></>
-            }else{
-              if (res.data.url) {
-                window.location.href = res.data.url;
-              }
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } catch (error) {
-        console.error("Error:", error);
-        toast.error("Error during payment");
+    try {
+      if (location.phone.length === 0) {
+        toast.error("Please enter your phone number.");
+        return;
       }
-    } else {
-      toast("You have not Login!");
-      setTimeout(() => {
-        navigate("/login");
-      }, 1000);
+  
+      if (!user.email) {
+        toast.error("You are not logged in. Please log in to proceed with the payment.");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+        return;
+      }
+  
+      if (!location.coordinates || Object.keys(location.coordinates).length === 0) {
+        try {
+          const apiUrl = "https://ipapi.co/json/";
+          const response = await fetch(apiUrl);
+          const jsonData = await response.json();
+          const { latitude, longitude } = jsonData;
+          setLocation((prevData) => ({
+            ...prevData,
+            coordinates: {
+              lat: latitude,
+              lng: longitude
+            }
+          }));
+        } catch (error) {
+          console.error("Error getting coordinates:", error);
+          toast.error("Failed to get coordinates. Please try again later.");
+          return;
+        }
+      }
+  
+      const payment = new Payment();
+      const resp = await payment.Checkout_cart({
+        ...location,
+        items: productCartItem
+      });
+  
+      console.log("Payment response:", resp);
+  
+      if (user.resId) {
+        toast.success("Order Placed Successfully");
+        navigate("/home");
+      } else if (resp.data.url) {
+        console.log("Redirecting to payment gateway:", resp.data.url);
+        window.location.href = resp.data.url;
+      } else {
+        toast.error("Unknown response from payment gateway.");
+      }
+    } catch (error) {
+      console.error("Error during payment:", error);
+      toast.error("Error during payment. Please try again later.");
     }
   };
+  
 
   const handlePhoneChange = (e) => {
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
@@ -246,7 +252,7 @@ const Cart = () => {
                     <span className="text-orange-500">₹</span> {totalPrice}
                   </p>
                 </div>
-                <button disabled={!addressValid}
+                <button
                   className="bg-orange-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center"
                   onClick={handlePayment}>
                   Payment
