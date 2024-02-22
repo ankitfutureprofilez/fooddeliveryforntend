@@ -79,7 +79,7 @@ const AllProduct = ({ heading }) => {
             </div>
 
             <div className="flex flex-wrap -mx-3">
-              {dataFilter[0] ? (
+              {dataFilter && dataFilter.length ? (
                 dataFilter.map((el) => {
                   let img = el.image == null ? foodImg : el.image;
                   return (
@@ -97,6 +97,8 @@ const AllProduct = ({ heading }) => {
               ) : (
                 <Product loading="Loading..." key={"allProduct"} />
               )}
+
+              
             </div>
             <div className="flex flex-wrap -mx-3 py-4 dis-offer">
               <div className="lg:w-2/4 w-full mb-4 lg:mb-0 px-3.5 ">
