@@ -11,9 +11,7 @@ const MapContainer = ({ restaurent_coordinates, order_coordinates, checkout_coor
     const rest_cord = restaurent_coordinates ? JSON.parse(restaurent_coordinates) : null;
     const order_cord  = order_coordinates ? JSON.parse(order_coordinates) : null;
     const checkout_cord  = checkout_coordinates ? JSON.parse(checkout_coordinates) : null;
-    console.log("restaurent_coordinates", rest_cord);
-    console.log("order_coordinates", order_cord);
-    console.log("checkout_coordinates", checkout_cord);
+    
 
     if (order_cord && order_cord.lat) {
       setDeliveryPersonLocation({

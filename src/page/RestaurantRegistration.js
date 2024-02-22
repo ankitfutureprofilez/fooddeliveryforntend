@@ -168,6 +168,7 @@ export default function RestaurantRegistration() {
   };
 
   return (
+    <div className="container m-auto">
     <div className="flex  mt-7">
       <div className="w-full">
         <h1 className="text-3xl font-bold mb-6 flex justify-center">
@@ -433,6 +434,7 @@ export default function RestaurantRegistration() {
           </div>
         </form>
       </div>
+    </div>
     </div>
 
   );

@@ -5,7 +5,6 @@ import productSlideReducer from "./productSlide";
 export const store = configureStore({
   reducer: {
     user: userSliceReducer,
-    product: productSlideReducer
-
+    product: productSlideReducer,
   },
 });

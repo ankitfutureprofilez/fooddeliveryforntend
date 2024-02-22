@@ -86,7 +86,7 @@ label.file-upload-label {
   .food-hero-sec h1 {font-size: 50px; line-height: 60px;}
   .food-hero-sec p {font-size: 22px; }
   .food-hero-sec a {font-size: 16px; padding: 15px 40px;margin-top: 20px; }
-  .best-food-sec { padding: 60px 0; }
+  /* .best-food-sec { padding: 60px 0; } */
 }
 @media (max-width:1199px){
 }
@@ -119,8 +119,11 @@ label.file-upload-label {
   .newly-added-sec h2 {font-size: 20px;  line-height: 35px;margin-bottom: 10px; padding: 0 10px; }
   .best-food-sec { padding: 20px 0; }
   .best-food-sec h1.heading { font-size: 20px;margin-bottom: 10px; }
-  .category-fiter-box {  padding: 8px 20px; min-width: auto; }
-
+.category-fiter-box {
+    margin-bottom: 10px;
+    padding: 8px 20px;
+    min-width: auto;
+}
 }
 @media (max-width:380px){
   .food-header img { width: 130px; }

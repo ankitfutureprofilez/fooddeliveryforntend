@@ -10,7 +10,7 @@ import axios from "axios";
 import { GiConsoleController } from "react-icons/gi";
 export default function OrderDetilas() {
   const { order_id } = useParams();
-  const [record, setRecord] = useState([])
+  const [record, setRecord] = useState([]);
   const [packageStatus, setPackageStatus] = useState("");
   const userData = useSelector((state) => state.user);
 
@@ -37,104 +37,67 @@ export default function OrderDetilas() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (record && record.order_status == 'picked' && record && record.deliveredAt == null) {
-        updatePickedAndDeliveredStatus('picked');
+      if (
+        record &&
+        record.order_status == "picked" &&
+        record &&
+        record.deliveredAt == null
+      ) {
+        updatePickedAndDeliveredStatus("picked");
       }
     }, 7000);
     return () => clearInterval(interval);
   }, [record]);
-  
 
   useEffect(() => {
     fetchData();
   }, [order_id, updateOrder]);
 
-  const updatePickedAndDeliveredStatus = async (type, show = false) => { 
+  const updatePickedAndDeliveredStatus = async (type, show = false) => {
     const main = new Listings();
     const position = await getCurrentPosition();
     const { latitude, longitude } = position.coords;
     const response = main.ordertracking(type, record && record.order_id, {
       coordinates: {
         lat: latitude,
-        lng: longitude
-      }
+        lng: longitude,
+      },
     });
-    response.then((res)=>{
-      if(show){ 
-        toast.success(res.data.msg);
-      }
-      setUpdateOrder(new Date());
-    }).catch((err)=>{
-      toast.success("Failed to update status");;
-      console.log("err",err)
-    })
-  }
+    response
+      .then((res) => {
+        if (show) {
+          toast.success(res.data.msg);
+        }
+        setUpdateOrder(new Date());
+      })
+      .catch((err) => {
+        toast.success("Failed to update status");
+        console.log("err", err);
+      });
+  };
 
   // UPDATE ORDER STATUS
   async function updateOrderStatus(type) {
     try {
-      if(type == 'accepted'){
+      if (type == "accepted") {
         const main = new Listings();
-        const response =  main.ordertracking(type, record && record.order_id);
-        response.then((res)=>{
-          toast.success(res.data.msg);
-          setUpdateOrder(new Date());
-        }).catch((err)=>{
-          toast.success("Failed to update status");;
-        })
-      } else { 
-        updatePickedAndDeliveredStatus(type, 'show');
+        const response = main.ordertracking(type, record && record.order_id);
+        response
+          .then((res) => {
+            toast.success(res.data.msg);
+            setUpdateOrder(new Date());
+          })
+          .catch((err) => {
+            toast.success("Failed to update status");
+          });
+      } else {
+        updatePickedAndDeliveredStatus(type, "show");
       }
     } catch (error) {
       console.log("API Error", error);
     }
   }
 
-<<<<<<< HEAD
-  const [coordinator, setCoordinator] = useState("")
-  function getAddressFromCoordinates(restaurantCoordinates) {
-    const latlng = `${restaurantCoordinates.lat},${restaurantCoordinates.lng}`;
-    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (data) {
-          const address = data.results[1].formatted_address;
-          setCoordinator(address);
-        } else {
-          console.error('Failed to fetch address:', data.status);
-        }
-      })
-      .catch(error => console.error('Error fetching address:', error));
-  }
-
-  useEffect(() => {
-    if (record && record.restaurent_coordinates) {
-      const restaurantCoordinates = JSON.parse(record.restaurent_coordinates);
-      getAddressFromCoordinates(restaurantCoordinates);
-    } else {
-      console.error("restaurant coordinates not found in record");
-    }
-  }, [record.restaurent_coordinates])
-
-  const [checkout, setcheckout] = useState("")
-  function getcheckoutFromCoordinates(checkout_coordinates) {
-    const latlng = `${checkout_coordinates.lat},${checkout_coordinates.lng}`;
-    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${apiKey}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (data) {
-          const address = data.results[0].formatted_address;
-          setcheckout(address);
-        } else {
-          console.error('Failed to fetch address:', data.status);
-        }
-      })
-      .catch(error => console.error('Error fetching address:', error));
-=======
 
 
   const [adds, setAdds] = useState('');
@@ -145,14 +108,14 @@ async function getAddressFromCoordinates(checkout_coordinates) {
   if (checkout_coordinates) { 
     const add = JSON.parse(checkout_coordinates);
     const latlng = `${add.lat},${add.lng}`;
-    const apiKey = "AIzaSyDzPG91wtUKY3vd_iD3QWorkUCSdofTS58";
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
     
     try {
       const response = await axios.get(url); 
       if (response.data && response.data.results && response.data.results.length > 0) {
         const address = response.data.results[0].formatted_address;
-        console.log("address:", address);
+        // console.log("address:", address);
         setAdds(address);
       } else {
         console.error("Failed to fetch address:", response.data.status);
@@ -162,29 +125,15 @@ async function getAddressFromCoordinates(checkout_coordinates) {
     }
   } else {
     console.error("Invalid checkout_coordinates:", checkout_coordinates);
->>>>>>> 141e35358574fb12876c7732b78917c0cfc18ce0
   }
 }
 
-<<<<<<< HEAD
-  useEffect(() => {
-    if (record && record.checkout_coordinates) {
-      const checkout_coordinates = JSON.parse(record?.checkout_coordinates);
-      getcheckoutFromCoordinates(checkout_coordinates);
-    } else {
-      console.error("checkout_coordinates coordinates not found in record");
-    }
-  }, []);
-
-=======
-console.log(record && record.checkout_coordinates);
 
 useEffect(() => {
   getAddressFromCoordinates(checkoutCoordinates); 
 }, [checkoutCoordinates]);
   
    
->>>>>>> 141e35358574fb12876c7732b78917c0cfc18ce0
 
   return (
     <>
@@ -319,10 +268,6 @@ useEffect(() => {
                     {record && record.order_status}
                   </p>
                 </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 141e35358574fb12876c7732b78917c0cfc18ce0
                 {/* !userData.resId || packageStatus === 'delivered' */}
                 {userData.resId &&
                 record &&
@@ -377,23 +322,8 @@ useEffect(() => {
                 <h1>Phone</h1>
                 <p>{record&& record?.phone_no || "null"}</p>
               </div>
-<<<<<<< HEAD
-              <div class="flex-auto w-32 ">
-                <h1>
-                restaurants  Address
-                </h1>
-
-                <p>
-                  {coordinator}
-                </p>
-              </div>
             </div>
           </div>
-
-=======
-            </div>
-          </div>
->>>>>>> 141e35358574fb12876c7732b78917c0cfc18ce0
         </div>
       </div>
     </>
