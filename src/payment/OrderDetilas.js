@@ -22,7 +22,7 @@ export default function OrderDetilas() {
       );
     });
   };
-
+  const [statusUpdated, setStatusUpdated] = useState();
   // UPDATE ORDER
   const [updateOrder, setUpdateOrder] = useState();
   const fetchData = async () => {
@@ -34,7 +34,6 @@ export default function OrderDetilas() {
       console.log("error", error);
     }
   };
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (
@@ -44,6 +43,7 @@ export default function OrderDetilas() {
         record.deliveredAt == null
       ) {
         updatePickedAndDeliveredStatus("picked");
+        setStatusUpdated(new Date())
       }
     }, 7000);
     return () => clearInterval(interval);
@@ -51,7 +51,7 @@ export default function OrderDetilas() {
 
   useEffect(() => {
     fetchData();
-  }, [order_id, updateOrder]);
+  }, [order_id, updateOrder, statusUpdated]);
 
   const updatePickedAndDeliveredStatus = async (type, show = false) => {
     const main = new Listings();

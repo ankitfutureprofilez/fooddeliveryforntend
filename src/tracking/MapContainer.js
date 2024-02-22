@@ -25,40 +25,40 @@ const MapContainer = ({ restaurent_coordinates, order_coordinates, checkout_coor
     }
   }, [restaurent_coordinates, order_coordinates, checkout_coordinates]);
 
-  useEffect(() => {
-    let interval = null;
+  // useEffect(() => {
+  //   let interval = null;
 
-    if (status === "picked") {
-      interval = setInterval(() => {
-        setDeliveryPersonLocation((currentLocation) => {
-          const deltaLat = deliveryLocation.lat - currentLocation.lat;
-          const deltaLng = deliveryLocation.lng - currentLocation.lng;
-          const distance = Math.sqrt(deltaLat ** 2 + deltaLng ** 2);
+  //   if (status === "picked") {
+  //     interval = setInterval(() => {
+  //       setDeliveryPersonLocation((currentLocation) => {
+  //         const deltaLat = deliveryLocation.lat - currentLocation.lat;
+  //         const deltaLng = deliveryLocation.lng - currentLocation.lng;
+  //         const distance = Math.sqrt(deltaLat ** 2 + deltaLng ** 2);
 
-          if (distance < 0.001) {
-            clearInterval(interval);
-            return deliveryLocation; 
-          }
+  //         if (distance < 0.001) {
+  //           clearInterval(interval);
+  //           return deliveryLocation; 
+  //         }
 
-          const stepSize = distance * 0.55 ; 
-          const stepLat = deltaLat / distance * stepSize;
-          const stepLng = deltaLng / distance * stepSize;
+  //         const stepSize = distance * 0.55 ; 
+  //         const stepLat = deltaLat / distance * stepSize;
+  //         const stepLng = deltaLng / distance * stepSize;
 
-          return {
-            lat: currentLocation.lat + stepLat,
-            lng: currentLocation.lng + stepLng,
-          };
-        });
-      }, 1000); 
-    } else if (status === "delivered") {
-      clearInterval(interval);
-      setDeliveryPersonLocation(deliveryLocation);
-    }
+  //         return {
+  //           lat: currentLocation.lat + stepLat,
+  //           lng: currentLocation.lng + stepLng,
+  //         };
+  //       });
+  //     }, 1000); 
+  //   } else if (status === "delivered") {
+  //     clearInterval(interval);
+  //     setDeliveryPersonLocation(deliveryLocation);
+  //   }
 
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [status, deliveryLocation]);
+  //   return () => {
+  //     if (interval) clearInterval(interval);
+  //   };
+  // }, [status, deliveryLocation]);
 
   return (
     <>
