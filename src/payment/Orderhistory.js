@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import Listings from "../Api/Listings";
 import LoadingPage from "../page/LoadingPage";
-import { MdStreetview } from "react-icons/md";
 import { Link } from "react-router-dom";
- 
-import { SiPivotaltracker } from "react-icons/si";
 import { useSelector } from 'react-redux';
 import { DateFormat } from "../hooks/DateFormat";
 

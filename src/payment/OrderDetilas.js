@@ -6,13 +6,11 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { formatMultiPrice } from "../hooks/Valuedata";
 import axios from "axios";
-import { GiConsoleController } from "react-icons/gi";
 import { DateFormat } from "../hooks/DateFormat";
 import OrderDate from "../hooks/OrderDate";
 export default function OrderDetilas() {
   const { order_id } = useParams();
   const [record, setRecord] = useState([]);
-  const [packageStatus, setPackageStatus] = useState("");
   const userData = useSelector((state) => state.user);
 
   const getCurrentPosition = () => {

@@ -2,22 +2,17 @@
 import './App.css';
 import Header from './components/Header';
 import { Outlet } from 'react-router-dom';
-import toast, { Toaster } from "react-hot-toast";
+import  { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { setDataProduct } from "./redux/productSlide";
 import { useDispatch, useSelector } from "react-redux";
 import Listings from './Api/Listings';
 import Footer from "./components/footer.js";
-import Homehero from './components/Homehero.js';
-import HomeSlider from './components/HomeSlider.js';
 import PullToRefresh from './components/PulltoRefresh.js';
 
 function App() {
   const dispatch = useDispatch()
-  const productData = useSelector((state) => state.product)
   const [Loading, setLoading] = useState(true);
-
-
   useEffect(()=>{
     const main = new Listings();
     const response =  main.productlist();
