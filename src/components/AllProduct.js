@@ -60,7 +60,7 @@ const AllProduct = ({ heading }) => {
         <div className='container mx-auto'>
           <div className=" block">
             <h1 className="heading ">
-              Best Foods
+            MENU
             </h1>
             <div className="flex w-full flex-wrap space-x-2  mb-6">
               {categoryList.map((el) => {
