@@ -96,7 +96,7 @@ const Product = ({
         {loading && name ? (
           <LoadingPage />
         ) : (
-          <div  onClick={togglePopup}className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
+          <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
             <div className="flex flex-col justify-center items-center ">
               <img
                 alt="image"

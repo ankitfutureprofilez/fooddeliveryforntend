@@ -21,9 +21,8 @@ export const productSlice = createSlice({
     addCartItem: (state, action) => {
       const check = state.cartItem.some((item) => item._id === action.payload._id);
       if (check) {
-        toast("Already Item in Cart");
+        toast("Item is already in cart.");
       } else {
-        // toast("Item Add successfully");
         const total = action.payload.price;
         state.cartItem = [
           ...state.cartItem,
@@ -34,19 +33,18 @@ export const productSlice = createSlice({
 
     
     deleteCartItem: (state, action) => {
-      toast("one Item Delete");
+      toast.success("Item has been removed !!");
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       state.cartItem.splice(index, 1);
     },
+
     increaseQty: (state, action) => {
       const index = state.cartItem.findIndex((el) => el._id === action.payload);
       let qty = state.cartItem[index].qty;
       const qtyInc = ++qty;
       state.cartItem[index].qty = qtyInc;
-
       const price = state.cartItem[index].price;
       const total = price * qtyInc;
-
       state.cartItem[index].total = total;
     },
     decreaseQty: (state, action) => {
@@ -55,10 +53,8 @@ export const productSlice = createSlice({
       if (qty > 1) {
         const qtyDec = --qty;
         state.cartItem[index].qty = qtyDec;
-
         const price = state.cartItem[index].price;
         const total = price * qtyDec;
-
         state.cartItem[index].total = total;
       } else {
         const productId = state.cartItem[index]._id;
