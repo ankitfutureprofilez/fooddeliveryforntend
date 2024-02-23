@@ -97,24 +97,28 @@ export default function Orderhistory() {
                         </div>
                       ))}
                     </td>
-                    <td className="p-3 border border-gray-200 ">
-                      {item.order_status === "initiated" ? (
-                        <span className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full">
-                          Placed
-                        </span>
-                      ) : (<></>)}
-
-                      {item.order_status === "picked" ? (
-                        <span className="bg-gray-500 text-white font-bold py-2 px-4 rounded-full">
-                          Picked
-                        </span>
-                      ) : (<></>)}
-                      {item.order_status === "delivered" ? (
-                        <span className="bg-green-500 text-white font-bold py-2 px-4 rounded-full">
-                          Delivered
-                        </span>
-                      ) : (<></>)}
-                    </td>
+                    <td className="p-3 border border-gray-200">
+  {item.order_status === "initiated" && (
+    <span className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full">
+      Placed
+    </span>
+  )}
+  {item.order_status === "accepted" || item.order_status === "picked" && (
+    <span className="bg-gray-500 text-white font-bold py-2 px-4 rounded-full">
+      Picked
+    </span>
+  )}
+  {item.order_status === "delivered" && (
+    <span className="bg-green-500 text-white font-bold py-2 px-4 rounded-full">
+      Delivered
+    </span>
+  )}
+  {item.order_status === "picked" && (
+    <span className="bg-green-500 text-white font-bold py-2 px-4 rounded-full">
+      Delivered
+    </span>
+  )}
+</td>
                     <td className="p-3 border border-gray-200 text-center">
                     {item.order_status === "delivered" ? (
                        <Link to={`/order_history/${item.order_id}`}>

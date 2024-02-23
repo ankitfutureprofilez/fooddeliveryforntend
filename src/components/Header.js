@@ -57,9 +57,7 @@ const Header = () => {
                   <ul className="align-left dropdownitem">
                     {userData.email ?
                       <>
-                        <li className="cursor-pointer text-white bg-red-500 rounded-md">
-                          <button onClick={handleLogout} >Logout ({userData.firstName})</button>
-                        </li>
+                        
                         <li>
                           {userData.resId === 1 ? (
                             <>
@@ -68,7 +66,6 @@ const Header = () => {
                                 className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300">
                                 Add Product
                               </NavLink>
-
                               <NavLink
                                 to={"dashboard"}
                                 className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300">
@@ -87,6 +84,10 @@ const Header = () => {
                               )}
                             </>
                           )}
+                        </li>
+
+                        <li className="cursor-pointer text-white bg-red-500 rounded-md">
+                          <button onClick={handleLogout} >Logout ({userData.firstName})</button>
                         </li>
                       </>
                       :

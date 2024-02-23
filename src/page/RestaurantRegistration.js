@@ -285,7 +285,7 @@ export default function RestaurantRegistration() {
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="grid-state"
               >
-                Opening from
+                Open Time 
               </label>
               <div class="relative">
                 <select
@@ -326,7 +326,7 @@ export default function RestaurantRegistration() {
                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 for="grid-state"
               >
-                Opening Till
+               Closed Time 
               </label>
               <div class="relative">
                 <select

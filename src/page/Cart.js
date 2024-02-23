@@ -66,7 +66,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const handlePayment = async () => {
     if (location.phone.length === 0) {
-      toast("Enter phone number!");
+      toast.error("Enter phone number!");
       return;
     }
     if(address.length==0)
@@ -226,7 +226,7 @@ const Cart = () => {
                 <div className="relative">
                   <input
                     required
-                    type="Number"
+                    type="text"
                     maxLength={10}
                     className=" form-input shadow appearance-none border rounded-xl w-full p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-11   "
                     name="phone"
