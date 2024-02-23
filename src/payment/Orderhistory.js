@@ -49,6 +49,19 @@ export default function Orderhistory() {
   }, []);
 
   return (
+    <>
+    {userData.resId ? (
+      <> </>
+    ) :(
+        <div className="container mx-auto">
+        <div className="heading">
+          <h2>
+            Order History 
+          </h2>
+  </div>
+      </div>
+    )}
+  
     <div className="w-full order-table-sec">
       <div className="container py-4 pb-14 mx-auto">
         <div className="overflow-x-auto">
@@ -60,7 +73,7 @@ export default function Orderhistory() {
                 <th className="p-3 border border-gray-200">Order Items</th>
                 <th className="p-3 border border-gray-200">Order Status</th>
                 <th className="p-3 border border-gray-200 text-center">
-                  Tracker
+                  View 
                 </th>
               </tr>
             </thead>
@@ -104,9 +117,16 @@ export default function Orderhistory() {
                       ) : (<></>)}
                     </td>
                     <td className="p-3 border border-gray-200 text-center">
+                    {item.order_status === "delivered" ? (
+                       <Link to={`/order_history/${item.order_id}`}>
+                       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">View </button>
+                     </Link>
+                      ) : (<>
+                      
                       <Link to={`/order_history/${item.order_id}`}>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Track </button>
-                      </Link>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Track</button>
+                      </Link></>)}
+                      
                     </td>
                   </tr>
                 ))
@@ -116,5 +136,6 @@ export default function Orderhistory() {
         </div>
       </div>
     </div>
+    </>
   );
 }

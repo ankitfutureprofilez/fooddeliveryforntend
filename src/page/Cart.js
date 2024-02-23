@@ -68,55 +68,58 @@ const Cart = () => {
 
   const navigate = useNavigate();
   const handlePayment = async () => {
-    // try {
-      if (location.phone.length === 0) {
-        toast.error("Please enter your phone number.");
-        return;
-      }
-  
-      if (!user.email) {
-        toast.error("You are not logged in. Please log in to proceed with the payment.");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1000);
-        return;
-      }
-  
-      if (!location.coordinates || Object.keys(location.coordinates).length === 0) {
-        try {
-          const apiUrl = "https://ipapi.co/json/";
-          const response = await fetch(apiUrl);
-          const jsonData = await response.json();
-          const { latitude, longitude } = jsonData;
-          setLocation((prevData) => ({
-            ...prevData,
-            coordinates: {
-              lat: latitude,
-              lng: longitude
+    if (location.phone.length === 0) {
+      toast("Enter phone number!");
+      return;
+    }
+    if (user.email) {
+      try {
+        if (!location.coordinates == "" || location.coordinates.length === 0) {
+          try {
+            const apiUrl = "https://ipapi.co/json/";
+            const response = await fetch(apiUrl);
+            const jsonData = await response.json();
+            const { latitude, longitude } = jsonData;
+            setLocation((prevData) => ({
+              ...prevData,
+              coordinates: `${latitude}, ${longitude}`,
+            }));
+          } catch (error) {
+            console.error("Error getting coordinates:", error);
+            toast.error("Error getting coordinates");
+            return;
+          }
+        }
+        const payment = new Payment();
+        const coordinatesString = JSON.stringify(location.coordinates);
+        const resp = payment.Checkout_cart({
+          ...location,
+          items: productCartItem,
+        });
+        resp
+          .then((res) => {
+            if(user.resId){
+            <></>
+            }else{
+              if (res.data.url) {
+                window.location.href = res.data.url;
+              }
             }
-          }));
-        } catch (error) {
-          console.error("Error getting coordinates:", error);
-          toast.error("Failed to get coordinates. Please try again later.");
-          return;
-        }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.error("Error:", error);
+        toast.error("Error during payment");
       }
-  
-      const payment = new Payment();
-      const resp = payment.Checkout_cart({
-        ...location,
-        items: productCartItem
-      });
-      resp.then((res)=>{
-        if (res.data.url) {
-          console.log("Redirecting to payment gateway:", res.data.url);
-          window.location.href = res.data.url;
-        }
-      }).catch((res)=>{
-        toast.error("Unknown response from payment gateway.");
-      })
+    } else {
+      toast("You have not Login!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
   };
-  
 
   const handlePhoneChange = (e) => {
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
@@ -134,7 +137,6 @@ const Cart = () => {
     const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(newAddress)}&key=${apiKeygoogle}`;
       const response = axios.get(apiUrl);
       response.then((res)=>{
-        // console.log("res", res.data)
         if(res.data.status === 'OK'){
           const location = res.data.results[0].geometry.location;
           const latitude = location.lat;

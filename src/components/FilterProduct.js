@@ -27,7 +27,7 @@ const FilterProduct = ({category,onClick,isActive}) => {
     <div className=" " onClick={onClick}>
      <div className={` category-fiter-box px-5 py-2.5 relative cursor-pointer  ${isActive ? " text-red" : " active"}`}>
       
-          <h3 className="font-bold text-md capitalize currentColor  relative z-10 text-center">{category}</h3>
+          <h3 className="font-bold text-md capitalize currentColor  relative z-1 text-center">{category}</h3>
       </div>
      
     </div>

@@ -8,6 +8,7 @@ import { formatMultiPrice } from "../hooks/Valuedata";
 import axios from "axios";
 import { GiConsoleController } from "react-icons/gi";
 import { DateFormat } from "../hooks/DateFormat";
+import OrderDate from "../hooks/OrderDate";
 export default function OrderDetilas() {
   const { order_id } = useParams();
   const [record, setRecord] = useState([]);
@@ -115,7 +116,6 @@ async function getAddressFromCoordinates(checkout_coordinates) {
       const response = await axios.get(url); 
       if (response.data && response.data.results && response.data.results.length > 0) {
         const address = response.data.results[0].formatted_address;
-        // console.log("address:", address);
         setAdds(address);
       } else {
         console.error("Failed to fetch address:", response.data.status);
@@ -268,12 +268,16 @@ useEffect(() => {
                   <div className="flex justify-center items-center space-x-4">
                     <div className="flex flex-col justify-start items-center">
                       <p className="text-lg leading-6 font-semibold text-gray-800">
-                        <span className="font-normal">Time</span>
+                        <span className="font-normal">Order Time</span>
                       </p>
                     </div>
                   </div>
                   <p className="text-lg font-semibold leading-6 uppercase text-gray-800">
-                        <DateFormat dateString={record.createdAt} />
+                        {/* <DateFormat dateString={record.createdAt} /> */}
+{record ? <OrderDate dateString={record.createdAt} /> : <p>Loading...</p>}
+
+
+
                   </p>
                 </div>
                 {/* !userData.resId || packageStatus === 'delivered' */}
