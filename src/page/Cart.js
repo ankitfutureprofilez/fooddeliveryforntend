@@ -164,7 +164,8 @@ const Cart = () => {
   }  
   
   return (
-    <div className="p-2 md:p-4">
+    <div className="container mx-auto">
+    <div className="p-2 md:p-4 ">
      
       {productCartItem[0] ? (
         <>
@@ -263,6 +264,7 @@ const Cart = () => {
           </div>
         </>
       )}
+    </div>
     </div>
   );
 };
