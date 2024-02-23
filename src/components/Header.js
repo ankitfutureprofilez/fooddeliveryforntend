@@ -78,7 +78,7 @@ const Header = () => {
                             </>
                           ) : (
                             <>
-                              {status === "initiated" && (
+                              {status && (
                                 <NavLink
                                   to={"order_history"}
                                   className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
