@@ -72,6 +72,11 @@ const Cart = () => {
       toast("Enter phone number!");
       return;
     }
+    if(address.length==0)
+    {
+      toast("Please enter an address");
+      return;
+    }
     if (user.email) {
       try {
         if (!location.coordinates == "" || location.coordinates.length === 0) {
@@ -133,6 +138,7 @@ const Cart = () => {
   const handleChangeLocation = async (e) => {
     const newAddress = e.target.value;
     setAddress(newAddress);
+    if(newAddress.length==0){return;}
     const apiKeygoogle = process.env.REACT_APP_GOOGLE_API_KEY;
     const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(newAddress)}&key=${apiKeygoogle}`;
       const response = axios.get(apiUrl);

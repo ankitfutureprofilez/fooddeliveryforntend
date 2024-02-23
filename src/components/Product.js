@@ -3,53 +3,69 @@ import { useDispatch } from "react-redux";
 import { addCartItem } from "../redux/productSlide";
 import LoadingPage from "../page/LoadingPage";
 import NoData from "./NoData";
-import { formatMultiPrice } from '../hooks/Valuedata';
+import { formatMultiPrice } from "../hooks/Valuedata";
+import { TiTickOutline } from "react-icons/ti";
 
-const Product = ({ image, name, price, category, loading, id, description, imagedata }) => {
-  const dispatch = useDispatch()
+const Product = ({
+  image,
+  name,
+  price,
+  category,
+  loading,
+  id,
+  description,
+  imagedata,
+}) => {
+  const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
+  const [adding, setAdding] = useState(false);
 
   const AddtoCart = () => {
-    const addstate = () => { 
+    const addstate = () => {
       setAdded(true);
-      setTimeout(()=>{
-        setAdded(false);
-      },1000);
-    }
+      setAdding(true);
+      setTimeout(() => {
+        setAdding(false);
+      }, 1000);
+    };
 
     const handleAddCartProduct = (e) => {
-        dispatch(
-          addCartItem({
+      dispatch(
+        addCartItem({
           _id: id,
           name: name,
           price: price,
           category: category,
           image: image,
-          imagedata: imagedata
-        }));
-        addstate();
-
+          imagedata: imagedata,
+        })
+      );
+      addstate();
     };
     return (
-      <>
-        <button className="button bg-blue sm" onClick={handleAddCartProduct}>
-       { added ?  
-       <svg
-       className="h-3 w-3 animate-spin"
-       viewBox="0 0 24 24"
-       fill="none"
-       xmlns="http://www.w3.org/2000/svg"
-     >
-       <path
-          d="M 12 2 A 10 10 0 0 1 22 12"
-         stroke="currentColor"
-         strokeWidth="4"
-         fill="none"
-       />
-     </svg>
-        : 
-       <>  
-        <svg
+      <button className="button bg-blue sm" onClick={handleAddCartProduct}>
+        {added ? (
+          adding ? (
+            <>
+              <svg
+                className="h-3 w-3 animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M 12 2 A 10 10 0 0 1 22 12"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                />
+              </svg>
+            </>
+          ) : (
+            <TiTickOutline size={18}/>
+          )
+        ) : (
+          <svg
             width="16"
             height="15"
             viewBox="0 0 16 15"
@@ -61,14 +77,10 @@ const Product = ({ image, name, price, category, loading, id, description, image
               fill="white"
             />
           </svg>
-       </>
-          }
-        </button>
-      </>
+        )}
+      </button>
     );
-  }
-
-
+  };
 
   return (
     <>
@@ -78,27 +90,30 @@ const Product = ({ image, name, price, category, loading, id, description, image
         ) : (
           <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
             <div className="flex flex-col justify-center items-center ">
-                  <img alt="image" src={image} className="rounded-xl w-full h-44 object-cover" />
-                </div>
+              <img
+                alt="image"
+                src={image}
+                className="rounded-xl w-full h-44 object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
+                {name}
+              </h3>
+              <div className="flex justify-between mt-3">
                 <div>
-                  <h3 className="font-bold text-lg text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
-                    {name}
-                  </h3>
-                  <div className="flex justify-between mt-3">
-                    <div>
-                      <p className="text-orange-500 text-sm font-bold align-middle">
-                        <span>{formatMultiPrice(price)}</span>
-                      </p>
-                      <p className="text-green-500">Free Delivery</p>
-                    </div>
-                   <AddtoCart />
-                  </div>
+                  <p className="text-orange-500 text-sm font-bold align-middle">
+                    <span>{formatMultiPrice(price)}</span>
+                  </p>
+                  <p className="text-green-500">Free Delivery</p>
                 </div>
+                <AddtoCart />
+              </div>
+            </div>
           </div>
         )}
       </div>
     </>
-
   );
 };
 
