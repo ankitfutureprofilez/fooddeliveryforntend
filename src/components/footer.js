@@ -22,7 +22,7 @@ const footer = () => {
             </div>
         </div>
         <div className="container border-t border-gray-800 pt-2 mt-2 mb-0 mx-auto flex justify-between items-center">
-        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <Link to={""} className="hover:underline" target="_blank" rel="noopener noreferrer">Food Truck™</Link>. All Rights Reserved.</span>
+        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <Link to={""} className="hover:underline" target="_blank" rel="noopener noreferrer">Food Truck™</Link>.</span>
       <ul className="flex flex-wrap items-center ml-3 md:mt-3 sm:mt-0">
         <li>
           <Link to={"/"} className="mr-2 text-sm text-gray-500 hover:underline md:mr-6">Home</Link>
