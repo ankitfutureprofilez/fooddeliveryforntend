@@ -11,9 +11,6 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
-
-  console.log("user",user)
-  console.log("user.resIdu",user.resId)
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
     0

@@ -5,15 +5,6 @@ import Listings from '../Api/Listings';
 export default function AllRestaurant() {
   const [restaurants, setRestaurants] = useState([]);
 const[Loading,setLoading] =useState(true)
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8000/restaurant/get")
-  //     .then((response) => {
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
-
-
   
   const fetchData = async () => {
     try {

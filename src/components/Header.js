@@ -8,7 +8,6 @@ import SearchBar from "./SearchBar";
 const Header = () => {
   const navigate = useNavigate();
   const status = localStorage && localStorage.getItem("orderStatus");
-  console.log("orderStatus", status)
   const [showMenu, setShowMenu] = useState(false);
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();

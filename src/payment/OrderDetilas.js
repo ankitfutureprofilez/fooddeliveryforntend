@@ -9,6 +9,7 @@ import axios from "axios";
 import { DateFormat } from "../hooks/DateFormat";
 import OrderDate from "../hooks/OrderDate";
 export default function OrderDetilas() {
+
   const { order_id } = useParams();
   const [record, setRecord] = useState([]);
   const userData = useSelector((state) => state.user);
@@ -22,8 +23,11 @@ export default function OrderDetilas() {
     });
   };
   const [statusUpdated, setStatusUpdated] = useState();
+
   // UPDATE ORDER
+
   const [updateOrder, setUpdateOrder] = useState();
+
   const fetchData = async () => {
     try {
       const main = new Listings();
@@ -109,7 +113,6 @@ async function getAddressFromCoordinates(checkout_coordinates) {
     const latlng = `${add.lat},${add.lng}`;
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
-    
     try {
       const response = await axios.get(url); 
       if (response.data && response.data.results && response.data.results.length > 0) {

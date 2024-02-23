@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import { useSelector } from 'react-redux';
 
 // Custom marker component
 const CustomMarker = ({ position, icon }) => {
@@ -8,9 +9,11 @@ const CustomMarker = ({ position, icon }) => {
 
 const Map = ({ restaurantLocation, deliveryLocation, deliveryPersonLocation }) => {
   const [directions, setDirections] = useState(null);
+  const userData = useSelector((state) => state.user);
+
 
   useEffect(() => {
-    if (restaurantLocation && deliveryLocation) {
+    if (restaurantLocation && deliveryLocation && userData.resId) {
       const directionsService = new window.google.maps.DirectionsService();
       directionsService.route(
         {

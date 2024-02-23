@@ -20,14 +20,11 @@ export default function CheckLocation() {
         throw new Error('Network response was not ok');
       }
       const data = response.data;
-      console.log(data);
       // Extract latitude and longitude from the API response
       const location = data.results[0].geometry.location;
       const latitude = location.lat;
       const longitude = location.lng;
-  
       // Use the latitude and longitude
-      console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
     } catch (error) {
       console.error('There was a problem with your fetch operation:', error);
     }
