@@ -98,3 +98,14 @@ label.file-upload-label {
   font-size: 13px;
   color: #ffffff;
 }
+
+h1.heading {
+  font-family: Poppins;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #1E1E1E;
+  margin-bottom: 10px;
+}

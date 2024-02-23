@@ -170,15 +170,12 @@ const Cart = () => {
   }  
   
   return (
-    <div className="container mx-auto">
-    <div className="p-2 md:p-4 ">
-     
+    <div className="container mx-auto w-full">
+    <div className="cart-page ">
       {productCartItem[0] ? (
         <>
-         <h2 className="text-xl md:text-3xl mt-3 ml-4 font-bold">Cart</h2>
-          <div className="flex flex-wrap my-7">
-            {/* display cart items  */}
-            <div className=" md:w-1/2 px-3 mb-6 md:mb-0 ">
+         <h1 className="heading px-3">Cart</h1>
+            <div className=" md:w-2/2 px-3 mb-6 md:mb-0 ">
               {productCartItem.map((el) => {
                 return (
                   <CartProduct
@@ -194,8 +191,8 @@ const Cart = () => {
                 );
               })}
             </div>
-            <div className="flex flex-col w-full md:w-1/2">
-              {/* Location */}
+            <div className="flex flex-col w-full md:w-2/2">
+            
               <div className=" px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Location
@@ -257,7 +254,6 @@ const Cart = () => {
                 </button>
               </div>
             </div>
-          </div>
         </>
       ) : (
         <>

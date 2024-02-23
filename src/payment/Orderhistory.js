@@ -50,13 +50,15 @@ export default function Orderhistory() {
     {userData.resId ? (
       <> </>
     ) :(
-        <div className="container mx-auto">
-        <div className="heading">
-          <h2>
-            Order History 
-          </h2>
-  </div>
-      </div>
+       
+
+<div className='container mx-auto'>
+<div className=" block">
+  <h1 className="heading">
+   Order History
+  </h1>
+</div>
+</div>
     )}
   
     <div className="w-full order-table-sec">

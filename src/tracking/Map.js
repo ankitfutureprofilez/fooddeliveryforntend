@@ -13,7 +13,7 @@ const Map = ({ restaurantLocation, deliveryLocation, deliveryPersonLocation }) =
 
 
   useEffect(() => {
-    if (restaurantLocation && deliveryLocation && userData.resId) {
+    if (restaurantLocation && deliveryLocation ) {
       const directionsService = new window.google.maps.DirectionsService();
       directionsService.route(
         {
@@ -35,7 +35,7 @@ const Map = ({ restaurantLocation, deliveryLocation, deliveryPersonLocation }) =
   return (
     <GoogleMap
       mapContainerStyle={{ width: '100%', height: '300px' }}
-      zoom={10}
+      zoom={15}
       center={restaurantLocation}
       options={{
         cursor: 'crosshair',
