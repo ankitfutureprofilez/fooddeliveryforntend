@@ -108,12 +108,12 @@ const Product = ({
               <h3 onClick={togglePopup} className="font-bold text-sm text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
                 {name}
               </h3>
-              <div className="flex justify-between mt-3 " onClick={togglePopup}>
+              <div className="flex justify-between mt-3 " >
                 <div>
-                  <p className="text-orange-500 text-sm font-bold align-middle">
-                    <span>{formatMultiPrice(price)}</span>
+                  <p  onClick={togglePopup} className="text-orange-500 text-sm font-bold align-middle">
+                    <span onClick={togglePopup} >{formatMultiPrice(price)}</span>
                   </p>
-                  <p className="text-green-500">Free Delivery</p>
+                  <p  onClick={togglePopup} className="text-green-500">Free Delivery</p>
                 </div>
                 <AddtoCart />
               </div>
