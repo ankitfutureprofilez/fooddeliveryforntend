@@ -127,7 +127,7 @@ const Product = ({
       {showPopup && (
         <div className="flex flex-wrap items-center justify-center fixed z-10 inset-0 overflow-y-auto ">
           <div className="flex items-center justify-center min-h-screen px-4 popup-sweets">
-            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full flex flex-col md:flex-row md:items-start h-48">
+            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full flex flex-col md:flex-row md:items-start min-h-48">
               <div className="w-full md:w-1/2 h-full relative">
                 <img src={image} className="rounded-xl w-full h-full object-cover " alt={name} />
                 <span className="absolute top-3 left-8 bg-slate-50 text-blue-600 rounded-full p-1">
