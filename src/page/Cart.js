@@ -248,7 +248,7 @@ const Cart = () => {
                   </p>
                 </div>
                 <button
-                  className="bg-orange-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center"
+                  className="bg-orange-500 w-full text-white text-lg font-medium w-32 h-10 mt-7  mb-5 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center"
                   onClick={handlePayment}>
                   Payment
                 </button>

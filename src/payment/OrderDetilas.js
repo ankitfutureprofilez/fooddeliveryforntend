@@ -144,44 +144,44 @@ export default function OrderDetilas() {
             Order ID:-  {record.order_id}
           </h2> */}
         </div>
-        <div className="mt-10  jusitfy-center items-stretch w-full  space-y-4 md:space-y-6 ">
+        <div className="mt-10  jusitfy-center items-stretch w-full  space-y-4 md:space-y-6  pb-4 ">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
-            <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
+            <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full ">
               <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer Cart</p>
               {record.order_items &&
-                JSON.parse(record.order_items).map((item, index) => (
-                  <div
-                    className="border-b border-gray-200 pt-4 pb-4 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
-                    key={index}
-                  >
-                    <div className="w-20 md:w-14 text-center">
-                      <img
-                        className="w-full h-14 rounded-full"
-                        src={item.image}
-                        alt="item"
-                      />
-                    </div>
-                    <div className=" md:flex-row flex-col flex justify-between items-start w-full  space-y-4 md:space-y-0">
-                      <div className="w-full flex flex-col justify-start items-start space-y-2 md:space-y-4">
-                        <h3 className="text-lg font-semibold leading-6 text-gray-800">
-                          {item.name}
-                        </h3>
-                      </div>
-                      <div className="flex justify-between space-x-8 items-start w-full">
-                        <p className="text-base xl:text-lg leading-6">
-                          {formatMultiPrice(item.price)}
-                        </p>
-                        <p className="text-base xl:text-lg leading-6">
-                          {item.qty}
-                        </p>
-                        <p className="text-base xl:text-lg font-semibold leading-6">
-                          {item.category.charAt(0).toUpperCase() +
-                            item.category.slice(1)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+  JSON.parse(record.order_items).map((item, index) => (
+    <div
+      className="border-b border-gray-200 pt-4 pb-4 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
+      key={index}
+    >
+      <div className="w-20 md:w-14 text-center">
+        <img
+          className="w-full h-14 rounded-full"
+          src={item.image}
+          alt="item"
+        />
+      </div>
+      <div className="md:flex-row flex-col flex justify-between items-start w-full space-y-4 md:space-y-0">
+  <div className="w-1/2 flex flex-col justify-start items-start space-y-2 md:space-y-4">
+    <h3 className="text-lg font-semibold leading-6 text-gray-800 w-full md:w-auto">
+      {/* Adjusted width class above */}
+      {item.name}
+    </h3>
+  </div>
+  <div className="flex justify-between space-x-8 items-start w-1/2 ">
+    <p className="text-base text-lg leading-6 w-1/3">
+      {formatMultiPrice(item.price)}
+    </p>
+    <p className="text-base xl:text-lg leading-6  w-1/3">{item.qty}</p>
+    <p className="text-base xl:text-lg font-semibold leading-6 w-1/3 ">
+      {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
+    </p>
+  </div>
+</div>
+
+    </div>
+  ))}
+
             </div>
 
             <MapContainer
