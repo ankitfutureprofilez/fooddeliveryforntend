@@ -21,7 +21,7 @@ const Success = () => {
       </div>
       <div className="success-actions">
         
-        <Link to="/order_history" className="success-track">Track my package</Link>
+        <Link to="/order_history" className="success-track">Track My Package</Link>
       </div>
     </div>
   </div>  
