@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "../redux/productSlide";
 import LoadingPage from "../page/LoadingPage";
-import NoData from "./NoData";
 import { formatMultiPrice } from "../hooks/Valuedata";
 import { TiTickOutline } from "react-icons/ti";
+import { toast } from 'react-hot-toast';
 
 const Product = ({
   image,
@@ -24,8 +24,11 @@ const Product = ({
   const [showPopup, setShowPopup] = useState(false);
 
   const togglePopup = () => {
+    console.log('Toggle popup called');
+    toast.success('Toggle popup called');
     setShowPopup(!showPopup);
   };
+
 
   const AddtoCart = () => {
     const addstate = () => {
@@ -110,10 +113,10 @@ const Product = ({
               </h3>
               <div className="flex justify-between mt-3 " >
                 <div>
-                  <p  onClick={togglePopup} className="text-orange-500 text-sm font-bold align-middle">
+                  <p onClick={togglePopup} className="text-orange-500 text-sm font-bold align-middle">
                     <span onClick={togglePopup} >{formatMultiPrice(price)}</span>
                   </p>
-                  <p  onClick={togglePopup} className="text-green-500">Free Delivery</p>
+                  <p onClick={togglePopup} className="text-green-500">Free Delivery</p>
                 </div>
                 <AddtoCart />
               </div>
@@ -124,16 +127,18 @@ const Product = ({
 
       {/* Pop-up Modal  */}
       {showPopup && (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
+        <div className="flex flex-wrap items-center justify-center fixed z-10 inset-0 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen px-4">
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
-              <div className="px-4 py-5 sm:px-6">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-medium leading-6 text-gray-900">Product Details</h3>
+            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full flex flex-col md:flex-row md:items-start">
+              <div className="w-full md:w-1/3 relative">
+                <img src={image} className="rounded-xl w-full h-full object-cover" alt={name} />
+                <span className="absolute top-3 left-8 bg-slate-50 text-blue-600 rounded-full p-1">
+                  {category}
+                </span>
+              </div>
+              <div className="w-full md:w-2/3 px-4">
+                <div className="flex justify-between items-center">
+                  <h1 className="text-gray-900 font-bold text-2xl">{name}</h1>
                   <button onClick={togglePopup} className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <span className="sr-only">Close</span>
                     <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -141,31 +146,15 @@ const Product = ({
                     </svg>
                   </button>
                 </div>
-              </div>
-              <div className="py-6 px-6">
-                <div className="flex flex-wrap justify-between max-w-md bg-slate-100 p-5 m-3 shadow-lg rounded-lg overflow-hidden">
-                  <div className="w-full md:w-1/3 flex flex-col justify-center items-center md:items-start md:justify-start relative">
-                    <img src={image} className="rounded-xl w-96 h-32  object-cover mb-4 md:mb-0" alt={name} />
-                    <span className="absolute top-3 left-8 bg-slate-50 text-blue-600 rounded-full p-1 transform -translate-x-1/2 -translate-y-1/2">
-                      {category}
-                    </span>
-                  </div>
-
-
-                  <div className="w-full md:w-2/3 p-4">
-                    <h1 className="text-gray-900 font-bold text-2xl">{name}</h1>
-                    <p className="mt-2 text-gray-600 text-sm">{description}</p>
-                    <div className="flex items-center justify-between mt-3">
-                      <h1 className="text-gray-700 font-bold text-xl">{formatMultiPrice(price)}</h1>
-                      <AddtoCart />
-                    </div>
-                  </div>
+                <p className="mt-2 text-gray-600 text-sm">{description}</p>
+                <div className="flex items-center justify-between mt-3">
+                  <h1 className="text-gray-700 font-bold text-xl">{formatMultiPrice(price)}</h1>
+                  <AddtoCart />
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       )}
 
     </>
