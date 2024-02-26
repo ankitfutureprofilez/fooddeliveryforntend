@@ -24,8 +24,6 @@ const Product = ({
   const [showPopup, setShowPopup] = useState(false);
 
   const togglePopup = () => {
-    console.log('Toggle popup called');
-    toast.success('Toggle popup called');
     setShowPopup(!showPopup);
   };
 
@@ -127,16 +125,16 @@ const Product = ({
 
       {/* Pop-up Modal  */}
       {showPopup && (
-        <div className="flex flex-wrap items-center justify-center fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen px-4">
-            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full flex flex-col md:flex-row md:items-start">
-              <div className="w-full md:w-1/3 relative">
-                <img src={image} className="rounded-xl w-full h-full object-cover" alt={name} />
+        <div className="flex flex-wrap items-center justify-center fixed z-10 inset-0 overflow-y-auto ">
+          <div className="flex items-center justify-center min-h-screen px-4 popup-sweets">
+            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full flex flex-col md:flex-row md:items-start h-48">
+              <div className="w-full md:w-1/2 h-full relative">
+                <img src={image} className="rounded-xl w-full h-full object-cover " alt={name} />
                 <span className="absolute top-3 left-8 bg-slate-50 text-blue-600 rounded-full p-1">
                   {category}
                 </span>
               </div>
-              <div className="w-full md:w-2/3 px-4">
+              <div className="w-full md:w-1/2 p-4 h-full flex flex-col justify-between">
                 <div className="flex justify-between items-center">
                   <h1 className="text-gray-900 font-bold text-2xl">{name}</h1>
                   <button onClick={togglePopup} className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

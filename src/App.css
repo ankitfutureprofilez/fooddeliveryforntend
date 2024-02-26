@@ -77,7 +77,9 @@ label.file-upload-label {
 .best-food-sec { padding: 0 0 60px; }
 .discount-1 { position: relative; }
 .discount-1 h2 { margin: auto; text-align: center; position: absolute; left: 50%; transform: translate(-50%, -50%); top: 50%; }
-
+.popup-sweets {
+  min-width: 500px;
+}
 
 
 
