@@ -322,7 +322,7 @@ export default function OrderDetilas() {
               </div>
             </div>
           </div>
-          <div className="flex justify-between items-center flex-col xl:flex-row bg-gray-50 w-full px-4 py-6 md:p-6 xl:p-8">
+          <div className="flex justify-between items-center m-3 flex-col xl:flex-row bg-gray-50 w-full px-4 py-6 md:p-6 xl:p-8">
       <div className="flex w-full justify-between">
         <div className="flex-auto">
           <h1>Address</h1>
