@@ -69,13 +69,13 @@ const Product = ({
               </svg>
             </>
           ) : (
-            <TiTickOutline size={18}/>
+            <TiTickOutline size={18} />
           )
         ) : (
           <svg
             width="16"
             height="15"
-            
+
             viewBox="0 0 16 15"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -96,8 +96,8 @@ const Product = ({
         {loading && name ? (
           <LoadingPage />
         ) : (
-          <div  className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
-            <div className="flex flex-col justify-center items-center ">
+          <div className="w-full bg-white product_box py-3 px-3 cursor-pointer flex flex-col rounded-xl">
+            <div className="flex flex-col justify-center items-center  " onClick={togglePopup}>
               <img
                 alt="image"
                 src={image}
@@ -105,10 +105,10 @@ const Product = ({
               />
             </div>
             <div>
-              <h3 className="font-bold text-sm text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
+              <h3 onClick={togglePopup} className="font-bold text-sm text-gray-900 capitalize text-base mt-3 mb-1 whitespace-nowrap overflow-hidden">
                 {name}
               </h3>
-              <div className="flex justify-between mt-3">
+              <div className="flex justify-between mt-3 " onClick={togglePopup}>
                 <div>
                   <p className="text-orange-500 text-sm font-bold align-middle">
                     <span>{formatMultiPrice(price)}</span>
@@ -124,50 +124,49 @@ const Product = ({
 
       {/* Pop-up Modal  */}
       {showPopup && (
-  <div className="fixed z-10 inset-0 overflow-y-auto">
-    <div className="flex items-center justify-center min-h-screen px-4">
-      <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-        <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-      </div>
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-center justify-center min-h-screen px-4">
+            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
 
-      <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
-        <div className="px-4 py-5 sm:px-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">Popup Title</h3>
-            <button onClick={togglePopup} className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <span className="sr-only">Close</span>
-              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
+              <div className="px-4 py-5 sm:px-6">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">Product Details</h3>
+                  <button onClick={togglePopup} className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <span className="sr-only">Close</span>
+                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div className="py-6 px-6">
+                <div className="flex flex-wrap justify-between max-w-md bg-slate-100 p-5 m-3 shadow-lg rounded-lg overflow-hidden">
+                  <div className="w-full md:w-1/3 flex flex-col justify-center items-center md:items-start md:justify-start relative">
+                    <img src={image} className="rounded-xl w-96 h-32  object-cover mb-4 md:mb-0" alt={name} />
+                    <span className="absolute top-3 left-8 bg-slate-50 text-blue-600 rounded-full p-1 transform -translate-x-1/2 -translate-y-1/2">
+                      {category}
+                    </span>
+                  </div>
+
+
+                  <div className="w-full md:w-2/3 p-4">
+                    <h1 className="text-gray-900 font-bold text-2xl">{name}</h1>
+                    <p className="mt-2 text-gray-600 text-sm">{description}</p>
+                    <div className="flex items-center justify-between mt-3">
+                      <h1 className="text-gray-700 font-bold text-xl">{formatMultiPrice(price)}</h1>
+                      <AddtoCart />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="py-6">
-      <div className="flex max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
-        <div
-          className="w-1/3">
-          <img src={image}
-          className="rounded-xl w-full h-44 object-cover"
-          />
-          
-        </div>
-        <div className="w-2/3 p-4">
-          <h1 className="text-gray-900 font-bold text-2xl">{name}</h1>
-          <p className="mt-2 text-gray-600 text-sm">
-            {description}
-          </p>
-          <div className="flex item-center justify-between mt-3">
-            <h1 className="text-gray-700 font-bold text-xl">{formatMultiPrice(price)}</h1>
-            <AddtoCart />
-          </div>
-        </div>
-      </div>
-    </div>
 
-      </div>
-    </div>
-  </div>
-)}
+      )}
 
     </>
   );
