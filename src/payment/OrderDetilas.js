@@ -144,7 +144,7 @@ export default function OrderDetilas() {
             Order ID:-  {record.order_id}
           </h2> */}
         </div>
-        <div className="mt-10  jusitfy-center items-stretch w-full  space-y-4 md:space-y-6 xl:space-y-0">
+        <div className="mt-10  jusitfy-center items-stretch w-full  space-y-4 md:space-y-6 ">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
               <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer Cart</p>
