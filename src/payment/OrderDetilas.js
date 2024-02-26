@@ -104,51 +104,50 @@ export default function OrderDetilas() {
 
 
   const [adds, setAdds] = useState('');
-  
-let checkoutCoordinates = record && record.checkout_coordinates; 
 
-async function getAddressFromCoordinates(checkout_coordinates) {
-  if (checkout_coordinates) { 
-    const add = JSON.parse(checkout_coordinates);
-    const latlng = `${add.lat},${add.lng}`;
-    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
-    try {
-      const response = await axios.get(url); 
-      if (response.data && response.data.results && response.data.results.length > 0) {
-        const address = response.data.results[0].formatted_address;
-        setAdds(address);
-      } else {
-        console.error("Failed to fetch address:", response.data.status);
+  let checkoutCoordinates = record && record.checkout_coordinates;
+
+  async function getAddressFromCoordinates(checkout_coordinates) {
+    if (checkout_coordinates) {
+      const add = JSON.parse(checkout_coordinates);
+      const latlng = `${add.lat},${add.lng}`;
+      const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
+      try {
+        const response = await axios.get(url);
+        if (response.data && response.data.results && response.data.results.length > 0) {
+          const address = response.data.results[0].formatted_address;
+          setAdds(address);
+        } else {
+          console.error("Failed to fetch address:", response.data.status);
+        }
+      } catch (error) {
+        console.error("Error fetching address:", error);
       }
-    } catch (error) {
-      console.error("Error fetching address:", error);
+    } else {
+      console.error("Invalid checkout_coordinates:", checkout_coordinates);
     }
-  } else {
-    console.error("Invalid checkout_coordinates:", checkout_coordinates);
   }
-}
 
 
-useEffect(() => {
-  getAddressFromCoordinates(checkoutCoordinates); 
-}, [checkoutCoordinates]);
-  
-   
+  useEffect(() => {
+    getAddressFromCoordinates(checkoutCoordinates);
+  }, [checkoutCoordinates]);
+
+
 
   return (
     <>
-      <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+      <div className="px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
         <div className="flex justify-start item-start space-y-2 flex-col">
-          <h2 className="text-2xl lg:text-4xl font-semibold leading-7 lg:leading-9 ">
-            Order {record.order_id}
-          </h2>
-          
+          {/* <h2 className="text-2xl lg:text-4xl font-semibold leading-7 lg:leading-9 ">
+            Order ID:-  {record.order_id}
+          </h2> */}
         </div>
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
-              <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer’s Cart</p>
+              <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer Cart</p>
               {record.order_items &&
                 JSON.parse(record.order_items).map((item, index) => (
                   <div
@@ -228,7 +227,8 @@ useEffect(() => {
                       Delivery Charges
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                      {formatMultiPrice(0)}
+                      {/* {formatMultiPrice(0)} */}
+                      Free Delivery
                     </p>
                   </div>
                 </div>
@@ -274,8 +274,8 @@ useEffect(() => {
                     </div>
                   </div>
                   <p className="text-lg font-semibold leading-6 uppercase text-gray-800">
-                        {/* <DateFormat dateString={record.createdAt} /> */}
-{record ? <OrderDate dateString={record.createdAt} /> : <p>Loading...</p>}
+                    {/* <DateFormat dateString={record.createdAt} /> */}
+                    {record ? <OrderDate dateString={record.createdAt} /> : <p>Loading...</p>}
 
 
 
@@ -283,8 +283,8 @@ useEffect(() => {
                 </div>
                 {/* !userData.resId || packageStatus === 'delivered' */}
                 {userData.resId &&
-                record &&
-                record.order_status == "initiated" ? (
+                  record &&
+                  record.order_status == "initiated" ? (
                   <button
                     onClick={() => updateOrderStatus("accepted")}
                     className={`bg-green-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}
@@ -312,36 +312,30 @@ useEffect(() => {
                   ""
                 )}
                 {" "}
-                {(record && record.order_status === "delivered") && (record.deliveredAt)  ? (
+                {(record && record.order_status === "delivered") && (record.deliveredAt) ? (
                   <p className="text-green-500 text-base text-center">
                     Order has been delivered <DateFormat dateString={record.deliveredAt} />.
                   </p>
                 ) : (
                   ""
                 )}
-
-             
-
-
-                
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 bg-gray-50 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
-            
-            <div class="flex w-full justify-between">
-              <div class="flex-auto ">
-                <h1>Address</h1>
-                <p>{adds}</p>
-              </div>
-              <div class="flex-auto ">
-                <h1>Phone</h1>
-                <p>{record&& record?.phone_no || "null"}</p>
-              </div>
-            </div>
-          </div>
+          <div className="flex justify-between items-center flex-col xl:flex-row bg-gray-50 w-full xl:w-96 px-4 py-6 md:p-6 xl:p-8">
+      <div className="flex w-full justify-between">
+        <div className="flex-auto">
+          <h1>Address</h1>
+          <p>{adds}</p>
+        </div>
+        <div className="flex-auto">
+          <h1>Phone</h1>
+          <p>{record && record?.phone_no || "null"}</p>
         </div>
       </div>
+    </div>
+  </div>
+        </div>
     </>
   );
 }

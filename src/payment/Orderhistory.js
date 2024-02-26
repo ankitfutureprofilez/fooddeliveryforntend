@@ -103,7 +103,7 @@ export default function Orderhistory() {
       Placed
     </span>
   )}
-  {item.order_status === "accepted" || item.order_status === "picked" && (
+  {item.order_status === "accepted"  && (
     <span className="bg-gray-500 text-white font-bold py-2 px-4 rounded-full">
       Picked
     </span>
@@ -115,7 +115,7 @@ export default function Orderhistory() {
   )}
   {item.order_status === "picked" && (
     <span className="bg-green-500 text-white font-bold py-2 px-4 rounded-full">
-      Delivered
+     Picked
     </span>
   )}
 </td>

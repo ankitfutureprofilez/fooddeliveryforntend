@@ -7,31 +7,44 @@ import { Link } from "react-router-dom";
 const footer = () => {
   return (
     <div className="bg-zinc-950 pt-4 pb-4 flex flex-col">
-        <div className='container pb-1 mx-auto flex justify-between items-center'>
-            <a href="/"><img  src="/footer-logo.png" class="logo-footer" /></a>
-            <div className="flex items-center intwfa">
-                <a href="/">
-                    <img className="h-6 w-6" src={instra} alt="" />
-                </a>
-                <a className="my-1.5" href="/">
-                    <img className="h-6 w-6" src={twitter} alt="" />
-                </a>
-                <a href="/">
-                    <img className="h-6 w-6" src={facebook} alt="" />
-                </a>
-            </div>
+      <div className='container pb-1 mx-auto flex justify-between items-center'>
+        <a href="/"><img src="/footer-logo.png" class="logo-footer" /></a>
+        <div className="flex items-center gap-1">
+          <Link to="/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2C22 17.7383 21.3889 19.2135 20.3012 20.3012C19.2135 21.3889 17.7383 22 16.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8C2 6.26174 2.61107 4.78649 3.69878 3.69878C4.78649 2.61107 6.26174 2 7.8 2ZM7.6 4C6.64522 4 5.72955 4.37928 5.05442 5.05442C4.37928 5.72955 4 6.64522 4 7.6V16.4C4 18.39 5.61 20 7.6 20H16.4C17.3548 20 18.2705 19.6207 18.9456 18.9456C19.6207 18.2705 20 17.3548 20 16.4V7.6C20 5.61 18.39 4 16.4 4H7.6ZM17.25 5.5C17.5815 5.5 17.8995 5.6317 18.1339 5.86612C18.3683 6.10054 18.5 6.41848 18.5 6.75C18.5 7.08152 18.3683 7.39946 18.1339 7.63388C17.8995 7.8683 17.5815 8 17.25 8C16.9185 8 16.6005 7.8683 16.3661 7.63388C16.1317 7.39946 16 7.08152 16 6.75C16 6.41848 16.1317 6.10054 16.3661 5.86612C16.6005 5.6317 16.9185 5.5 17.25 5.5ZM12 7C13.3261 7 14.5979 7.52678 15.5355 8.46447C16.4732 9.40215 17 10.6739 17 12C17 13.3261 16.4732 14.5979 15.5355 15.5355C14.5979 16.4732 13.3261 17 12 17C10.6739 17 9.40215 16.4732 8.46447 15.5355C7.52678 14.5979 7 13.3261 7 12C7 10.6739 7.52678 9.40215 8.46447 8.46447C9.40215 7.52678 10.6739 7 12 7ZM12 9C11.2044 9 10.4413 9.31607 9.87868 9.87868C9.31607 10.4413 9 11.2044 9 12C9 12.7956 9.31607 13.5587 9.87868 14.1213C10.4413 14.6839 11.2044 15 12 15C12.7956 15 13.5587 14.6839 14.1213 14.1213C14.6839 13.5587 15 12.7956 15 12C15 11.2044 14.6839 10.4413 14.1213 9.87868C13.5587 9.31607 12.7956 9 12 9Z" fill="url(#paint0_linear_1880_425)" />
+              <defs>
+                <linearGradient id="paint0_linear_1880_425" x1="2" y1="2.68493" x2="24.8117" y2="6.94536" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#ffffff" />
+                  <stop offset="1" stop-color="#ffffff" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </Link>
+          <Link  to="/">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" >
+              <path d="M10.7145 7.62258L17.4161 0H15.8282L10.0066 6.61719L5.36025 0H0L7.02776 10.0073L0 18H1.58786L7.73189 11.0104L12.6398 18H18L10.7145 7.62258ZM8.53897 10.0951L7.82583 9.09799L2.16048 1.17132H4.59976L9.17321 7.57077L9.88335 8.56789L15.8275 16.8857H13.3882L8.53897 10.0951Z" fill="#ffffff" />
+            </svg>
+          </Link>
+          <Link to="/">
+          <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="14" height="24"
+     viewBox="0 0 14 24">
+    <path d="M14.874,11.167 L14.262,14.207 C14.062,15.208 13.100,15.992 12.072,15.992 L10.000,15.992 L10.000,30.000 C10.000,31.104 9.159,32.000 8.049,32.000 L5.030,32.000 C3.920,32.000 3.017,31.102 3.017,29.999 L3.017,15.992 L2.011,15.992 C0.901,15.992 -0.002,15.095 -0.002,13.991 L-0.002,10.990 C-0.002,9.887 0.901,8.989 2.011,8.989 L3.017,8.989 L3.017,6.003 C3.017,2.716 5.693,0.041 8.994,0.013 C9.015,0.012 9.033,0.001 9.055,0.001 L13.081,0.001 C13.636,0.001 14.000,0.448 14.000,1.000 L14.000,6.000 C14.000,6.553 13.636,7.004 13.081,7.004 L10.061,7.004 L10.060,8.989 L13.079,8.989 C13.645,8.989 14.167,9.228 14.509,9.644 C14.852,10.059 14.985,10.615 14.874,11.167 ZM9.092,10.990 C9.078,10.991 9.067,10.998 9.053,10.998 L9.053,10.998 C8.497,10.997 8.046,10.549 8.047,9.997 L8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 C8.047,9.990 8.047,9.990 8.047,9.990 L8.049,6.003 C8.049,5.450 8.499,5.003 9.055,5.003 L12.074,5.003 L12.074,2.002 L9.094,2.002 C9.077,2.002 9.063,2.011 9.045,2.011 C6.831,2.011 5.030,3.802 5.030,6.003 L5.030,10.005 C5.030,10.558 4.579,11.006 4.023,11.006 C3.996,11.006 3.973,10.992 3.946,10.990 L2.011,10.990 L2.011,13.991 L4.023,13.991 C4.579,13.991 5.030,14.439 5.030,14.992 C5.030,15.044 5.008,15.088 5.000,15.138 L5.000,30.000 L8.049,29.999 L8.049,15.002 C8.049,14.998 8.047,14.995 8.047,14.992 C8.047,14.439 8.497,13.991 9.053,13.991 L12.072,13.991 C12.145,13.991 12.275,13.886 12.288,13.816 L12.857,10.990 L9.092,10.990 Z"/>
+</svg>
+          </Link>
         </div>
-        <div className="container border-t border-gray-800 pt-2 mt-2 mb-0 mx-auto flex justify-between items-center">
+      </div>
+      <div className="container border-t border-gray-800 pt-2 mt-2 mb-0 mx-auto flex justify-between items-center">
         <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <Link to={""} className="hover:underline" target="_blank" rel="noopener noreferrer">Food Truck™</Link>.</span>
-      <ul className="flex flex-wrap items-center ml-3 md:mt-3 sm:mt-0">
-        <li>
-          <Link to={"/"} className="mr-2 text-sm text-gray-500 hover:underline md:mr-6">Home</Link>
-        </li>
-        <li>
-          <Link to={"about"} className="mr-2 text-sm text-gray-500 hover:underline md:mr-6">About</Link>
-        </li>
-      </ul>
-        </div>
+        <ul className="flex flex-wrap items-center ml-3 md:mt-3 sm:mt-0">
+          <li>
+            <Link to={"/"} className="mr-2 text-sm text-gray-500 hover:underline md:mr-6">Home</Link>
+          </li>
+          <li>
+            <Link to={"about"} className="mr-2 text-sm text-gray-500 hover:underline md:mr-6">About</Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
