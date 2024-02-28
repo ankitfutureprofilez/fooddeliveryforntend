@@ -45,7 +45,7 @@ const Header = () => {
             </div>
 
             <div className=" text-slate-600" onClick={handleShowMenu}>
-              <div className="text-3xl flex items-center just text-gray-900 cursor-pointer w-8 h-8 rounded-full overflow-hidden">
+              <div className="user_image text-3xl flex items-center just text-gray-900 cursor-pointer w-8 h-8 rounded-full overflow-hidden">
                 {userData.image ? (
                   <img src={userData.image} className="object-fit h-full w-full" />
                 ) : (

@@ -140,7 +140,7 @@ export default function OrderDetilas() {
 
   return (
     <>
-      <div className="px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+      <div className=" container mx-auto">
         <div className="flex justify-start item-start space-y-2 flex-col">
           {/* <h2 className="text-2xl lg:text-4xl font-semibold leading-7 lg:leading-9 ">
             Order ID:-  {record.order_id}

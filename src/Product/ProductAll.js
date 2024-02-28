@@ -8,7 +8,7 @@ import { addCartItem, setDataProduct } from "../redux/productSlide";
 
 export default function ProductAll() {
   const productData = useSelector((state) => state.product.productList);
-  console.log("productData",productData)
+  // console.log("productData",productData)
   const [record, setRecord] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

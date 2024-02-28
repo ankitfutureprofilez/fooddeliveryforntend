@@ -70,7 +70,12 @@ label.file-upload-label {
 .dis-bg{background-image: url(assest/dis-bg.jpg);}
 .off-bg{background-image: url(assest/off-bg.jpg);}
 .bg-blue-tran{background: #4f70e342;}
-.food-header img { width: 160px; }
+.food-header img {
+  width: 160px;
+}
+.user_image { 
+  object-fit: cover;
+}
 .footer { padding: 20px 0; }
 .intwfa img { margin-left: 15px; width: 32px; height: 32px; }
 .search-btn { display: none; }

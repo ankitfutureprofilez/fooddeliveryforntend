@@ -43,7 +43,7 @@ export default function Orderhistory() {
         });
     }
   }, []);
-  console.log("res_id", userData.resId);
+  // console.log("res_id", userData.resId);
   return (
     <>
       {userData.resId ? (
