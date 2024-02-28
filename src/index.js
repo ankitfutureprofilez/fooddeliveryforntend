@@ -54,8 +54,8 @@ const router = createBrowserRouter(
       <Route path="signup" element={<Signup />} />
       {/* <Route path="checklocation" element={<CheckLocation />} /> */}
       <Route path="cart" element={<Cart />} />
-      <Route path="success" element={<Success />} />
-      <Route path="cancel" element={<Cancel />} />
+      <Route path="success/:order_id" element={<Success />} />
+      <Route path="cancel/:order_id" element={<Cancel />} />
       <Route path="products" element={<ProductAll />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="restaurant-register" element={ <RestaurantRegistration />} />

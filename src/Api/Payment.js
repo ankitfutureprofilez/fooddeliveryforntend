@@ -6,6 +6,14 @@ class Payment extends Component {
     return Api.post(`/stripe/create-checkout-session`, data);
   }
 
+  async payment_success( id ) {
+    return Api.get(`/stripe/order-success/${id}`);
+  }
+
+  async payment_cancel( id ) {
+    return Api.get(`/stripe/order-cancel/${id}`);
+  }
+
   render() {
     return (
         <></>

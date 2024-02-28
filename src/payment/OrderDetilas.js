@@ -9,7 +9,6 @@ import axios from "axios";
 import { DateFormat } from "../hooks/DateFormat";
 import OrderDate from "../hooks/OrderDate";
 export default function OrderDetilas() {
-
   const { order_id } = useParams();
   const [record, setRecord] = useState([]);
   const userData = useSelector((state) => state.user);
@@ -46,7 +45,7 @@ export default function OrderDetilas() {
         record.deliveredAt == null
       ) {
         updatePickedAndDeliveredStatus("picked");
-        setStatusUpdated(new Date())
+        setStatusUpdated(new Date());
       }
     }, 7000);
     return () => clearInterval(interval);
@@ -82,28 +81,30 @@ export default function OrderDetilas() {
   // UPDATE ORDER STATUS
   async function updateOrderStatus(type) {
     try {
-      if (type == "accepted") {
-        const main = new Listings();
-        const response = main.ordertracking(type, record && record.order_id);
-        response
-          .then((res) => {
-            toast.success(res.data.msg);
-            setUpdateOrder(new Date());
-          })
-          .catch((err) => {
-            toast.success("Failed to update status");
-          });
+      if (record && record.payment_status == "ok") {
+        if (type == "accepted") {
+          const main = new Listings();
+          const response = main.ordertracking(type, record && record.order_id);
+          response
+            .then((res) => {
+              toast.success(res.data.msg);
+              setUpdateOrder(new Date());
+            })
+            .catch((err) => {
+              toast.success("Failed to update status");
+            });
+        } else {
+          updatePickedAndDeliveredStatus(type, "show");
+        }
       } else {
-        updatePickedAndDeliveredStatus(type, "show");
+        toast.error("Order payment status has been failed.");
       }
     } catch (error) {
       console.log("API Error", error);
     }
   }
 
-
-
-  const [adds, setAdds] = useState('');
+  const [adds, setAdds] = useState("");
 
   let checkoutCoordinates = record && record.checkout_coordinates;
 
@@ -115,7 +116,11 @@ export default function OrderDetilas() {
       const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=street_address&location_type=ROOFTOP&key=${apiKey}`;
       try {
         const response = await axios.get(url);
-        if (response.data && response.data.results && response.data.results.length > 0) {
+        if (
+          response.data &&
+          response.data.results &&
+          response.data.results.length > 0
+        ) {
           const address = response.data.results[0].formatted_address;
           setAdds(address);
         } else {
@@ -129,12 +134,9 @@ export default function OrderDetilas() {
     }
   }
 
-
   useEffect(() => {
     getAddressFromCoordinates(checkoutCoordinates);
   }, [checkoutCoordinates]);
-
-
 
   return (
     <>
@@ -147,41 +149,44 @@ export default function OrderDetilas() {
         <div className="mt-10  jusitfy-center items-stretch w-full  space-y-4 md:space-y-6  pb-4 ">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full ">
-              <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer Cart</p>
+              <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">
+                Customer Cart
+              </p>
               {record.order_items &&
-  JSON.parse(record.order_items).map((item, index) => (
-    <div
-      className="border-b border-gray-200 pt-4 pb-4 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
-      key={index}
-    >
-      <div className="w-20 md:w-14 text-center">
-        <img
-          className="w-full h-14 rounded-full"
-          src={item.image}
-          alt="item"
-        />
-      </div>
-      <div className="md:flex-row flex-col flex justify-between items-start w-full space-y-4 md:space-y-0">
-  <div className="w-1/2 flex flex-col justify-start items-start space-y-2 md:space-y-4">
-    <h3 className="text-lg font-semibold leading-6 text-gray-800 w-full md:w-auto">
-      {/* Adjusted width class above */}
-      {item.name}
-    </h3>
-  </div>
-  <div className="flex justify-between space-x-8 items-start w-1/2 ">
-    <p className="text-base text-lg leading-6 w-1/3">
-      {formatMultiPrice(item.price)}
-    </p>
-    <p className="text-base xl:text-lg leading-6  w-1/3">{item.qty}</p>
-    <p className="text-base xl:text-lg font-semibold leading-6 w-1/3 ">
-      {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
-    </p>
-  </div>
-</div>
-
-    </div>
-  ))}
-
+                JSON.parse(record.order_items).map((item, index) => (
+                  <div
+                    className="border-b border-gray-200 pt-4 pb-4 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
+                    key={index}
+                  >
+                    <div className="w-20 md:w-14 text-center">
+                      <img
+                        className="w-full h-14 rounded-full"
+                        src={item.image}
+                        alt="item"
+                      />
+                    </div>
+                    <div className="md:flex-row flex-col flex justify-between items-start w-full space-y-4 md:space-y-0">
+                      <div className="w-1/2 flex flex-col justify-start items-start space-y-2 md:space-y-4">
+                        <h3 className="text-lg font-semibold leading-6 text-gray-800 w-full md:w-auto">
+                          {/* Adjusted width class above */}
+                          {item.name}
+                        </h3>
+                      </div>
+                      <div className="flex justify-between space-x-8 items-start w-1/2 ">
+                        <p className="text-base text-lg leading-6 w-1/3">
+                          {formatMultiPrice(item.price)}
+                        </p>
+                        <p className="text-base xl:text-lg leading-6  w-1/3">
+                          {item.qty}
+                        </p>
+                        <p className="text-base xl:text-lg font-semibold leading-6 w-1/3 ">
+                          {item.category.charAt(0).toUpperCase() +
+                            item.category.slice(1)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
             </div>
 
             <MapContainer
@@ -275,16 +280,17 @@ export default function OrderDetilas() {
                   </div>
                   <p className="text-lg font-semibold leading-6 uppercase text-gray-800">
                     {/* <DateFormat dateString={record.createdAt} /> */}
-                    {record ? <OrderDate dateString={record.createdAt} /> : <p>Loading...</p>}
-
-
-
+                    {record ? (
+                      <OrderDate dateString={record.createdAt} />
+                    ) : (
+                      <p>Loading...</p>
+                    )}
                   </p>
                 </div>
                 {/* !userData.resId || packageStatus === 'delivered' */}
                 {userData.resId &&
-                  record &&
-                  record.order_status == "initiated" ? (
+                record &&
+                record.order_status == "initiated" ? (
                   <button
                     onClick={() => updateOrderStatus("accepted")}
                     className={`bg-green-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}
@@ -305,16 +311,19 @@ export default function OrderDetilas() {
                   record.order_status == "picked" ? (
                   <button
                     onClick={() => updateOrderStatus("delivered")}
-                    className={`bg-gray-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}>
+                    className={`bg-gray-500 w-full text-white text-lg font-medium w-32 h-10 mt-7 rounded-full px-6 py-6 shadow-md mt-5 flex justify-center items-center`}
+                  >
                     Mark As Order delivered
                   </button>
                 ) : (
                   ""
-                )}
-                {" "}
-                {(record && record.order_status === "delivered") && (record.deliveredAt) ? (
+                )}{" "}
+                {record &&
+                record.order_status === "delivered" &&
+                record.deliveredAt ? (
                   <p className="text-green-500 text-base text-center">
-                    Order has been delivered <DateFormat dateString={record.deliveredAt} />.
+                    Order has been delivered{" "}
+                    <DateFormat dateString={record.deliveredAt} />.
                   </p>
                 ) : (
                   ""
@@ -323,19 +332,19 @@ export default function OrderDetilas() {
             </div>
           </div>
           <div className="flex justify-between items-center  flex-col xl:flex-row bg-gray-50 w-full px-4 py-6 md:p-6 xl:p-8 m-0 my-4">
-      <div className="flex w-full justify-between">
-        <div className="flex-auto">
-          <h1>Address</h1>
-          <p>{adds}</p>
-        </div>
-        <div className="flex-auto">
-          <h1>Phone</h1>
-          <p>{record && record?.phone_no || "null"}</p>
+            <div className="flex w-full justify-between">
+              <div className="flex-auto">
+                <h1>Address</h1>
+                <p>{adds}</p>
+              </div>
+              <div className="flex-auto">
+                <h1>Phone</h1>
+                <p>{(record && record?.phone_no) || "null"}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-        </div>
     </>
   );
 }

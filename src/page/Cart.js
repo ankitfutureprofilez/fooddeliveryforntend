@@ -64,16 +64,21 @@ const Cart = () => {
   };
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const handlePayment = async () => {
-    if (location.phone.length === 0) {
-      toast.error("Enter phone number!");
-      return;
+     setLoading(true);
+
+    if (location.phone.length !== 10 ) {
+      toast.error("Please enter a valid phone number!");
+      setLoading(false);
+      return false;
     }
-    if(address.length==0)
-    {
+    if(address == null || undefined || ''){
       toast("Please enter an address");
-      return;
+      setLoading(false);
+      return false;
     }
+
     if (user.email) {
       try {
         if (!location.coordinates == "" || location.coordinates.length === 0) {
@@ -89,24 +94,20 @@ const Cart = () => {
           } catch (error) {
             console.error("Error getting coordinates:", error);
             toast.error("Error getting coordinates");
+            setLoading(false);
             return;
           }
         }
         const payment = new Payment();
-        const coordinatesString = JSON.stringify(location.coordinates);
         const resp = payment.Checkout_cart({
           ...location,
           items: productCartItem,
         });
         resp
           .then((res) => {
-            if(user.resId){
-            <></>
-            }else{
-              if (res.data.url) {
-                window.location.href = res.data.url;
-              }
-            }
+            if (res.data.url) {
+              window.location.href = res.data.url;
+            } 
           })
           .catch((err) => {
             console.log(err);
@@ -124,6 +125,7 @@ const Cart = () => {
   };
 
   const handlePhoneChange = (e) => {
+    if(e.target.value.length>10){return;}
     setLocation((prev) => ({ ...prev, phone: e.target.value }));
   };
   const locationTyping = (e) => {
@@ -225,9 +227,8 @@ const Cart = () => {
                 </label>
                 <div className="relative">
                   <input
-                    required
-                    type="text"
-                    maxLength={10}
+                    required 
+                    type="number"
                     className=" form-input shadow appearance-none border rounded-xl w-full p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-11   "
                     name="phone"
                     value={location.phone}

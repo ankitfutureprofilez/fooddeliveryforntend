@@ -1,8 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "../styles/success.css";
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
+import Payment from '../Api/Payment';
+import toast from 'react-hot-toast';
 
 const Success = () => {
+
+  const  {order_id} = useParams();
+  useEffect(()=>{
+    const main = new Payment()
+    const response = main.payment_success(order_id);
+    response.then((res) => {
+      if(res.data.status){
+        toast.success(res.data.msg);
+      }
+      }).catch((err) => {
+        toast.success("Failed to update status");
+      });
+   },[]);
+
   return (
     <div className="success-card ">
     <div className="success-header">
