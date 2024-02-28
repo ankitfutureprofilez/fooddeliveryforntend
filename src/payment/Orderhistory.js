@@ -139,7 +139,6 @@ export default function Orderhistory() {
                           </span>
                         )}
                       </td>
-
                       <td className="p-3 border border-gray-200 text-center">
                         {item.order_status === "delivered" ? (
                           <Link to={`/order_history/${item.order_id}`}>
