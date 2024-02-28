@@ -11,6 +11,7 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
   const user = useSelector((state) => state.user);
+  console.log("users",user.resId);
   const totalPrice = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.total),
     0
@@ -67,6 +68,12 @@ const Cart = () => {
   const [loading, setLoading] = useState(false);
   const handlePayment = async () => {
      setLoading(true);
+     if(user.resId == "1")
+     {
+      toast.error("Owners can't order!");
+      setLoading(false);
+      return false;
+     }
 
     if (location.phone.length !== 10 ) {
       toast.error("Please enter a valid phone number!");
