@@ -54,7 +54,7 @@ const Header = () => {
               </div>
               {showMenu && (
                 <div className="absolute right-2 bg-white rounded-lg  shadow drop-shadow-md flex flex-col min-w-[120px]  m-0.5">
-                  <ul className="align-left dropdownitem">
+                  <ul className="align-left dropdownitem rounded-md">
                     {userData.email ?
                       <>
                         
@@ -63,12 +63,12 @@ const Header = () => {
                             <>
                               <NavLink
                                 to={"newproduct"}
-                                className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300">
+                                className="whitespace-nowrap cursor-pointer text-gray-800 hover:bg-gray-300 transition duration-300">
                                 Add Product
                               </NavLink>
                               <NavLink
                                 to={"dashboard"}
-                                className="whitespace-nowrap cursor-pointer rounded-md  text-gray-800 hover:bg-gray-300 transition duration-300">
+                                className="whitespace-nowrap cursor-pointer text-gray-800 hover:bg-gray-300 transition duration-300">
                                 My Dashboard
                               </NavLink>
                             </>
@@ -77,7 +77,7 @@ const Header = () => {
                              
                                 <NavLink
                                   to={"order_history"}
-                                  className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300"
+                                  className="whitespace-nowrap cursor-pointer text-gray-800 hover:bg-gray-300 transition duration-300"
                                 >
                                   Order History
                                 </NavLink>
@@ -86,17 +86,17 @@ const Header = () => {
                           )}
                         </li>
 
-                        <li className="cursor-pointer text-white bg-red-500 rounded-md">
+                        <li className="cursor-pointer text-white bg-red-500">
                           <button onClick={handleLogout} >Logout ({userData.firstName})</button>
                         </li>
                       </>
                       :
                       <>
                         <li>
-                          <NavLink to={"login"} className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300">Login</NavLink>
+                          <NavLink to={"login"} className="whitespace-nowrap cursor-pointer text-gray-800 hover:bg-gray-300 transition duration-300">Login</NavLink>
                         </li>
                         <li>
-                          <NavLink to={"signup"} className="whitespace-nowrap cursor-pointer rounded-md text-gray-800 hover:bg-gray-300 transition duration-300">Sign Up</NavLink>
+                          <NavLink to={"signup"} className="whitespace-nowrap cursor-pointer text-gray-800 hover:bg-gray-300 transition duration-300">Sign Up</NavLink>
                         </li>
                       </>
                     }

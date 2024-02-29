@@ -216,7 +216,7 @@ const Cart = () => {
                     onChange={locationTyping}
                     onBlur={handleChangeLocation}
                   />
-                  <div className="absolute top-2 right-2.5">
+                  <div className="location-button top-1.5 right-2 md:top-2 md:right-2.5">
                     <button type="button">
                       <FaLocationCrosshairs
                         size={24}

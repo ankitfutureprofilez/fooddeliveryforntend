@@ -18,7 +18,9 @@ const AllProduct = ({ heading }) => {
   const categoryList = [
     "All",
     ...new Set(productData.map((el) => el.category)),
-  ];
+  ]
+  // productData.reverse();
+  console.log("Product Data",productData)
   const [filterby, setFilterBy] = useState("");
   const [dataFilter, setDataFilter] = useState([]);
   useEffect(() => {

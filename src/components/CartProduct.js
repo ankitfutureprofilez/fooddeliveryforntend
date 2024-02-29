@@ -37,9 +37,9 @@ const CartProduct = ({ id, name, image, category, qty, total, price }) => {
               <TbMinus />
             </button>
           </div>
-          <div className="flex items-center gap-2 font-bold text-gray-700">
+          <div className="flex items-center font-bold text-gray-700">
             <p className="leading-5">Total :</p>
-            <p className="leading-5"><span className="text-orange-500">₹ </span>{total}</p>
+            <p className="leading-5"><span className="text-orange-500">₹</span>{total}</p>
           </div>
         </div>
       </div>

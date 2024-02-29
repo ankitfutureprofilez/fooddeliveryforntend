@@ -15,7 +15,7 @@ const About = () => {
             alt="main-image"
           />
         </div>
-        <h1 className=" flex justify-center mt-12 text-4xl font-bold text-white pb-12">
+        <h1 className="container mx-auto text-center flex justify-center mt-12 text-4xl font-bold text-white pb-12">
           Instant commerce indistinguishable from magic
         </h1>
       </div>

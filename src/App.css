@@ -200,3 +200,10 @@ label.file-upload-label {
   .product-buy-box  button.button.bg-blue.sm { width: 44px; height: 42px;}
   .product-buy-box  .product_box { border-radius: 10px !important; }
 }
+.location-button{
+  position: absolute;
+  @media( max-width: 600px){
+    top: 11px;
+    right: 7px;
+  }
+}
