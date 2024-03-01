@@ -3,6 +3,27 @@
 body{ font-family: 'Inter', sans-serif;
    font-size: 14px;}
 
+/* Hide Scrollbar for mobiles */
+/* Hide scrollbar for WebKit browsers */
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Hide scrollbar for other browsers */
+html {
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Apply styles only for mobile devices */
+@media screen and (max-width: 768px) {
+  /* Adjust as needed */
+  body {
+      /* Example: Adjust padding to hide scrollbar */
+      padding-right: calc(100vw - 100%);
+  }
+}
+/* Hide Scrollbar for mobile ends here */
+
 .product_shadow{
   box-shadow: 0 0 20px rgba(0,0,0,.1);
 }
