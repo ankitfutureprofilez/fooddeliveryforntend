@@ -50,7 +50,14 @@ function Signup() {
 
 
     const main = new Listings();
-    const response = main.Signup(data);
+    const response = main.Signup({
+      firstName: data.firstName.trim(),
+      lastName: data.lastName.trim(),
+      email: data.email.trim(),
+      password: data.password.trim(),
+      confirmPassword: data.confirmPassword.trim(),
+      image: data.image,
+    });
     response.then((res) => {
       if (res && res.data && res.data.status) {
         toast.success(res.data.message);
