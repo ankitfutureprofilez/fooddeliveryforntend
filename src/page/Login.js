@@ -73,6 +73,7 @@ const Login = () => {
             className="mt-1 mb-2 w-full bg-gray-200 px-2 py-1 rounded focus-within:outline-blue-300"
             value={data.email}
             onChange={handleOnChange}
+            required
           />
           <label
             htmlFor="password"
@@ -88,18 +89,19 @@ const Login = () => {
               className=" w-full bg-slate-200 border-none outline-none "
               value={data.password}
               onChange={handleOnChange}
+              required
             />
           </div>
           <p className="text-sm my-3">
-          <Link to={"/forgotpassword"} className="text-blue-500 underline">
-            {" "}
-            Forgot Password?
-          </Link>
-        </p>
+            <Link to={"/forgotpassword"} className="text-blue-500 underline">
+              {" "}
+              Forgot Password?
+            </Link>
+          </p>
           <button className="flex justify-center w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center py-2 rounded-full mt-4">
             <span>{Loading ? "Wait.." : "Login"}</span>
           </button>
-        </form>    
+        </form>
         <p className="flex justify-center text-sm mt-2">
           Don't have account ? &nbsp;{" "}
           <Link to={"/signup"} className="text-red-500 underline">
