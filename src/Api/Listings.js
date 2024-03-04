@@ -8,6 +8,14 @@ class Listings extends Component {
     return Api.post("/user/login", data);
   }
 
+  async ForgotPassword(data) {
+    return Api.post("/user/forgotPassword", data);
+  }
+
+  async ResetPassword(data) {
+    return Api.post("/user/resetpassword", data);
+  }
+
   async Prodctadd(data) {
     return Api.post("/product/uploadProduct", data);
   }

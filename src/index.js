@@ -36,6 +36,8 @@ import MapContainer from "./tracking/MapContainer";
 import Dashboard from "./components/Restaurant/Dashboard";
 import Error404 from './Error404/Error404';
 import HomeSlider from "./components/HomeSlider";
+import ForgotPassword from "./page/ForgotPassword";
+import ResetPassword from "./page/ResetPassword";
 
 
 const router = createBrowserRouter(
@@ -45,6 +47,8 @@ const router = createBrowserRouter(
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
       <Route path="login" element={<Login />} />
+      <Route path="forgotpassword" element={<ForgotPassword />} />
+      <Route path="resetpassword/:token" element={<ResetPassword />} />
       <Route path="/home" element={<HomeSlider />} />
 
       <Route path="newproduct" element={

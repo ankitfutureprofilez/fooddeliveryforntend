@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginRedux  } from "../redux/userSlice";
+import { loginRedux } from "../redux/userSlice";
 import Listings from "../Api/Listings";
 
 const Login = () => {
@@ -37,10 +37,10 @@ const Login = () => {
     try {
       const response = await main.Login(data);
       if (response.data.status) {
-        const record =   dispatch(loginRedux(response.data?.user || null));
-        localStorage && localStorage.setItem("token", response?.data.token)
+        const record = dispatch(loginRedux(response.data?.user || null));
+        localStorage && localStorage.setItem("token", response?.data.token);
         toast.success(response.data.message);
-        navigate('/')
+        navigate("/");
         setData({
           email: "",
           password: "",
@@ -58,13 +58,13 @@ const Login = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center">
       <div className="w-full max-w-sm  m-auto flex  flex-col p-4">
-        <h1 className='text-3xl font-bold mb-6 flex justify-center'>
-          Sign in
-          </h1>
+        <h1 className="text-3xl font-bold mb-6 flex justify-center">Sign in</h1>
         <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
-          <label htmlFor="email"
-          className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
-          >Email
+          <label
+            htmlFor="email"
+            className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
+          >
+            Email
           </label>
           <input
             type={"email"}
@@ -74,10 +74,12 @@ const Login = () => {
             value={data.email}
             onChange={handleOnChange}
           />
-          <label htmlFor="password"
-          className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" >
+          <label
+            htmlFor="password"
+            className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2"
+          >
             Password
-            </label>
+          </label>
           <div className="flex rounded-full mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
             <input
               type={"password"}
@@ -88,12 +90,22 @@ const Login = () => {
               onChange={handleOnChange}
             />
           </div>
+          <p className="text-sm my-3">
+          <Link to={"/forgotpassword"} className="text-blue-500 underline">
+            {" "}
+            Forgot Password?
+          </Link>
+        </p>
           <button className="flex justify-center w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center py-2 rounded-full mt-4">
             <span>{Loading ? "Wait.." : "Login"}</span>
           </button>
-        </form>
+        </form>    
         <p className="flex justify-center text-sm mt-2">
-          Don't have account ? &nbsp; <Link to={"/signup"} className="text-red-500 underline"> Sign Up</Link>
+          Don't have account ? &nbsp;{" "}
+          <Link to={"/signup"} className="text-red-500 underline">
+            {" "}
+            Sign Up
+          </Link>
         </p>
       </div>
     </div>
