@@ -6,15 +6,19 @@ import toast from "react-hot-toast";
 export default function ForgotPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [loading, setLoading]=useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(loading==true){return;}
+    setLoading(true);
     const main = new Listings();
     const response = main.ForgotPassword({ email });
     response
       .then((res) => {
         if (res && res.data && res.data.status === false) {
           toast.error(res.data.message);
+          setLoading(false);
           setEmail("");
         }
         if (res && res.data && res.data.status === true) {
@@ -33,7 +37,7 @@ export default function ForgotPassword() {
         console.log("error", error);
         toast.error(error?.response.data.message);
         toast.error(error?.response.data);
-        // setLoading(false);
+        setLoading(false);
       });
   };
 
@@ -83,7 +87,7 @@ export default function ForgotPassword() {
                   type="submit"
                   className="w-full bg-blue-600 hover:bg-blue-500 cursor-pointer text-white text-xl font-medium text-center py-2 rounded-full mt-4"
                 >
-                  Generate OTP
+                  {loading==false?`Generate OTP`:`Generating...`}
                 </button>
               </div>
             </form>

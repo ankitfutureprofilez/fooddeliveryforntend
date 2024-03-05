@@ -40,8 +40,7 @@ export default function ResetPassword() {
       // setLoading(false);
     }).catch((error) => {
       console.log("error", error);
-      toast.error(error?.response.data.message);
-      toast.error(error?.response.data);
+      toast.error("Invalid Details");
       // setLoading(false);
     })
   };
